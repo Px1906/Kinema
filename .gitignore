@@ -1,0 +1,40 @@
+# Godot 4+
+.godot/
+.nomedia
+
+# Exportações / builds
+build/
+export/
+*.apk
+*.aab
+*.exe
+*.pck
+*.zip
+!assets/**/*.zip
+
+# Godot mono (C#)
+.mono/
+data_*/
+mono_crash.*.json
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.swp
+*.user
+*.csproj.user
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Credenciais e configs locais (NUNCA versionar)
+*.key
+*.keystore
+*.jks
+.env
+export_credentials.cfg
+
+# Logs
+*.log

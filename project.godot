@@ -1,0 +1,19 @@
+; Engine configuration file.
+; Não edite manualmente se não souber o que está fazendo.
+
+config_version=5
+
+[application]
+
+config/name="Meu Jogo"
+config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene=""
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[autoload]
+
+Events="*res://autoload/events.gd"

@@ -1,0 +1,29 @@
+name: Bug
+description: Reportar um problema
+labels: [bug]
+body:
+  - type: textarea
+    id: descricao
+    attributes:
+      label: O que aconteceu?
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento esperado
+  - type: input
+    id: versao
+    attributes:
+      label: Versão do Godot / build
+  - type: input
+    id: so
+    attributes:
+      label: Sistema operacional

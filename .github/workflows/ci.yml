@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint GDScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "gdtoolkit==4.*"
+      - name: gdlint
+        run: gdlint scripts autoload
+      - name: gdformat (checagem)
+        run: gdformat --check scripts autoload
+
+  export-check:
+    name: Importar projeto no Godot
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Importar recursos
+        run: godot --headless --import --path . || true
+      - name: Verificar scripts
+        run: godot --headless --check-only --path . --quit

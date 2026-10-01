@@ -1,0 +1,19 @@
+name: Feature
+description: Sugerir uma funcionalidade ou tarefa
+labels: [enhancement]
+body:
+  - type: textarea
+    id: ideia
+    attributes:
+      label: Qual a ideia?
+    validations:
+      required: true
+  - type: textarea
+    id: motivacao
+    attributes:
+      label: Por que isso melhora o jogo?
+  - type: textarea
+    id: aceite
+    attributes:
+      label: Critérios de aceite
+      placeholder: "- [ ] ..."
