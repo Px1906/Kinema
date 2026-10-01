@@ -32,10 +32,4 @@ jobs:
       - name: Importar recursos
         run: godot --headless --import --path . || true
       - name: Verificar scripts
-        run: |
-          status=0
-          for f in $(find . -name '*.gd' -not -path './addons/*' -not -path './.godot/*'); do
-            echo "Checando $f"
-            godot --headless --path . --check-only --script "$f" || status=1
-          done
-          exit $status
+        run: godot --headless --path . --script tools/check_scripts.gd
