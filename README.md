@@ -1,14 +1,10 @@
 # Meu Jogo
 
-> Descrição curta do jogo em uma ou duas frases.
+Jogo de puzzle que ensina cinemática a estudantes do ensino médio e universitário. Resolva as fases aplicando velocidade, aceleração e movimento. Feito com Godot 4.
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![Godot](https://img.shields.io/badge/Godot-4.x-478cbf)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
-
-## Sobre
-
-Gênero, plataforma-alvo, ideia central e o que torna o jogo diferente.
 
 ## Requisitos
 
@@ -18,7 +14,7 @@ Gênero, plataforma-alvo, ideia central e o que torna o jogo diferente.
 ## Como rodar
 
 ```bash
-git clone https://github.com/SEU_USUARIO/meu-jogo.git
+git clone https://github.com/Px1906/Kinema.git)
 cd meu-jogo
 git lfs install
 git lfs pull
@@ -37,6 +33,7 @@ Abra o Godot, clique em **Importar** e selecione o arquivo `project.godot`. Depo
 ├── addons/        # Plugins de terceiros
 ├── tests/         # Testes automatizados (GUT)
 ├── docs/          # Documentação e GDD
+├── tools/         # Scripts de apoio ao desenvolvimento e ao CI
 └── .github/       # CI, templates de issue e PR
 ```
 
@@ -44,8 +41,8 @@ Abra o Godot, clique em **Importar** e selecione o arquivo `project.godot`. Depo
 
 | Ação | Teclado | Controle |
 |------|---------|----------|
-| Mover | WASD / Setas | Analógico esquerdo |
-| Pular | Espaço | A |
+
+Em desenvolvimento
 
 ## Contribuindo
 
