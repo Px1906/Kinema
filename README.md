@@ -1,4 +1,4 @@
-# Meu Jogo
+# Kinema
 
 Jogo de puzzle que ensina cinemática a estudantes do ensino médio e universitário. Resolva as fases aplicando velocidade, aceleração e movimento. Feito com Godot 4.
 
