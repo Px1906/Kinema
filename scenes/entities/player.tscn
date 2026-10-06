@@ -1,13 +1,13 @@
-[gd_scene format=3 uid="uid://dyae6j2piyw8u"]
+[gd_scene format=3 uid="uid://b73wjf3pct1d3"]
 
-[ext_resource type="Script" uid="uid://b6migsgfjkxp1" path="res://scripts/player/player.gd" id="1_ucweq"]
+[ext_resource type="Script" uid="uid://djgaumelvpjqb" path="res://scripts/player/player.gd" id="1_ucweq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_08t41"]
+friction = 0.35
+bounce = 0.55
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ew1dm"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hmply"]
-size = Vector2(32, 32)
+radius = 16.0
 
 [node name="Player" type="RigidBody2D" unique_id=1657232879]
 physics_material_override = SubResource("PhysicsMaterial_08t41")
@@ -17,8 +17,3 @@ script = ExtResource("1_ucweq")
 shape = SubResource("CircleShape2D_ew1dm")
 
 [node name="PontoDeEncaixeCorda" type="Marker2D" parent="." unique_id=1517566927]
-
-[node name="SpritePlaceHolder" type="Sprite2D" parent="." unique_id=1586080755]
-position = Vector2(1.9073486e-06, -1.1175871e-08)
-scale = Vector2(0.62499994, 0.6289062)
-texture = SubResource("PlaceholderTexture2D_hmply")
