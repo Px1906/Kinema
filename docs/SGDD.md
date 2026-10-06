@@ -24,7 +24,6 @@ O jogo é centrado na trajetória de uma bola, que o jogador deve guiar de um po
 | Ferramentas do jogador | Ajuste de velocidade inicial e ângulo, pré-visualização da trajetória, soltar a bola da corda no ponto certo, reinício da fase |
 | UI/Interação | Interface estilo GeoGebra, plano cartesiano, painel de valores (x, y, v, a, m, V), painel de parâmetros (sliders e campos numéricos), gráficos em tempo real, câmera com zoom e pan, tutorial em estilo caderno |
 | Dados | Resources do Godot (fases com posições inicial e final, objetos e parâmetros físicos; tipos de mola, corda e portal) e progresso salvo em ConfigFile ou JSON |
-| EXTRA | EXTRA |
 
 ## 4. Assets
 
