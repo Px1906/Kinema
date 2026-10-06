@@ -2,9 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="1_player"]
 [ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="2_test"]
+[ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="3_7gieh"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("2_test")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("1_player")]
 position = Vector2(640, 120)
+
+[node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_7gieh")]
+position = Vector2(643, 440)
