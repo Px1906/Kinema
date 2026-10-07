@@ -4,4 +4,6 @@ extends Node2D
 
 
 func _ready() -> void:
-	player.freeze = false
+	var controls := LaunchControls.new()
+	controls.player = player
+	add_child(controls)
