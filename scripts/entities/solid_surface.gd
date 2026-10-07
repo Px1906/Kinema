@@ -10,22 +10,44 @@ class_name SolidSurface
 			queue_redraw()
 @export var surface_color := Color("#64748b")
 
+@export_category("Colisão")
+## Quique da superfície. O Godot soma o quique dos dois corpos (limitado a 1).
+@export_range(0.0, 1.0, 0.05) var bounce: float = 0.0:
+	set(value):
+		bounce = clampf(value, 0.0, 1.0)
+		if is_inside_tree():
+			_apply_physics_material()
+## Atrito da superfície. O Godot usa o menor atrito entre os dois corpos.
+@export_range(0.0, 1.0, 0.05) var friction: float = 0.8:
+	set(value):
+		friction = clampf(value, 0.0, 1.0)
+		if is_inside_tree():
+			_apply_physics_material()
+
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 func _ready() -> void:
 	_update_collision_shape()
+	_apply_physics_material()
 	queue_redraw()
 
 
 func _update_collision_shape() -> void:
 	if collision_shape == null:
 		return
-	var rectangle := collision_shape.shape as RectangleShape2D
-	if rectangle == null:
-		rectangle = RectangleShape2D.new()
-		collision_shape.shape = rectangle
+	# Uma forma nova por instância: a do .tscn é compartilhada entre as cópias.
+	var rectangle := RectangleShape2D.new()
 	rectangle.size = size
+	collision_shape.shape = rectangle
+
+
+func _apply_physics_material() -> void:
+	# Um material por instância, pelo mesmo motivo da forma de colisão.
+	var material := PhysicsMaterial.new()
+	material.bounce = bounce
+	material.friction = friction
+	physics_material_override = material
 
 
 func _draw() -> void:

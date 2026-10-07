@@ -16,7 +16,8 @@ position = Vector2(560, 120)
 position = Vector2(640, 688)
 
 [node name="PlatformSurface" parent="." unique_id=1863098102 instance=ExtResource("4_platform")]
-position = Vector2(560, 480)
+position = Vector2(568, 443)
+bounce = 1.0
 
 [node name="WallSurface" parent="." unique_id=1670152353 instance=ExtResource("5_wall")]
 position = Vector2(1200, 456)
