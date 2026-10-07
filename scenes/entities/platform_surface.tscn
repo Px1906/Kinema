@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="1_base"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(192, 24)
+
+[node name="PlatformSurface" instance=ExtResource("1_base")]
+size = Vector2(192, 24)
+surface_color = Color(0.4863, 0.5451, 0.6314, 1)
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_platform")
