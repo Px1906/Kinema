@@ -89,7 +89,6 @@ func _draw() -> void:
 	if state == State.PREPARANDO:
 		_draw_launch_arrow()
 
-
 func _draw_launch_arrow() -> void:
 	if launch_velocity.length_squared() < 1.0:
 		return
