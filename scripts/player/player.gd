@@ -45,8 +45,8 @@ func _physics_process(_delta: float) -> void:
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = maxf(speed, 0.0)
-	launch_angle_degrees = minf(angle_degrees, 180)
-	launch_velocity = Vector2.RIGHT.rotated(-deg_to_rad(launch_angle_degrees)) * launch_speed
+	launch_angle_degrees = minf(angle_degrees, 360)
+	launch_velocity = Vector2.LEFT.rotated(deg_to_rad(launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
@@ -56,7 +56,7 @@ func launch() -> void:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
-	linear_velocity = launch_velocity
+	linear_velocity = launch_velocity * 10
 	state = State.MOVENDO
 	launched.emit(launch_velocity)
 	queue_redraw()

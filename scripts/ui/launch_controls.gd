@@ -30,7 +30,7 @@ func _build_ui() -> void:
 
 	_angle_label = Label.new()
 	box.add_child(_angle_label)
-	_angle_slider = _make_slider(0.0, 180.0, 1.0, box)
+	_angle_slider = _make_slider(0.0, 360.0, 1.0, box)
 
 	_launch_button = Button.new()
 	_launch_button.text = "Lançar"

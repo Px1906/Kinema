@@ -11,4 +11,4 @@ script = ExtResource("2_test")
 position = Vector2(509, 378)
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_7gieh")]
-position = Vector2(510, 410)
+position = Vector2(522, 574)
