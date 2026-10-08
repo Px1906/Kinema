@@ -46,6 +46,10 @@ func _gui_input(event: InputEvent) -> void:
 		queue_redraw()
 		accept_event()
 
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed and player.state == Player.State.PREPARANDO and _arrastando:
+			player.launch()
+
 
 func _aplicar_vetor() -> void:
 	var v := _atual - _inicio
@@ -54,7 +58,9 @@ func _aplicar_vetor() -> void:
 	if v.length() < distancia_minima:
 		return
 
-	var angulo := clampf(rad_to_deg(atan2(-v.y, v.x)), 0.0, 180.0)
+	var angulo := rad_to_deg(atan2(-v.y, v.x))
+	if angulo < 0.0:
+		angulo = 0.0 if v.x >= 0.0 else 180.0
 	var velocidade := minf(v.length() * fator_velocidade, velocidade_maxima)
 	player.set_launch_parameters(velocidade, angulo)
 
