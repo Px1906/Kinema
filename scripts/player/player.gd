@@ -24,6 +24,7 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 var state: State = State.PREPARANDO
 var spawn_position: Vector2
 var launch_velocity := Vector2.ZERO
+var _stop_detection_enabled := true
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -36,11 +37,15 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if state == State.MOVENDO and linear_velocity.length_squared() < 3:
+	if _stop_detection_enabled and state == State.MOVENDO and linear_velocity.length_squared() < 3:
 		state = State.PAROU
 		print("parou")
 		stopped.emit()
 		queue_redraw()
+
+
+func set_stop_detection_enabled(enabled: bool) -> void:
+	_stop_detection_enabled = enabled
 
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:

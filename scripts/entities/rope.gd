@@ -13,6 +13,8 @@ signal activated
 signal deactivated
 signal player_entered(player: Player)
 signal player_exited(player: Player)
+signal player_attached(player: Player)
+signal player_detached(player: Player)
 
 @export_category("Rope")
 @export_range(MIN_LENGTH, MAX_LENGTH, 1.0) var length: float = 160.0:
@@ -33,6 +35,9 @@ signal player_exited(player: Player)
 var _active := false
 var _direction := DEFAULT_DIRECTION
 var _detected_player: Player
+var _attached_player: Player
+var _attached_player_velocity := Vector2.ZERO
+var _attached_player_was_frozen := false
 
 @onready var detection_area: Area2D = $DetectionArea
 @onready var detection_shape: CollisionShape2D = $DetectionArea/CollisionShape2D
@@ -42,6 +47,17 @@ func _ready() -> void:
 	_update_detection_shape()
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
 	detection_area.body_exited.connect(_on_detection_area_body_exited)
+
+
+func _physics_process(_delta: float) -> void:
+	if not is_instance_valid(_attached_player):
+		_attached_player = null
+		return
+
+	_attached_player.global_position = get_endpoint_global_position()
+	_attached_player.linear_velocity = Vector2.ZERO
+	_attached_player.angular_velocity = 0.0
+
 
 func activate_toward(target_global_position: Vector2) -> void:
 	var target_direction := target_global_position - global_position
@@ -71,6 +87,24 @@ func get_endpoint_global_position() -> Vector2:
 	return global_position + _direction * length
 
 
+func is_player_attached() -> bool:
+	return _attached_player != null
+
+
+func detach_player() -> void:
+	if _attached_player == null:
+		return
+
+	var player := _attached_player
+	_attached_player = null
+	player.set_stop_detection_enabled(true)
+	player.freeze = _attached_player_was_frozen
+	player.linear_velocity = _attached_player_velocity
+	_detected_player = null
+	deactivate()
+	player_detached.emit(player)
+
+
 func _update_detection_shape() -> void:
 	var circle := detection_shape.shape as CircleShape2D
 	if circle == null:
@@ -80,17 +114,26 @@ func _update_detection_shape() -> void:
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	if not body is Player:
+	if _attached_player != null or not body is Player:
 		return
 
 	var player := body as Player
 	_detected_player = player
 	activate_toward(player.global_position)
+	_attached_player_velocity = player.linear_velocity
+	_attached_player_was_frozen = player.freeze
+	_attached_player = player
+	player.set_stop_detection_enabled(false)
+	player.freeze = true
+	player.global_position = get_endpoint_global_position()
+	player.linear_velocity = Vector2.ZERO
+	player.angular_velocity = 0.0
 	player_entered.emit(player)
+	player_attached.emit(player)
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
-	if body != _detected_player:
+	if body != _detected_player or _attached_player != null:
 		return
 
 	var player := _detected_player
