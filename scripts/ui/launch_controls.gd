@@ -54,16 +54,10 @@ func _build_ui() -> void:
 	var linha := HBoxContainer.new()
 	root.add_child(linha)
 
-<<<<<<< HEAD
-	_angle_label = Label.new()
-	box.add_child(_angle_label)
-	_angle_slider = _make_slider(0.0, 360.0, 1.0, box)
-=======
 	_toggle_button = Button.new()
 	_toggle_button.text = "Ajustar"
 	_toggle_button.toggle_mode = true
 	linha.add_child(_toggle_button)
->>>>>>> origin/feat/implementacao-do-mouse
 
 	_launch_button = Button.new()
 	_launch_button.text = "Lançar"

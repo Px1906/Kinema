@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://blocw43n1n4mv"]
+[gd_scene format=3 uid="uid://df2sq4ldscjav"]
 
 [ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_iorcq"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_w6s8g"]

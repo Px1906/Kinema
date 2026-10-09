@@ -85,6 +85,7 @@ O jogo é centrado na trajetória de uma bola, que o jogador deve guiar de um po
     - Detecção da partícula com Area2D e aplicação de impulso.
   - Cordas (Fase 1)
     - Ponto de ancoragem e comprimento fixo.
+    - Aparição apenas quando a partícula estiver dentro do raio e dos parâmetros de ativação.
     - Movimento pendular na partícula.
   - Portais de massa e volume
     - Area2D que altera massa e volume ao detectar a partícula.
