@@ -61,7 +61,7 @@ func launch() -> void:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
-	linear_velocity = launch_velocity * 10
+	linear_velocity = launch_velocity * 2
 	state = State.MOVENDO
 	launched.emit(launch_velocity)
 	queue_redraw()

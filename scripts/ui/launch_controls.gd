@@ -2,6 +2,11 @@ extends PanelContainer
 class_name LaunchControls
 
 @export var player: Player
+@export var rope: Rope:
+	set(value):
+		rope = value
+		if is_node_ready():
+			_connect_rope()
 
 # Se existirem na cena (com "Acessar como Nome Único"), são usados.
 # Se não existirem, _build_ui() cria tudo por código.
@@ -12,6 +17,8 @@ class_name LaunchControls
 @onready var _angle_label: Label = get_node_or_null("%AngleLabel")
 @onready var _angle_slider: Slider = get_node_or_null("%AngleSlider")
 @onready var _launch_button: Button = get_node_or_null("%LaunchButton")
+@onready var _release_button: Button = get_node_or_null("%ReleaseButton")
+var _rope_connected := false
 
 
 func _ready() -> void:
@@ -21,8 +28,8 @@ func _ready() -> void:
 
 	if _toggle_button == null or _sliders_box == null \
 			or _speed_slider == null or _angle_slider == null \
-			or _speed_label == null or _angle_label == null \
-			or _launch_button == null:
+			or _speed_label == null or _angle_label == null or \
+			_launch_button == null or _release_button == null:
 		_build_ui()
 
 	_toggle_button.toggled.connect(func(aberto: bool) -> void: _sliders_box.visible = aberto)
@@ -31,12 +38,25 @@ func _ready() -> void:
 	_speed_slider.value_changed.connect(_on_slider_changed)
 	_angle_slider.value_changed.connect(_on_slider_changed)
 	_launch_button.pressed.connect(player.launch)
+	_release_button.pressed.connect(_release_player)
+	_release_button.disabled = true
 	player.launch_parameters_changed.connect(_on_player_params_changed)
+	_connect_rope()
 	# O botão Lançar continua visível; só fica desativado depois do lançamento.
 	player.launched.connect(func(_v: Vector2) -> void: _launch_button.disabled = true)
 
 	_on_player_params_changed(player.launch_speed, player.launch_angle_degrees)
 	player.set_launch_parameters(player.launch_speed, player.launch_angle_degrees)
+
+
+func _connect_rope() -> void:
+	if rope == null or _rope_connected:
+		return
+
+	rope.player_attached.connect(_on_player_attached)
+	rope.player_detached.connect(_on_player_detached)
+	_release_button.disabled = not rope.is_player_attached()
+	_rope_connected = true
 
 
 # Tamanhos fixos para a aba de sliders não mudar de dimensão ao arrastar.
@@ -62,6 +82,11 @@ func _build_ui() -> void:
 	_launch_button = Button.new()
 	_launch_button.text = "Lançar"
 	linha.add_child(_launch_button)
+
+	_release_button = Button.new()
+	_release_button.text = "Soltar"
+	_release_button.disabled = true
+	linha.add_child(_release_button)
 
 	# Sliders verticais: aparecem/somem com o botão Ajustar
 	_sliders_box = HBoxContainer.new()
@@ -111,3 +136,27 @@ func _on_player_params_changed(speed: float, angle: float) -> void:
 	_angle_slider.set_value_no_signal(angle)
 	_speed_label.text = "Velocidade: %d" % speed
 	_angle_label.text = "Ângulo: %d°" % angle
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo \
+			and event.keycode == KEY_SPACE:
+		if rope != null and rope.is_player_attached():
+			_release_player()
+		elif player.state == Player.State.PREPARANDO:
+			player.launch()
+
+
+func _release_player() -> void:
+	if rope == null or not rope.is_player_attached():
+		return
+
+	rope.detach_player()
+
+
+func _on_player_attached(_attached_player: Player) -> void:
+	_release_button.disabled = false
+
+
+func _on_player_detached(_detached_player: Player) -> void:
+	_release_button.disabled = true
