@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/solid_surface.gd" id="1_solid_surface"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_solid_surface"]
+friction = 0.8
+bounce = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_solid_surface"]
+size = Vector2(256, 32)
+
+[node name="SolidSurface" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_solid_surface")
+script = ExtResource("1_solid_surface")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_solid_surface")
