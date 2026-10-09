@@ -72,6 +72,8 @@ func reset_to_spawn() -> void:
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
+func pode_mirar() -> bool:
+	return state == State.PREPARANDO
 
 func _update_collision_shape() -> void:
 	if collision_shape == null:
@@ -81,7 +83,6 @@ func _update_collision_shape() -> void:
 		circle = CircleShape2D.new()
 		collision_shape.shape = circle
 	circle.radius = radius
-
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)

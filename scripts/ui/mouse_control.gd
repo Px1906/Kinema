@@ -14,7 +14,7 @@ class_name MouseControl
 @export var cor_area := Color(1, 1, 1, 0.08)
 @export var cor_vetor := Color("#f87171")
 
-var _arrastando := false
+var _mirando := false
 var _inicio := Vector2.ZERO
 var _atual := Vector2.ZERO
 
@@ -28,18 +28,18 @@ func _gui_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and player.state == Player.State.PREPARANDO:
-			_arrastando = true
+		if event.pressed and player.pode_mirar():
+			_mirando = true
 			_inicio = event.position
 			_atual = event.position
 		else:
-			_arrastando = false
+			_mirando = false
 		queue_redraw()
 		accept_event()
 
-	elif event is InputEventMouseMotion and _arrastando:
+	elif event is InputEventMouseMotion and _mirando:
 		if player.state != Player.State.PREPARANDO:
-			_arrastando = false
+			_mirando = false
 		else:
 			_atual = event.position
 			_aplicar_vetor()
@@ -47,7 +47,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and player.state == Player.State.PREPARANDO and _arrastando:
+		if event.pressed and _mirando:
 			player.launch()
 
 
@@ -69,6 +69,6 @@ func _draw() -> void:
 	if mostrar_area:
 		draw_rect(Rect2(Vector2.ZERO, size), cor_area)
 		draw_rect(Rect2(Vector2.ZERO, size), cor_vetor, false, 1.0)
-	if _arrastando:
+	if _mirando:
 		draw_line(_inicio, _atual, cor_vetor, 2.0)
 		draw_circle(_inicio, 4.0, cor_vetor)
