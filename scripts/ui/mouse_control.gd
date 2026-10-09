@@ -57,10 +57,14 @@ func _aplicar_vetor() -> void:
 		v = -v
 	if v.length() < distancia_minima:
 		return
-
-	var angulo := rad_to_deg(atan2(-v.y, -v.x))
-	if angulo < 0.0:
-		angulo = 0.0 if -v.x >= 0.0 else 180.0
+	var angulo := rad_to_deg(atan2(-v.y, v.x))
+	
+	if not player.inicio_suspenso:
+		if clampf(angulo, -90, 0) == angulo:
+			angulo = 0
+		if clampf(angulo, -180, -90) == angulo:
+			angulo = 180
+	
 	var velocidade := minf(v.length() * fator_velocidade_seta, velocidade_maxima)
 	player.set_launch_parameters(velocidade, angulo)
 

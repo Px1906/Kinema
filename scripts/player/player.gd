@@ -21,6 +21,7 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 @export_range(0.0, 180.0, 1.0) var launch_angle_degrees: float = 0.0
 @export_range(0.0, 1000.0, 1.0) var launch_speed: float = 100.0
 @export var fator_velocidade_lancamento: float = 1.0
+@export var inicio_suspenso: bool
 
 var state: State = State.PREPARANDO
 var spawn_position: Vector2
@@ -47,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = maxf(speed, 0.0)
 	launch_angle_degrees = minf(angle_degrees, 360)
-	launch_velocity = Vector2.LEFT.rotated(deg_to_rad(launch_angle_degrees)) * launch_speed
+	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
