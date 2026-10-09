@@ -1,11 +1,14 @@
 extends RigidBody2D
 class_name Player
 
-enum State { PREPARANDO, MOVENDO, PAROU }
-
 signal launched(velocity: Vector2)
 signal stopped
 signal launch_parameters_changed(speed: float, angle_degrees: float)
+
+enum State { PREPARANDO, MOVENDO, PAROU }
+
+const MAX_SPEED := 1000.0
+const MAX_ANGLE := 180.0
 
 @export_category("Particula")
 @export var radius: float = 16.0:
@@ -18,12 +21,14 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 @export var arrow_color := Color("#facc15")
 
 @export_category("Lancamento")
-@export_range(0.0, 180.0, 1.0) var launch_angle_degrees: float = 0.0
-@export_range(0.0, 1000.0, 1.0) var launch_speed: float = 100.0
+@export var fator_velocidade_lancamento: float = 1.0
+@export var inicio_suspenso: bool
 
 var state: State = State.PREPARANDO
 var spawn_position: Vector2
 var launch_velocity := Vector2.ZERO
+var launch_speed: float = 100.0
+var launch_angle_degrees: float = 0.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -44,9 +49,9 @@ func _physics_process(_delta: float) -> void:
 
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
-	launch_speed = maxf(speed, 0.0)
-	launch_angle_degrees = minf(angle_degrees, 360)
-	launch_velocity = Vector2.LEFT.rotated(deg_to_rad(launch_angle_degrees)) * launch_speed
+	launch_speed = clampf(speed, 0.0, MAX_SPEED)
+	launch_angle_degrees = clampf(angle_degrees, -MAX_ANGLE, MAX_ANGLE)
+	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
@@ -56,7 +61,7 @@ func launch() -> void:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
-	linear_velocity = launch_velocity * 10
+	linear_velocity = launch_velocity * fator_velocidade_lancamento
 	state = State.MOVENDO
 	launched.emit(launch_velocity)
 	queue_redraw()
@@ -71,6 +76,8 @@ func reset_to_spawn() -> void:
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
+func pode_mirar() -> bool:
+	return state == State.PREPARANDO
 
 func _update_collision_shape() -> void:
 	if collision_shape == null:
@@ -80,7 +87,6 @@ func _update_collision_shape() -> void:
 		circle = CircleShape2D.new()
 		collision_shape.shape = circle
 	circle.radius = radius
-
 
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)

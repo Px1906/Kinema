@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_w6s8g"]
 [ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="3_ck7h6"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_11eff"]
-[ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="5_vtfop"]
+[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_vtfop"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_iorcq")
@@ -26,8 +26,5 @@ script = ExtResource("4_11eff")
 player = NodePath("../Player")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 
-[node name="LaunchControlSliders" type="PanelContainer" parent="." unique_id=525689675 node_paths=PackedStringArray("player")]
-offset_right = 120.0
-offset_bottom = 40.0
-script = ExtResource("5_vtfop")
+[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player") instance=ExtResource("5_vtfop")]
 player = NodePath("../Player")

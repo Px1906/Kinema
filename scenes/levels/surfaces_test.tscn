@@ -1,10 +1,12 @@
-[gd_scene format=3 uid="uid://cjasegu868ymr"]
+[gd_scene format=3 uid="uid://dktiy63yx0w76"]
 
 [ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_test"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="3_floor"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="5_wall"]
+[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="6_pl03t"]
+[ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="7_t8nq2"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
 script = ExtResource("1_test")
@@ -21,3 +23,17 @@ bounce = 1.0
 
 [node name="WallSurface" parent="." unique_id=1670152353 instance=ExtResource("5_wall")]
 position = Vector2(1200, 456)
+
+[node name="LaunchControls" parent="." unique_id=2060249671 node_paths=PackedStringArray("player") instance=ExtResource("6_pl03t")]
+player = NodePath("../Player")
+
+[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 164.0
+offset_right = 348.0
+offset_bottom = 350.0
+script = ExtResource("7_t8nq2")
+player = NodePath("../Player")
+metadata/_custom_type_script = "uid://dbtiyy8up8knr"
