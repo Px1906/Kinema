@@ -5,8 +5,13 @@ extends Node2D
 @onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
 
 func _ready() -> void:
+	player.obstacle_hit.connect(_restart_level)
 	if controls != null:
 		controls.rope = rope
+
+
+func _restart_level() -> void:
+	get_tree().reload_current_scene()
 
 
 func _unhandled_input(event: InputEvent) -> void:

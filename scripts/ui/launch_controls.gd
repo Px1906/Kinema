@@ -44,6 +44,7 @@ func _ready() -> void:
 	_connect_rope()
 	# O botão Lançar continua visível; só fica desativado depois do lançamento.
 	player.launched.connect(func(_v: Vector2) -> void: _launch_button.disabled = true)
+	player.reset.connect(_on_player_reset)
 
 	_on_player_params_changed(player.launch_speed, player.launch_angle_degrees)
 	player.set_launch_parameters(player.launch_speed, player.launch_angle_degrees)
@@ -160,3 +161,7 @@ func _on_player_attached(_attached_player: Player) -> void:
 
 func _on_player_detached(_detached_player: Player) -> void:
 	_release_button.disabled = true
+
+
+func _on_player_reset() -> void:
+	_launch_button.disabled = false

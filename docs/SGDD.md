@@ -92,7 +92,7 @@ O jogo é centrado na trajetória de uma bola, que o jogador deve guiar de um po
     - Atualização do visual da partícula (escala e cor??) com Tween.
 - Objetivo e vitória
   - Area2D no ponto final emitindo o sinal `level_completed`.
-  - Detecção de tentativa falha (saída dos limites) e reinício da fase.
+  - Detecção de tentativa falha (saída dos limites ou colisão com obstáculo) e reinício da fase.
 - Progressão e Salvamento
   - Lançamento e movimento uniformemente variado -> molas -> cordas -> portais.
   - Controle de fases desbloqueadas.
