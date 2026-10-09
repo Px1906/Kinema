@@ -11,5 +11,5 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if rope != null and rope.is_player_attached():
 		rope.detach_player()
-	elif player != null and player.get_state() == Player.State.PREPARANDO:
+	elif player != null and player.is_ready():
 		player.launch()

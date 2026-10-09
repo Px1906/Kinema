@@ -45,26 +45,26 @@ script = ExtResource("8_launch_input")
 player = NodePath("../Player")
 rope = NodePath("../Rope")
 
-[node name="SUPERFICIES" type="Node" parent="." unique_id=728687883]
+[node name="Surfaces" type="Node" parent="." unique_id=728687883]
 
-[node name="CHAO" type="Node" parent="SUPERFICIES" unique_id=911383576]
+[node name="Floor" type="Node" parent="Surfaces" unique_id=911383576]
 
-[node name="FloorSurface" parent="SUPERFICIES/CHAO" unique_id=1146941452 instance=ExtResource("6_xhx2m")]
+[node name="FloorSurface" parent="Surfaces/Floor" unique_id=1146941452 instance=ExtResource("6_xhx2m")]
 position = Vector2(640, 717)
 is_obstacle = true
 
-[node name="PLATAFORMAS" type="Node" parent="SUPERFICIES" unique_id=492634776]
+[node name="Platforms" type="Node" parent="Surfaces" unique_id=492634776]
 
-[node name="PlatformSurface" parent="SUPERFICIES/PLATAFORMAS" unique_id=1574617537 instance=ExtResource("7_afiys")]
+[node name="PlatformSurface" parent="Surfaces/Platforms" unique_id=1574617537 instance=ExtResource("7_afiys")]
 position = Vector2(140, 502)
 
-[node name="PlatformSurface2" parent="SUPERFICIES/PLATAFORMAS" unique_id=637604884 instance=ExtResource("7_afiys")]
+[node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
 
-[node name="PAREDES" type="Node" parent="SUPERFICIES" unique_id=1640256268]
+[node name="Walls" type="Node" parent="Surfaces" unique_id=1640256268]
 
-[node name="WallSurface" parent="SUPERFICIES/PAREDES" unique_id=1815503008 instance=ExtResource("7_5ta8y")]
+[node name="WallSurface" parent="Surfaces/Walls" unique_id=1815503008 instance=ExtResource("7_5ta8y")]
 position = Vector2(1265, 485)
 
-[node name="WallSurface2" parent="SUPERFICIES/PAREDES" unique_id=180213412 instance=ExtResource("7_5ta8y")]
+[node name="WallSurface2" parent="Surfaces/Walls" unique_id=180213412 instance=ExtResource("7_5ta8y")]
 position = Vector2(1263, 202)

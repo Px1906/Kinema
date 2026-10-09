@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Player
 
-enum State { PREPARANDO, MOVENDO, PAROU }
+enum State { READY, MOVING, STOPPED }
 
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
@@ -14,7 +14,7 @@ signal stopped
 signal obstacle_hit
 signal launch_parameters_changed(speed: float, angle_degrees: float)
 
-@export_category("Particula")
+@export_category("Particle")
 @export var radius: float = 16.0:
 	set(value):
 		radius = maxf(value, 1.0)
@@ -24,11 +24,11 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 @export var particle_color := Color("#5eead4")
 @export var arrow_color := Color("#facc15")
 
-@export_category("Lancamento")
+@export_category("Launch")
 @export_range(0.0, 180.0, 1.0) var launch_angle_degrees: float = 0.0
 @export_range(0.0, 1000.0, 1.0) var launch_speed: float = 100.0
 
-var _state: State = State.PREPARANDO
+var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var _stop_detection_enabled := true
 var _stop_detection_time := 0.0
@@ -47,7 +47,7 @@ func _ready() -> void:
 
 
 func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
-	if _state == State.MOVENDO:
+	if _state == State.MOVING:
 		for contact_index in range(state_2d.get_contact_count()):
 			var body := state_2d.get_contact_collider_object(contact_index)
 			if body is SolidSurface and body.is_obstacle:
@@ -56,7 +56,7 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _stop_detection_enabled or _state != State.MOVENDO:
+	if not _stop_detection_enabled or _state != State.MOVING:
 		return
 
 	if linear_velocity.length_squared() < STOP_SPEED_SQUARED_THRESHOLD:
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		if _stop_detection_time < STOP_CONFIRMATION_TIME:
 			return
 
-		_state = State.PAROU
+		_state = State.STOPPED
 		set_physics_process(false)
 		stopped.emit()
 		queue_redraw()
@@ -82,12 +82,16 @@ func _queue_obstacle_hit() -> void:
 
 func _notify_obstacle_hit() -> void:
 	_obstacle_hit_queued = false
-	if _state == State.MOVENDO:
+	if _state == State.MOVING:
 		obstacle_hit.emit()
 
 
 func get_state() -> State:
 	return _state
+
+
+func is_ready() -> bool:
+	return _state == State.READY
 
 
 func set_stop_detection_enabled(enabled: bool) -> void:
@@ -105,13 +109,13 @@ func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 
 
 func launch() -> void:
-	if _state != State.PREPARANDO:
+	if _state != State.READY:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
 	linear_velocity = launch_velocity
 	_stop_detection_time = 0.0
-	_state = State.MOVENDO
+	_state = State.MOVING
 	set_physics_process(true)
 	launched.emit(launch_velocity)
 	queue_redraw()
@@ -131,7 +135,7 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
 
-	if _state == State.PREPARANDO:
+	if _state == State.READY:
 		_draw_launch_arrow()
 
 func _draw_launch_arrow() -> void:

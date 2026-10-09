@@ -18,4 +18,4 @@ script = ExtResource("1_ucweq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1569915225]
 shape = SubResource("CircleShape2D_ew1dm")
 
-[node name="PontoDeEncaixeCorda" type="Marker2D" parent="." unique_id=1517566927]
+[node name="RopeAttachPoint" type="Marker2D" parent="." unique_id=1517566927]

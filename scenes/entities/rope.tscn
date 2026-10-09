@@ -75,7 +75,7 @@ animations = [{
 "texture": ExtResource("18_gqhyr")
 }],
 "loop": true,
-"name": &"iddle",
+"name": &"idle",
 "speed": 2.0
 }]
 
@@ -89,8 +89,8 @@ script = ExtResource("1_rope")
 position = Vector2(2.000011, -0.5625111)
 scale = Vector2(1.58, 1.5743748)
 sprite_frames = SubResource("SpriteFrames_85r5e")
-animation = &"iddle"
-autoplay = "iddle"
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1464427207]
 scale = Vector2(0.68, 0.64000005)

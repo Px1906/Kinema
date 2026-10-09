@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name SolidSurface
 
-@export_category("Superfície")
+@export_category("Surface")
 @export var size: Vector2 = Vector2(256.0, 32.0):
 	set(value):
 		size = Vector2(maxf(value.x, 1.0), maxf(value.y, 1.0))
@@ -16,14 +16,14 @@ class_name SolidSurface
 		if is_node_ready():
 			queue_redraw()
 
-@export_category("Colisão")
-## Quique da superfície. O Godot soma o quique dos dois corpos (limitado a 1).
+@export_category("Collision")
+## Surface bounce. Godot combines the bounce of both bodies, capped at 1.
 @export_range(0.0, 1.0, 0.05) var bounce: float = 0.0:
 	set(value):
 		bounce = clampf(value, 0.0, 1.0)
 		if is_node_ready():
 			_apply_physics_material()
-## Atrito da superfície. O Godot usa o menor atrito entre os dois corpos.
+## Surface friction. Godot uses the lower friction value between both bodies.
 @export_range(0.0, 1.0, 0.05) var friction: float = 0.8:
 	set(value):
 		friction = clampf(value, 0.0, 1.0)
