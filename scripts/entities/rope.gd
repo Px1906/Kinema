@@ -1,13 +1,12 @@
 extends Node2D
 class_name Rope
 
-const MIN_LENGTH := 1.0
-const MAX_LENGTH := 2000.0
 const MIN_WIDTH := 1.0
 const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
 const MAX_DETECTION_RADIUS := 2000.0
 const DEFAULT_DETECTION_RADIUS := 160.0
+const DEFAULT_ROPE_LENGTH := 160.0
 const MIN_GRAVITY := 0.0
 const MAX_GRAVITY := 3000.0
 const DEFAULT_DIRECTION := Vector2.DOWN
@@ -21,10 +20,7 @@ signal player_attached(player: Player)
 signal player_detached(player: Player)
 
 @export_category("Rope")
-@export_range(MIN_LENGTH, MAX_LENGTH, 1.0) var length: float = 160.0:
-	set(value):
-		length = maxf(value, MIN_LENGTH)
-		queue_redraw()
+var length: float = DEFAULT_ROPE_LENGTH
 @export_range(MIN_WIDTH, MAX_WIDTH, 1.0) var width: float = 4.0:
 	set(value):
 		width = maxf(value, MIN_WIDTH)
@@ -33,6 +29,7 @@ signal player_detached(player: Player)
 @export_range(MIN_DETECTION_RADIUS, MAX_DETECTION_RADIUS, 1.0) var detection_radius: float = 160.0:
 	set(value):
 		detection_radius = maxf(value, MIN_DETECTION_RADIUS)
+		_update_rope_length()
 		if is_node_ready():
 			_update_detection_shape()
 			_update_area_animation_scale()
@@ -130,6 +127,10 @@ func _update_detection_shape() -> void:
 		circle = CircleShape2D.new()
 		detection_shape.shape = circle
 	circle.radius = detection_radius
+
+
+func _update_rope_length() -> void:
+	length = detection_radius * DEFAULT_ROPE_LENGTH / DEFAULT_DETECTION_RADIUS
 
 
 func _update_area_animation_scale() -> void:

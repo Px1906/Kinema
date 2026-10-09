@@ -35,4 +35,4 @@ player = NodePath("../Player")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_w6s8g")]
 position = Vector2(775, 219)
-detection_radius = 68.0
+detection_radius = 105.0
