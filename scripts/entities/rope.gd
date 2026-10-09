@@ -7,6 +7,7 @@ const MIN_WIDTH := 1.0
 const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
 const MAX_DETECTION_RADIUS := 2000.0
+const DEFAULT_DETECTION_RADIUS := 160.0
 const MIN_GRAVITY := 0.0
 const MAX_GRAVITY := 3000.0
 const DEFAULT_DIRECTION := Vector2.DOWN
@@ -34,6 +35,7 @@ signal player_detached(player: Player)
 		detection_radius = maxf(value, MIN_DETECTION_RADIUS)
 		if is_node_ready():
 			_update_detection_shape()
+			_update_area_animation_scale()
 @export_range(MIN_GRAVITY, MAX_GRAVITY, 1.0) var gravity_acceleration: float = 980.0
 
 var _active := false
@@ -43,13 +45,19 @@ var _attached_player: Player
 var _attached_player_was_frozen := false
 var _pendulum_angle := 0.0
 var _angular_velocity := 0.0
+var _area_animation_base_scale := Vector2.ONE
 
 @onready var detection_area: Area2D = $DetectionArea
 @onready var detection_shape: CollisionShape2D = $DetectionArea/CollisionShape2D
+@onready var area_animation: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _ready() -> void:
+	_area_animation_base_scale = area_animation.scale
 	_update_detection_shape()
+	_update_area_animation_scale()
+	area_animation.visible = true
+	area_animation.play()
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
 	detection_area.body_exited.connect(_on_detection_area_body_exited)
 
@@ -107,6 +115,7 @@ func detach_player() -> void:
 
 	var player := _attached_player
 	_attached_player = null
+	area_animation.visible = true
 	player.set_stop_detection_enabled(true)
 	player.freeze = _attached_player_was_frozen
 	player.linear_velocity = _direction.rotated(PI / 2.0) * _angular_velocity * length
@@ -121,6 +130,11 @@ func _update_detection_shape() -> void:
 		circle = CircleShape2D.new()
 		detection_shape.shape = circle
 	circle.radius = detection_radius
+
+
+func _update_area_animation_scale() -> void:
+	var scale_factor := detection_radius / DEFAULT_DETECTION_RADIUS
+	area_animation.scale = _area_animation_base_scale * scale_factor
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
@@ -141,6 +155,7 @@ func _attach_player(player: Player) -> void:
 	_pendulum_angle = _direction.angle() - DOWN_ANGLE
 	_angular_velocity = player.linear_velocity.dot(_direction.rotated(PI / 2.0)) / length
 	_attached_player = player
+	area_animation.visible = false
 	player.set_stop_detection_enabled(false)
 	player.freeze = true
 	player.global_position = get_endpoint_global_position()
