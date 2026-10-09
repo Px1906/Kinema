@@ -1,14 +1,14 @@
 extends Node2D
 
 @onready var player: Player = $Player
+@onready var rope: Rope = get_node_or_null("Rope")
+@onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
 
-#func _ready() -> void:
-	#var controls := LaunchControls.new()
-	#controls.player = player
-	#add_child(controls)
-#
-	#var mouse := MouseControl.new()
-	#mouse.player = player
-	#mouse.position = Vector2(40, 200)
-	#mouse.size = Vector2(300, 300)
-	#add_child(mouse)
+func _ready() -> void:
+	player.obstacle_hit.connect(_restart_level)
+	if controls != null:
+		controls.rope = rope
+
+
+func _restart_level() -> void:
+	get_tree().reload_current_scene()

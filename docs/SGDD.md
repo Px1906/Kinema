@@ -85,13 +85,14 @@ O jogo é centrado na trajetória de uma bola, que o jogador deve guiar de um po
     - Detecção da partícula com Area2D e aplicação de impulso.
   - Cordas (Fase 1)
     - Ponto de ancoragem e comprimento fixo.
+    - Aparição apenas quando a partícula estiver dentro do raio e dos parâmetros de ativação.
     - Movimento pendular na partícula.
   - Portais de massa e volume
     - Area2D que altera massa e volume ao detectar a partícula.
     - Atualização do visual da partícula (escala e cor??) com Tween.
 - Objetivo e vitória
   - Area2D no ponto final emitindo o sinal `level_completed`.
-  - Detecção de tentativa falha (saída dos limites) e reinício da fase.
+  - Detecção de tentativa falha (saída dos limites ou colisão com obstáculo) e reinício da fase.
 - Progressão e Salvamento
   - Lançamento e movimento uniformemente variado -> molas -> cordas -> portais.
   - Controle de fases desbloqueadas.
