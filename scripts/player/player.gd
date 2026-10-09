@@ -1,5 +1,10 @@
-extends RigidBody2D
 class_name Player
+extends RigidBody2D
+
+signal launched(velocity: Vector2)
+signal stopped
+signal obstacle_hit
+signal launch_parameters_changed(speed: float, angle_degrees: float)
 
 enum State { READY, MOVING, STOPPED }
 
@@ -8,11 +13,6 @@ const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
-
-signal launched(velocity: Vector2)
-signal stopped
-signal obstacle_hit
-signal launch_parameters_changed(speed: float, angle_degrees: float)
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -141,7 +141,7 @@ func _draw() -> void:
 func _draw_launch_arrow() -> void:
 	if launch_velocity.length_squared() < 1.0:
 		return
-	
+
 	var dir := launch_velocity.normalized().rotated(-global_rotation)
 	var start := dir * (radius + 4.0)
 	var tip := dir * (radius + 4.0 + launch_velocity.length() * 0.15)
@@ -149,4 +149,9 @@ func _draw_launch_arrow() -> void:
 	var side := dir.orthogonal()
 	var base := tip - dir * head
 	draw_line(start, base, arrow_color, LAUNCH_ARROW_WIDTH)
-	draw_colored_polygon(PackedVector2Array([tip, base + side * head * 0.6, base - side * head * 0.6]), arrow_color)
+	var arrow_points := PackedVector2Array([
+		tip,
+		base + side * head * 0.6,
+		base - side * head * 0.6,
+	])
+	draw_colored_polygon(arrow_points, arrow_color)

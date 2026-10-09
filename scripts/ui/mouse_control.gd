@@ -1,5 +1,5 @@
-extends Control
 class_name MouseControl
+extends Control
 
 @export var player: Player
 

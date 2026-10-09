@@ -1,5 +1,5 @@
-extends StaticBody2D
 class_name SolidSurface
+extends StaticBody2D
 
 @export_category("Surface")
 @export var size: Vector2 = Vector2(256.0, 32.0):

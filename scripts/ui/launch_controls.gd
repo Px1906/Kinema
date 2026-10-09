@@ -1,5 +1,9 @@
-extends PanelContainer
 class_name LaunchControls
+extends PanelContainer
+
+const COLUMN_WIDTH := 130.0
+const SLIDER_HEIGHT := 150.0
+const BOX_SIZE := Vector2(260, 200)
 
 @export var player: Player
 @export var rope: Rope:
@@ -58,12 +62,6 @@ func _connect_rope() -> void:
 	_rope_connected = true
 
 
-# Fixed sizes keep the slider panel from changing dimensions while dragging.
-const COLUMN_WIDTH := 130.0
-const SLIDER_HEIGHT := 150.0
-const BOX_SIZE := Vector2(260, 200)
-
-
 # Fallback for scenes without preconfigured UI nodes.
 func _build_ui() -> void:
 	var root := VBoxContainer.new()
@@ -113,7 +111,9 @@ func _make_column(parent: Control) -> Label:
 	return label
 
 
-func _make_vertical_slider(min_value: float, max_value: float, step: float, parent: Control) -> VSlider:
+func _make_vertical_slider(
+		min_value: float, max_value: float, step: float, parent: Control
+) -> VSlider:
 	var slider := VSlider.new()
 	slider.min_value = min_value
 	slider.max_value = max_value

@@ -1,5 +1,5 @@
-extends Node
 class_name LaunchInputController
+extends Node
 
 @export var player: Player
 @export var rope: Rope

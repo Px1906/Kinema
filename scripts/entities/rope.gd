@@ -1,5 +1,12 @@
-extends Node2D
 class_name Rope
+extends Node2D
+
+signal activated
+signal deactivated
+signal player_entered(player: Player)
+signal player_exited(player: Player)
+signal player_attached(player: Player)
+signal player_detached(player: Player)
 
 const MIN_WIDTH := 1.0
 const MAX_WIDTH := 32.0
@@ -11,13 +18,6 @@ const MIN_GRAVITY := 0.0
 const MAX_GRAVITY := 3000.0
 const DEFAULT_DIRECTION := Vector2.DOWN
 const DOWN_ANGLE := PI / 2.0
-
-signal activated
-signal deactivated
-signal player_entered(player: Player)
-signal player_exited(player: Player)
-signal player_attached(player: Player)
-signal player_detached(player: Player)
 
 @export_category("Rope")
 var length: float = DEFAULT_ROPE_LENGTH
