@@ -1,14 +1,14 @@
 extends RigidBody2D
 class_name Player
 
+signal launched(velocity: Vector2)
+signal stopped
+signal launch_parameters_changed(speed: float, angle_degrees: float)
+
 enum State { PREPARANDO, MOVENDO, PAROU }
 
 const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
-
-signal launched(velocity: Vector2)
-signal stopped
-signal launch_parameters_changed(speed: float, angle_degrees: float)
 
 @export_category("Particula")
 @export var radius: float = 16.0:
