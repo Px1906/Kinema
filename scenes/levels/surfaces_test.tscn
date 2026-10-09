@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="3_floor"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="5_wall"]
-[ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="6_pl03t"]
+[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="6_pl03t"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="7_t8nq2"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
@@ -24,12 +24,8 @@ bounce = 1.0
 [node name="WallSurface" parent="." unique_id=1670152353 instance=ExtResource("5_wall")]
 position = Vector2(1200, 456)
 
-[node name="LaunchControls" type="PanelContainer" parent="." unique_id=2060249671 node_paths=PackedStringArray("player")]
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_pl03t")
+[node name="LaunchControls" parent="." unique_id=2060249671 node_paths=PackedStringArray("player") instance=ExtResource("6_pl03t")]
 player = NodePath("../Player")
-metadata/_custom_type_script = "uid://wf10j528cyal"
 
 [node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player")]
 layout_mode = 3

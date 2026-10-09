@@ -1,0 +1,68 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="1_lc"]
+
+[node name="LaunchControls" type="PanelContainer"]
+script = ExtResource("1_lc")
+
+[node name="Root" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Row" type="HBoxContainer" parent="Root"]
+layout_mode = 2
+
+[node name="ToggleButton" type="Button" parent="Root/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Ajustar"
+
+[node name="LaunchButton" type="Button" parent="Root/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lançar"
+
+[node name="SlidersBox" type="HBoxContainer" parent="Root"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 200)
+layout_mode = 2
+
+[node name="SpeedColumn" type="VBoxContainer" parent="Root/SlidersBox"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="Root/SlidersBox/SpeedColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Velocidade"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="SpeedSlider" type="VSlider" parent="Root/SlidersBox/SpeedColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 1000.0
+step = 1.0
+
+[node name="AngleColumn" type="VBoxContainer" parent="Root/SlidersBox"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
+[node name="AngleLabel" type="Label" parent="Root/SlidersBox/AngleColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Ângulo"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="AngleSlider" type="VSlider" parent="Root/SlidersBox/AngleColumn"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 180.0
+step = 1.0

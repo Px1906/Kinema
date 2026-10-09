@@ -3,75 +3,75 @@ class_name MouseControl
 
 @export var player: Player
 
-@export_category("Vetor de lancamento")
-@export var inverter_direcao: bool = false
-@export var fator_velocidade_seta: float = 3.0
-@export var velocidade_maxima: float = Player.MAX_SPEED
-@export var distancia_minima: float = 5.0
+@export_category("Launch Vector")
+@export var invert_direction: bool = false
+@export var arrow_speed_factor: float = 3.0
+@export var max_speed: float = Player.MAX_SPEED
+@export var min_distance: float = 5.0
 
 @export_category("Visual")
-@export var mostrar_area: bool = true
-@export var cor_area := Color(1, 1, 1, 0.08)
-@export var cor_vetor := Color("#f87171")
+@export var show_area: bool = true
+@export var area_color := Color(1, 1, 1, 0.08)
+@export var vector_color := Color("#f87171")
 
-var _mirando := false
-var _inicio := Vector2.ZERO
-var _atual := Vector2.ZERO
+var _aiming := false
+var _start := Vector2.ZERO
+var _current := Vector2.ZERO
 
 
 func _ready() -> void:
 	if player == null:
-		push_warning("mouseControl: preencha o campo player no editor")
+		push_warning("MouseControl: fill in the player field in the editor")
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed and player.pode_mirar():
-			_mirando = true
-			_inicio = event.position
-			_atual = event.position
+			_aiming = true
+			_start = event.position
+			_current = event.position
 		else:
-			_mirando = false
+			_aiming = false
 		queue_redraw()
 		accept_event()
 
-	elif event is InputEventMouseMotion and _mirando:
+	elif event is InputEventMouseMotion and _aiming:
 		if player.state != Player.State.PREPARANDO:
-			_mirando = false
+			_aiming = false
 		else:
-			_atual = event.position
-			_aplicar_vetor()
+			_current = event.position
+			_apply_vector()
 		queue_redraw()
 		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and _mirando:
+		if event.pressed and _aiming:
 			player.launch()
 
 
-func _aplicar_vetor() -> void:
-	var v := _atual - _inicio
-	if inverter_direcao:
+func _apply_vector() -> void:
+	var v := _current - _start
+	if invert_direction:
 		v = -v
-	if v.length() < distancia_minima:
+	if v.length() < min_distance:
 		return
-	var angulo := rad_to_deg(atan2(-v.y, v.x))
+	var angle := rad_to_deg(atan2(-v.y, v.x))
 	
 	if not player.inicio_suspenso:
-		if clampf(angulo, -90, 0) == angulo:
-			angulo = 0
-		if clampf(angulo, -Player.MAX_ANGLE, -90) == angulo:
-			angulo = Player.MAX_ANGLE
+		if clampf(angle, -90, 0) == angle:
+			angle = 0
+		if clampf(angle, -Player.MAX_ANGLE, -90) == angle:
+			angle = Player.MAX_ANGLE
 	
-	var velocidade := minf(v.length() * fator_velocidade_seta, velocidade_maxima)
-	player.set_launch_parameters(velocidade, angulo)
+	var speed := minf(v.length() * arrow_speed_factor, max_speed)
+	player.set_launch_parameters(speed, angle)
 
 
 func _draw() -> void:
-	if mostrar_area:
-		draw_rect(Rect2(Vector2.ZERO, size), cor_area)
-		draw_rect(Rect2(Vector2.ZERO, size), cor_vetor, false, 1.0)
-	if _mirando:
-		draw_line(_inicio, _atual, cor_vetor, 2.0)
-		draw_circle(_inicio, 4.0, cor_vetor)
+	if show_area:
+		draw_rect(Rect2(Vector2.ZERO, size), area_color)
+		draw_rect(Rect2(Vector2.ZERO, size), vector_color, false, 1.0)
+	if _aiming:
+		draw_line(_start, _current, vector_color, 2.0)
+		draw_circle(_start, 4.0, vector_color)
