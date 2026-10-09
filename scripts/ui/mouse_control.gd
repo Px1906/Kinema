@@ -20,13 +20,12 @@ var _atual := Vector2.ZERO
 
 
 func _ready() -> void:
+	if player == null:
+		push_warning("mouseControl: preencha o campo player no editor")
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func _gui_input(event: InputEvent) -> void:
-	if player == null:
-		return
-
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed and player.pode_mirar():
 			_mirando = true
