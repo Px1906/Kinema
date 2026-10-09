@@ -69,13 +69,13 @@ func _build_ui() -> void:
 	root.add_child(_sliders_box)
 
 	_speed_label = _make_coluna(_sliders_box)
-	_speed_slider = _make_vslider(0.0, 1000.0, 1.0, _speed_label.get_parent())
+	_speed_slider = _make_vslider(0.0, Player.MAX_SPEED, 1.0, _speed_label.get_parent())
 
 	_angle_label = _make_coluna(_sliders_box)
 	if player.inicio_suspenso:
-		_angle_slider = _make_vslider(-180.0, 180.0, 1.0, _angle_label.get_parent())
+		_angle_slider = _make_vslider(-Player.MAX_ANGLE, Player.MAX_ANGLE, 1.0, _angle_label.get_parent())
 	else:
-		_angle_slider = _make_vslider(0, 180.0, 1.0, _angle_label.get_parent())
+		_angle_slider = _make_vslider(0.0, Player.MAX_ANGLE, 1.0, _angle_label.get_parent())
 
 
 # Cria uma coluna de largura fixa com um label centralizado; devolve o label.

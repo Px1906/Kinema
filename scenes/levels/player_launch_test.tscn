@@ -11,6 +11,7 @@ script = ExtResource("1_iorcq")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_w6s8g")]
 position = Vector2(509, 378)
+inicio_suspenso = true
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)

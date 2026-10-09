@@ -6,7 +6,7 @@ class_name MouseControl
 @export_category("Vetor de lancamento")
 @export var inverter_direcao: bool = false
 @export var fator_velocidade_seta: float = 3.0
-@export var velocidade_maxima: float = 1000.0
+@export var velocidade_maxima: float = Player.MAX_SPEED
 @export var distancia_minima: float = 5.0
 
 @export_category("Visual")
@@ -62,8 +62,8 @@ func _aplicar_vetor() -> void:
 	if not player.inicio_suspenso:
 		if clampf(angulo, -90, 0) == angulo:
 			angulo = 0
-		if clampf(angulo, -180, -90) == angulo:
-			angulo = 180
+		if clampf(angulo, -Player.MAX_ANGLE, -90) == angulo:
+			angulo = Player.MAX_ANGLE
 	
 	var velocidade := minf(v.length() * fator_velocidade_seta, velocidade_maxima)
 	player.set_launch_parameters(velocidade, angulo)
