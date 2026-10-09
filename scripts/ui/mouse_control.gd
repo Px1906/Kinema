@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 	if player == null:
 		return
 
-	var preparando := player.state == Player.State.PREPARANDO
+	var preparando := player.get_state() == Player.State.PREPARANDO
 	mouse_filter = Control.MOUSE_FILTER_STOP if preparando else Control.MOUSE_FILTER_IGNORE
 	if preparando:
 		_atualizar_area_interacao()
@@ -46,7 +46,7 @@ func _gui_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and player.state == Player.State.PREPARANDO:
+		if event.pressed and player.get_state() == Player.State.PREPARANDO:
 			_arrastando = true
 			_inicio = size / 2.0
 			_atual = event.position
@@ -56,7 +56,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseMotion and _arrastando:
-		if player.state != Player.State.PREPARANDO:
+		if player.get_state() != Player.State.PREPARANDO:
 			_arrastando = false
 		else:
 			_atual = event.position
@@ -65,7 +65,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and player.state == Player.State.PREPARANDO and _arrastando:
+		if event.pressed and player.get_state() == Player.State.PREPARANDO and _arrastando:
 			player.launch()
 
 

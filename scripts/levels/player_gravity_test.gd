@@ -19,5 +19,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			and event.keycode == KEY_SPACE:
 		if rope != null and rope.is_player_attached():
 			rope.detach_player()
-		elif controls == null and player.state == Player.State.PREPARANDO:
+		elif player.get_state() == Player.State.PREPARANDO:
 			player.launch()
