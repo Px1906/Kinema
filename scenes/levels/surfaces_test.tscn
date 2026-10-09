@@ -5,12 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="3_floor"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="5_wall"]
+[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="6_launch_input"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
 script = ExtResource("1_test")
 
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
 position = Vector2(1251, 167)
+
+[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("6_launch_input")
+player = NodePath("../Player")
 
 [node name="FloorSurface" parent="." unique_id=898161948 instance=ExtResource("3_floor")]
 position = Vector2(640, 688)

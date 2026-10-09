@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
+[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_5aig4")
@@ -38,6 +39,11 @@ player = NodePath("../Player")
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
 position = Vector2(541, 354)
 detection_radius = 105.0
+
+[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player", "rope")]
+script = ExtResource("8_launch_input")
+player = NodePath("../Player")
+rope = NodePath("../Rope")
 
 [node name="SUPERFICIES" type="Node" parent="." unique_id=728687883]
 
