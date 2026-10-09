@@ -2,10 +2,6 @@
 
 Descreva a alteração em poucas linhas.
 
-## Issue relacionada
-
-Closes #
-
 ## Tipo
 
 - [ ] Feature
