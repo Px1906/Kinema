@@ -72,7 +72,7 @@ func _build_ui() -> void:
 	_speed_slider = _make_vslider(0.0, 1000.0, 1.0, _speed_label.get_parent())
 
 	_angle_label = _make_coluna(_sliders_box)
-	_angle_slider = _make_vslider(0.0, 360.0, 1.0, _angle_label.get_parent())
+	_angle_slider = _make_vslider(0.0, 180.0, 1.0, _angle_label.get_parent())
 
 
 # Cria uma coluna de largura fixa com um label centralizado; devolve o label.

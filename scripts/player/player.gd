@@ -20,6 +20,7 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 @export_category("Lancamento")
 @export_range(0.0, 180.0, 1.0) var launch_angle_degrees: float = 0.0
 @export_range(0.0, 1000.0, 1.0) var launch_speed: float = 100.0
+@export var fator_velocidade_lancamento: float = 1.0
 
 var state: State = State.PREPARANDO
 var spawn_position: Vector2
@@ -56,7 +57,7 @@ func launch() -> void:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
-	linear_velocity = launch_velocity * 10
+	linear_velocity = launch_velocity * fator_velocidade_lancamento
 	state = State.MOVENDO
 	launched.emit(launch_velocity)
 	queue_redraw()
