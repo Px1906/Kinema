@@ -1,21 +1,83 @@
+extends RigidBody2D
 class_name Player
-extends CharacterBody2D
-## Controlador básico do jogador (exemplo). Ajuste ao seu jogo.
 
-signal health_changed(new_health: int)
+enum State { PREPARANDO, MOVENDO, PAROU }
 
-@export var speed: float = 200.0
-@export var max_health: int = 100
+signal launched(velocity: Vector2)
+signal stopped
 
-var health: int = max_health:
+@export_category("Particula")
+@export var radius: float = 16.0:
 	set(value):
-		health = clampi(value, 0, max_health)
-		health_changed.emit(health)
-		if health == 0:
-			Events.player_died.emit()
+		radius = maxf(value, 1.0)
+		if is_inside_tree():
+			_update_collision_shape()
+			queue_redraw()
+@export var particle_color := Color("#5eead4")
+
+@export_category("Lancamento")
+@export_range(0.0, 360.0, 1.0) var launch_angle_degrees: float = 45.0
+@export_range(0.0, 1000.0, 1.0) var launch_speed: float = 350.0
+
+var state: State = State.PREPARANDO
+var spawn_position: Vector2
+var launch_velocity := Vector2.ZERO
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
+
+func _ready() -> void:
+	spawn_position = global_position
+	_update_collision_shape()
+	freeze = true
+	queue_redraw()
 
 
 func _physics_process(_delta: float) -> void:
-	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * speed
-	move_and_slide()
+	if state == State.MOVENDO and linear_velocity.length_squared() < 4.0:
+		state = State.PAROU
+		stopped.emit()
+		queue_redraw()
+
+
+func set_launch_parameters(speed: float, angle_degrees: float) -> void:
+	launch_speed = maxf(speed, 0.0)
+	launch_angle_degrees = angle_degrees
+	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(launch_angle_degrees)) * launch_speed
+	queue_redraw()
+
+
+func launch() -> void:
+	if state != State.PREPARANDO:
+		return
+	set_launch_parameters(launch_speed, launch_angle_degrees)
+	freeze = false
+	linear_velocity = launch_velocity
+	state = State.MOVENDO
+	launched.emit(launch_velocity)
+	queue_redraw()
+
+
+func reset_to_spawn() -> void:
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	global_position = spawn_position
+	state = State.PREPARANDO
+	set_launch_parameters(launch_speed, launch_angle_degrees)
+	queue_redraw()
+
+
+func _update_collision_shape() -> void:
+	if collision_shape == null:
+		return
+	var circle := collision_shape.shape as CircleShape2D
+	if circle == null:
+		circle = CircleShape2D.new()
+		collision_shape.shape = circle
+	circle.radius = radius
+
+
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, radius, particle_color)
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 32, Color.WHITE, 2.0)

@@ -3,19 +3,19 @@
 Jogo de puzzle que ensina cinemática a estudantes do ensino médio e universitário. Resolva as fases aplicando velocidade, aceleração e movimento. Feito com Godot 4.
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Godot](https://img.shields.io/badge/Godot-4.x-478cbf)
+![Godot](https://img.shields.io/badge/Godot-4.6-478cbf)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
 
 ## Requisitos
 
-- [Godot 4.x](https://godotengine.org/download) (versão exata em `.godot-version`)
+- [Godot 4.6](https://godotengine.org/download) (versão exata em `.godot-version`)
 - [Git LFS](https://git-lfs.com/) para os assets binários
 
 ## Como rodar
 
 ```bash
 git clone https://github.com/Px1906/Kinema.git)
-cd meu-jogo
+cd Kinema
 git lfs install
 git lfs pull
 ```
