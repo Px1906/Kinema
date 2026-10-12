@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cibhjq72saxs2"]
+
+[ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_5aig4"]
+[ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
+[ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
+[ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="5_77htc"]
+[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
+[ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
+[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
+
+[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
+script = ExtResource("1_5aig4")
+
+[node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
+position = Vector2(137, 471)
+
+[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1338.0
+offset_top = 96.0
+offset_right = 1633.0
+offset_bottom = 356.0
+script = ExtResource("4_afiys")
+player = NodePath("../Player")
+metadata/_custom_type_script = "uid://dbtiyy8up8knr"
+metadata/_edit_use_anchors_ = true
+
+[node name="LaunchControlSliders" type="PanelContainer" parent="." unique_id=525689675 node_paths=PackedStringArray("player")]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 127.0
+offset_bottom = 47.0
+script = ExtResource("5_77htc")
+player = NodePath("../Player")
+
+[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
+position = Vector2(541, 354)
+detection_radius = 105.0
+
+[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player", "rope")]
+script = ExtResource("8_launch_input")
+player = NodePath("../Player")
+rope = NodePath("../Rope")
+
+[node name="Surfaces" type="Node" parent="." unique_id=728687883]
+
+[node name="Floor" type="Node" parent="Surfaces" unique_id=911383576]
+
+[node name="FloorSurface" parent="Surfaces/Floor" unique_id=1146941452 instance=ExtResource("6_xhx2m")]
+position = Vector2(640, 717)
+is_obstacle = true
+
+[node name="Platforms" type="Node" parent="Surfaces" unique_id=492634776]
+
+[node name="PlatformSurface" parent="Surfaces/Platforms" unique_id=1574617537 instance=ExtResource("7_afiys")]
+position = Vector2(140, 502)
+
+[node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
+position = Vector2(1152, 492)
+
+[node name="Walls" type="Node" parent="Surfaces" unique_id=1640256268]
+
+[node name="WallSurface" parent="Surfaces/Walls" unique_id=1815503008 instance=ExtResource("7_5ta8y")]
+position = Vector2(1265, 485)
+
+[node name="WallSurface2" parent="Surfaces/Walls" unique_id=180213412 instance=ExtResource("7_5ta8y")]
+position = Vector2(1263, 202)

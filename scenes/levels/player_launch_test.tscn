@@ -1,10 +1,12 @@
-[gd_scene format=3 uid="uid://blocw43n1n4mv"]
+[gd_scene format=3 uid="uid://df2sq4ldscjav"]
 
 [ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_iorcq"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_w6s8g"]
 [ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="3_ck7h6"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_11eff"]
 [ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="5_vtfop"]
+[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
+[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_iorcq")
@@ -31,3 +33,12 @@ offset_right = 120.0
 offset_bottom = 40.0
 script = ExtResource("5_vtfop")
 player = NodePath("../Player")
+
+[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_w6s8g")]
+position = Vector2(775, 219)
+detection_radius = 105.0
+
+[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player", "rope")]
+script = ExtResource("7_launch_input")
+player = NodePath("../Player")
+rope = NodePath("../Rope")
