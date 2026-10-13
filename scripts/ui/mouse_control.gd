@@ -6,7 +6,7 @@ extends Control
 @export_category("Launch Vector")
 @export var invert_direction: bool = false
 @export var speed_factor: float = 3.0
-@export var max_speed: float = 1000.0
+@export var max_speed: float = Player.MAX_SPEED
 @export var min_distance: float = 5.0
 @export_range(16.0, 512.0, 1.0) var interaction_radius: float = 96.0
 
@@ -77,8 +77,8 @@ func _apply_launch_vector() -> void:
 		return
 
 	var angle := rad_to_deg(atan2(-vector.y, vector.x))
-	if angle < 0.0:
-		angle += 360.0
+	if not player.inicio_suspenso and angle < 0.0:
+		angle = 0.0 if angle >= -90.0 else Player.MAX_ANGLE
 	var speed := minf(vector.length() * speed_factor, max_speed)
 	player.set_launch_parameters(speed, angle)
 

@@ -1,10 +1,6 @@
 class_name LaunchControls
 extends PanelContainer
 
-const COLUMN_WIDTH := 130.0
-const SLIDER_HEIGHT := 150.0
-const BOX_SIZE := Vector2(260, 200)
-
 @export var player: Player
 @export var rope: Rope:
 	set(value):
@@ -12,16 +8,16 @@ const BOX_SIZE := Vector2(260, 200)
 		if is_node_ready():
 			_connect_rope()
 
-# Existing scene nodes are used when available; otherwise _build_ui() creates them.
-@onready var _toggle_button: Button = get_node_or_null("%ToggleButton")
-@onready var _sliders_box: Control = get_node_or_null("%SlidersBox")
-@onready var _speed_label: Label = get_node_or_null("%SpeedLabel")
-@onready var _speed_slider: Slider = get_node_or_null("%SpeedSlider")
-@onready var _angle_label: Label = get_node_or_null("%AngleLabel")
-@onready var _angle_slider: Slider = get_node_or_null("%AngleSlider")
-@onready var _launch_button: Button = get_node_or_null("%LaunchButton")
-@onready var _release_button: Button = get_node_or_null("%ReleaseButton")
 var _rope_connected := false
+
+@onready var _toggle_button: Button = %ToggleButton
+@onready var _sliders_box: Control = %SlidersBox
+@onready var _speed_label: Label = %SpeedLabel
+@onready var _speed_slider: Slider = %SpeedSlider
+@onready var _angle_label: Label = %AngleLabel
+@onready var _angle_slider: Slider = %AngleSlider
+@onready var _launch_button: Button = %LaunchButton
+@onready var _release_button: Button = %ReleaseButton
 
 
 func _ready() -> void:
@@ -29,13 +25,13 @@ func _ready() -> void:
 		push_warning("LaunchControls: assign the 'Player' property in the Inspector.")
 		return
 
-	if _toggle_button == null or _sliders_box == null \
-			or _speed_slider == null or _angle_slider == null \
-			or _speed_label == null or _angle_label == null or \
-			_launch_button == null or _release_button == null:
-		_build_ui()
+	# Slider ranges (values come from the Player constants).
+	_speed_slider.min_value = 0.0
+	_speed_slider.max_value = Player.MAX_SPEED
+	_angle_slider.min_value = -Player.MAX_ANGLE if player.inicio_suspenso else 0.0
+	_angle_slider.max_value = Player.MAX_ANGLE
 
-	_toggle_button.toggled.connect(func(is_open: bool) -> void: _sliders_box.visible = is_open)
+	_toggle_button.toggled.connect(_on_toggle_button_toggled)
 	_sliders_box.visible = _toggle_button.button_pressed
 
 	_speed_slider.value_changed.connect(_on_slider_changed)
@@ -52,6 +48,10 @@ func _ready() -> void:
 	player.set_launch_parameters(player.launch_speed, player.launch_angle_degrees)
 
 
+func _on_toggle_button_toggled(is_open: bool) -> void:
+	_sliders_box.visible = is_open
+
+
 func _connect_rope() -> void:
 	if rope == null or _rope_connected:
 		return
@@ -60,68 +60,6 @@ func _connect_rope() -> void:
 	rope.player_detached.connect(_on_player_detached)
 	_release_button.disabled = not rope.is_player_attached()
 	_rope_connected = true
-
-
-# Fallback for scenes without preconfigured UI nodes.
-func _build_ui() -> void:
-	var root := VBoxContainer.new()
-	add_child(root)
-
-	# Always-visible row: [Adjust] [Launch]
-	var row := HBoxContainer.new()
-	root.add_child(row)
-
-	_toggle_button = Button.new()
-	_toggle_button.text = "Ajustar"
-	_toggle_button.toggle_mode = true
-	row.add_child(_toggle_button)
-
-	_launch_button = Button.new()
-	_launch_button.text = "Lançar"
-	row.add_child(_launch_button)
-
-	_release_button = Button.new()
-	_release_button.text = "Soltar"
-	_release_button.disabled = true
-	row.add_child(_release_button)
-
-	# Vertical sliders are toggled by the Adjust button.
-	_sliders_box = HBoxContainer.new()
-	_sliders_box.custom_minimum_size = BOX_SIZE
-	root.add_child(_sliders_box)
-
-	_speed_label = _make_column(_sliders_box)
-	_speed_slider = _make_vertical_slider(0.0, 1000.0, 1.0, _speed_label.get_parent())
-
-	_angle_label = _make_column(_sliders_box)
-	_angle_slider = _make_vertical_slider(0.0, 180.0, 1.0, _angle_label.get_parent())
-
-
-# Creates a fixed-width column with a centered label.
-func _make_column(parent: Control) -> Label:
-	var column := VBoxContainer.new()
-	column.custom_minimum_size.x = COLUMN_WIDTH
-	parent.add_child(column)
-
-	var label := Label.new()
-	label.custom_minimum_size.x = COLUMN_WIDTH
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.clip_text = true
-	column.add_child(label)
-	return label
-
-
-func _make_vertical_slider(
-		min_value: float, max_value: float, step: float, parent: Control
-) -> VSlider:
-	var slider := VSlider.new()
-	slider.min_value = min_value
-	slider.max_value = max_value
-	slider.step = step
-	slider.custom_minimum_size = Vector2(0, SLIDER_HEIGHT)
-	slider.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	parent.add_child(slider)
-	return slider
 
 
 # Slider -> Player

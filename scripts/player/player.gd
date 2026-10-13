@@ -8,6 +8,8 @@ signal launch_parameters_changed(speed: float, angle_degrees: float)
 
 enum State { READY, MOVING, STOPPED }
 
+const MAX_SPEED := 1000.0
+const MAX_ANGLE := 180.0
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
@@ -25,11 +27,13 @@ const LAUNCH_ARROW_WIDTH := 3.0
 @export var arrow_color := Color("#facc15")
 
 @export_category("Launch")
-@export_range(0.0, 180.0, 1.0) var launch_angle_degrees: float = 0.0
-@export_range(0.0, 1000.0, 1.0) var launch_speed: float = 100.0
+@export var fator_velocidade_lancamento: float = 1.0
+@export var inicio_suspenso: bool
 
 var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
+var launch_speed: float = 100.0
+var launch_angle_degrees: float = 0.0
 var _stop_detection_enabled := true
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
@@ -101,9 +105,9 @@ func set_stop_detection_enabled(enabled: bool) -> void:
 
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
-	launch_speed = maxf(speed, 0.0)
-	launch_angle_degrees = minf(angle_degrees, 360)
-	launch_velocity = Vector2.RIGHT.rotated(-deg_to_rad(launch_angle_degrees)) * launch_speed
+	launch_speed = clampf(speed, 0.0, MAX_SPEED)
+	launch_angle_degrees = clampf(angle_degrees, -MAX_ANGLE, MAX_ANGLE)
+	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
@@ -113,7 +117,7 @@ func launch() -> void:
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
-	linear_velocity = launch_velocity
+	linear_velocity = launch_velocity * fator_velocidade_lancamento
 	_stop_detection_time = 0.0
 	_state = State.MOVING
 	set_physics_process(true)
