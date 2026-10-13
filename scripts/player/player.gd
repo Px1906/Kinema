@@ -39,6 +39,7 @@ var launch_angle_degrees: float = 0.0
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
 var _was_frozen_before_attach := false
+var _initial_global_position: Vector2 = Vector2.ZERO
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -48,6 +49,7 @@ func _ready() -> void:
 		collision_shape.shape = collision_shape.shape.duplicate()
 	_update_collision_shape()
 	freeze = true
+	_initial_global_position = global_position
 	set_physics_process(false)
 	queue_redraw()
 
@@ -98,6 +100,22 @@ func get_state() -> State:
 
 func can_launch() -> bool:
 	return _state == State.READY
+
+
+func get_initial_global_position() -> Vector2:
+	return _initial_global_position
+
+
+func reset_attempt(start_position: Vector2) -> void:
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	global_position = start_position
+	_stop_detection_time = 0.0
+	_obstacle_hit_queued = false
+	set_physics_process(false)
+	_set_state(State.READY)
+	queue_redraw()
 
 
 func get_min_launch_angle() -> float:

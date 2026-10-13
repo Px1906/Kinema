@@ -43,6 +43,7 @@ func _ready() -> void:
 	_release_button.pressed.connect(launch_controller.release)
 	_release_button.disabled = true
 	player.launch_parameters_changed.connect(_on_player_params_changed)
+	player.state_changed.connect(_on_player_state_changed)
 	_connect_rope()
 	# The Launch button remains visible and is disabled after launching.
 	player.launched.connect(func(_v: Vector2) -> void: _launch_button.disabled = true)
@@ -93,3 +94,7 @@ func _on_player_attached(_attached_player: Player) -> void:
 
 func _on_player_detached(_detached_player: Player) -> void:
 	_release_button.disabled = true
+
+
+func _on_player_state_changed(state: Player.State) -> void:
+	_launch_button.disabled = state != Player.State.READY
