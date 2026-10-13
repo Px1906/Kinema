@@ -1,3 +1,4 @@
+class_name LevelController
 extends Node2D
 
 signal attempt_failed(reason: FailureReason)
@@ -54,7 +55,7 @@ func _on_player_stopped() -> void:
 func _on_level_completed(_player: Player) -> void:
 	_attempt_finished = true
 	_attempt_active = false
-	print_debug("PlayerGravityTest: goal reached; level completed.")
+	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
 		result_panel.call("show_result", "Fase concluída", "Você alcançou o objetivo.")
 
@@ -78,7 +79,7 @@ func _fail_attempt(reason: FailureReason) -> void:
 
 	_attempt_finished = true
 	_attempt_active = false
-	print_debug("PlayerGravityTest: attempt failed: %s." % FailureReason.keys()[reason])
+	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
 	if result_panel != null:
 		result_panel.call("show_result", "Tentativa perdida", "A bola não alcançou o objetivo.")

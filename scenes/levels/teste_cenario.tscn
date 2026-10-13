@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cibhjq72saxs2"]
 
-[ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_5aig4"]
+[ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_77htc"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
-script = ExtResource("1_5aig4")
+script = ExtResource("1_level_controller")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
