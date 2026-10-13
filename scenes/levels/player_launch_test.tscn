@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
 [ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
+[ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_iorcq")
@@ -17,6 +18,8 @@ position = Vector2(509, 378)
 
 [node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
 position = Vector2(900, 378)
+
+[node name="AttemptResultPanel" parent="." instance=ExtResource("9_result_panel")]
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)

@@ -11,6 +11,7 @@ enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 @onready var goal_zone: GoalZone = get_node_or_null("GoalZone")
 @onready var rope: Rope = get_node_or_null("Rope")
 @onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
+@onready var result_panel: CanvasLayer = get_node_or_null("AttemptResultPanel")
 
 var _attempt_active := false
 var _attempt_finished := false
@@ -22,6 +23,8 @@ func _ready() -> void:
 	player.stopped.connect(_on_player_stopped)
 	if goal_zone != null:
 		goal_zone.level_completed.connect(_on_level_completed)
+	if result_panel != null:
+		result_panel.connect("retry_requested", _on_retry_requested)
 	if controls != null:
 		controls.rope = rope
 
@@ -52,6 +55,21 @@ func _on_level_completed(_player: Player) -> void:
 	_attempt_finished = true
 	_attempt_active = false
 	print_debug("PlayerGravityTest: goal reached; level completed.")
+	if result_panel != null:
+		result_panel.call("show_result", "Fase concluída", "Você alcançou o objetivo.")
+
+
+func reset_level() -> void:
+	_attempt_active = false
+	_attempt_finished = true
+	if goal_zone != null:
+		goal_zone.reset_zone()
+	player.reset_attempt(player.get_initial_global_position())
+	_attempt_finished = false
+
+
+func _on_retry_requested() -> void:
+	get_tree().reload_current_scene()
 
 
 func _fail_attempt(reason: FailureReason) -> void:
@@ -62,4 +80,5 @@ func _fail_attempt(reason: FailureReason) -> void:
 	_attempt_active = false
 	print_debug("PlayerGravityTest: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
-	player.reset_attempt(player.get_initial_global_position())
+	if result_panel != null:
+		result_panel.call("show_result", "Tentativa perdida", "A bola não alcançou o objetivo.")

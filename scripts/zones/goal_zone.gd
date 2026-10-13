@@ -11,6 +11,10 @@ func _ready() -> void:
 	player_entered.connect(_on_player_entered)
 
 
+func reset_zone() -> void:
+	_completed = false
+
+
 func _on_player_entered(player: Player) -> void:
 	if _completed:
 		return
