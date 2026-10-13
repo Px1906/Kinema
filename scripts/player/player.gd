@@ -6,7 +6,7 @@ signal stopped
 signal obstacle_hit
 signal launch_parameters_changed(speed: float, angle_degrees: float)
 
-enum State { READY, MOVING, STOPPED }
+enum State { READY, MOVING, STOPPED, ATTACHED }
 
 const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
@@ -34,9 +34,9 @@ var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var launch_speed: float = 100.0
 var launch_angle_degrees: float = 0.0
-var _stop_detection_enabled := true
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
+var _was_frozen_before_attach := false
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -60,7 +60,7 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _stop_detection_enabled or _state != State.MOVING:
+	if _state != State.MOVING:
 		return
 
 	if linear_velocity.length_squared() < STOP_SPEED_SQUARED_THRESHOLD:
@@ -94,15 +94,40 @@ func get_state() -> State:
 	return _state
 
 
-func is_ready() -> bool:
+func can_launch() -> bool:
 	return _state == State.READY
 
 
-func set_stop_detection_enabled(enabled: bool) -> void:
-	_stop_detection_enabled = enabled
-	if not enabled:
-		_stop_detection_time = 0.0
+func is_ready() -> bool:
+	return can_launch()
 
+
+func attach_to(anchor_global_position: Vector2) -> void:
+	if _state == State.ATTACHED:
+		return
+
+	_was_frozen_before_attach = freeze
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	global_position = anchor_global_position
+	_stop_detection_time = 0.0
+	_state = State.ATTACHED
+	set_physics_process(false)
+	queue_redraw()
+
+
+func detach(velocity: Vector2) -> void:
+	if _state != State.ATTACHED:
+		return
+
+	freeze = _was_frozen_before_attach
+	linear_velocity = velocity
+	angular_velocity = 0.0
+	_state = State.READY if freeze else State.MOVING
+	_stop_detection_time = 0.0
+	set_physics_process(_state == State.MOVING)
+	queue_redraw()
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = clampf(speed, 0.0, MAX_SPEED)
@@ -113,7 +138,7 @@ func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 
 
 func launch() -> void:
-	if _state != State.READY:
+	if not can_launch():
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
