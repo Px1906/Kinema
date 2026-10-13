@@ -18,8 +18,8 @@ script = ExtResource("1_5aig4")
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
 
-[node name="GoalZone" parent="." instance=ExtResource("9_goal_zone")]
-position = Vector2(1100, 350)
+[node name="GoalZone" parent="." unique_id=1542026926 instance=ExtResource("9_goal_zone")]
+position = Vector2(1137, 425)
 
 [node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player")]
 layout_mode = 3

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/zones/goal_zone.gd" id="1_goal_zone"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_goal"]
-radius = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(64, 64)
 
 [node name="GoalZone" type="Area2D"]
 collision_layer = 0
@@ -12,4 +12,4 @@ monitoring = true
 script = ExtResource("1_goal_zone")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_goal")
+shape = SubResource("RectangleShape2D_goal")

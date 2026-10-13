@@ -16,4 +16,5 @@ func _on_player_entered(player: Player) -> void:
 		return
 
 	_completed = true
+	print_debug("GoalZone: player entered; level completed.")
 	level_completed.emit(player)
