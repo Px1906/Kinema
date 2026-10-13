@@ -31,7 +31,7 @@ func _ready() -> void:
 	# Slider ranges (values come from the Player constants).
 	_speed_slider.min_value = 0.0
 	_speed_slider.max_value = Player.MAX_SPEED
-	_angle_slider.min_value = -Player.MAX_ANGLE if player.inicio_suspenso else 0.0
+	_angle_slider.min_value = player.get_min_launch_angle()
 	_angle_slider.max_value = Player.MAX_ANGLE
 
 	_toggle_button.toggled.connect(_on_toggle_button_toggled)

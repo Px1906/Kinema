@@ -1,12 +1,13 @@
 class_name Player
 extends RigidBody2D
 
+enum State { READY, MOVING, STOPPED, ATTACHED }
+
 signal launched(velocity: Vector2)
 signal stopped
 signal obstacle_hit
 signal launch_parameters_changed(speed: float, angle_degrees: float)
-
-enum State { READY, MOVING, STOPPED, ATTACHED }
+signal state_changed(state: State)
 
 const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
@@ -69,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		if _stop_detection_time < STOP_CONFIRMATION_TIME:
 			return
 
-		_state = State.STOPPED
+		_set_state(State.STOPPED)
 		set_physics_process(false)
 		stopped.emit()
 		queue_redraw()
@@ -99,8 +100,15 @@ func can_launch() -> bool:
 	return _state == State.READY
 
 
-func is_ready() -> bool:
-	return can_launch()
+func get_min_launch_angle() -> float:
+	return -MAX_ANGLE if inicio_suspenso else 0.0
+
+
+func clamp_launch_angle(angle_degrees: float) -> float:
+	if not inicio_suspenso and angle_degrees < 0.0:
+		return 0.0 if angle_degrees >= -90.0 else MAX_ANGLE
+
+	return clampf(angle_degrees, get_min_launch_angle(), MAX_ANGLE)
 
 
 func attach_to(anchor_global_position: Vector2) -> void:
@@ -113,7 +121,7 @@ func attach_to(anchor_global_position: Vector2) -> void:
 	angular_velocity = 0.0
 	global_position = anchor_global_position
 	_stop_detection_time = 0.0
-	_state = State.ATTACHED
+	_set_state(State.ATTACHED)
 	set_physics_process(false)
 	queue_redraw()
 
@@ -125,14 +133,14 @@ func detach(velocity: Vector2) -> void:
 	freeze = _was_frozen_before_attach
 	linear_velocity = velocity
 	angular_velocity = 0.0
-	_state = State.READY if freeze else State.MOVING
+	_set_state(State.READY if freeze else State.MOVING)
 	_stop_detection_time = 0.0
 	set_physics_process(_state == State.MOVING)
 	queue_redraw()
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = clampf(speed, 0.0, MAX_SPEED)
-	launch_angle_degrees = clampf(angle_degrees, -MAX_ANGLE, MAX_ANGLE)
+	launch_angle_degrees = clamp_launch_angle(angle_degrees)
 	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
@@ -145,10 +153,18 @@ func launch() -> void:
 	freeze = false
 	linear_velocity = launch_velocity * fator_velocidade_lancamento
 	_stop_detection_time = 0.0
-	_state = State.MOVING
+	_set_state(State.MOVING)
 	set_physics_process(true)
 	launched.emit(launch_velocity)
 	queue_redraw()
+
+
+func _set_state(new_state: State) -> void:
+	if _state == new_state:
+		return
+
+	_state = new_state
+	state_changed.emit(_state)
 
 
 func _update_collision_shape() -> void:
