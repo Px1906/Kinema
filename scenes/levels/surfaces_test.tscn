@@ -8,12 +8,17 @@
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="6_launch_input"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="6_pl03t"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="7_t8nq2"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
 script = ExtResource("1_test")
 
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
 position = Vector2(570, 355)
+
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_trajectory_preview")
+player = NodePath("../Player")
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=1066233967 node_paths=PackedStringArray("player")]
 script = ExtResource("6_launch_input")
