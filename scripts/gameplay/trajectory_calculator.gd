@@ -27,9 +27,10 @@ static func calculate_points(
 		var simulated_time := point_index * clamped_time_step
 		while simulated_time < target_time:
 			var delta := minf(clamped_simulation_step, target_time - simulated_time)
-			var damping_factor := 1.0 / (1.0 + maxf(linear_damp, 0.0) * delta)
-			velocity += gravity * gravity_scale * delta
+			# Mesma ordem do GodotPhysics2D: amortece, aplica gravidade e depois integra a posição.
+			var damping_factor := maxf(1.0 - maxf(linear_damp, 0.0) * delta, 0.0)
 			velocity *= damping_factor
+			velocity += gravity * gravity_scale * delta
 			position += velocity * delta
 			simulated_time += delta
 

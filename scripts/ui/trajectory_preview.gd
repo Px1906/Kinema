@@ -38,9 +38,9 @@ func _update_preview() -> void:
 		queue_redraw()
 		return
 
-	var gravity := Vector2.DOWN * float(
-		ProjectSettings.get_setting("physics/2d/default_gravity")
-	)
+	var gravity := Vector2(
+		ProjectSettings.get_setting("physics/2d/default_gravity_vector")
+	) * float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 	var launch_direction := Vector2.RIGHT.rotated(
 		deg_to_rad(-player.launch_angle_degrees)
 	)
@@ -59,12 +59,21 @@ func _update_preview() -> void:
 		point_count,
 		time_step,
 		player.gravity_scale,
-		player.linear_damp,
+		_get_total_linear_damp(),
 		1.0 / physics_ticks_per_second
 	)
 	_points = _stop_at_first_collision(_points)
 	_first_visible_point = _get_first_visible_point()
 	queue_redraw()
+
+
+func _get_total_linear_damp() -> float:
+	if player.linear_damp_mode == RigidBody2D.DAMP_MODE_REPLACE:
+		return player.linear_damp
+
+	return player.linear_damp + float(
+		ProjectSettings.get_setting("physics/2d/default_linear_damp")
+	)
 
 
 func _stop_at_first_collision(points: PackedVector2Array) -> PackedVector2Array:
