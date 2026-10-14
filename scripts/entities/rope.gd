@@ -14,8 +14,6 @@ const MIN_DETECTION_RADIUS := 1.0
 const MAX_DETECTION_RADIUS := 2000.0
 const DEFAULT_DETECTION_RADIUS := 160.0
 const DEFAULT_ROPE_LENGTH := 160.0
-const MIN_GRAVITY := 0.0
-const MAX_GRAVITY := 3000.0
 const DEFAULT_DIRECTION := Vector2.DOWN
 const DOWN_ANGLE := PI / 2.0
 
@@ -33,7 +31,6 @@ var length: float = DEFAULT_ROPE_LENGTH
 		if is_node_ready():
 			_update_detection_shape()
 			_update_area_animation_scale()
-@export_range(MIN_GRAVITY, MAX_GRAVITY, 1.0) var gravity_acceleration: float = 980.0
 
 var _active := false
 var _direction := DEFAULT_DIRECTION
@@ -64,12 +61,13 @@ func _physics_process(delta: float) -> void:
 		_attached_player = null
 		return
 
-	var angular_acceleration := -gravity_acceleration / length * sin(_pendulum_angle)
+	var angular_acceleration := -PhysicsUnits.gravity_pixels() / length * sin(_pendulum_angle)
 	_angular_velocity += angular_acceleration * delta
 	_pendulum_angle += _angular_velocity * delta
 	_direction = Vector2.DOWN.rotated(_pendulum_angle)
 	_attached_player.global_position = get_endpoint_global_position()
 	_attached_player.linear_velocity = Vector2.ZERO
+	_attached_player.set_carried_velocity(_get_tangential_velocity())
 	_attached_player.angular_velocity = 0.0
 	queue_redraw()
 
@@ -115,10 +113,15 @@ func detach_player() -> void:
 	area_animation.visible = true
 	player.set_stop_detection_enabled(true)
 	player.freeze = _attached_player_was_frozen
-	player.linear_velocity = _direction.rotated(PI / 2.0) * _angular_velocity * length
+	player.clear_carried_velocity()
+	player.linear_velocity = _get_tangential_velocity()
 	_detected_player = null
 	deactivate()
 	player_detached.emit(player)
+
+
+func _get_tangential_velocity() -> Vector2:
+	return _direction.rotated(PI / 2.0) * _angular_velocity * length
 
 
 func _update_detection_shape() -> void:
@@ -162,6 +165,7 @@ func _attach_player(player: Player) -> void:
 	player.global_position = get_endpoint_global_position()
 	player.linear_velocity = Vector2.ZERO
 	player.angular_velocity = 0.0
+	player.set_carried_velocity(_get_tangential_velocity())
 	player_entered.emit(player)
 	player_attached.emit(player)
 

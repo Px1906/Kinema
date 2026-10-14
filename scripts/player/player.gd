@@ -34,6 +34,8 @@ var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var launch_speed: float = 100.0
 var launch_angle_degrees: float = 0.0
+var _carried_velocity := Vector2.ZERO
+var _is_carried := false
 var _stop_detection_enabled := true
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
@@ -96,6 +98,22 @@ func get_state() -> State:
 
 func is_ready() -> bool:
 	return _state == State.READY
+
+
+## Velocidade real da bola em px/s, inclusive quando outro sistema a move congelada.
+func get_current_velocity() -> Vector2:
+	return _carried_velocity if _is_carried else linear_velocity
+
+
+## Usado por quem move a bola congelada (ex.: corda) para informar a velocidade real.
+func set_carried_velocity(velocity: Vector2) -> void:
+	_carried_velocity = velocity
+	_is_carried = true
+
+
+func clear_carried_velocity() -> void:
+	_carried_velocity = Vector2.ZERO
+	_is_carried = false
 
 
 func set_stop_detection_enabled(enabled: bool) -> void:
