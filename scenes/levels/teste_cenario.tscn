@@ -10,12 +10,13 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ball_attributes.tscn" id="9_ball_attr"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_5aig4")
 
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
-position = Vector2(108, 490)
+position = Vector2(0, 685)
 script = ExtResource("4_rtdc3")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
@@ -36,6 +37,13 @@ metadata/_edit_use_anchors_ = true
 [node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player") instance=ExtResource("5_77htc")]
 offset_left = 7.0
 offset_top = 7.0
+player = NodePath("../Player")
+
+[node name="BallAttributes" parent="." unique_id=932615653 node_paths=PackedStringArray("player") instance=ExtResource("9_ball_attr")]
+offset_left = 284.0
+offset_top = 7.0
+offset_right = 544.0
+offset_bottom = 213.0
 player = NodePath("../Player")
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=591804813 node_paths=PackedStringArray("player", "rope")]
