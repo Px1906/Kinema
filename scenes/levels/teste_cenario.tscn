@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_5aig4")
@@ -16,6 +17,10 @@ script = ExtResource("1_5aig4")
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
+
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("9_trajectory_preview")
+player = NodePath("../Player")
 
 [node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player")]
 layout_mode = 3

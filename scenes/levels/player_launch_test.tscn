@@ -7,12 +7,17 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_vtfop"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
 [ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_iorcq")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_w6s8g")]
 position = Vector2(509, 378)
+
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_trajectory_preview")
+player = NodePath("../Player")
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)
