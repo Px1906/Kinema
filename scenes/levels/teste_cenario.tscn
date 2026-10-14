@@ -40,9 +40,9 @@ offset_top = 7.0
 player = NodePath("../Player")
 
 [node name="BallAttributes" parent="." unique_id=932615653 node_paths=PackedStringArray("player") instance=ExtResource("9_ball_attr")]
-offset_left = 284.0
+offset_left = 297.0
 offset_top = 7.0
-offset_right = 544.0
+offset_right = 557.0
 offset_bottom = 213.0
 player = NodePath("../Player")
 
