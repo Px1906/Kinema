@@ -28,8 +28,9 @@ script = ExtResource("4_11eff")
 player = NodePath("../Player")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 
-[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player") instance=ExtResource("5_vtfop")]
+[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_vtfop")]
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_w6s8g")]
 position = Vector2(775, 219)

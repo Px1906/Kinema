@@ -1,12 +1,13 @@
 class_name Player
 extends RigidBody2D
 
+enum State { READY, MOVING, STOPPED, ATTACHED }
+
 signal launched(velocity: Vector2)
 signal stopped
 signal obstacle_hit
 signal launch_parameters_changed(speed: float, angle_degrees: float)
-
-enum State { READY, MOVING, STOPPED }
+signal state_changed(state: State)
 
 const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
@@ -15,6 +16,7 @@ const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
+const OBSTACLE_GROUP := "obstacle"
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -34,9 +36,9 @@ var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var launch_speed: float = 100.0
 var launch_angle_degrees: float = 0.0
-var _stop_detection_enabled := true
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
+var _was_frozen_before_attach := false
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -54,13 +56,13 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 	if _state == State.MOVING:
 		for contact_index in range(state_2d.get_contact_count()):
 			var body := state_2d.get_contact_collider_object(contact_index)
-			if body is SolidSurface and body.is_obstacle:
+			if body is Node and body.is_in_group(OBSTACLE_GROUP):
 				_queue_obstacle_hit()
 				break
 
 
 func _physics_process(delta: float) -> void:
-	if not _stop_detection_enabled or _state != State.MOVING:
+	if _state != State.MOVING:
 		return
 
 	if linear_velocity.length_squared() < STOP_SPEED_SQUARED_THRESHOLD:
@@ -68,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		if _stop_detection_time < STOP_CONFIRMATION_TIME:
 			return
 
-		_state = State.STOPPED
+		_set_state(State.STOPPED)
 		set_physics_process(false)
 		stopped.emit()
 		queue_redraw()
@@ -94,35 +96,75 @@ func get_state() -> State:
 	return _state
 
 
-func is_ready() -> bool:
+func can_launch() -> bool:
 	return _state == State.READY
 
 
-func set_stop_detection_enabled(enabled: bool) -> void:
-	_stop_detection_enabled = enabled
-	if not enabled:
-		_stop_detection_time = 0.0
+func get_min_launch_angle() -> float:
+	return -MAX_ANGLE if inicio_suspenso else 0.0
 
+
+func clamp_launch_angle(angle_degrees: float) -> float:
+	if not inicio_suspenso and angle_degrees < 0.0:
+		return 0.0 if angle_degrees >= -90.0 else MAX_ANGLE
+
+	return clampf(angle_degrees, get_min_launch_angle(), MAX_ANGLE)
+
+
+func attach_to(anchor_global_position: Vector2) -> void:
+	if _state == State.ATTACHED:
+		return
+
+	_was_frozen_before_attach = freeze
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	global_position = anchor_global_position
+	_stop_detection_time = 0.0
+	_set_state(State.ATTACHED)
+	set_physics_process(false)
+	queue_redraw()
+
+
+func detach(velocity: Vector2) -> void:
+	if _state != State.ATTACHED:
+		return
+
+	freeze = _was_frozen_before_attach
+	linear_velocity = velocity
+	angular_velocity = 0.0
+	_set_state(State.READY if freeze else State.MOVING)
+	_stop_detection_time = 0.0
+	set_physics_process(_state == State.MOVING)
+	queue_redraw()
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = clampf(speed, 0.0, MAX_SPEED)
-	launch_angle_degrees = clampf(angle_degrees, -MAX_ANGLE, MAX_ANGLE)
+	launch_angle_degrees = clamp_launch_angle(angle_degrees)
 	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
 
 func launch() -> void:
-	if _state != State.READY:
+	if not can_launch():
 		return
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
 	linear_velocity = launch_velocity * fator_velocidade_lancamento
 	_stop_detection_time = 0.0
-	_state = State.MOVING
+	_set_state(State.MOVING)
 	set_physics_process(true)
 	launched.emit(launch_velocity)
 	queue_redraw()
+
+
+func _set_state(new_state: State) -> void:
+	if _state == new_state:
+		return
+
+	_state = new_state
+	state_changed.emit(_state)
 
 
 func _update_collision_shape() -> void:
