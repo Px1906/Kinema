@@ -7,11 +7,13 @@ const MARKER_RADIUS := 12.0
 const MARKER_WIDTH := 2.0
 const COLOR_UNREACHED := Color("#6b7280")
 const COLOR_REACHED := Color("#22c55e")
+const BRAKE_DAMP := 15.0
 
 @export var checkpoint_index: int = 0
 
 var _reached := false
 var _player_inside := false
+var _player_interacted := false
 
 
 func _ready() -> void:
@@ -40,11 +42,16 @@ func reach() -> void:
 func reset_zone() -> void:
 	_reached = false
 	_player_inside = false
+	_player_interacted = false
 	queue_redraw()
 
 
 func _on_player_entered(player: Player) -> void:
 	_player_inside = true
+	if _player_interacted:
+		return
+	_player_interacted = true
+	player.apply_brake(BRAKE_DAMP)
 	reach()
 
 

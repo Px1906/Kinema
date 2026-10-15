@@ -25,9 +25,6 @@ fator_velocidade_lancamento = 1.5
 script = ExtResource("9_trajectory_preview")
 player = NodePath("../Player")
 
-[node name="GoalZone" parent="." unique_id=1542026926 instance=ExtResource("9_goal_zone")]
-position = Vector2(1137, 425)
-
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
 [node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
@@ -85,5 +82,10 @@ position = Vector2(1265, 485)
 [node name="WallSurface2" parent="Surfaces/Walls" unique_id=180213412 instance=ExtResource("7_5ta8y")]
 position = Vector2(1263, 202)
 
-[node name="CheckpointZone" parent="." unique_id=1258635173 instance=ExtResource("13_rwtns")]
+[node name="Zones" type="Node" parent="." unique_id=1550378790]
+
+[node name="CheckpointZone" parent="Zones" unique_id=1258635173 instance=ExtResource("13_rwtns")]
 position = Vector2(641, 444)
+
+[node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
+position = Vector2(1143, 441)
