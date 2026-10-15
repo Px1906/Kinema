@@ -5,6 +5,8 @@ signal attempt_failed(reason: FailureReason)
 
 enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 
+const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
+
 @export_category("Attempt")
 @export var bounds_margin: float = 64.0
 
@@ -26,6 +28,7 @@ func _ready() -> void:
 		goal_zone.level_completed.connect(_on_level_completed)
 	if result_panel != null:
 		result_panel.retry_requested.connect(_on_retry_requested)
+		result_panel.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
 
@@ -71,6 +74,33 @@ func reset_level() -> void:
 
 func _on_retry_requested() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_exit_requested() -> void:
+	_save_progress()
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+
+
+func _save_progress() -> void:
+	var current_scene_path: String = scene_file_path
+	if current_scene_path.is_empty():
+		current_scene_path = get_tree().current_scene.scene_file_path
+	SaveManager.save_progress({
+		"current_level": current_scene_path,
+		# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
+	})
+
+
+static func resume_game(tree: SceneTree) -> bool:
+	var progress: Dictionary = SaveManager.load_progress()
+	var level_path: String = progress.get("current_level", "")
+	if level_path.is_empty() or not ResourceLoader.exists(level_path):
+		return false
+	# var checkpoint_index: int = int(progress.get("last_checkpoint", -1))
+	tree.change_scene_to_file(level_path)
+	# Após o merge com feat/sistema-checkpoint, restaurar posição:
+	# _restore_checkpoint(checkpoint_index)
+	return true
 
 
 func _fail_attempt(reason: FailureReason) -> void:
