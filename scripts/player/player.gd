@@ -16,7 +16,6 @@ const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
-const OBSTACLE_GROUP := "obstacle"
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -56,7 +55,7 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 	if _state == State.MOVING:
 		for contact_index in range(state_2d.get_contact_count()):
 			var body := state_2d.get_contact_collider_object(contact_index)
-			if body is Node and body.is_in_group(OBSTACLE_GROUP):
+			if body is Node and body.is_in_group(Events.OBSTACLE_GROUP):
 				_queue_obstacle_hit()
 				break
 
