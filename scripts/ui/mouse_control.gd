@@ -26,7 +26,6 @@ func _ready() -> void:
 		return
 	if launch_controller == null:
 		push_warning("MouseControl: assign the 'LaunchInputController' property in the Inspector.")
-		return
 
 	player.state_changed.connect(_on_player_state_changed)
 	_update_interaction_area()
@@ -72,6 +71,8 @@ func _gui_input(event: InputEvent) -> void:
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed and _dragging:
+			if launch_controller == null:
+				return
 			launch_controller.launch()
 
 
