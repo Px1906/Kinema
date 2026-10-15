@@ -2,6 +2,7 @@ class_name MouseControl
 extends Control
 
 @export var player: Player
+@export var launch_controller: LaunchInputController
 
 @export_category("Launch Vector")
 @export var invert_direction: bool = false
@@ -21,24 +22,28 @@ var _current := Vector2.ZERO
 
 
 func _ready() -> void:
-	mouse_filter = Control.MOUSE_FILTER_STOP
-	_update_interaction_area()
-
-
-func _process(_delta: float) -> void:
 	if player == null:
 		return
+	if launch_controller == null:
+		push_warning("MouseControl: assign the 'LaunchInputController' property in the Inspector.")
 
-	var is_ready := player.is_ready()
-	mouse_filter = Control.MOUSE_FILTER_STOP if is_ready else Control.MOUSE_FILTER_IGNORE
-	if is_ready:
-		_update_interaction_area()
+	player.state_changed.connect(_on_player_state_changed)
+	_update_interaction_area()
+	_update_mouse_filter()
+
+
+func _update_mouse_filter() -> void:
+	mouse_filter = (
+		Control.MOUSE_FILTER_STOP
+		if player.can_launch()
+		else Control.MOUSE_FILTER_IGNORE
+	)
 
 
 func _update_interaction_area() -> void:
 	var diameter := interaction_radius * 2.0
 	size = Vector2.ONE * diameter
-	position = player.global_position - Vector2.ONE * interaction_radius
+	global_position = player.global_position - Vector2.ONE * interaction_radius
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -46,7 +51,7 @@ func _gui_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and player.is_ready():
+		if event.pressed and player.can_launch():
 			_dragging = true
 			_start = size / 2.0
 			_current = event.position
@@ -56,7 +61,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseMotion and _dragging:
-		if not player.is_ready():
+		if not player.can_launch():
 			_dragging = false
 		else:
 			_current = event.position
@@ -65,8 +70,10 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and player.is_ready() and _dragging:
-			player.launch()
+		if event.pressed and _dragging:
+			if launch_controller == null:
+				return
+			launch_controller.launch()
 
 
 func _apply_launch_vector() -> void:
@@ -77,10 +84,16 @@ func _apply_launch_vector() -> void:
 		return
 
 	var angle := rad_to_deg(atan2(-vector.y, vector.x))
-	if not player.inicio_suspenso and angle < 0.0:
-		angle = 0.0 if angle >= -90.0 else Player.MAX_ANGLE
+	angle = player.clamp_launch_angle(angle)
 	var speed := minf(vector.length() * speed_factor, max_speed)
 	player.set_launch_parameters(speed, angle)
+
+
+func _on_player_state_changed(_new_state) -> void:
+	_dragging = false
+	_update_interaction_area()
+	_update_mouse_filter()
+	queue_redraw()
 
 
 func _draw() -> void:

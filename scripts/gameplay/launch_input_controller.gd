@@ -10,6 +10,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if rope != null and rope.is_player_attached():
-		rope.detach_player()
-	elif player != null and player.is_ready():
-		player.launch()
+		release()
+	else:
+		launch()
+
+
+func launch() -> void:
+	if player == null:
+		return
+
+	player.launch()
+
+
+func release() -> void:
+	if rope == null:
+		return
+
+	rope.detach_player()
