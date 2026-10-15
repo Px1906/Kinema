@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
+[ext_resource type="Script" path="res://scripts/gameplay/follow_camera.gd" id="20_follow_camera"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_level_controller")
@@ -19,6 +20,11 @@ script = ExtResource("1_level_controller")
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position_smoothing_enabled = true
+script = ExtResource("20_follow_camera")
+target = NodePath("../Player")
 
 [node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("9_trajectory_preview")
@@ -41,11 +47,13 @@ launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 metadata/_edit_use_anchors_ = true
 
-[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LaunchControlSliders" parent="UI" unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
 offset_left = 7.0
 offset_top = 7.0
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
+player = NodePath("../../Player")
+launch_controller = NodePath("../../LaunchInputController")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
 position = Vector2(541, 354)

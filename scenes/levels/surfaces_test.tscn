@@ -11,12 +11,18 @@
 [ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
+[ext_resource type="Script" path="res://scripts/gameplay/follow_camera.gd" id="20_follow_camera"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
 script = ExtResource("1_level_controller")
 
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
 position = Vector2(570, 355)
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position_smoothing_enabled = true
+script = ExtResource("20_follow_camera")
+target = NodePath("../Player")
 
 [node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("8_trajectory_preview")
@@ -40,9 +46,11 @@ bounce = 1.0
 [node name="WallSurface" parent="." unique_id=1670152353 instance=ExtResource("5_wall")]
 position = Vector2(1200, 456)
 
-[node name="LaunchControls" parent="." unique_id=2060249671 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("6_pl03t")]
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="LaunchControls" parent="UI" unique_id=2060249671 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("6_pl03t")]
+player = NodePath("../../Player")
+launch_controller = NodePath("../../LaunchInputController")
 
 [node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3

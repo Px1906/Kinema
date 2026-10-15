@@ -7,11 +7,14 @@ enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 
 @export_category("Attempt")
 @export var bounds_margin: float = 64.0
+## Área da fase em coordenadas do mundo. Vazia usa a área da tela na posição inicial.
+## Com a câmera seguindo a bola, defina este retângulo em fases maiores que a tela.
+@export var level_bounds := Rect2()
 
 @onready var player: Player = $Player
 @onready var goal_zone: GoalZone = get_node_or_null("GoalZone")
 @onready var rope: Rope = get_node_or_null("Rope")
-@onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
+@onready var controls: LaunchControls = _find_launch_controls()
 @onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
 
 var _attempt_active := false
@@ -34,7 +37,7 @@ func _process(_delta: float) -> void:
 	if not _attempt_active or _attempt_finished:
 		return
 
-	var bounds := get_viewport_rect().grow(bounds_margin)
+	var bounds := _get_level_bounds().grow(bounds_margin)
 	if not bounds.has_point(player.global_position):
 		_fail_attempt(FailureReason.OUT_OF_BOUNDS)
 
@@ -83,3 +86,15 @@ func _fail_attempt(reason: FailureReason) -> void:
 	attempt_failed.emit(reason)
 	if result_panel != null:
 		result_panel.show_result("Tentativa perdida", "A bola não alcançou o objetivo.")
+
+
+func _get_level_bounds() -> Rect2:
+	return level_bounds if level_bounds.has_area() else get_viewport_rect()
+
+
+func _find_launch_controls() -> LaunchControls:
+	for node in find_children("*", "PanelContainer"):
+		if node is LaunchControls:
+			return node
+
+	return null
