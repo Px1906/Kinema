@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
-[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
+[ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
+[ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_level_controller")
@@ -20,9 +21,10 @@ script = ExtResource("1_level_controller")
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
 
-[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=679332929 node_paths=PackedStringArray("player")]
 script = ExtResource("9_trajectory_preview")
 player = NodePath("../Player")
+
 [node name="GoalZone" parent="." unique_id=1542026926 instance=ExtResource("9_goal_zone")]
 position = Vector2(1137, 425)
 
@@ -48,7 +50,7 @@ player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
+position = Vector2(1064, 165)
 detection_radius = 105.0
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
@@ -69,6 +71,9 @@ is_obstacle = true
 [node name="PlatformSurface" parent="Surfaces/Platforms" unique_id=1574617537 instance=ExtResource("7_afiys")]
 position = Vector2(140, 502)
 
+[node name="PlatformSurface3" parent="Surfaces/Platforms" unique_id=1910304018 instance=ExtResource("7_afiys")]
+position = Vector2(639, 498)
+
 [node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
 
@@ -79,3 +84,6 @@ position = Vector2(1265, 485)
 
 [node name="WallSurface2" parent="Surfaces/Walls" unique_id=180213412 instance=ExtResource("7_5ta8y")]
 position = Vector2(1263, 202)
+
+[node name="CheckpointZone" parent="." unique_id=1258635173 instance=ExtResource("13_rwtns")]
+position = Vector2(641, 444)

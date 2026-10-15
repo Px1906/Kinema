@@ -16,6 +16,8 @@ enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 
 var _attempt_active := false
 var _attempt_finished := false
+var _checkpoints: Array[CheckpointZone] = []
+var _last_checkpoint: CheckpointZone = null
 
 
 func _ready() -> void:
@@ -28,6 +30,7 @@ func _ready() -> void:
 		result_panel.retry_requested.connect(_on_retry_requested)
 	if controls != null:
 		controls.rope = rope
+	_discover_checkpoints()
 
 
 func _process(_delta: float) -> void:
@@ -83,3 +86,24 @@ func _fail_attempt(reason: FailureReason) -> void:
 	attempt_failed.emit(reason)
 	if result_panel != null:
 		result_panel.show_result("Tentativa perdida", "A bola não alcançou o objetivo.")
+
+
+func _discover_checkpoints() -> void:
+	for child: Node in get_children():
+		if child is CheckpointZone:
+			_checkpoints.append(child)
+			child.checkpoint_reached.connect(_on_checkpoint_reached)
+	_checkpoints.sort_custom(func(a: CheckpointZone, b: CheckpointZone) -> bool:
+		return a.checkpoint_index < b.checkpoint_index
+	)
+
+
+func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
+	_last_checkpoint = checkpoint
+	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
+
+
+func get_respawn_position() -> Vector2:
+	if _last_checkpoint != null:
+		return _last_checkpoint.global_position
+	return player.get_initial_global_position()
