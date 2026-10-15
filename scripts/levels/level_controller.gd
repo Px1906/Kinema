@@ -76,7 +76,7 @@ func reset_level() -> void:
 
 
 func _on_retry_requested() -> void:
-	get_tree().reload_current_scene()
+	_respawn_at_last_checkpoint()
 
 
 func _fail_attempt(reason: FailureReason) -> void:
@@ -87,8 +87,13 @@ func _fail_attempt(reason: FailureReason) -> void:
 	_attempt_active = false
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
-	if result_panel != null:
-		result_panel.show_result("Tentativa perdida", "A bola não alcançou o objetivo.")
+	_respawn_at_last_checkpoint()
+
+
+func _respawn_at_last_checkpoint() -> void:
+	_attempt_active = false
+	_attempt_finished = false
+	player.reset_attempt(get_respawn_position())
 
 
 func _discover_checkpoints() -> void:
