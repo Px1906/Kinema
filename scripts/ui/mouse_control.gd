@@ -91,6 +91,7 @@ func _apply_launch_vector() -> void:
 
 func _on_player_state_changed(_new_state) -> void:
 	_dragging = false
+	_update_interaction_area()
 	_update_mouse_filter()
 	queue_redraw()
 
