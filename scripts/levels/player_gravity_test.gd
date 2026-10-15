@@ -1,5 +1,5 @@
 extends Node2D
-
+#oi
 @onready var player: Player = $Player
 @onready var rope: Rope = get_node_or_null("Rope")
 @onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
