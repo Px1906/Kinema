@@ -48,12 +48,20 @@ func _update_values() -> void:
 	var radius_meters := PhysicsUnits.pixels_to_meters(player.radius)
 	mass = player.mass
 	area = PI * radius_meters * radius_meters
-	speed = PhysicsUnits.pixels_to_meters(player.get_current_velocity().length())
+	speed = 0.0 if _is_at_rest() else PhysicsUnits.pixels_to_meters(
+		player.get_current_velocity().length()
+	)
 	height = _get_height()
 	kinetic_energy = 0.5 * mass * speed * speed
 	potential_energy = mass * PhysicsUnits.GRAVITY * height
 	total_energy = kinetic_energy + potential_energy
 	energy_updated.emit(self)
+
+
+## Parada (pronta para lançar ou após parar) ignora a velocidade residual da física.
+func _is_at_rest() -> bool:
+	var state := player.get_state()
+	return state == Player.State.READY or state == Player.State.STOPPED
 
 
 func _get_height() -> float:
