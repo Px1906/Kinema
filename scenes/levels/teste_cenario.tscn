@@ -28,7 +28,7 @@ position = Vector2(1137, 425)
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
-[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player")]
+[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1338.0
@@ -37,6 +37,7 @@ offset_right = 1633.0
 offset_bottom = 356.0
 script = ExtResource("4_afiys")
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 metadata/_edit_use_anchors_ = true
 

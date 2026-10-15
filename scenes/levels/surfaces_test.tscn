@@ -44,7 +44,7 @@ position = Vector2(1200, 456)
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
 
-[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player")]
+[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 115.0
@@ -53,4 +53,5 @@ offset_right = 348.0
 offset_bottom = 350.0
 script = ExtResource("7_t8nq2")
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"

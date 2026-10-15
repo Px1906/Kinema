@@ -16,7 +16,7 @@ const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
-const OBSTACLE_GROUP := "obstacle"
+const LAUNCH_ARROW_OFFSET := 4.0
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -68,7 +68,7 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 	if _state == State.MOVING:
 		for contact_index in range(state_2d.get_contact_count()):
 			var body := state_2d.get_contact_collider_object(contact_index)
-			if body is Node and body.is_in_group(OBSTACLE_GROUP):
+			if body is Node and body.is_in_group(Events.OBSTACLE_GROUP):
 				_queue_obstacle_hit()
 				break
 
@@ -143,6 +143,25 @@ func clamp_launch_angle(angle_degrees: float) -> float:
 	return clampf(angle_degrees, get_min_launch_angle(), MAX_ANGLE)
 
 
+func get_launch_velocity() -> Vector2:
+	return Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
+
+
+func get_initial_velocity() -> Vector2:
+	return get_launch_velocity() * fator_velocidade_lancamento
+
+
+func get_total_linear_damp() -> float:
+	if linear_damp_mode == RigidBody2D.DAMP_MODE_REPLACE:
+		return linear_damp
+
+	return linear_damp + float(ProjectSettings.get_setting("physics/2d/default_linear_damp"))
+
+
+func get_collision_radius() -> float:
+	return radius
+
+
 func attach_to(anchor_global_position: Vector2) -> void:
 	if _state == State.ATTACHED:
 		return
@@ -173,7 +192,7 @@ func detach(velocity: Vector2) -> void:
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = clampf(speed, 0.0, MAX_SPEED)
 	launch_angle_degrees = clamp_launch_angle(angle_degrees)
-	launch_velocity = Vector2.RIGHT.rotated(deg_to_rad(-launch_angle_degrees)) * launch_speed
+	launch_velocity = get_launch_velocity()
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 	queue_redraw()
 
@@ -184,7 +203,7 @@ func launch() -> void:
 	set_launch_parameters(launch_speed, launch_angle_degrees)
 	freeze = false
 	sleeping = false
-	linear_velocity = launch_velocity * fator_velocidade_lancamento
+	linear_velocity = get_initial_velocity()
 	_stop_detection_time = 0.0
 	_set_state(State.MOVING)
 	set_physics_process(true)
@@ -222,8 +241,8 @@ func _draw_launch_arrow() -> void:
 		return
 
 	var dir := launch_velocity.normalized().rotated(-global_rotation)
-	var start := dir * (radius + 4.0)
-	var tip := dir * (radius + 4.0 + launch_velocity.length() * 0.15)
+	var start := dir * (radius + LAUNCH_ARROW_OFFSET)
+	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + launch_velocity.length() * 0.15)
 	var head := 10.0
 	var side := dir.orthogonal()
 	var base := tip - dir * head

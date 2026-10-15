@@ -11,6 +11,11 @@ extends Node2D
 
 var _points := PackedVector2Array()
 var _first_visible_point := 0
+var _preview_dirty := false
+var _gravity := Vector2.ZERO
+var _simulation_step := 0.0
+var _query_shape: CircleShape2D
+var _query := PhysicsShapeQueryParameters2D.new()
 
 
 func _ready() -> void:
@@ -18,62 +23,71 @@ func _ready() -> void:
 		push_warning("TrajectoryPreview: assign the 'Player' property in the Inspector.")
 		return
 
+	_cache_physics_parameters()
 	player.launch_parameters_changed.connect(_on_launch_parameters_changed)
 	player.state_changed.connect(_on_player_state_changed)
+	_request_preview_update()
+
+
+func _process(_delta: float) -> void:
+	if not _preview_dirty:
+		return
+
+	_preview_dirty = false
+	set_process(false)
 	_update_preview()
 
 
 func _on_launch_parameters_changed(_speed: float, _angle_degrees: float) -> void:
-	_update_preview()
+	_request_preview_update()
 
 
 func _on_player_state_changed(_state: Player.State) -> void:
-	_update_preview()
+	_request_preview_update()
+
+
+func _request_preview_update() -> void:
+	_preview_dirty = true
+	set_process(true)
+
+
+func _cache_physics_parameters() -> void:
+	var gravity_direction: Vector2 = ProjectSettings.get_setting(
+		"physics/2d/default_gravity_vector"
+	)
+	var gravity_strength: float = float(
+		ProjectSettings.get_setting("physics/2d/default_gravity")
+	)
+	_gravity = gravity_direction * gravity_strength
+	var physics_ticks_per_second: float = float(
+		ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
+	)
+	_simulation_step = 1.0 / maxf(physics_ticks_per_second, 1.0)
+	_query_shape = CircleShape2D.new()
+	_query.shape = _query_shape
+	_query.exclude = [player.get_rid()]
 
 
 func _update_preview() -> void:
-	visible = player != null and player.can_launch()
+	visible = player.can_launch()
 	if not visible:
 		_points.clear()
 		queue_redraw()
 		return
 
-	var gravity := Vector2(
-		ProjectSettings.get_setting("physics/2d/default_gravity_vector")
-	) * float(ProjectSettings.get_setting("physics/2d/default_gravity"))
-	var launch_direction := Vector2.RIGHT.rotated(
-		deg_to_rad(-player.launch_angle_degrees)
-	)
-	var initial_velocity := (
-		launch_direction
-		* player.launch_speed
-		* player.fator_velocidade_lancamento
-	)
-	var physics_ticks_per_second := float(
-		ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
-	)
 	_points = TrajectoryCalculator.calculate_points(
 		player.global_position,
-		initial_velocity,
-		gravity,
+		player.get_initial_velocity(),
+		_gravity,
 		point_count,
 		time_step,
 		player.gravity_scale,
-		_get_total_linear_damp(),
-		1.0 / physics_ticks_per_second
+		player.get_total_linear_damp(),
+		_simulation_step
 	)
 	_points = _stop_at_first_collision(_points)
 	_first_visible_point = _get_first_visible_point()
 	queue_redraw()
-
-
-func _get_total_linear_damp() -> float:
-	if player.linear_damp_mode == RigidBody2D.DAMP_MODE_REPLACE:
-		return player.linear_damp
-
-	return player.linear_damp + float(
-		ProjectSettings.get_setting("physics/2d/default_linear_damp")
-	)
 
 
 func _stop_at_first_collision(points: PackedVector2Array) -> PackedVector2Array:
@@ -81,21 +95,20 @@ func _stop_at_first_collision(points: PackedVector2Array) -> PackedVector2Array:
 		return points
 
 	var space_state := get_world_2d().direct_space_state
-	var query_shape := CircleShape2D.new()
-	query_shape.radius = player.radius
-	var query := PhysicsShapeQueryParameters2D.new()
-	query.shape = query_shape
-	query.collision_mask = player.collision_mask
-	query.exclude = [player.get_rid()]
+	_query_shape.radius = player.get_collision_radius()
+	_query.collision_mask = player.collision_mask
 
 	var collision_points := PackedVector2Array([points[0]])
 	for point_index in range(1, points.size()):
 		var previous_point := points[point_index - 1]
 		var motion := points[point_index] - previous_point
-		query.transform = Transform2D(0.0, previous_point)
-		query.motion = motion
-		var cast_result := space_state.cast_motion(query)
+		_query.transform = Transform2D(0.0, previous_point)
+		_query.motion = motion
+		var cast_result := space_state.cast_motion(_query)
 		if cast_result.size() >= 2 and cast_result[0] < 1.0:
+			if cast_result[0] <= 0.0 and point_index == 1:
+				collision_points.append(points[point_index])
+				continue
 			collision_points.append(previous_point + motion * cast_result[0])
 			break
 
@@ -105,12 +118,15 @@ func _stop_at_first_collision(points: PackedVector2Array) -> PackedVector2Array:
 
 
 func _get_first_visible_point() -> int:
-	var preview_start_distance := player.radius + 4.0
+	if _points.size() <= 1:
+		return _points.size()
+
+	var preview_start_distance := player.get_collision_radius() + Player.LAUNCH_ARROW_OFFSET
 	for point_index in range(_points.size()):
 		if player.global_position.distance_to(_points[point_index]) >= preview_start_distance:
 			return point_index
 
-	return _points.size()
+	return 1
 
 
 func _draw() -> void:

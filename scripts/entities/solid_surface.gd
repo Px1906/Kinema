@@ -1,8 +1,6 @@
 class_name SolidSurface
 extends StaticBody2D
 
-const OBSTACLE_GROUP := "obstacle"
-
 @export_category("Surface")
 @export var size: Vector2 = Vector2(256.0, 32.0):
 	set(value):
@@ -49,9 +47,9 @@ func _ready() -> void:
 
 func _update_obstacle_group() -> void:
 	if is_obstacle:
-		add_to_group(OBSTACLE_GROUP)
+		add_to_group(Events.OBSTACLE_GROUP)
 	else:
-		remove_from_group(OBSTACLE_GROUP)
+		remove_from_group(Events.OBSTACLE_GROUP)
 
 
 func _update_collision_shape() -> void:

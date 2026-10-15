@@ -2,6 +2,7 @@ class_name MouseControl
 extends Control
 
 @export var player: Player
+@export var launch_controller: LaunchInputController
 
 @export_category("Launch Vector")
 @export var invert_direction: bool = false
@@ -23,6 +24,8 @@ var _current := Vector2.ZERO
 func _ready() -> void:
 	if player == null:
 		return
+	if launch_controller == null:
+		push_warning("MouseControl: assign the 'LaunchInputController' property in the Inspector.")
 
 	player.state_changed.connect(_on_player_state_changed)
 	_update_interaction_area()
@@ -67,8 +70,10 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed and player.can_launch() and _dragging:
-			player.launch()
+		if event.pressed and _dragging:
+			if launch_controller == null:
+				return
+			launch_controller.launch()
 
 
 func _apply_launch_vector() -> void:
