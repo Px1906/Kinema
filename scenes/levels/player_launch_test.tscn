@@ -1,18 +1,25 @@
 [gd_scene format=3 uid="uid://df2sq4ldscjav"]
 
-[ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_iorcq"]
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_w6s8g"]
 [ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="3_ck7h6"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_11eff"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_vtfop"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
 [ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
+[ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
+[ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
-script = ExtResource("1_iorcq")
+script = ExtResource("1_level_controller")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_w6s8g")]
 position = Vector2(509, 378)
+
+[node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
+position = Vector2(900, 378)
+
+[node name="AttemptResultPanel" parent="." instance=ExtResource("9_result_panel")]
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)
@@ -28,8 +35,9 @@ script = ExtResource("4_11eff")
 player = NodePath("../Player")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 
-[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player") instance=ExtResource("5_vtfop")]
+[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_vtfop")]
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_w6s8g")]
 position = Vector2(775, 219)

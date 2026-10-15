@@ -2,13 +2,13 @@ class_name LaunchControls
 extends PanelContainer
 
 @export var player: Player
+@export var launch_controller: LaunchInputController
 @export var rope: Rope:
 	set(value):
+		_disconnect_rope()
 		rope = value
 		if is_node_ready():
 			_connect_rope()
-
-var _rope_connected := false
 
 @onready var _toggle_button: Button = %ToggleButton
 @onready var _sliders_box: Control = %SlidersBox
@@ -24,11 +24,14 @@ func _ready() -> void:
 	if player == null:
 		push_warning("LaunchControls: assign the 'Player' property in the Inspector.")
 		return
+	if launch_controller == null:
+		push_warning("LaunchControls: assign the 'LaunchInputController' property in the Inspector.")
+		return
 
 	# Slider ranges (values come from the Player constants).
 	_speed_slider.min_value = 0.0
 	_speed_slider.max_value = Player.MAX_SPEED
-	_angle_slider.min_value = -Player.MAX_ANGLE if player.inicio_suspenso else 0.0
+	_angle_slider.min_value = player.get_min_launch_angle()
 	_angle_slider.max_value = Player.MAX_ANGLE
 
 	_toggle_button.toggled.connect(_on_toggle_button_toggled)
@@ -36,10 +39,11 @@ func _ready() -> void:
 
 	_speed_slider.value_changed.connect(_on_slider_changed)
 	_angle_slider.value_changed.connect(_on_slider_changed)
-	_launch_button.pressed.connect(player.launch)
-	_release_button.pressed.connect(_release_player)
+	_launch_button.pressed.connect(launch_controller.launch)
+	_release_button.pressed.connect(launch_controller.release)
 	_release_button.disabled = true
 	player.launch_parameters_changed.connect(_on_player_params_changed)
+	player.state_changed.connect(_on_player_state_changed)
 	_connect_rope()
 	# The Launch button remains visible and is disabled after launching.
 	player.launched.connect(func(_v: Vector2) -> void: _launch_button.disabled = true)
@@ -53,13 +57,22 @@ func _on_toggle_button_toggled(is_open: bool) -> void:
 
 
 func _connect_rope() -> void:
-	if rope == null or _rope_connected:
+	if rope == null:
 		return
 
 	rope.player_attached.connect(_on_player_attached)
 	rope.player_detached.connect(_on_player_detached)
 	_release_button.disabled = not rope.is_player_attached()
-	_rope_connected = true
+
+
+func _disconnect_rope() -> void:
+	if rope == null:
+		return
+
+	if rope.player_attached.is_connected(_on_player_attached):
+		rope.player_attached.disconnect(_on_player_attached)
+	if rope.player_detached.is_connected(_on_player_detached):
+		rope.player_detached.disconnect(_on_player_detached)
 
 
 # Slider -> Player
@@ -75,16 +88,13 @@ func _on_player_params_changed(speed: float, angle: float) -> void:
 	_angle_label.text = "Ângulo: %d°" % angle
 
 
-func _release_player() -> void:
-	if rope == null or not rope.is_player_attached():
-		return
-
-	rope.detach_player()
-
-
 func _on_player_attached(_attached_player: Player) -> void:
 	_release_button.disabled = false
 
 
 func _on_player_detached(_detached_player: Player) -> void:
 	_release_button.disabled = true
+
+
+func _on_player_state_changed(state: Player.State) -> void:
+	_launch_button.disabled = state != Player.State.READY

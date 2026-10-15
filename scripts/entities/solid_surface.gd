@@ -1,6 +1,8 @@
 class_name SolidSurface
 extends StaticBody2D
 
+const OBSTACLE_GROUP := "obstacle"
+
 @export_category("Surface")
 @export var size: Vector2 = Vector2(256.0, 32.0):
 	set(value):
@@ -13,6 +15,7 @@ extends StaticBody2D
 @export var is_obstacle: bool = false:
 	set(value):
 		is_obstacle = value
+		_update_obstacle_group()
 		if is_node_ready():
 			queue_redraw()
 
@@ -34,6 +37,7 @@ extends StaticBody2D
 
 
 func _ready() -> void:
+	_update_obstacle_group()
 	if collision_shape.shape == null:
 		collision_shape.shape = RectangleShape2D.new()
 	else:
@@ -41,6 +45,13 @@ func _ready() -> void:
 	_update_collision_shape()
 	_apply_physics_material()
 	queue_redraw()
+
+
+func _update_obstacle_group() -> void:
+	if is_obstacle:
+		add_to_group(OBSTACLE_GROUP)
+	else:
+		remove_from_group(OBSTACLE_GROUP)
 
 
 func _update_collision_shape() -> void:

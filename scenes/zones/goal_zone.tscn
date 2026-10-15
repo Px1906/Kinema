@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/zones/goal_zone.gd" id="1_goal_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(64, 64)
+
+[node name="GoalZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+script = ExtResource("1_goal_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_goal")
