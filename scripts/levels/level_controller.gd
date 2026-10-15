@@ -5,6 +5,8 @@ signal attempt_failed(reason: FailureReason)
 
 enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 
+const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
+
 @export_category("Attempt")
 @export var bounds_margin: float = 64.0
 
@@ -26,6 +28,7 @@ func _ready() -> void:
 		goal_zone.level_completed.connect(_on_level_completed)
 	if result_panel != null:
 		result_panel.retry_requested.connect(_on_retry_requested)
+		result_panel.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
 
@@ -71,6 +74,10 @@ func reset_level() -> void:
 
 func _on_retry_requested() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_exit_requested() -> void:
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
 
 
 func _fail_attempt(reason: FailureReason) -> void:
