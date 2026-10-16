@@ -1,24 +1,22 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://di4b5qcseeqwp"]
 
-[ext_resource type="Script" path="res://scripts/entities/qte_barrier.gd" id="1_qte_barrier"]
+[ext_resource type="Script" uid="uid://c2g2cmet3ic7d" path="res://scripts/entities/qte_barrier.gd" id="1_qte_barrier"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
 size = Vector2(32, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
-size = Vector2(200, 256)
+size = Vector2(112, 128)
 
-[node name="QteBarrier" type="StaticBody2D"]
+[node name="QteBarrier" type="StaticBody2D" unique_id=480385079]
 script = ExtResource("1_qte_barrier")
 
-[node name="BarrierShape" type="CollisionShape2D" parent="."]
+[node name="BarrierShape" type="CollisionShape2D" parent="." unique_id=177880629]
 shape = SubResource("RectangleShape2D_barrier")
 
-[node name="TriggerArea" type="Area2D" parent="."]
+[node name="TriggerArea" type="Area2D" parent="." unique_id=1973035704]
 collision_layer = 0
-collision_mask = 1
-monitoring = true
 
-[node name="TriggerShape" type="CollisionShape2D" parent="TriggerArea"]
-position = Vector2(-116, 0)
+[node name="TriggerShape" type="CollisionShape2D" parent="TriggerArea" unique_id=834868207]
+position = Vector2(-73, 0)
 shape = SubResource("RectangleShape2D_trigger")

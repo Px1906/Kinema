@@ -12,7 +12,7 @@ const STYLE_CONTENT_MARGIN := 8
 
 @export_category("QTE")
 @export var qte_duration: float = 30.0
-@export_range(0.01, 1.0, 0.01) var slow_motion_scale: float = 0.1
+@export_range(0.0001, 1.0, 0.0001) var slow_motion_scale: float = 0.001
 
 @export_category("Audio")
 @export var correct_sound: AudioStream
@@ -33,11 +33,15 @@ var _ball_energy: BallEnergy
 var _current_correct_index := -1
 var _answered := false
 var _audio_player: AudioStreamPlayer
+var _exit_tween: Tween
+var _question_base_y: float
+var _buttons_base_y: float
+var _positions_initialized := false
 
 @onready var _vignette: ColorRect = %Vignette
 @onready var _question_label: Label = %QuestionLabel
 @onready var _timer_label: Label = %TimerLabel
-@onready var _buttons_container: VBoxContainer = %ButtonsContainer
+@onready var _buttons_container: HBoxContainer = %ButtonsContainer
 @onready var _button_a: Button = %ButtonA
 @onready var _button_b: Button = %ButtonB
 @onready var _button_c: Button = %ButtonC
@@ -143,12 +147,31 @@ func _handle_correct(barrier: QteBarrier) -> void:
 		_reward_sprite.visible = true
 		_reward_sprite.play()
 	barrier.remove_barrier()
-	get_tree().create_timer(result_display_time, false, false, true).timeout.connect(_hide_overlay)
+	_animate_out()
 
 
 func _handle_wrong(_barrier: QteBarrier) -> void:
 	_play_sound(wrong_sound)
-	get_tree().create_timer(result_display_time, false, false, true).timeout.connect(_hide_overlay)
+	_animate_out()
+
+
+func _animate_out() -> void:
+	if _exit_tween != null and _exit_tween.is_valid():
+		_exit_tween.kill()
+	var q_exit := _question_label.global_position.y + _question_label.size.y
+	var viewport_h := get_viewport().get_visible_rect().size.y
+	var b_exit := viewport_h - _buttons_container.global_position.y
+	var speed := 1.0 / maxf(Engine.time_scale, 0.0001)
+	_exit_tween = create_tween().set_parallel(true)
+	_exit_tween.set_speed_scale(speed)
+	_exit_tween.tween_property(_question_label, "position:y",
+		_question_label.position.y - q_exit, anim_duration * 2.0)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	_exit_tween.tween_property(_buttons_container, "position:y",
+		_buttons_container.position.y + b_exit, anim_duration * 2.0)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	_exit_tween.tween_property(_vignette, "modulate:a", 0.0, anim_duration * 2.0)
+	_exit_tween.finished.connect(_hide_overlay)
 
 
 func _play_sound(stream: AudioStream) -> void:
@@ -176,10 +199,19 @@ func _show_overlay() -> void:
 	_reset_button_colors()
 	_set_buttons_disabled(false)
 	visible = true
+	if not _positions_initialized:
+		_question_base_y = _question_label.position.y
+		_buttons_base_y = _buttons_container.position.y
+		_positions_initialized = true
+	else:
+		_question_label.position.y = _question_base_y
+		_buttons_container.position.y = _buttons_base_y
 	_animate_in()
 
 
 func _hide_overlay() -> void:
+	if _exit_tween != null and _exit_tween.is_valid():
+		_exit_tween.kill()
 	visible = false
 	if _reward_sprite != null:
 		_reward_sprite.visible = false
@@ -187,16 +219,36 @@ func _hide_overlay() -> void:
 
 
 func _animate_in() -> void:
+	_question_label.position.y = _question_base_y
+	_buttons_container.position.y = _buttons_base_y
 	_vignette.modulate.a = 0.0
-	_question_label.position.y = -anim_slide_offset
-	_buttons_container.position.y = anim_slide_offset
+
+	var speed := 1.0 / maxf(Engine.time_scale, 0.0001)
 
 	var tween := create_tween().set_parallel(true)
+	tween.set_speed_scale(speed)
 	tween.tween_property(_vignette, "modulate:a", vignette_intensity, anim_duration)
-	tween.tween_property(_question_label, "position:y", 0.0, anim_duration)\
+	tween.tween_property(_question_label, "position:y", _question_base_y, anim_duration)\
+		.from(_question_base_y - anim_slide_offset)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(_buttons_container, "position:y", 0.0, anim_duration)\
+	tween.tween_property(_buttons_container, "position:y", _buttons_base_y, anim_duration)\
+		.from(_buttons_base_y + anim_slide_offset)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+	var viewport_h := get_viewport().get_visible_rect().size.y
+	var q_slide := _question_label.global_position.y
+	var b_slide := viewport_h - _buttons_container.global_position.y - _buttons_container.size.y
+
+	if _exit_tween != null and _exit_tween.is_valid():
+		_exit_tween.kill()
+	_exit_tween = create_tween().set_parallel(true)
+	_exit_tween.set_speed_scale(speed)
+	_exit_tween.tween_property(_question_label, "position:y",
+		_question_base_y - q_slide, qte_duration)\
+		.set_delay(anim_duration)
+	_exit_tween.tween_property(_buttons_container, "position:y",
+		_buttons_base_y + b_slide, qte_duration)\
+		.set_delay(anim_duration)
 
 
 func _get_button(index: int) -> Button:
