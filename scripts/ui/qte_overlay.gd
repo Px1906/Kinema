@@ -7,12 +7,15 @@ const VIGNETTE_INTENSITY := 0.4
 const ANIM_DURATION := 0.3
 
 @export var player: Player
+@export var correct_sound: AudioStream
+@export var wrong_sound: AudioStream
 
 var _qte_manager := QteManager.new()
 var _question_generator := QteQuestionGenerator.new()
 var _ball_energy: BallEnergy
 var _current_correct_index := -1
 var _answered := false
+var _audio_player: AudioStreamPlayer
 
 @onready var _vignette: ColorRect = %Vignette
 @onready var _question_label: Label = %QuestionLabel
@@ -21,6 +24,7 @@ var _answered := false
 @onready var _button_a: Button = %ButtonA
 @onready var _button_b: Button = %ButtonB
 @onready var _button_c: Button = %ButtonC
+@onready var _reward_sprite: AnimatedSprite2D = get_node_or_null("%RewardSprite")
 @onready var _mass_label: Label = %QteMassValue
 @onready var _speed_label: Label = %QteSpeedValue
 @onready var _ec_label: Label = %QteEcValue
@@ -29,6 +33,10 @@ var _answered := false
 
 
 func _ready() -> void:
+	_audio_player = AudioStreamPlayer.new()
+	_audio_player.bus = &"SFX"
+	add_child(_audio_player)
+
 	add_child(_qte_manager)
 	_qte_manager.time_updated.connect(_on_time_updated)
 	_qte_manager.qte_finished.connect(_on_qte_finished)
@@ -111,13 +119,24 @@ func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
 
 
 func _handle_correct(barrier: QteBarrier) -> void:
+	_play_sound(correct_sound)
+	if _reward_sprite != null:
+		_reward_sprite.visible = true
+		_reward_sprite.play()
 	barrier.remove_barrier()
 	get_tree().create_timer(1.5, false, false, true).timeout.connect(_hide_overlay)
 
 
-func _handle_wrong(barrier: QteBarrier) -> void:
-	barrier.reset_barrier()
-	get_tree().create_timer(2.0, false, false, true).timeout.connect(_hide_overlay)
+func _handle_wrong(_barrier: QteBarrier) -> void:
+	_play_sound(wrong_sound)
+	get_tree().create_timer(1.5, false, false, true).timeout.connect(_hide_overlay)
+
+
+func _play_sound(stream: AudioStream) -> void:
+	if stream == null or _audio_player == null:
+		return
+	_audio_player.stream = stream
+	_audio_player.play()
 
 
 func _on_time_updated(time_remaining: float) -> void:
@@ -143,6 +162,9 @@ func _show_overlay() -> void:
 
 func _hide_overlay() -> void:
 	visible = false
+	if _reward_sprite != null:
+		_reward_sprite.visible = false
+		_reward_sprite.stop()
 
 
 func _animate_in() -> void:
