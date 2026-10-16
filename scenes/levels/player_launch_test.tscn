@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_11eff"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_vtfop"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
-[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
-[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
+[ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
+[ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
@@ -17,13 +17,14 @@ script = ExtResource("1_level_controller")
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_w6s8g")]
 position = Vector2(509, 378)
 
-[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=356522315 node_paths=PackedStringArray("player")]
 script = ExtResource("8_trajectory_preview")
 player = NodePath("../Player")
-[node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
+
+[node name="GoalZone" parent="." unique_id=1610699216 instance=ExtResource("8_goal_zone")]
 position = Vector2(900, 378)
 
-[node name="AttemptResultPanel" parent="." instance=ExtResource("9_result_panel")]
+[node name="AttemptResultPanel" parent="." unique_id=318656041 instance=ExtResource("9_result_panel")]
 
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)
@@ -48,7 +49,7 @@ launch_controller = NodePath("../LaunchInputController")
 position = Vector2(775, 219)
 detection_radius = 105.0
 
-[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player", "rope")]
+[node name="LaunchInputController" type="Node" parent="." unique_id=1760159087 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("7_launch_input")
 player = NodePath("../Player")
 rope = NodePath("../Rope")
