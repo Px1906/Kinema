@@ -108,5 +108,6 @@ position = Vector2(1143, 441)
 [node name="QteBarrier" parent="." unique_id=1497302973 instance=ExtResource("16_tgs1u")]
 position = Vector2(486, 375)
 
-[node name="QteOverlay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("17_qte_overlay")]
+[node name="QteOverlay" parent="." unique_id=1374925807 node_paths=PackedStringArray("player") instance=ExtResource("17_qte_overlay")]
 player = NodePath("../Player")
+slow_motion_scale = 0.01
