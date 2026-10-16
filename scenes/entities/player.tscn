@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b73wjf3pct1d3"]
 
 [ext_resource type="Script" uid="uid://djgaumelvpjqb" path="res://scripts/player/player.gd" id="1_ucweq"]
+[ext_resource type="Script" path="res://scripts/player/ball_energy.gd" id="2_energy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_08t41"]
 friction = 0.35
@@ -19,3 +20,6 @@ script = ExtResource("1_ucweq")
 shape = SubResource("CircleShape2D_ew1dm")
 
 [node name="RopeAttachPoint" type="Marker2D" parent="." unique_id=1517566927]
+
+[node name="BallEnergy" type="Node" parent="."]
+script = ExtResource("2_energy")

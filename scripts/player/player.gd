@@ -36,12 +36,14 @@ var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var launch_speed: float = 100.0
 var launch_angle_degrees: float = 0.0
+var _carried_velocity := Vector2.ZERO
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false
 var _was_frozen_before_attach := false
 var _initial_global_position: Vector2 = Vector2.ZERO
 var _pending_reset_position: Vector2
 var _reset_pending := false
+var _base_linear_damp := 0.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -52,6 +54,7 @@ func _ready() -> void:
 	_update_collision_shape()
 	freeze = true
 	_initial_global_position = global_position
+	_base_linear_damp = linear_damp
 	set_physics_process(false)
 	queue_redraw()
 
@@ -116,7 +119,39 @@ func get_initial_global_position() -> Vector2:
 	return _initial_global_position
 
 
+## Velocidade real da bola em px/s, inclusive quando presa (congelada) a uma corda.
+func get_current_velocity() -> Vector2:
+	return _carried_velocity if _state == State.ATTACHED else linear_velocity
+
+
+## Usado por quem move a bola presa (ex.: corda) para informar a velocidade real.
+func set_carried_velocity(velocity: Vector2) -> void:
+	_carried_velocity = velocity
+
+
+func apply_brake(extra_damp: float) -> void:
+	linear_damp = _base_linear_damp + extra_damp
+
+
+func release_brake() -> void:
+	linear_damp = _base_linear_damp
+
+
+func prepare_launch() -> void:
+	release_brake()
+	freeze = true
+	sleeping = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	_stop_detection_time = 0.0
+	_obstacle_hit_queued = false
+	set_physics_process(false)
+	_set_state(State.READY)
+	queue_redraw()
+
+
 func reset_attempt(start_position: Vector2) -> void:
+	release_brake()
 	freeze = true
 	sleeping = true
 	linear_velocity = Vector2.ZERO
