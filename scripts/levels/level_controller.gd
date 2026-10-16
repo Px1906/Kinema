@@ -20,6 +20,7 @@ var _attempt_active := false
 var _attempt_finished := false
 var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
+var _qte_barriers: Array[QteBarrier] = []
 
 
 func _ready() -> void:
@@ -34,6 +35,7 @@ func _ready() -> void:
 	if controls != null:
 		controls.rope = rope
 	_discover_checkpoints()
+	_discover_qte_barriers()
 
 
 func _process(_delta: float) -> void:
@@ -74,6 +76,7 @@ func reset_level() -> void:
 	_attempt_finished = true
 	if goal_zone != null:
 		goal_zone.reset_zone()
+	_reset_qte_barriers()
 	player.reset_attempt(player.get_initial_global_position())
 	_attempt_finished = false
 
@@ -138,6 +141,7 @@ func _get_failure_message(reason: FailureReason) -> String:
 func _respawn_at_last_checkpoint() -> void:
 	_attempt_active = false
 	_attempt_finished = false
+	_reset_qte_barriers()
 	player.reset_attempt(get_respawn_position())
 
 
@@ -154,6 +158,17 @@ func _discover_checkpoints() -> void:
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
+
+
+func _discover_qte_barriers() -> void:
+	for child: Node in _get_all_descendants(self):
+		if child is QteBarrier:
+			_qte_barriers.append(child)
+
+
+func _reset_qte_barriers() -> void:
+	for barrier: QteBarrier in _qte_barriers:
+		barrier.reset_barrier()
 
 
 func _get_all_descendants(node: Node) -> Array[Node]:
