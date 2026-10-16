@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
+[ext_resource type="PackedScene" path="res://scenes/entities/qte_barrier.tscn" id="16_tgs1u"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_level_controller")
@@ -102,3 +103,6 @@ position = Vector2(641, 444)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
 position = Vector2(1143, 441)
+
+[node name="QteBarrier" parent="." unique_id=1497302973 instance=ExtResource("16_tgs1u")]
+position = Vector2(486, 375)
