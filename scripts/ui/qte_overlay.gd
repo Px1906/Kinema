@@ -1,0 +1,191 @@
+class_name QteOverlay
+extends CanvasLayer
+
+signal answer_selected(correct: bool)
+
+const VIGNETTE_INTENSITY := 0.4
+const ANIM_DURATION := 0.3
+
+@export var player: Player
+
+var _qte_manager := QteManager.new()
+var _question_generator := QteQuestionGenerator.new()
+var _ball_energy: BallEnergy
+var _current_correct_index := -1
+var _answered := false
+
+@onready var _vignette: ColorRect = %Vignette
+@onready var _question_label: Label = %QuestionLabel
+@onready var _timer_label: Label = %TimerLabel
+@onready var _buttons_container: VBoxContainer = %ButtonsContainer
+@onready var _button_a: Button = %ButtonA
+@onready var _button_b: Button = %ButtonB
+@onready var _button_c: Button = %ButtonC
+@onready var _mass_label: Label = %QteMassValue
+@onready var _speed_label: Label = %QteSpeedValue
+@onready var _ec_label: Label = %QteEcValue
+@onready var _ep_label: Label = %QteEpValue
+@onready var _et_label: Label = %QteEtValue
+
+
+func _ready() -> void:
+	add_child(_qte_manager)
+	_qte_manager.time_updated.connect(_on_time_updated)
+	_qte_manager.qte_finished.connect(_on_qte_finished)
+
+	_button_a.pressed.connect(_on_button_pressed.bind(0))
+	_button_b.pressed.connect(_on_button_pressed.bind(1))
+	_button_c.pressed.connect(_on_button_pressed.bind(2))
+
+	Events.qte_started.connect(_on_qte_started)
+
+	if player != null:
+		_ball_energy = _find_ball_energy()
+
+	_hide_overlay()
+
+
+func _find_ball_energy() -> BallEnergy:
+	if player == null:
+		return null
+	for child in player.get_children():
+		if child is BallEnergy:
+			return child
+	return null
+
+
+func _on_qte_started(barrier: QteBarrier) -> void:
+	if _ball_energy == null:
+		_ball_energy = _find_ball_energy()
+	if _ball_energy == null:
+		push_warning("QteOverlay: BallEnergy não encontrado.")
+		return
+
+	_answered = false
+	_qte_manager.start_qte(barrier)
+
+	var question_data := _question_generator.generate_random(_ball_energy)
+	if question_data.is_empty():
+		return
+
+	_current_correct_index = question_data["correct_index"]
+	_question_label.text = question_data["question"]
+
+	var alternatives: Array = question_data["alternatives"]
+	_button_a.text = alternatives[0]
+	_button_b.text = alternatives[1]
+	_button_c.text = alternatives[2]
+
+	_update_attributes()
+	_show_overlay()
+
+
+func _on_button_pressed(index: int) -> void:
+	if _answered:
+		return
+	_answered = true
+
+	var correct := index == _current_correct_index
+	var pressed_button := _get_button(index)
+
+	if correct:
+		_set_button_color(pressed_button, Color("#22c55e"))
+	else:
+		_set_button_color(pressed_button, Color("#ef4444"))
+		_set_button_color(_get_button(_current_correct_index), Color("#22c55e"))
+
+	_set_buttons_disabled(true)
+	answer_selected.emit(correct)
+	_qte_manager.answer(correct)
+
+
+func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
+	if not _answered:
+		_set_button_color(_get_button(_current_correct_index), Color("#22c55e"))
+		_set_buttons_disabled(true)
+
+	if correct:
+		_handle_correct(barrier)
+	else:
+		_handle_wrong(barrier)
+
+
+func _handle_correct(barrier: QteBarrier) -> void:
+	barrier.remove_barrier()
+	get_tree().create_timer(1.5, false, false, true).timeout.connect(_hide_overlay)
+
+
+func _handle_wrong(barrier: QteBarrier) -> void:
+	barrier.reset_barrier()
+	get_tree().create_timer(2.0, false, false, true).timeout.connect(_hide_overlay)
+
+
+func _on_time_updated(time_remaining: float) -> void:
+	_timer_label.text = "%d" % ceili(time_remaining)
+
+
+func _update_attributes() -> void:
+	if _ball_energy == null:
+		return
+	_mass_label.text = "%.2f kg" % _ball_energy.mass
+	_speed_label.text = "%.2f m/s" % _ball_energy.speed
+	_ec_label.text = "%.2f J" % _ball_energy.kinetic_energy
+	_ep_label.text = "%.2f J" % _ball_energy.potential_energy
+	_et_label.text = "%.2f J" % _ball_energy.total_energy
+
+
+func _show_overlay() -> void:
+	_reset_button_colors()
+	_set_buttons_disabled(false)
+	visible = true
+	_animate_in()
+
+
+func _hide_overlay() -> void:
+	visible = false
+
+
+func _animate_in() -> void:
+	_vignette.modulate.a = 0.0
+	_question_label.position.y = -100.0
+	_buttons_container.position.y = 100.0
+
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(_vignette, "modulate:a", VIGNETTE_INTENSITY, ANIM_DURATION)
+	tween.tween_property(_question_label, "position:y", 0.0, ANIM_DURATION)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(_buttons_container, "position:y", 0.0, ANIM_DURATION)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+
+func _get_button(index: int) -> Button:
+	match index:
+		0: return _button_a
+		1: return _button_b
+		2: return _button_c
+		_: return _button_a
+
+
+func _set_button_color(button: Button, color: Color) -> void:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.set_corner_radius_all(4)
+	style.set_content_margin_all(8)
+	button.add_theme_stylebox_override("normal", style)
+	button.add_theme_stylebox_override("hover", style)
+	button.add_theme_stylebox_override("pressed", style)
+	button.add_theme_stylebox_override("disabled", style)
+
+
+func _reset_button_colors() -> void:
+	for button: Button in [_button_a, _button_b, _button_c]:
+		button.remove_theme_stylebox_override("normal")
+		button.remove_theme_stylebox_override("hover")
+		button.remove_theme_stylebox_override("pressed")
+		button.remove_theme_stylebox_override("disabled")
+
+
+func _set_buttons_disabled(disabled: bool) -> void:
+	_button_a.disabled = disabled
+	_button_b.disabled = disabled
+	_button_c.disabled = disabled

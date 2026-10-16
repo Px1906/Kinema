@@ -1,0 +1,170 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/qte_overlay.gd" id="1_qte_overlay"]
+
+[node name="QteOverlay" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_qte_overlay")
+
+[node name="Vignette" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.4)
+mouse_filter = 2
+
+[node name="QuestionPanel" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 200
+
+[node name="QuestionLabel" type="Label" parent="QuestionPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pergunta"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TimerPanel" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 60.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="TimerLabel" type="Label" parent="TimerPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "30"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AttributesPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -100.0
+offset_right = 220.0
+offset_bottom = 100.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="AttributesPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Content" type="VBoxContainer" parent="AttributesPanel/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AttributesPanel/Margin/Content"]
+layout_mode = 2
+text = "Atributos"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="AttributesPanel/Margin/Content"]
+layout_mode = 2
+columns = 2
+
+[node name="MassLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Massa"
+
+[node name="QteMassValue" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 kg"
+horizontal_alignment = 2
+
+[node name="SpeedLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Velocidade"
+
+[node name="QteSpeedValue" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 m/s"
+horizontal_alignment = 2
+
+[node name="EcLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ec"
+
+[node name="QteEcValue" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="EpLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ep"
+
+[node name="QteEpValue" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="EtLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "E total"
+
+[node name="QteEtValue" type="Label" parent="AttributesPanel/Margin/Content/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -180.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="ButtonA" type="Button" parent="ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Alternativa A"
+
+[node name="ButtonB" type="Button" parent="ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Alternativa B"
+
+[node name="ButtonC" type="Button" parent="ButtonsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Alternativa C"
