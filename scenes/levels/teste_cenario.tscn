@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 [ext_resource type="PackedScene" path="res://scenes/entities/qte_barrier.tscn" id="16_tgs1u"]
+[ext_resource type="PackedScene" path="res://scenes/ui/qte_overlay.tscn" id="17_qte_overlay"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_level_controller")
@@ -106,3 +107,6 @@ position = Vector2(1143, 441)
 
 [node name="QteBarrier" parent="." unique_id=1497302973 instance=ExtResource("16_tgs1u")]
 position = Vector2(486, 375)
+
+[node name="QteOverlay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("17_qte_overlay")]
+player = NodePath("../Player")
