@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://cbnl4gcvemi6r"]
+[gd_scene format=3 uid="uid://cibhjq72saxs2"]
 
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
-[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
+[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_77htc"]
-[ext_resource type="PackedScene" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
+[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
@@ -65,7 +65,7 @@ player = NodePath("../Player")
 rope = NodePath("../Rope")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
+position = Vector2(977, 162)
 detection_radius = 105.0
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]

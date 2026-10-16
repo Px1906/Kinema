@@ -117,7 +117,22 @@ func _fail_attempt(reason: FailureReason) -> void:
 	_attempt_active = false
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
-	_respawn_at_last_checkpoint()
+	if result_panel != null:
+		result_panel.show_result("Tentativa perdida", _get_failure_message(reason))
+	else:
+		_respawn_at_last_checkpoint()
+
+
+func _get_failure_message(reason: FailureReason) -> String:
+	match reason:
+		FailureReason.OBSTACLE_HIT:
+			return "A bola atingiu um obstáculo."
+		FailureReason.OUT_OF_BOUNDS:
+			return "A bola saiu dos limites."
+		FailureReason.PLAYER_STOPPED:
+			return "A bola parou fora de um checkpoint."
+		_:
+			return "Tente novamente."
 
 
 func _respawn_at_last_checkpoint() -> void:
