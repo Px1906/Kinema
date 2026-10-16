@@ -10,6 +10,10 @@ const STYLE_CONTENT_MARGIN := 8
 
 @export var player: Player
 
+@export_category("QTE")
+@export var qte_duration: float = 30.0
+@export_range(0.01, 1.0, 0.01) var slow_motion_scale: float = 0.1
+
 @export_category("Audio")
 @export var correct_sound: AudioStream
 @export var wrong_sound: AudioStream
@@ -83,6 +87,8 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 		return
 
 	_answered = false
+	_qte_manager.qte_duration = qte_duration
+	_qte_manager.slow_motion_scale = slow_motion_scale
 	_qte_manager.start_qte(barrier)
 
 	var question_data := _question_generator.generate_random(_ball_energy)
