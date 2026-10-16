@@ -3,12 +3,25 @@ extends CanvasLayer
 
 signal answer_selected(correct: bool)
 
-const VIGNETTE_INTENSITY := 0.4
-const ANIM_DURATION := 0.3
+const COLOR_CORRECT := Color("#22c55e")
+const COLOR_WRONG := Color("#ef4444")
+const STYLE_CORNER_RADIUS := 4
+const STYLE_CONTENT_MARGIN := 8
 
 @export var player: Player
+
+@export_category("Audio")
 @export var correct_sound: AudioStream
 @export var wrong_sound: AudioStream
+@export var audio_bus: StringName = &"SFX"
+
+@export_category("Timing")
+@export_range(0.1, 5.0, 0.1) var result_display_time: float = 1.5
+
+@export_category("Animation")
+@export_range(0.0, 1.0, 0.05) var vignette_intensity: float = 0.4
+@export_range(0.1, 2.0, 0.05) var anim_duration: float = 0.3
+@export var anim_slide_offset: float = 100.0
 
 var _qte_manager := QteManager.new()
 var _question_generator := QteQuestionGenerator.new()
@@ -34,7 +47,7 @@ var _audio_player: AudioStreamPlayer
 
 func _ready() -> void:
 	_audio_player = AudioStreamPlayer.new()
-	_audio_player.bus = &"SFX"
+	_audio_player.bus = audio_bus
 	add_child(_audio_player)
 
 	add_child(_qte_manager)
@@ -97,10 +110,10 @@ func _on_button_pressed(index: int) -> void:
 	var pressed_button := _get_button(index)
 
 	if correct:
-		_set_button_color(pressed_button, Color("#22c55e"))
+		_set_button_color(pressed_button, COLOR_CORRECT)
 	else:
-		_set_button_color(pressed_button, Color("#ef4444"))
-		_set_button_color(_get_button(_current_correct_index), Color("#22c55e"))
+		_set_button_color(pressed_button, COLOR_WRONG)
+		_set_button_color(_get_button(_current_correct_index), COLOR_CORRECT)
 
 	_set_buttons_disabled(true)
 	answer_selected.emit(correct)
@@ -109,7 +122,7 @@ func _on_button_pressed(index: int) -> void:
 
 func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
 	if not _answered:
-		_set_button_color(_get_button(_current_correct_index), Color("#22c55e"))
+		_set_button_color(_get_button(_current_correct_index), COLOR_CORRECT)
 		_set_buttons_disabled(true)
 
 	if correct:
@@ -124,12 +137,12 @@ func _handle_correct(barrier: QteBarrier) -> void:
 		_reward_sprite.visible = true
 		_reward_sprite.play()
 	barrier.remove_barrier()
-	get_tree().create_timer(1.5, false, false, true).timeout.connect(_hide_overlay)
+	get_tree().create_timer(result_display_time, false, false, true).timeout.connect(_hide_overlay)
 
 
 func _handle_wrong(_barrier: QteBarrier) -> void:
 	_play_sound(wrong_sound)
-	get_tree().create_timer(1.5, false, false, true).timeout.connect(_hide_overlay)
+	get_tree().create_timer(result_display_time, false, false, true).timeout.connect(_hide_overlay)
 
 
 func _play_sound(stream: AudioStream) -> void:
@@ -169,14 +182,14 @@ func _hide_overlay() -> void:
 
 func _animate_in() -> void:
 	_vignette.modulate.a = 0.0
-	_question_label.position.y = -100.0
-	_buttons_container.position.y = 100.0
+	_question_label.position.y = -anim_slide_offset
+	_buttons_container.position.y = anim_slide_offset
 
 	var tween := create_tween().set_parallel(true)
-	tween.tween_property(_vignette, "modulate:a", VIGNETTE_INTENSITY, ANIM_DURATION)
-	tween.tween_property(_question_label, "position:y", 0.0, ANIM_DURATION)\
+	tween.tween_property(_vignette, "modulate:a", vignette_intensity, anim_duration)
+	tween.tween_property(_question_label, "position:y", 0.0, anim_duration)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(_buttons_container, "position:y", 0.0, ANIM_DURATION)\
+	tween.tween_property(_buttons_container, "position:y", 0.0, anim_duration)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 
@@ -191,8 +204,8 @@ func _get_button(index: int) -> Button:
 func _set_button_color(button: Button, color: Color) -> void:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
-	style.set_corner_radius_all(4)
-	style.set_content_margin_all(8)
+	style.set_corner_radius_all(STYLE_CORNER_RADIUS)
+	style.set_content_margin_all(STYLE_CONTENT_MARGIN)
 	button.add_theme_stylebox_override("normal", style)
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)

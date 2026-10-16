@@ -5,9 +5,10 @@ signal qte_finished(barrier: QteBarrier, correct: bool)
 signal time_updated(time_remaining: float)
 
 const DEFAULT_DURATION := 30.0
-const SLOW_MOTION_SCALE := 0.1
+const DEFAULT_SLOW_MOTION := 0.1
 
 @export var qte_duration: float = DEFAULT_DURATION
+@export_range(0.01, 1.0, 0.01) var slow_motion_scale: float = DEFAULT_SLOW_MOTION
 
 var _active := false
 var _current_barrier: QteBarrier = null
@@ -51,7 +52,7 @@ func start_qte(barrier: QteBarrier) -> void:
 	_current_barrier = barrier
 	_time_remaining = qte_duration
 	_original_time_scale = Engine.time_scale
-	Engine.time_scale = SLOW_MOTION_SCALE
+	Engine.time_scale = slow_motion_scale
 	set_process(true)
 
 
