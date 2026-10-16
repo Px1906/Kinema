@@ -1,0 +1,67 @@
+[
+	{
+		"type": "KINETIC_ENERGY",
+		"text": "Qual é a energia cinética da bola?",
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "POTENTIAL_ENERGY",
+		"text": "Qual é a energia potencial gravitacional da bola?",
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "TOTAL_ENERGY",
+		"text": "Qual é a energia mecânica total da bola?",
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "SPEED",
+		"text": "Qual é a velocidade da bola neste instante?",
+		"unit": "m/s",
+		"wrong_min_factor": 0.4,
+		"wrong_max_factor": 2.0
+	},
+	{
+		"type": "MASS",
+		"text": "Qual é a massa da bola?",
+		"unit": "kg",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 3.0
+	},
+	{
+		"type": "KINETIC_ENERGY",
+		"text": "Se Ec = ½·m·v², qual é a energia cinética?",
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "POTENTIAL_ENERGY",
+		"text": "Se Ep = m·g·h, qual é a energia potencial?",
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "KINETIC_ENERGY",
+		"text": "A bola tem m=%.1f kg e v=%.1f m/s. Qual é a Ec?",
+		"hint_values": ["mass", "speed"],
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "POTENTIAL_ENERGY",
+		"text": "A bola tem m=%.1f kg e h=%.1f m. Qual é a Ep?",
+		"hint_values": ["mass", "height"],
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	}
+]
