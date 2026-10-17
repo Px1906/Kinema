@@ -64,6 +64,7 @@ func _physics_process(delta: float) -> void:
 	_pendulum_angle += _angular_velocity * delta
 	_direction = Vector2.DOWN.rotated(_pendulum_angle)
 	_attached_player.global_position = get_endpoint_global_position()
+	_attached_player.set_carried_velocity(_get_tangential_velocity())
 	queue_redraw()
 
 
@@ -104,7 +105,7 @@ func detach_player() -> void:
 		return
 
 	var player := _attached_player
-	var release_velocity := _get_tangent() * _angular_velocity * detection_radius
+	var release_velocity := _get_tangential_velocity()
 	_cleanup_attachment()
 	player.detach(release_velocity)
 	player_detached.emit(player)
@@ -142,6 +143,7 @@ func _attach_player(player: Player) -> void:
 	_attached_player = player
 	area_animation.visible = false
 	player.attach_to(get_endpoint_global_position())
+	player.set_carried_velocity(_get_tangential_velocity())
 	set_physics_process(true)
 	player_entered.emit(player)
 	player_attached.emit(player)
@@ -149,6 +151,10 @@ func _attach_player(player: Player) -> void:
 
 func _get_tangent() -> Vector2:
 	return _direction.rotated(PI / 2.0)
+
+
+func _get_tangential_velocity() -> Vector2:
+	return _get_tangent() * _angular_velocity * detection_radius
 
 
 func _get_gravity() -> float:
