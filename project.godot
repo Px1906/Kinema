@@ -21,6 +21,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 [autoload]
 
 Events="*res://autoload/events.gd"
+SaveManager="*res://autoload/save_manager.gd"
 
 [display]
 

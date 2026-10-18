@@ -16,14 +16,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func launch() -> void:
-	if player == null or not player.can_launch():
+	if player == null:
 		return
 
 	player.launch()
 
 
 func release() -> void:
-	if rope == null or not rope.is_player_attached():
+	if rope == null:
 		return
 
 	rope.detach_player()

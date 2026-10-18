@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="6_launch_input"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="6_pl03t"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="7_t8nq2"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
@@ -17,6 +18,9 @@ script = ExtResource("1_level_controller")
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
 position = Vector2(570, 355)
 
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_trajectory_preview")
+player = NodePath("../Player")
 [node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
 position = Vector2(1050, 355)
 
@@ -40,7 +44,7 @@ position = Vector2(1200, 456)
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
 
-[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player")]
+[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 115.0
@@ -49,4 +53,5 @@ offset_right = 348.0
 offset_bottom = 350.0
 script = ExtResource("7_t8nq2")
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"

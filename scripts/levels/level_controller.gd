@@ -12,7 +12,7 @@ enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 @onready var goal_zone: GoalZone = get_node_or_null("GoalZone")
 @onready var rope: Rope = get_node_or_null("Rope")
 @onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
-@onready var result_panel: CanvasLayer = get_node_or_null("AttemptResultPanel")
+@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
 
 var _attempt_active := false
 var _attempt_finished := false
@@ -25,7 +25,7 @@ func _ready() -> void:
 	if goal_zone != null:
 		goal_zone.level_completed.connect(_on_level_completed)
 	if result_panel != null:
-		result_panel.connect("retry_requested", _on_retry_requested)
+		result_panel.retry_requested.connect(_on_retry_requested)
 	if controls != null:
 		controls.rope = rope
 
@@ -57,7 +57,7 @@ func _on_level_completed(_player: Player) -> void:
 	_attempt_active = false
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
-		result_panel.call("show_result", "Fase concluída", "Você alcançou o objetivo.")
+		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
 
 
 func reset_level() -> void:
@@ -82,4 +82,4 @@ func _fail_attempt(reason: FailureReason) -> void:
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
 	if result_panel != null:
-		result_panel.call("show_result", "Tentativa perdida", "A bola não alcançou o objetivo.")
+		result_panel.show_result("Tentativa perdida", "A bola não alcançou o objetivo.")

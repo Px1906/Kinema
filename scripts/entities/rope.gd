@@ -25,14 +25,12 @@ const DEFAULT_DIRECTION := Vector2.DOWN
 @export_range(MIN_DETECTION_RADIUS, MAX_DETECTION_RADIUS, 1.0) var detection_radius: float = 160.0:
 	set(value):
 		detection_radius = maxf(value, MIN_DETECTION_RADIUS)
-		_update_rope_length()
 		if is_node_ready():
 			_update_detection_shape()
 			_update_area_animation_scale()
 @export_range(MIN_GRAVITY, 10.0, 0.1) var gravity_multiplier: float = 1.0
 
 var _active := false
-var _length: float = DEFAULT_DETECTION_RADIUS
 var _direction := DEFAULT_DIRECTION
 var _detected_player: Player
 var _attached_player: Player
@@ -61,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		_cleanup_attachment()
 		return
 
-	var angular_acceleration := -_get_gravity() / _length * sin(_pendulum_angle)
+	var angular_acceleration := -_get_gravity() / detection_radius * sin(_pendulum_angle)
 	_angular_velocity += angular_acceleration * delta
 	_pendulum_angle += _angular_velocity * delta
 	_direction = Vector2.DOWN.rotated(_pendulum_angle)
@@ -94,7 +92,7 @@ func is_active() -> bool:
 
 
 func get_endpoint_global_position() -> Vector2:
-	return global_position + _direction * _length
+	return global_position + _direction * detection_radius
 
 
 func is_player_attached() -> bool:
@@ -106,7 +104,7 @@ func detach_player() -> void:
 		return
 
 	var player := _attached_player
-	var release_velocity := _get_tangent() * _angular_velocity * _length
+	var release_velocity := _get_tangent() * _angular_velocity * detection_radius
 	_cleanup_attachment()
 	player.detach(release_velocity)
 	player_detached.emit(player)
@@ -118,10 +116,6 @@ func _update_detection_shape() -> void:
 		circle = CircleShape2D.new()
 		detection_shape.shape = circle
 	circle.radius = detection_radius
-
-
-func _update_rope_length() -> void:
-	_length = detection_radius
 
 
 func _update_area_animation_scale() -> void:
@@ -144,7 +138,7 @@ func _attach_player(player: Player) -> void:
 
 	activate_toward(player.global_position)
 	_pendulum_angle = _direction.angle() - Vector2.DOWN.angle()
-	_angular_velocity = player.linear_velocity.dot(_get_tangent()) / _length
+	_angular_velocity = player.linear_velocity.dot(_get_tangent()) / detection_radius
 	_attached_player = player
 	area_animation.visible = false
 	player.attach_to(get_endpoint_global_position())
@@ -183,4 +177,4 @@ func _draw() -> void:
 	if not _active:
 		return
 
-	draw_line(Vector2.ZERO, _direction * _length, rope_color, width, true)
+	draw_line(Vector2.ZERO, _direction * detection_radius, rope_color, width, true)

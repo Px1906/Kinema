@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_vtfop"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_w6s8g"]
 [ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="7_launch_input"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
@@ -16,6 +17,9 @@ script = ExtResource("1_level_controller")
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_w6s8g")]
 position = Vector2(509, 378)
 
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_trajectory_preview")
+player = NodePath("../Player")
 [node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
 position = Vector2(900, 378)
 
@@ -24,7 +28,7 @@ position = Vector2(900, 378)
 [node name="SolidSurface" parent="." unique_id=183713201 instance=ExtResource("3_ck7h6")]
 position = Vector2(510, 410)
 
-[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player")]
+[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 33.0
@@ -33,6 +37,7 @@ offset_right = 328.0
 offset_bottom = 570.0
 script = ExtResource("4_11eff")
 player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 
 [node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_vtfop")]
