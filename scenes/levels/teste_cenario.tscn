@@ -1,10 +1,9 @@
-[gd_scene format=3 uid="uid://cbnl4gcvemi6r"]
+[gd_scene format=3 uid="uid://cibhjq72saxs2"]
 
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
-[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
-[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
+[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
@@ -15,12 +14,14 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
 
-[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "camera")]
+[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "rope", "camera")]
 script = ExtResource("1_level_controller")
 level_bounds = Rect2(0, 0, 1280, 720)
 controls = NodePath("UI/LaunchControls")
 goal_zone = NodePath("Zones/GoalZone")
+rope = NodePath("Ropes/Rope")
 camera = NodePath("Camera")
 
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
@@ -53,18 +54,15 @@ launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 metadata/_edit_use_anchors_ = true
 
-[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("21_level_ui")]
+[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("21_level_ui")]
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
+camera = NodePath("../Camera")
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("8_launch_input")
 player = NodePath("../Player")
-rope = NodePath("../Rope")
-
-[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
-detection_radius = 105.0
+rope = NodePath("../Ropes/Rope")
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]
 
@@ -100,3 +98,9 @@ position = Vector2(641, 444)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
 position = Vector2(1143, 441)
+
+[node name="Ropes" type="Node" parent="." unique_id=632698247]
+
+[node name="Rope" parent="Ropes" unique_id=1561143492 instance=ExtResource("6_rtdc3")]
+position = Vector2(541, 354)
+detection_radius = 105.0

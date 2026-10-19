@@ -9,8 +9,12 @@ extends Camera2D
 ## O jogador controla a câmera com as ações do InputMap:
 ## - "zoom_in" / "zoom_out" (roda do mouse): zoom. Seguindo o alvo, o zoom é centrado
 ##   nele; com a câmera solta, o ponto sob o mouse fica parado.
-## - "camera_pan" (botão direito): arrastar solta a câmera do alvo. Ela volta a seguir
-##   quando alguém chama follow_target() (ex.: ao lançar) ou snap_to_target().
+## - "camera_pan" (botão direito, se pan_enabled): arrastar solta a câmera do alvo.
+##   Ela volta a seguir quando alguém chama follow_target() (ex.: ao lançar) ou
+##   snap_to_target().
+
+## Emitido quando a câmera passa a seguir o alvo (true) ou fica solta pelo arrasto (false).
+signal following_changed(is_following: bool)
 
 @export var target: Node2D
 
@@ -21,6 +25,10 @@ extends Camera2D
 @export_range(1.01, 2.0, 0.01) var zoom_step: float = 1.1
 ## Velocidade da animação do zoom (maior = mais rápido). 0 aplica o zoom na hora.
 @export_range(0.0, 30.0, 0.5) var zoom_smoothing: float = 12.0
+
+## Permite arrastar a câmera. O LevelController só libera enquanto a bola espera o
+## lançamento, para um clique direito durante o voo não soltar a câmera sem querer.
+var pan_enabled := true
 
 var _following := true
 var _panning := false
@@ -69,7 +77,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_request_zoom(zoom_step, event)
 	elif event.is_action_pressed("zoom_out"):
 		_request_zoom(1.0 / zoom_step, event)
-	elif event.is_action_pressed("camera_pan"):
+	elif pan_enabled and event.is_action_pressed("camera_pan"):
 		_start_pan()
 	else:
 		return
@@ -93,7 +101,7 @@ func _input(event: InputEvent) -> void:
 
 ## Volta a seguir o alvo, deslizando até ele com a suavização.
 func follow_target() -> void:
-	_following = true
+	_set_following(true)
 	_panning = false
 
 
@@ -110,7 +118,7 @@ func snap_to_target() -> void:
 ## Solta a câmera do alvo a partir do que está na tela agora (com suavização e limites).
 func _start_pan() -> void:
 	_panning = true
-	_following = false
+	_set_following(false)
 	global_position = get_screen_center_position()
 	reset_smoothing()
 
@@ -159,3 +167,16 @@ func _clamp_axis(value: float, min_value: float, max_value: float) -> float:
 		return (min_value + max_value) / 2.0
 
 	return clampf(value, min_value, max_value)
+
+
+## Câmera está seguindo o alvo (e não solta pelo arrasto).
+func is_following() -> bool:
+	return _following
+
+
+func _set_following(value: bool) -> void:
+	if _following == value:
+		return
+
+	_following = value
+	following_changed.emit(_following)
