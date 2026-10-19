@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://cibhjq72saxs2"]
+[gd_scene format=3 uid="uid://cbnl4gcvemi6r"]
 
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
 [ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
+[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
@@ -12,13 +13,19 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
+[ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
 
-[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "camera")]
+[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "camera")]
 script = ExtResource("1_level_controller")
 level_bounds = Rect2(0, 0, 1280, 720)
 controls = NodePath("UI/LaunchControls")
+goal_zone = NodePath("Zones/GoalZone")
 camera = NodePath("Camera")
+
+[node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
+position = Vector2(0, 685)
+script = ExtResource("4_rtdc3")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
@@ -30,9 +37,6 @@ target = NodePath("../Player")
 [node name="TrajectoryPreview" type="Node2D" parent="." unique_id=1405236732 node_paths=PackedStringArray("player")]
 script = ExtResource("9_trajectory_preview")
 player = NodePath("../Player")
-
-[node name="GoalZone" parent="." unique_id=1542026926 instance=ExtResource("9_goal_zone")]
-position = Vector2(1137, 425)
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
@@ -53,14 +57,14 @@ metadata/_edit_use_anchors_ = true
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
 
-[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
-detection_radius = 105.0
-
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("8_launch_input")
 player = NodePath("../Player")
 rope = NodePath("../Rope")
+
+[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
+position = Vector2(541, 354)
+detection_radius = 105.0
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]
 
@@ -75,6 +79,9 @@ is_obstacle = true
 [node name="PlatformSurface" parent="Surfaces/Platforms" unique_id=1574617537 instance=ExtResource("7_afiys")]
 position = Vector2(140, 502)
 
+[node name="PlatformSurface3" parent="Surfaces/Platforms" unique_id=1910304018 instance=ExtResource("7_afiys")]
+position = Vector2(639, 498)
+
 [node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
 
@@ -85,3 +92,11 @@ position = Vector2(1265, 485)
 
 [node name="WallSurface2" parent="Surfaces/Walls" unique_id=180213412 instance=ExtResource("7_5ta8y")]
 position = Vector2(1263, 202)
+
+[node name="Zones" type="Node" parent="." unique_id=1550378790]
+
+[node name="CheckpointZone" parent="Zones" unique_id=1258635173 instance=ExtResource("13_rwtns")]
+position = Vector2(641, 444)
+
+[node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
+position = Vector2(1143, 441)

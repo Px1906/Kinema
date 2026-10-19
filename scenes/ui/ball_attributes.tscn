@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/ball_attributes.gd" id="1_ba"]
+
+[node name="BallAttributes" type="VBoxContainer"]
+script = ExtResource("1_ba")
+
+[node name="ToggleButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+toggle_mode = true
+text = "Atributos"
+
+[node name="ContentBox" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="ContentBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Content" type="VBoxContainer" parent="ContentBox/Margin"]
+layout_mode = 2
+
+[node name="Values" type="GridContainer" parent="ContentBox/Margin/Content"]
+layout_mode = 2
+columns = 2
+
+[node name="MassLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Massa"
+
+[node name="MassValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 kg"
+horizontal_alignment = 2
+
+[node name="SpeedLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Velocidade"
+
+[node name="SpeedValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 m/s"
+horizontal_alignment = 2
+
+[node name="TotalLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energia total"
+
+[node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="KineticRow" type="HBoxContainer" parent="ContentBox/Margin/Content"]
+layout_mode = 2
+
+[node name="KineticLabel" type="Label" parent="ContentBox/Margin/Content/KineticRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energia cinética"
+
+[node name="KineticValue" type="Label" parent="ContentBox/Margin/Content/KineticRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="KineticBar" type="ProgressBar" parent="ContentBox/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+show_percentage = false
+
+[node name="PotentialRow" type="HBoxContainer" parent="ContentBox/Margin/Content"]
+layout_mode = 2
+
+[node name="PotentialLabel" type="Label" parent="ContentBox/Margin/Content/PotentialRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Energia potencial"
+
+[node name="PotentialValue" type="Label" parent="ContentBox/Margin/Content/PotentialRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.00 J"
+horizontal_alignment = 2
+
+[node name="PotentialBar" type="ProgressBar" parent="ContentBox/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+max_value = 1.0
+step = 0.0
+show_percentage = false
