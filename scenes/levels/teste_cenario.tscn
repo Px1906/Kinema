@@ -19,6 +19,23 @@
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
 script = ExtResource("1_level_controller")
 
+[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1338.0
+offset_top = 96.0
+offset_right = 1633.0
+offset_bottom = 356.0
+script = ExtResource("4_afiys")
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
+metadata/_custom_type_script = "uid://dbtiyy8up8knr"
+
+[node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
+script = ExtResource("8_launch_input")
+player = NodePath("../Player")
+rope = NodePath("../Rope")
+
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
 position = Vector2(0, 685)
 script = ExtResource("4_rtdc3")
@@ -33,39 +50,8 @@ player = NodePath("../Player")
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
-[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1338.0
-offset_top = 96.0
-offset_right = 1633.0
-offset_bottom = 356.0
-script = ExtResource("4_afiys")
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
-metadata/_custom_type_script = "uid://dbtiyy8up8knr"
-metadata/_edit_use_anchors_ = true
-
-[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
-offset_left = 7.0
-offset_top = 7.0
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
-
-[node name="BallAttributes" parent="." unique_id=932615653 node_paths=PackedStringArray("player") instance=ExtResource("9_ball_attr")]
-offset_left = 297.0
-offset_top = 7.0
-offset_right = 557.0
-offset_bottom = 213.0
-player = NodePath("../Player")
-
-[node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
-script = ExtResource("8_launch_input")
-player = NodePath("../Player")
-rope = NodePath("../Rope")
-
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
+position = Vector2(431, 370)
 detection_radius = 105.0
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]
@@ -82,7 +68,7 @@ is_obstacle = true
 position = Vector2(140, 502)
 
 [node name="PlatformSurface3" parent="Surfaces/Platforms" unique_id=1910304018 instance=ExtResource("7_afiys")]
-position = Vector2(639, 498)
+position = Vector2(732, 497)
 
 [node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
@@ -98,7 +84,24 @@ position = Vector2(1263, 202)
 [node name="Zones" type="Node" parent="." unique_id=1550378790]
 
 [node name="CheckpointZone" parent="Zones" unique_id=1258635173 instance=ExtResource("13_rwtns")]
-position = Vector2(641, 444)
+position = Vector2(733, 449)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
 position = Vector2(1143, 441)
+
+[node name="Ui" type="CanvasLayer" parent="." unique_id=291435122]
+
+[node name="LaunchControlSliders" parent="Ui" unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 291.0
+offset_bottom = 262.0
+player = NodePath("../../Player")
+launch_controller = NodePath("../../LaunchInputController")
+
+[node name="BallAttributes" parent="Ui" unique_id=932615653 node_paths=PackedStringArray("player") instance=ExtResource("9_ball_attr")]
+offset_left = 297.0
+offset_top = 7.0
+offset_right = 557.0
+offset_bottom = 233.0
+player = NodePath("../../Player")
