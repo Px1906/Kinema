@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bmrg2h3darull" path="res://scripts/gameplay/follow_camera.gd" id="1_follow_camera"]
+
+[node name="FollowCamera" type="Camera2D"]
+position_smoothing_enabled = true
+script = ExtResource("1_follow_camera")
