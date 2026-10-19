@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
 [ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_77htc"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
@@ -10,16 +11,20 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="8_launch_input"]
-[ext_resource type="PackedScene" path="res://scenes/ui/ball_attributes.tscn" id="9_ball_attr"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 [ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="16_tgs1u"]
 [ext_resource type="PackedScene" uid="uid://obid8vkxqq6a" path="res://scenes/ui/qte_overlay.tscn" id="17_qte_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
 
-[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
+[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "camera")]
 script = ExtResource("1_level_controller")
+level_bounds = Rect2(0, 0, 1280, 720)
+controls = NodePath("UI/LaunchControls")
+goal_zone = NodePath("Zones/GoalZone")
+camera = NodePath("Camera")
 
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
 position = Vector2(0, 685)
@@ -29,7 +34,10 @@ script = ExtResource("4_rtdc3")
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
 
-[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=679332929 node_paths=PackedStringArray("player")]
+[node name="Camera" parent="." unique_id=970045497 node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
+target = NodePath("../Player")
+
+[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=1405236732 node_paths=PackedStringArray("player")]
 script = ExtResource("9_trajectory_preview")
 player = NodePath("../Player")
 
@@ -48,18 +56,9 @@ launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 metadata/_edit_use_anchors_ = true
 
-[node name="LaunchControlSliders" parent="." unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
-offset_left = 7.0
-offset_top = 7.0
+[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("21_level_ui")]
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
-
-[node name="BallAttributes" parent="." unique_id=932615653 node_paths=PackedStringArray("player") instance=ExtResource("9_ball_attr")]
-offset_left = 297.0
-offset_top = 7.0
-offset_right = 557.0
-offset_bottom = 213.0
-player = NodePath("../Player")
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("8_launch_input")

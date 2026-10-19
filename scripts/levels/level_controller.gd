@@ -9,20 +9,34 @@ const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 
 @export_category("Attempt")
 @export var bounds_margin: float = 64.0
+## Área da fase em coordenadas do mundo. É a única fonte do tamanho da fase: define
+## quando a bola sai da fase (OUT_OF_BOUNDS) e os limites da câmera.
+@export var level_bounds := Rect2()
 
-@onready var player: Player = $Player
-@onready var goal_zone: GoalZone = get_node_or_null("Zones/GoalZone")
-@onready var rope: Rope = get_node_or_null("Rope")
-@onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
-@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+@export_category("Nodes")
+@export var controls: LaunchControls
+@export var goal_zone: GoalZone
+## Câmera da fase. Recebe level_bounds como limites para não mostrar fora da fase.
+@export var camera: FollowCamera
 
 var _attempt_active := false
 var _attempt_finished := false
 var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
 
+@onready var player: Player = $Player
+@onready var rope: Rope = get_node_or_null("Rope")
+@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+
 
 func _ready() -> void:
+	if not level_bounds.has_area():
+		push_warning(
+			"LevelController: defina 'Level Bounds'; usando o retângulo da tela em (0, 0)."
+		)
+		level_bounds = get_viewport_rect()
+	_apply_camera_limits()
+
 	player.launched.connect(_on_player_launched)
 	player.obstacle_hit.connect(_on_player_obstacle_hit)
 	player.stopped.connect(_on_player_stopped)
@@ -41,7 +55,7 @@ func _process(_delta: float) -> void:
 	if not _attempt_active or _attempt_finished:
 		return
 
-	var bounds := get_viewport_rect().grow(bounds_margin)
+	var bounds := level_bounds.grow(bounds_margin)
 	if not bounds.has_point(player.global_position):
 		_fail_attempt(FailureReason.OUT_OF_BOUNDS)
 
@@ -80,6 +94,8 @@ func reset_level() -> void:
 		goal_zone.reset_zone()
 	_reset_qte_barriers()
 	player.reset_attempt(player.get_initial_global_position())
+	if camera != null:
+		camera.snap_to_target()
 	_attempt_finished = false
 
 
@@ -153,6 +169,8 @@ func _respawn_at_last_checkpoint() -> void:
 	_attempt_finished = false
 	_reset_qte_barriers()
 	player.reset_attempt(get_respawn_position())
+	if camera != null:
+		camera.snap_to_target()
 
 
 func _discover_checkpoints() -> void:
@@ -160,8 +178,9 @@ func _discover_checkpoints() -> void:
 		if child is CheckpointZone:
 			_checkpoints.append(child)
 			child.checkpoint_reached.connect(_on_checkpoint_reached)
-	_checkpoints.sort_custom(func(a: CheckpointZone, b: CheckpointZone) -> bool:
-		return a.checkpoint_index < b.checkpoint_index
+	_checkpoints.sort_custom(
+		func(a: CheckpointZone, b: CheckpointZone) -> bool:
+			return a.checkpoint_index < b.checkpoint_index
 	)
 
 
@@ -198,3 +217,13 @@ func get_respawn_position() -> Vector2:
 	if _last_checkpoint != null:
 		return _last_checkpoint.global_position
 	return player.get_initial_global_position()
+
+
+func _apply_camera_limits() -> void:
+	if camera == null:
+		return
+
+	camera.limit_left = floori(level_bounds.position.x)
+	camera.limit_top = floori(level_bounds.position.y)
+	camera.limit_right = ceili(level_bounds.end.x)
+	camera.limit_bottom = ceili(level_bounds.end.y)
