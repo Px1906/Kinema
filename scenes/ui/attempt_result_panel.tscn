@@ -50,3 +50,8 @@ autowrap_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Tentar novamente"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sair da fase"

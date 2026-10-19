@@ -1,5 +1,5 @@
 class_name LaunchControls
-extends PanelContainer
+extends VBoxContainer
 
 @export var player: Player
 @export var launch_controller: LaunchInputController
