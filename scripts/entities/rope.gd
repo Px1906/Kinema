@@ -13,14 +13,11 @@ const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
 const MAX_DETECTION_RADIUS := 2000.0
 const DEFAULT_DETECTION_RADIUS := 160.0
-const DEFAULT_ROPE_LENGTH := 160.0
 const MIN_GRAVITY := 0.0
-const MAX_GRAVITY := 3000.0
 const DEFAULT_DIRECTION := Vector2.DOWN
-const DOWN_ANGLE := PI / 2.0
+const MIN_ATTACH_SPEED_SQUARED := 1.0
 
 @export_category("Rope")
-var length: float = DEFAULT_ROPE_LENGTH
 @export_range(MIN_WIDTH, MAX_WIDTH, 1.0) var width: float = 4.0:
 	set(value):
 		width = maxf(value, MIN_WIDTH)
@@ -29,19 +26,23 @@ var length: float = DEFAULT_ROPE_LENGTH
 @export_range(MIN_DETECTION_RADIUS, MAX_DETECTION_RADIUS, 1.0) var detection_radius: float = 160.0:
 	set(value):
 		detection_radius = maxf(value, MIN_DETECTION_RADIUS)
-		_update_rope_length()
 		if is_node_ready():
 			_update_detection_shape()
 			_update_area_animation_scale()
-@export_range(MIN_GRAVITY, MAX_GRAVITY, 1.0) var gravity_acceleration: float = 980.0
+@export_range(MIN_GRAVITY, 10.0, 0.1) var gravity_multiplier: float = 1.0
+## Tolerância do cosseno entre a velocidade da bola e o vetor corda→bola para
+## considerar os dois perpendiculares (0,05 ≈ 3°).
+@export_range(0.0, 0.5, 0.01) var perpendicular_tolerance: float = 0.05
 
 var _active := false
 var _direction := DEFAULT_DIRECTION
 var _detected_player: Player
 var _attached_player: Player
-var _attached_player_was_frozen := false
 var _pendulum_angle := 0.0
 var _angular_velocity := 0.0
+var _rope_length := 0.0
+var _last_alignment := 0.0
+var _has_last_alignment := false
 var _area_animation_base_scale := Vector2.ONE
 
 @onready var detection_area: Area2D = $DetectionArea
@@ -50,6 +51,7 @@ var _area_animation_base_scale := Vector2.ONE
 
 
 func _ready() -> void:
+	set_physics_process(false)
 	_area_animation_base_scale = area_animation.scale
 	_update_detection_shape()
 	_update_area_animation_scale()
@@ -60,17 +62,20 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_instance_valid(_attached_player):
-		_attached_player = null
+	if _attached_player == null:
+		_try_attach_detected_player()
 		return
 
-	var angular_acceleration := -gravity_acceleration / length * sin(_pendulum_angle)
+	if not is_instance_valid(_attached_player):
+		_cleanup_attachment()
+		return
+
+	var angular_acceleration := -_get_gravity() / _rope_length * sin(_pendulum_angle)
 	_angular_velocity += angular_acceleration * delta
 	_pendulum_angle += _angular_velocity * delta
 	_direction = Vector2.DOWN.rotated(_pendulum_angle)
 	_attached_player.global_position = get_endpoint_global_position()
-	_attached_player.linear_velocity = Vector2.ZERO
-	_attached_player.angular_velocity = 0.0
+	_attached_player.set_carried_velocity(_get_tangential_velocity())
 	queue_redraw()
 
 
@@ -80,6 +85,7 @@ func activate_toward(target_global_position: Vector2) -> void:
 		return
 
 	_direction = target_direction.normalized()
+	_rope_length = target_direction.length()
 	_active = true
 	activated.emit()
 	queue_redraw()
@@ -99,7 +105,7 @@ func is_active() -> bool:
 
 
 func get_endpoint_global_position() -> Vector2:
-	return global_position + _direction * length
+	return global_position + _direction * _rope_length
 
 
 func is_player_attached() -> bool:
@@ -111,13 +117,9 @@ func detach_player() -> void:
 		return
 
 	var player := _attached_player
-	_attached_player = null
-	area_animation.visible = true
-	player.set_stop_detection_enabled(true)
-	player.freeze = _attached_player_was_frozen
-	player.linear_velocity = _direction.rotated(PI / 2.0) * _angular_velocity * length
-	_detected_player = null
-	deactivate()
+	var release_velocity := _get_tangential_velocity()
+	_cleanup_attachment()
+	player.detach(release_velocity)
 	player_detached.emit(player)
 
 
@@ -129,10 +131,6 @@ func _update_detection_shape() -> void:
 	circle.radius = detection_radius
 
 
-func _update_rope_length() -> void:
-	length = detection_radius * DEFAULT_ROPE_LENGTH / DEFAULT_DETECTION_RADIUS
-
-
 func _update_area_animation_scale() -> void:
 	var scale_factor := detection_radius / DEFAULT_DETECTION_RADIUS
 	area_animation.scale = _area_animation_base_scale * scale_factor
@@ -142,28 +140,71 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	if _attached_player != null or not body is Player:
 		return
 
-	var player := body as Player
-	_detected_player = player
-	call_deferred("_attach_player", player)
+	_detected_player = body as Player
+	_has_last_alignment = false
+	set_physics_process(true)
+
+
+## Encaixa a bola quando a velocidade dela fica perpendicular ao vetor corda→bola,
+## ou seja, quando o produto escalar dos dois vetores normalizados é quase zero.
+## Como a física é discreta, também encaixa se o sinal do produto inverteu entre
+## dois passos (o ângulo de 90° aconteceu entre eles).
+func _try_attach_detected_player() -> void:
+	if not is_instance_valid(_detected_player):
+		_detected_player = null
+		set_physics_process(false)
+		return
+
+	var offset := _detected_player.global_position - global_position
+	var velocity := _detected_player.linear_velocity
+	if (
+		_detected_player.get_state() != Player.State.MOVING
+		or offset.is_zero_approx()
+		or velocity.length_squared() < MIN_ATTACH_SPEED_SQUARED
+	):
+		_has_last_alignment = false
+		return
+
+	var alignment := velocity.normalized().dot(offset.normalized())
+	var crossed_zero := _has_last_alignment and signf(alignment) != signf(_last_alignment)
+	_last_alignment = alignment
+	_has_last_alignment = true
+
+	if absf(alignment) <= perpendicular_tolerance or crossed_zero:
+		_attach_player(_detected_player)
 
 
 func _attach_player(player: Player) -> void:
-	if not is_instance_valid(player) or _attached_player != null or _detected_player != player:
-		return
-
 	activate_toward(player.global_position)
-	_attached_player_was_frozen = player.freeze
-	_pendulum_angle = _direction.angle() - DOWN_ANGLE
-	_angular_velocity = player.linear_velocity.dot(_direction.rotated(PI / 2.0)) / length
+	_pendulum_angle = _direction.angle() - Vector2.DOWN.angle()
+	_angular_velocity = player.linear_velocity.dot(_get_tangent()) / _rope_length
 	_attached_player = player
 	area_animation.visible = false
-	player.set_stop_detection_enabled(false)
-	player.freeze = true
-	player.global_position = get_endpoint_global_position()
-	player.linear_velocity = Vector2.ZERO
-	player.angular_velocity = 0.0
+	player.attach_to(get_endpoint_global_position())
+	player.set_carried_velocity(_get_tangential_velocity())
+	set_physics_process(true)
 	player_entered.emit(player)
 	player_attached.emit(player)
+
+
+func _get_tangent() -> Vector2:
+	return _direction.rotated(PI / 2.0)
+
+
+func _get_tangential_velocity() -> Vector2:
+	return _get_tangent() * _angular_velocity * detection_radius
+
+
+func _get_gravity() -> float:
+	return float(ProjectSettings.get_setting("physics/2d/default_gravity")) * gravity_multiplier
+
+
+func _cleanup_attachment() -> void:
+	_attached_player = null
+	_detected_player = null
+	area_animation.visible = true
+	set_physics_process(false)
+	deactivate()
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
@@ -172,6 +213,7 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 
 	var player := _detected_player
 	_detected_player = null
+	set_physics_process(false)
 	deactivate()
 	player_exited.emit(player)
 
@@ -180,4 +222,4 @@ func _draw() -> void:
 	if not _active:
 		return
 
-	draw_line(Vector2.ZERO, _direction * length, rope_color, width, true)
+	draw_line(Vector2.ZERO, _direction * _rope_length, rope_color, width, true)

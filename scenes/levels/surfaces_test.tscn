@@ -1,19 +1,32 @@
 [gd_scene format=3 uid="uid://cjasegu868ymr"]
 
-[ext_resource type="Script" uid="uid://bk8tahg4uvkf" path="res://scripts/levels/player_gravity_test.gd" id="1_test"]
+[ext_resource type="Script" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_player"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="3_floor"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="4_platform"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="5_wall"]
-[ext_resource type="Script" path="res://scripts/gameplay/launch_input_controller.gd" id="6_launch_input"]
+[ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="6_launch_input"]
+[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="6_pl03t"]
+[ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="7_t8nq2"]
+[ext_resource type="Script" path="res://scripts/ui/trajectory_preview.gd" id="8_trajectory_preview"]
+[ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="8_goal_zone"]
+[ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 
 [node name="SurfacesTest" type="Node2D" unique_id=1894958845]
-script = ExtResource("1_test")
+script = ExtResource("1_level_controller")
 
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
-position = Vector2(1251, 167)
+position = Vector2(570, 355)
 
-[node name="LaunchInputController" type="Node" parent="." node_paths=PackedStringArray("player")]
+[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("8_trajectory_preview")
+player = NodePath("../Player")
+[node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]
+position = Vector2(1050, 355)
+
+[node name="AttemptResultPanel" parent="." instance=ExtResource("9_result_panel")]
+
+[node name="LaunchInputController" type="Node" parent="." unique_id=1066233967 node_paths=PackedStringArray("player")]
 script = ExtResource("6_launch_input")
 player = NodePath("../Player")
 
@@ -26,3 +39,19 @@ bounce = 1.0
 
 [node name="WallSurface" parent="." unique_id=1670152353 instance=ExtResource("5_wall")]
 position = Vector2(1200, 456)
+
+[node name="LaunchControls" parent="." unique_id=2060249671 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("6_pl03t")]
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
+
+[node name="MouseControl" type="Control" parent="." unique_id=1992962905 node_paths=PackedStringArray("player", "launch_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 164.0
+offset_right = 348.0
+offset_bottom = 350.0
+script = ExtResource("7_t8nq2")
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
+metadata/_custom_type_script = "uid://dbtiyy8up8knr"
