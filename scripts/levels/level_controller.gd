@@ -54,6 +54,8 @@ func _process(_delta: float) -> void:
 
 
 func _on_player_launched(_velocity: Vector2) -> void:
+	if camera != null:
+		camera.follow_target()
 	_attempt_active = true
 	_attempt_finished = false
 
