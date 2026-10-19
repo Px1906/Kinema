@@ -3,7 +3,7 @@ extends Node2D
 
 signal attempt_failed(reason: FailureReason)
 
-enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
+enum FailureReason { OBSTACLE_HIT, OUT_OF_BOUNDS }
 
 const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 
@@ -64,6 +64,7 @@ func _on_player_stopped() -> void:
 func _on_level_completed(_player: Player) -> void:
 	_attempt_finished = true
 	_attempt_active = false
+	_save_progress()
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
 		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
@@ -91,22 +92,13 @@ func _save_progress() -> void:
 	var current_scene_path: String = scene_file_path
 	if current_scene_path.is_empty():
 		current_scene_path = get_tree().current_scene.scene_file_path
+	assert(not current_scene_path.is_empty(), "LevelController: scene_file_path is empty.")
+	if current_scene_path.is_empty():
+		push_warning("LevelController: could not determine current scene path, skipping save.")
+		return
 	SaveManager.save_progress({
 		"current_level": current_scene_path,
-		# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
 	})
-
-
-static func resume_game(tree: SceneTree) -> bool:
-	var progress: Dictionary = SaveManager.load_progress()
-	var level_path: String = progress.get("current_level", "")
-	if level_path.is_empty() or not ResourceLoader.exists(level_path):
-		return false
-	# var checkpoint_index: int = int(progress.get("last_checkpoint", -1))
-	tree.change_scene_to_file(level_path)
-	# Após o merge com feat/sistema-checkpoint, restaurar posição:
-	# _restore_checkpoint(checkpoint_index)
-	return true
 
 
 func _fail_attempt(reason: FailureReason) -> void:
