@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://cbnl4gcvemi6r"]
+[gd_scene format=3 uid="uid://cibhjq72saxs2"]
 
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
-[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
+[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_77htc"]
-[ext_resource type="PackedScene" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
+[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="7_afiys"]
@@ -25,7 +25,7 @@ script = ExtResource("4_rtdc3")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
-fator_velocidade_lancamento = 1.5
+fator_velocidade_lancamento = 0.4
 
 [node name="TrajectoryPreview" type="Node2D" parent="." unique_id=679332929 node_paths=PackedStringArray("player")]
 script = ExtResource("9_trajectory_preview")
