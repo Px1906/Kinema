@@ -112,10 +112,15 @@ func _save_progress() -> void:
 	var current_scene_path: String = scene_file_path
 	if current_scene_path.is_empty():
 		current_scene_path = get_tree().current_scene.scene_file_path
-	SaveManager.save_progress({
-		"current_level": current_scene_path,
-		# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
-	})
+	(
+		SaveManager
+		. save_progress(
+			{
+				"current_level": current_scene_path,
+				# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
+			}
+		)
+	)
 
 
 static func resume_game(tree: SceneTree) -> bool:
