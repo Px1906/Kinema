@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cx5ymhkbcvmpt"]
+
+[ext_resource type="Script" uid="uid://drk76l7d2eouu" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://q80uhkiqyr3x" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
+[ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="3_options"]
+
+[node name="MainMenu" type="Control" unique_id=934184901]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="." unique_id=625910460]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_paper")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=86680499]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuBox" type="VBoxContainer" parent="CenterContainer" unique_id=1279180428]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/MenuBox" unique_id=436695611]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
+theme_override_font_sizes/font_size = 48
+text = "Kinema"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1613760920]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Jogar"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1914334254]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Opções"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/MenuBox" unique_id=520976533]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Sair"
+
+[node name="OptionsMenu" parent="CenterContainer" unique_id=446774993 instance=ExtResource("3_options")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
