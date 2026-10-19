@@ -47,6 +47,7 @@ func _ready() -> void:
 		result_panel.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
+	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
 
 
@@ -76,6 +77,7 @@ func _on_player_stopped() -> void:
 
 
 func _on_level_completed(_player: Player) -> void:
+	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
 	print_debug("LevelController: goal reached; level completed.")
@@ -84,10 +86,13 @@ func _on_level_completed(_player: Player) -> void:
 
 
 func reset_level() -> void:
+	_cancel_active_qte()
+	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = true
 	if goal_zone != null:
 		goal_zone.reset_zone()
+	_reset_qte_barriers()
 	player.reset_attempt(player.get_initial_global_position())
 	if camera != null:
 		camera.snap_to_target()
@@ -130,20 +135,44 @@ static func resume_game(tree: SceneTree) -> bool:
 	return true
 
 
+func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
+	if correct:
+		barrier.remove_barrier()
+
+
 func _fail_attempt(reason: FailureReason) -> void:
 	if _attempt_finished:
 		return
 
+	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
-	_respawn_at_last_checkpoint()
+	if result_panel != null:
+		result_panel.show_result("Tentativa perdida", _get_failure_message(reason))
+	else:
+		_respawn_at_last_checkpoint()
+
+
+func _get_failure_message(reason: FailureReason) -> String:
+	match reason:
+		FailureReason.OBSTACLE_HIT:
+			return "A bola atingiu um obstáculo."
+		FailureReason.OUT_OF_BOUNDS:
+			return "A bola saiu dos limites."
+		FailureReason.PLAYER_STOPPED:
+			return "A bola parou fora de um checkpoint."
+		_:
+			return "Tente novamente."
 
 
 func _respawn_at_last_checkpoint() -> void:
+	_cancel_active_qte()
+	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = false
+	_reset_qte_barriers()
 	player.reset_attempt(get_respawn_position())
 	if camera != null:
 		camera.snap_to_target()
@@ -163,6 +192,22 @@ func _discover_checkpoints() -> void:
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
+
+
+func _detach_rope() -> void:
+	if rope != null and rope.is_player_attached():
+		rope.detach_player()
+
+
+func _cancel_active_qte() -> void:
+	var overlay := get_tree().get_first_node_in_group(QteOverlay.GROUP) as QteOverlay
+	if overlay != null:
+		overlay.cancel_qte()
+
+
+func _reset_qte_barriers() -> void:
+	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
+		barrier.reset_barrier()
 
 
 func _get_all_descendants(node: Node) -> Array[Node]:
