@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/level_ui.gd" id="1_level_ui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="2_launch_controls"]
+
+[node name="LevelUI" type="CanvasLayer" node_paths=PackedStringArray("controls")]
+script = ExtResource("1_level_ui")
+controls = NodePath("LaunchControls")
+
+[node name="LaunchControls" parent="." instance=ExtResource("2_launch_controls")]
+offset_left = 7.0
+offset_top = 7.0

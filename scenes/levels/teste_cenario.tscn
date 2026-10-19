@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
-[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="5_77htc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
@@ -12,21 +12,19 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
-[ext_resource type="Script" uid="uid://bmrg2h3darull" path="res://scripts/gameplay/follow_camera.gd" id="20_follow_camera"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "camera")]
 script = ExtResource("1_level_controller")
 level_bounds = Rect2(0, 0, 1280, 720)
-controls = NodePath("UI/LaunchControlSliders")
+controls = NodePath("UI/LaunchControls")
 camera = NodePath("Camera")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
 fator_velocidade_lancamento = 1.5
 
-[node name="Camera" type="Camera2D" parent="." unique_id=970045497 node_paths=PackedStringArray("target")]
-position_smoothing_enabled = true
-script = ExtResource("20_follow_camera")
+[node name="Camera" parent="." unique_id=970045497 node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
 target = NodePath("../Player")
 
 [node name="TrajectoryPreview" type="Node2D" parent="." unique_id=1405236732 node_paths=PackedStringArray("player")]
@@ -51,13 +49,9 @@ launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 metadata/_edit_use_anchors_ = true
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=425627]
-
-[node name="LaunchControlSliders" parent="UI" unique_id=525689675 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("5_77htc")]
-offset_left = 7.0
-offset_top = 7.0
-player = NodePath("../../Player")
-launch_controller = NodePath("../../LaunchInputController")
+[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("21_level_ui")]
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
 position = Vector2(541, 354)
