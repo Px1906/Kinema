@@ -7,21 +7,32 @@ enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
 
 @export_category("Attempt")
 @export var bounds_margin: float = 64.0
-## Área da fase em coordenadas do mundo. Vazia usa a área da tela na posição inicial.
-## Com a câmera seguindo a bola, defina este retângulo em fases maiores que a tela.
+## Área da fase em coordenadas do mundo. É a única fonte do tamanho da fase: define
+## quando a bola sai da fase (OUT_OF_BOUNDS) e os limites da câmera.
 @export var level_bounds := Rect2()
 
-@onready var player: Player = $Player
-@onready var goal_zone: GoalZone = get_node_or_null("GoalZone")
-@onready var rope: Rope = get_node_or_null("Rope")
-@onready var controls: LaunchControls = _find_launch_controls()
-@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+@export_category("Nodes")
+@export var controls: LaunchControls
+## Câmera da fase. Recebe level_bounds como limites para não mostrar fora da fase.
+@export var camera: FollowCamera
 
 var _attempt_active := false
 var _attempt_finished := false
 
+@onready var player: Player = $Player
+@onready var goal_zone: GoalZone = get_node_or_null("GoalZone")
+@onready var rope: Rope = get_node_or_null("Rope")
+@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+
 
 func _ready() -> void:
+	if not level_bounds.has_area():
+		push_warning(
+			"LevelController: defina 'Level Bounds'; usando o retângulo da tela em (0, 0)."
+		)
+		level_bounds = get_viewport_rect()
+	_apply_camera_limits()
+
 	player.launched.connect(_on_player_launched)
 	player.obstacle_hit.connect(_on_player_obstacle_hit)
 	player.stopped.connect(_on_player_stopped)
@@ -37,7 +48,7 @@ func _process(_delta: float) -> void:
 	if not _attempt_active or _attempt_finished:
 		return
 
-	var bounds := _get_level_bounds().grow(bounds_margin)
+	var bounds := level_bounds.grow(bounds_margin)
 	if not bounds.has_point(player.global_position):
 		_fail_attempt(FailureReason.OUT_OF_BOUNDS)
 
@@ -69,6 +80,8 @@ func reset_level() -> void:
 	if goal_zone != null:
 		goal_zone.reset_zone()
 	player.reset_attempt(player.get_initial_global_position())
+	if camera != null:
+		camera.snap_to_target()
 	_attempt_finished = false
 
 
@@ -88,13 +101,11 @@ func _fail_attempt(reason: FailureReason) -> void:
 		result_panel.show_result("Tentativa perdida", "A bola não alcançou o objetivo.")
 
 
-func _get_level_bounds() -> Rect2:
-	return level_bounds if level_bounds.has_area() else get_viewport_rect()
+func _apply_camera_limits() -> void:
+	if camera == null:
+		return
 
-
-func _find_launch_controls() -> LaunchControls:
-	for node in find_children("*", "PanelContainer"):
-		if node is LaunchControls:
-			return node
-
-	return null
+	camera.limit_left = floori(level_bounds.position.x)
+	camera.limit_top = floori(level_bounds.position.y)
+	camera.limit_right = ceili(level_bounds.end.x)
+	camera.limit_bottom = ceili(level_bounds.end.y)

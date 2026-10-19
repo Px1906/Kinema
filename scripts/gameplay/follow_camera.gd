@@ -1,37 +1,36 @@
 class_name FollowCamera
 extends Camera2D
 ## Câmera que segue o alvo (normalmente o Player) usando a suavização nativa do Camera2D.
-## Quando o alvo é teleportado (ex.: reset da tentativa), a câmera pula junto em vez de deslizar.
-## Use os limites do Camera2D (Limit no Inspector) para não mostrar fora da fase.
+## Não é filha do Player para poder ter limites, zoom e reposicionamento próprios.
+## Roda no passo de física, junto com o Player (RigidBody2D), para não tremer.
+## Quem teleporta o alvo (ex.: reset da tentativa) chama snap_to_target() para a câmera
+## pular junto em vez de deslizar. Os limites vêm do LevelController (level_bounds).
 
 @export var target: Node2D
-## Distância em px que o alvo precisa pular em um único frame para ser tratado como teleporte.
-@export var teleport_distance: float = 256.0
-
-var _last_target_position := Vector2.ZERO
 
 
 func _ready() -> void:
-	if target == null:
+	process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
+	if not is_instance_valid(target):
 		push_warning("FollowCamera: assign the 'Target' property in the Inspector.")
-		set_process(false)
+		set_physics_process(false)
 		return
 
-	_snap_to_target()
+	snap_to_target()
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	if not is_instance_valid(target):
+		set_physics_process(false)
+		return
+
+	global_position = target.global_position
+
+
+## Move a câmera direto para o alvo, sem a suavização.
+func snap_to_target() -> void:
 	if not is_instance_valid(target):
 		return
 
-	var target_position := target.global_position
-	global_position = target_position
-	if _last_target_position.distance_to(target_position) > teleport_distance:
-		reset_smoothing()
-	_last_target_position = target_position
-
-
-func _snap_to_target() -> void:
 	global_position = target.global_position
-	_last_target_position = global_position
 	reset_smoothing()

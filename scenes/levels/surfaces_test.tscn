@@ -13,8 +13,11 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="9_result_panel"]
 [ext_resource type="Script" path="res://scripts/gameplay/follow_camera.gd" id="20_follow_camera"]
 
-[node name="SurfacesTest" type="Node2D" unique_id=1894958845]
+[node name="SurfacesTest" type="Node2D" node_paths=PackedStringArray("controls", "camera") unique_id=1894958845]
 script = ExtResource("1_level_controller")
+level_bounds = Rect2(0, 0, 1280, 720)
+controls = NodePath("UI/LaunchControls")
+camera = NodePath("Camera")
 
 [node name="Player" parent="." unique_id=2079266309 instance=ExtResource("2_player")]
 position = Vector2(570, 355)
