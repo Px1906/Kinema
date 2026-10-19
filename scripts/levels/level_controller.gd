@@ -15,6 +15,7 @@ const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 @onready var rope: Rope = get_node_or_null("Rope")
 @onready var controls: LaunchControls = get_node_or_null("LaunchControlSliders")
 @onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+@onready var pause_menu: PauseMenu = get_node_or_null("PauseMenu")
 
 var _attempt_active := false
 var _attempt_finished := false
@@ -31,6 +32,10 @@ func _ready() -> void:
 	if result_panel != null:
 		result_panel.retry_requested.connect(_on_retry_requested)
 		result_panel.exit_requested.connect(_on_exit_requested)
+	if pause_menu != null:
+		pause_menu.restart_full_requested.connect(reset_level)
+		pause_menu.restart_checkpoint_requested.connect(_respawn_at_last_checkpoint)
+		pause_menu.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
 	_discover_checkpoints()
@@ -72,8 +77,13 @@ func _on_level_completed(_player: Player) -> void:
 func reset_level() -> void:
 	_attempt_active = false
 	_attempt_finished = true
+	_last_checkpoint = null
+	for cp in _checkpoints:
+		cp.reset_zone()
 	if goal_zone != null:
 		goal_zone.reset_zone()
+	if pause_menu != null:
+		pause_menu.has_checkpoint = false
 	player.reset_attempt(player.get_initial_global_position())
 	_attempt_finished = false
 
@@ -117,7 +127,20 @@ func _fail_attempt(reason: FailureReason) -> void:
 	_attempt_active = false
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
-	_respawn_at_last_checkpoint()
+	if result_panel != null:
+		result_panel.show_result("Tentativa falhou", _get_failure_message(reason))
+	else:
+		_respawn_at_last_checkpoint()
+
+
+func _get_failure_message(reason: FailureReason) -> String:
+	match reason:
+		FailureReason.OBSTACLE_HIT:
+			return "Você atingiu um obstáculo."
+		FailureReason.OUT_OF_BOUNDS:
+			return "A bola saiu da área."
+		_:
+			return "A tentativa falhou."
 
 
 func _respawn_at_last_checkpoint() -> void:
@@ -138,6 +161,8 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	if pause_menu != null:
+		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
 
 

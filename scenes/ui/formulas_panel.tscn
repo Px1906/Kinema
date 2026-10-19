@@ -1,0 +1,108 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/formulas_panel.gd" id="1_formulas"]
+
+[node name="FormulasPanel" type="PanelContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(360, 0)
+offset_right = 360.0
+offset_bottom = 40.0
+script = ExtResource("1_formulas")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Fórmulas"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FormulasList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="EcTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Energia Cinética"
+
+[node name="EcFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+text = "Ec = ½ · m · v²
+Unidade: Joules (J)
+m = massa (kg), v = velocidade (m/s)"
+autowrap_mode = 2
+
+[node name="EcSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+
+[node name="EpTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Energia Potencial Gravitacional"
+
+[node name="EpFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+text = "Ep = m · g · h
+Unidade: Joules (J)
+m = massa (kg), g = 9,8 m/s², h = altura (m)"
+autowrap_mode = 2
+
+[node name="EpSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+
+[node name="EtTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Energia Mecânica Total"
+
+[node name="EtFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+text = "Et = Ec + Ep
+A energia mecânica total se conserva
+quando não há forças dissipativas."
+autowrap_mode = 2
+
+[node name="EtSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+
+[node name="VelTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Velocidade"
+
+[node name="VelFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+text = "v = d / t
+Unidade: metros por segundo (m/s)
+d = distância (m), t = tempo (s)"
+autowrap_mode = 2
+
+[node name="VelSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+
+[node name="GravTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Gravidade"
+
+[node name="GravFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+layout_mode = 2
+text = "g ≈ 9,8 m/s²
+Aceleração da gravidade na superfície
+da Terra."
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Voltar"

@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="11_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432]
@@ -32,6 +33,8 @@ script = ExtResource("9_trajectory_preview")
 player = NodePath("../Player")
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("11_pause_menu")]
 
 [node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
