@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://c2g2cmet3ic7d" path="res://scripts/entities/qte_barrier.gd" id="1_qte_barrier"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+resource_local_to_scene = true
 size = Vector2(32, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+resource_local_to_scene = true
 size = Vector2(112, 128)
 
 [node name="QteBarrier" type="StaticBody2D" unique_id=480385079]

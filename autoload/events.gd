@@ -8,7 +8,5 @@ signal game_started
 signal game_paused(is_paused: bool)
 signal player_died
 
-signal qte_started(barrier: Node2D)
-signal qte_answered(barrier: Node2D, correct: bool)
-signal qte_timeout(barrier: Node2D)
-signal barrier_removed(barrier: Node2D)
+signal qte_started(barrier: QteBarrier)
+signal qte_finished(barrier: QteBarrier, correct: bool)

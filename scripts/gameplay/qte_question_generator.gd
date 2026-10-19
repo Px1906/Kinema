@@ -2,17 +2,35 @@ class_name QteQuestionGenerator
 extends RefCounted
 
 const QUESTIONS_PATH := "res://resources/qte_questions.json"
+const ZERO_VALUE_OFFSET := 0.5
 
 var _rng := RandomNumberGenerator.new()
 var _templates: Array[Dictionary] = []
 
+var _value_lookup := {
+	"KINETIC_ENERGY": &"kinetic_energy",
+	"POTENTIAL_ENERGY": &"potential_energy",
+	"TOTAL_ENERGY": &"total_energy",
+	"SPEED": &"speed",
+	"MASS": &"mass",
+}
+
+var _hint_lookup := {
+	"mass": &"mass",
+	"speed": &"speed",
+	"height": &"height",
+	"kinetic_energy": &"kinetic_energy",
+	"potential_energy": &"potential_energy",
+	"total_energy": &"total_energy",
+}
+
 
 func _init() -> void:
+	_rng.randomize()
 	_load_templates()
 
 
 func generate_random(ball_energy: BallEnergy) -> Dictionary:
-	_rng.randomize()
 	if _templates.is_empty():
 		push_error("QteQuestionGenerator: nenhum modelo de pergunta carregado.")
 		return {}
@@ -34,7 +52,7 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 	var wrong_2 := _generate_wrong_answer(correct_value, unit, min_factor, max_factor, [wrong_1])
 
 	var alternatives: Array[String] = [correct_answer, wrong_1, wrong_2]
-	_shuffle(alternatives)
+	alternatives.shuffle()
 	var correct_index := alternatives.find(correct_answer)
 
 	return {
@@ -45,19 +63,10 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 
 
 func _get_value_for_type(question_type: String, ball_energy: BallEnergy) -> float:
-	match question_type:
-		"KINETIC_ENERGY":
-			return ball_energy.kinetic_energy
-		"POTENTIAL_ENERGY":
-			return ball_energy.potential_energy
-		"TOTAL_ENERGY":
-			return ball_energy.total_energy
-		"SPEED":
-			return ball_energy.speed
-		"MASS":
-			return ball_energy.mass
-		_:
-			return 0.0
+	var property: StringName = _value_lookup.get(question_type, &"")
+	if property.is_empty():
+		return 0.0
+	return ball_energy.get(property)
 
 
 func _format_question_text(template: Dictionary, ball_energy: BallEnergy) -> String:
@@ -66,59 +75,38 @@ func _format_question_text(template: Dictionary, ball_energy: BallEnergy) -> Str
 		return text
 
 	var hints: Array = template.get("hint_values", [])
-	var values: Array[float] = []
+	var values: Array = []
 	for hint: String in hints:
-		match hint:
-			"mass":
-				values.append(ball_energy.mass)
-			"speed":
-				values.append(ball_energy.speed)
-			"height":
-				values.append(ball_energy.height)
-			"kinetic_energy":
-				values.append(ball_energy.kinetic_energy)
-			"potential_energy":
-				values.append(ball_energy.potential_energy)
-			"total_energy":
-				values.append(ball_energy.total_energy)
-			_:
-				values.append(0.0)
+		var property: StringName = _hint_lookup.get(hint, &"")
+		if property.is_empty():
+			values.append(0.0)
+		else:
+			values.append(ball_energy.get(property))
 
-	match values.size():
-		1:
-			return text % [values[0]]
-		2:
-			return text % [values[0], values[1]]
-		3:
-			return text % [values[0], values[1], values[2]]
-		_:
-			return text
+	if values.is_empty():
+		return text
+	return text % values
 
 
 func _generate_wrong_answer(correct_value: float, unit: String, min_factor: float, max_factor: float, existing_wrong: Array) -> String:
-	var attempts := 0
-	while attempts < 50:
-		attempts += 1
+	var base_value := correct_value
+	if is_zero_approx(base_value):
+		base_value = ZERO_VALUE_OFFSET
+
+	for attempt in 50:
 		var factor := _rng.randf_range(min_factor, max_factor)
 		if _rng.randf() < 0.5:
 			factor = 1.0 / factor
-		var wrong_value := correct_value * factor
-		if wrong_value < 0.0:
-			wrong_value = absf(wrong_value)
+		var wrong_value := base_value * factor
 		var wrong_text := _format_value(wrong_value, unit)
 
 		if wrong_text == _format_value(correct_value, unit):
 			continue
-		var is_duplicate := false
-		for existing: String in existing_wrong:
-			if wrong_text == existing:
-				is_duplicate = true
-				break
-		if is_duplicate:
+		if existing_wrong.has(wrong_text):
 			continue
 		return wrong_text
 
-	return _format_value(correct_value * 2.0, unit)
+	return _format_value(base_value * 2.0 + ZERO_VALUE_OFFSET, unit)
 
 
 func _format_value(value: float, unit: String) -> String:
@@ -128,26 +116,26 @@ func _format_value(value: float, unit: String) -> String:
 	return "%.1f %s" % [rounded, unit]
 
 
-func _shuffle(arr: Array[String]) -> void:
-	for i in range(arr.size() - 1, 0, -1):
-		var j := _rng.randi_range(0, i)
-		var temp := arr[i]
-		arr[i] = arr[j]
-		arr[j] = temp
-
-
 func _load_templates() -> void:
 	if not FileAccess.file_exists(QUESTIONS_PATH):
 		push_error("QteQuestionGenerator: arquivo não encontrado: %s" % QUESTIONS_PATH)
 		return
 
 	var file := FileAccess.open(QUESTIONS_PATH, FileAccess.READ)
+	if file == null:
+		push_error("QteQuestionGenerator: falha ao abrir: %s" % QUESTIONS_PATH)
+		return
+
 	var json := JSON.new()
 	var error := json.parse(file.get_as_text())
 	file.close()
 
 	if error != OK:
 		push_error("QteQuestionGenerator: erro ao ler JSON: %s" % json.get_error_message())
+		return
+
+	if not json.data is Array:
+		push_error("QteQuestionGenerator: JSON raiz não é um Array.")
 		return
 
 	var data: Array = json.data

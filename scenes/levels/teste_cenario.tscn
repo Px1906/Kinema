@@ -103,7 +103,7 @@ position = Vector2(1263, 202)
 position = Vector2(641, 444)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
-position = Vector2(1143, 441)
+position = Vector2(769, 333)
 
 [node name="QteBarrier" parent="." unique_id=1497302973 instance=ExtResource("16_tgs1u")]
 position = Vector2(476, 428)

@@ -20,7 +20,6 @@ var _attempt_active := false
 var _attempt_finished := false
 var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
-var _qte_barriers: Array[QteBarrier] = []
 
 
 func _ready() -> void:
@@ -34,8 +33,8 @@ func _ready() -> void:
 		result_panel.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
+	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
-	_discover_qte_barriers()
 
 
 func _process(_delta: float) -> void:
@@ -64,6 +63,7 @@ func _on_player_stopped() -> void:
 
 
 func _on_level_completed(_player: Player) -> void:
+	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
 	print_debug("LevelController: goal reached; level completed.")
@@ -72,6 +72,8 @@ func _on_level_completed(_player: Player) -> void:
 
 
 func reset_level() -> void:
+	_cancel_active_qte()
+	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = true
 	if goal_zone != null:
@@ -112,10 +114,16 @@ static func resume_game(tree: SceneTree) -> bool:
 	return true
 
 
+func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
+	if correct:
+		barrier.remove_barrier()
+
+
 func _fail_attempt(reason: FailureReason) -> void:
 	if _attempt_finished:
 		return
 
+	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
@@ -139,6 +147,8 @@ func _get_failure_message(reason: FailureReason) -> String:
 
 
 func _respawn_at_last_checkpoint() -> void:
+	_cancel_active_qte()
+	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = false
 	_reset_qte_barriers()
@@ -160,14 +170,19 @@ func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
 
 
-func _discover_qte_barriers() -> void:
-	for child: Node in _get_all_descendants(self):
-		if child is QteBarrier:
-			_qte_barriers.append(child)
+func _detach_rope() -> void:
+	if rope != null and rope.is_player_attached():
+		rope.detach_player()
+
+
+func _cancel_active_qte() -> void:
+	var overlay := get_tree().get_first_node_in_group(QteOverlay.GROUP) as QteOverlay
+	if overlay != null:
+		overlay.cancel_qte()
 
 
 func _reset_qte_barriers() -> void:
-	for barrier: QteBarrier in _qte_barriers:
+	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
 		barrier.reset_barrier()
 
 
