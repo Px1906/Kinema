@@ -31,7 +31,7 @@ script = ExtResource("4_rtdc3")
 
 [node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
 position = Vector2(137, 471)
-fator_velocidade_lancamento = 1.5
+fator_velocidade_lancamento = 0.4
 
 [node name="Camera" parent="." unique_id=970045497 node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
 target = NodePath("../Player")
