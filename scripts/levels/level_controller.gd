@@ -27,6 +27,7 @@ var _last_checkpoint: CheckpointZone = null
 @onready var player: Player = $Player
 @onready var rope: Rope = get_node_or_null("Rope")
 @onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
+@onready var pause_menu: PauseMenu = get_node_or_null("PauseMenu")
 
 
 func _ready() -> void:
@@ -45,6 +46,10 @@ func _ready() -> void:
 	if result_panel != null:
 		result_panel.retry_requested.connect(_on_retry_requested)
 		result_panel.exit_requested.connect(_on_exit_requested)
+	if pause_menu != null:
+		pause_menu.restart_full_requested.connect(reset_level)
+		pause_menu.restart_checkpoint_requested.connect(_respawn_at_last_checkpoint)
+		pause_menu.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
 	Events.qte_finished.connect(_on_qte_finished)
@@ -91,9 +96,14 @@ func reset_level() -> void:
 	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = true
+	_last_checkpoint = null
+	for cp in _checkpoints:
+		cp.reset_zone()
 	if goal_zone != null:
 		goal_zone.reset_zone()
 	_reset_qte_barriers()
+	if pause_menu != null:
+		pause_menu.has_checkpoint = false
 	player.reset_attempt(player.get_initial_global_position())
 	if camera != null:
 		camera.snap_to_target()
@@ -178,6 +188,8 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	if pause_menu != null:
+		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
 
 

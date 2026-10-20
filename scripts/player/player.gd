@@ -159,8 +159,11 @@ func _reset_to_ready() -> void:
 	angular_velocity = 0.0
 	_stop_detection_time = 0.0
 	_obstacle_hit_queued = false
+	launch_velocity = Vector2.ZERO
 	set_physics_process(false)
-	_set_state(State.READY)
+	_state = State.READY
+	state_changed.emit(_state)
+	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 
 
 func get_min_launch_angle() -> float:
