@@ -25,6 +25,23 @@ controls = NodePath("UI/LaunchControls")
 goal_zone = NodePath("Zones/GoalZone")
 camera = NodePath("Camera")
 
+[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1338.0
+offset_top = 96.0
+offset_right = 1633.0
+offset_bottom = 356.0
+script = ExtResource("4_afiys")
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
+metadata/_custom_type_script = "uid://dbtiyy8up8knr"
+
+[node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
+script = ExtResource("8_launch_input")
+player = NodePath("../Player")
+rope = NodePath("../Rope")
+
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
 position = Vector2(0, 685)
 script = ExtResource("4_rtdc3")
@@ -42,27 +59,9 @@ player = NodePath("../Player")
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
-[node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1338.0
-offset_top = 96.0
-offset_right = 1633.0
-offset_bottom = 356.0
-script = ExtResource("4_afiys")
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
-metadata/_custom_type_script = "uid://dbtiyy8up8knr"
-metadata/_edit_use_anchors_ = true
-
 [node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("21_level_ui")]
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
-
-[node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
-script = ExtResource("8_launch_input")
-player = NodePath("../Player")
-rope = NodePath("../Rope")
 
 [node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
 position = Vector2(977, 162)
@@ -82,7 +81,7 @@ is_obstacle = true
 position = Vector2(140, 502)
 
 [node name="PlatformSurface3" parent="Surfaces/Platforms" unique_id=1910304018 instance=ExtResource("7_afiys")]
-position = Vector2(639, 498)
+position = Vector2(732, 497)
 
 [node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
@@ -98,7 +97,7 @@ position = Vector2(1263, 202)
 [node name="Zones" type="Node" parent="." unique_id=1550378790]
 
 [node name="CheckpointZone" parent="Zones" unique_id=1258635173 instance=ExtResource("13_rwtns")]
-position = Vector2(641, 444)
+position = Vector2(733, 449)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
 position = Vector2(769, 333)
