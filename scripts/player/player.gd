@@ -138,33 +138,29 @@ func release_brake() -> void:
 
 
 func prepare_launch() -> void:
-	release_brake()
-	freeze = true
-	sleeping = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	_stop_detection_time = 0.0
-	_obstacle_hit_queued = false
-	set_physics_process(false)
-	_set_state(State.READY)
+	_reset_to_ready()
 	queue_redraw()
 
 
 func reset_attempt(start_position: Vector2) -> void:
+	_reset_to_ready()
+	global_position = start_position
+	_pending_reset_position = start_position
+	_reset_pending = true
+	reset_physics_interpolation()
+	queue_redraw()
+
+
+func _reset_to_ready() -> void:
 	release_brake()
 	freeze = true
 	sleeping = true
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
-	global_position = start_position
-	_pending_reset_position = start_position
-	_reset_pending = true
-	reset_physics_interpolation()
 	_stop_detection_time = 0.0
 	_obstacle_hit_queued = false
 	set_physics_process(false)
 	_set_state(State.READY)
-	queue_redraw()
 
 
 func get_min_launch_angle() -> float:
