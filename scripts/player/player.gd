@@ -193,6 +193,13 @@ func get_collision_radius() -> float:
 	return radius
 
 
+func get_ball_energy() -> BallEnergy:
+	for child in get_children():
+		if child is BallEnergy:
+			return child
+	return null
+
+
 func attach_to(anchor_global_position: Vector2) -> void:
 	if _state == State.ATTACHED:
 		return
