@@ -18,18 +18,20 @@ const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 @export var goal_zone: GoalZone
 ## Câmera da fase. Recebe level_bounds como limites para não mostrar fora da fase.
 @export var camera: FollowCamera
+@export var player: Player
+## Opcional. A corda da fase, também usada pelos controles de lançamento.
+@export var rope: Rope
+## Opcional. Sem painel, a bola volta direto ao último checkpoint ao falhar.
+@export var result_panel: AttemptResultPanel
 
 var _attempt_active := false
 var _attempt_finished := false
 var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
 
-@onready var player: Player = $Player
-@onready var rope: Rope = get_node_or_null("Rope")
-@onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
-
 
 func _ready() -> void:
+	_find_unassigned_nodes()
 	if not level_bounds.has_area():
 		push_warning(
 			"LevelController: defina 'Level Bounds'; usando o retângulo da tela em (0, 0)."
@@ -49,6 +51,17 @@ func _ready() -> void:
 		controls.rope = rope
 	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
+
+
+## Fases que não herdam de base_level.tscn não ligam esses nós no Inspector;
+## nelas, eles são filhos diretos da raiz com o nome padrão.
+func _find_unassigned_nodes() -> void:
+	if player == null:
+		player = get_node_or_null("Player") as Player
+	if rope == null:
+		rope = get_node_or_null("Rope") as Rope
+	if result_panel == null:
+		result_panel = get_node_or_null("AttemptResultPanel") as AttemptResultPanel
 
 
 func _process(_delta: float) -> void:

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bxylwkj36jcac"]
+
+[ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
+[ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="2_floor"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="3_platform"]
+
+[node name="FaseTutorial" instance=ExtResource("1_base_level")]
+
+[node name="Player" parent="." index="0"]
+position = Vector2(140, 474)
+fator_velocidade_lancamento = 0.4
+
+[node name="HeightReference" parent="Level" index="0"]
+position = Vector2(0, 685)
+
+[node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" instance=ExtResource("2_floor")]
+position = Vector2(640, 717)
+is_obstacle = true
+
+[node name="StartPlatform" parent="Level/Surfaces/Platforms" index="0" instance=ExtResource("3_platform")]
+position = Vector2(140, 502)
+
+[node name="GoalPlatform" parent="Level/Surfaces/Platforms" index="1" instance=ExtResource("3_platform")]
+position = Vector2(1100, 502)
+
+[node name="GoalZone" parent="Level/Zones" index="1"]
+position = Vector2(1100, 458)
