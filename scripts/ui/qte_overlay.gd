@@ -15,9 +15,9 @@ const STYLE_STATES: Array[StringName] = [&"normal", &"hover", &"pressed", &"disa
 @export var qte_duration: float = 30.0
 @export_range(0.0001, 1.0, 0.0001) var slow_motion_scale: float = 0.001
 
-@export_category("Audio")
-@export var correct_sound: AudioStream
-@export var wrong_sound: AudioStream
+@export_category("Reactions")
+@export var correct_reactions: Array[QteReaction] = []
+@export var wrong_reactions: Array[QteReaction] = []
 @export var audio_bus: StringName = &"SFX"
 
 @export_category("Timing")
@@ -141,15 +141,12 @@ func _on_qte_finished(_barrier: QteBarrier, correct: bool) -> void:
 
 
 func _handle_correct() -> void:
-	_play_sound(correct_sound)
-	if _reward_sprite != null:
-		_reward_sprite.visible = true
-		_reward_sprite.play()
+	_play_reaction(correct_reactions)
 	_animate_out()
 
 
 func _handle_wrong() -> void:
-	_play_sound(wrong_sound)
+	_play_reaction(wrong_reactions)
 	_animate_out()
 
 
@@ -176,11 +173,21 @@ func _animate_out() -> void:
 	_exit_tween.finished.connect(_hide_overlay)
 
 
-func _play_sound(stream: AudioStream) -> void:
-	if stream == null or _audio_player == null:
+func _play_reaction(reactions: Array[QteReaction]) -> void:
+	if reactions.is_empty():
 		return
-	_audio_player.stream = stream
-	_audio_player.play()
+
+	var reaction: QteReaction = reactions.pick_random()
+
+	if reaction.sound != null and _audio_player != null:
+		_audio_player.stream = reaction.sound
+		_audio_player.play()
+
+	if reaction.sprite_frames != null and _reward_sprite != null:
+		_reward_sprite.sprite_frames = reaction.sprite_frames
+		_reward_sprite.animation = reaction.animation_name
+		_reward_sprite.visible = true
+		_reward_sprite.play()
 
 
 func _on_time_updated(time_remaining: float) -> void:
