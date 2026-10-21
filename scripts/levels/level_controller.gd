@@ -40,6 +40,15 @@ const BOUNDS_DASH_LENGTH := 8.0
 ## Opcional. Sem menu de pausa, a fase não pode ser pausada.
 @export var pause_menu: PauseMenu
 
+@export_category("Audio")
+@export var launch_sound: AudioStream
+@export var obstacle_hit_sound: AudioStream
+@export var out_of_bounds_sound: AudioStream
+@export var checkpoint_sound: AudioStream
+@export var level_complete_sound: AudioStream
+@export var rope_attach_sound: AudioStream
+@export var rope_release_sound: AudioStream
+
 ## Limites da fase em coordenadas do mundo, lidos de bounds_rect no _ready.
 var level_bounds := Rect2()
 var _attempt_active := false
@@ -79,6 +88,7 @@ func _ready() -> void:
 		pause_menu.exit_requested.connect(_on_exit_requested)
 	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
+	_connect_ropes()
 
 
 ## Fases que não herdam de base_level.tscn não ligam esses nós no Inspector;
@@ -140,6 +150,7 @@ func _draw_dashed_rect(rect: Rect2, color: Color) -> void:
 
 
 func _on_player_launched(_velocity: Vector2) -> void:
+	_play_sfx(launch_sound)
 	if camera != null:
 		camera.follow_target()
 	_attempt_active = true
@@ -168,6 +179,7 @@ func _on_level_completed(_player: Player) -> void:
 	_attempt_finished = true
 	_attempt_active = false
 	_save_progress()
+	_play_sfx(level_complete_sound)
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
 		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
@@ -226,6 +238,11 @@ func _fail_attempt(reason: FailureReason) -> void:
 	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
+	match reason:
+		FailureReason.OBSTACLE_HIT:
+			_play_sfx(obstacle_hit_sound)
+		FailureReason.OUT_OF_BOUNDS:
+			_play_sfx(out_of_bounds_sound)
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
 	if result_panel != null:
@@ -268,6 +285,7 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	_play_sfx(checkpoint_sound)
 	if pause_menu != null:
 		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
@@ -312,3 +330,25 @@ func _apply_camera_limits() -> void:
 	camera.limit_top = floori(level_bounds.position.y)
 	camera.limit_right = ceili(level_bounds.end.x)
 	camera.limit_bottom = ceili(level_bounds.end.y)
+
+
+func _connect_ropes() -> void:
+	for node: Node in get_tree().get_nodes_in_group(Rope.GROUP):
+		var rope := node as Rope
+		if rope == null:
+			continue
+		rope.player_attached.connect(_on_rope_attached)
+		rope.player_detached.connect(_on_rope_detached)
+
+
+func _on_rope_attached(_player: Player) -> void:
+	_play_sfx(rope_attach_sound)
+
+
+func _on_rope_detached(_player: Player) -> void:
+	_play_sfx(rope_release_sound)
+
+
+func _play_sfx(stream: AudioStream) -> void:
+	if stream != null:
+		SFXPool.play(stream)
