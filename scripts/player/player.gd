@@ -275,6 +275,8 @@ func _update_collision_shape() -> void:
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
+	# Traço do centro até a borda, em coordenadas locais: gira junto com a bola.
+	draw_line(Vector2.ZERO, Vector2.RIGHT * radius, Color.WHITE, OUTLINE_WIDTH)
 
 	if _state == State.READY:
 		_draw_launch_arrow()
