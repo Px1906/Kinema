@@ -17,7 +17,7 @@ bounce = 0.55
 position = Vector2(140, 474)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 2.5
-fator_velocidade_lancamento = 0.6
+fator_velocidade_lancamento = 0.9
 
 [node name="AttemptResultPanel" parent="Interface" index="1"]
 visible = false
