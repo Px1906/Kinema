@@ -3,12 +3,6 @@ extends VBoxContainer
 
 @export var player: Player
 @export var launch_controller: LaunchInputController
-@export var rope: Rope:
-	set(value):
-		_disconnect_rope()
-		rope = value
-		if is_node_ready():
-			_connect_rope()
 
 @onready var _toggle_button: Button = %ToggleButton
 @onready var _sliders_box: Control = %SlidersBox
@@ -45,10 +39,9 @@ func _ready() -> void:
 	_angle_slider.value_changed.connect(_on_slider_changed)
 	_launch_button.pressed.connect(launch_controller.launch)
 	_release_button.pressed.connect(launch_controller.release)
-	_release_button.disabled = true
 	player.launch_parameters_changed.connect(_on_player_params_changed)
 	player.state_changed.connect(_on_player_state_changed)
-	_connect_rope()
+	_on_player_state_changed(player.get_state())
 	# The Launch button remains visible and is disabled after launching.
 	player.launched.connect(func(_v: Vector2) -> void: _launch_button.disabled = true)
 
@@ -58,25 +51,6 @@ func _ready() -> void:
 
 func _on_toggle_button_toggled(is_open: bool) -> void:
 	_sliders_box.visible = is_open
-
-
-func _connect_rope() -> void:
-	if rope == null:
-		return
-
-	rope.player_attached.connect(_on_player_attached)
-	rope.player_detached.connect(_on_player_detached)
-	_release_button.disabled = not rope.is_player_attached()
-
-
-func _disconnect_rope() -> void:
-	if rope == null:
-		return
-
-	if rope.player_attached.is_connected(_on_player_attached):
-		rope.player_attached.disconnect(_on_player_attached)
-	if rope.player_detached.is_connected(_on_player_detached):
-		rope.player_detached.disconnect(_on_player_detached)
 
 
 # Slider -> Player
@@ -92,13 +66,7 @@ func _on_player_params_changed(speed: float, angle: float) -> void:
 	_angle_label.text = "Ângulo: %d°" % angle
 
 
-func _on_player_attached(_attached_player: Player) -> void:
-	_release_button.disabled = false
-
-
-func _on_player_detached(_detached_player: Player) -> void:
-	_release_button.disabled = true
-
-
+## Soltar vale para qualquer corda da fase: basta a bola estar presa (ATTACHED).
 func _on_player_state_changed(state: Player.State) -> void:
 	_launch_button.disabled = state != Player.State.READY
+	_release_button.disabled = state != Player.State.ATTACHED

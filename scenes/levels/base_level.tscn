@@ -12,10 +12,9 @@
 [ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
 
-[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "controls", "goal_zone", "camera", "player", "result_panel")]
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel")]
 script = ExtResource("1_level_controller")
 bounds_rect = NodePath("Level/LevelBounds")
-controls = NodePath("Interface/UI/LaunchControls")
 goal_zone = NodePath("Level/Zones/GoalZone")
 camera = NodePath("Camera")
 player = NodePath("Player")

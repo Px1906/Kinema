@@ -31,13 +31,10 @@ const BOUNDS_DASH_LENGTH := 8.0
 		queue_redraw()
 
 @export_category("Nodes")
-@export var controls: LaunchControls
 @export var goal_zone: GoalZone
 ## Câmera da fase. Recebe level_bounds como limites para não mostrar fora da fase.
 @export var camera: FollowCamera
 @export var player: Player
-## Opcional. A corda da fase, também usada pelos controles de lançamento.
-@export var rope: Rope
 ## Opcional. Sem painel, a bola volta direto ao último checkpoint ao falhar.
 @export var result_panel: AttemptResultPanel
 ## Opcional. Sem menu de pausa, a fase não pode ser pausada.
@@ -80,8 +77,6 @@ func _ready() -> void:
 		pause_menu.restart_full_requested.connect(reset_level)
 		pause_menu.restart_checkpoint_requested.connect(_respawn_at_last_checkpoint)
 		pause_menu.exit_requested.connect(_on_exit_requested)
-	if controls != null:
-		controls.rope = rope
 	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
 
@@ -91,8 +86,6 @@ func _ready() -> void:
 func _find_unassigned_nodes() -> void:
 	if player == null:
 		player = get_node_or_null("Player") as Player
-	if rope == null:
-		rope = get_node_or_null("Rope") as Rope
 	if result_panel == null:
 		result_panel = get_node_or_null("AttemptResultPanel") as AttemptResultPanel
 	if pause_menu == null:
@@ -281,7 +274,8 @@ func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 
 
 func _detach_rope() -> void:
-	if rope != null and rope.is_player_attached():
+	var rope := Rope.get_attached_rope(get_tree())
+	if rope != null:
 		rope.detach_player()
 
 

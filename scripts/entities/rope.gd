@@ -8,6 +8,7 @@ signal player_exited(player: Player)
 signal player_attached(player: Player)
 signal player_detached(player: Player)
 
+const GROUP := &"rope"
 const MIN_WIDTH := 1.0
 const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
@@ -50,7 +51,17 @@ var _area_animation_base_scale := Vector2.ONE
 @onready var area_animation: AnimatedSprite2D = $AnimatedSprite2D
 
 
+## A corda que está segurando a bola agora, entre todas as da fase; null se nenhuma.
+static func get_attached_rope(tree: SceneTree) -> Rope:
+	for node: Node in tree.get_nodes_in_group(GROUP):
+		var rope := node as Rope
+		if rope != null and rope.is_player_attached():
+			return rope
+	return null
+
+
 func _ready() -> void:
+	add_to_group(GROUP)
 	set_physics_process(false)
 	_area_animation_base_scale = area_animation.scale
 	_update_detection_shape()

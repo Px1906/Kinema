@@ -2,14 +2,13 @@ class_name LaunchInputController
 extends Node
 
 @export var player: Player
-@export var rope: Rope
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("launch"):
 		return
 
-	if rope != null and rope.is_player_attached():
+	if Rope.get_attached_rope(get_tree()) != null:
 		release()
 	else:
 		launch()
@@ -22,7 +21,9 @@ func launch() -> void:
 	player.launch()
 
 
+## Solta a bola de qualquer corda da fase que a esteja segurando.
 func release() -> void:
+	var rope := Rope.get_attached_rope(get_tree())
 	if rope == null:
 		return
 
