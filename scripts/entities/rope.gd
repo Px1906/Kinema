@@ -1,5 +1,8 @@
+@tool
 class_name Rope
 extends Node2D
+## @tool só para o editor mostrar o detection_radius ao vivo; a lógica de jogo é
+## protegida por Engine.is_editor_hint().
 
 signal activated
 signal deactivated
@@ -61,11 +64,14 @@ static func get_attached_rope(tree: SceneTree) -> Rope:
 
 
 func _ready() -> void:
-	add_to_group(GROUP)
 	set_physics_process(false)
 	_area_animation_base_scale = area_animation.scale
 	_update_detection_shape()
 	_update_area_animation_scale()
+	if Engine.is_editor_hint():
+		return
+
+	add_to_group(GROUP)
 	area_animation.visible = true
 	area_animation.play()
 	detection_area.body_entered.connect(_on_detection_area_body_entered)

@@ -80,6 +80,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_detection"]
+resource_local_to_scene = true
 radius = 160.0
 
 [node name="Rope" type="Node2D" unique_id=1649269198]
