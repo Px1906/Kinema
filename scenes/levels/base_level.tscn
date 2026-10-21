@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/qte_overlay.tscn" id="9_qte_overlay"]
 [ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
+[ext_resource type="Script" path="res://scripts/gameplay/audio_controller.gd" id="12_audio_controller"]
 
 [node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel")]
 script = ExtResource("1_level_controller")
@@ -41,6 +42,12 @@ anchors_preset = 0
 script = ExtResource("6_mouse_control")
 player = NodePath("../../Player")
 launch_controller = NodePath("../LaunchInputController")
+
+[node name="AudioController" type="Node" parent="Gameplay" node_paths=PackedStringArray("player", "level_controller", "goal_zone")]
+script = ExtResource("12_audio_controller")
+player = NodePath("../../Player")
+level_controller = NodePath("../..")
+goal_zone = NodePath("../../Level/Zones/GoalZone")
 
 [node name="Interface" type="Node" parent="."]
 
