@@ -55,10 +55,10 @@ is_obstacle = true
 position = Vector2(140, 502)
 
 [node name="S1_Plataforma1" parent="Level/Surfaces/Platforms" index="1" unique_id=1556819007 instance=ExtResource("3_platform")]
-position = Vector2(441, 500)
+position = Vector2(488, 503)
 
 [node name="S1_Plataforma2" parent="Level/Surfaces/Platforms" index="2" unique_id=1387306384 instance=ExtResource("3_platform")]
-position = Vector2(734, 446)
+position = Vector2(1150, 400)
 
 [node name="S2_Degrau1" parent="Level/Surfaces/Platforms" index="3" unique_id=2123932505 instance=ExtResource("3_platform")]
 position = Vector2(1650, 150)
@@ -87,9 +87,6 @@ position = Vector2(6800, -1400)
 [node name="GoalPlatform" parent="Level/Surfaces/Platforms" index="11" unique_id=1260196801 instance=ExtResource("3_platform")]
 position = Vector2(7350, -1650)
 
-[node name="S1_Plataforma3" parent="Level/Surfaces/Platforms" index="12" unique_id=1398055183 instance=ExtResource("3_platform")]
-position = Vector2(1149, 400)
-
 [node name="Checkpoint1" parent="Level/Zones/Checkpoints" index="0" unique_id=1761897819 instance=ExtResource("4_qpfod")]
 position = Vector2(1150, 356)
 checkpoint_index = 1
@@ -114,8 +111,8 @@ checkpoint_index = 5
 position = Vector2(7350, -1694)
 
 [node name="S3_Corda" parent="Level/Ropes" index="0" unique_id=1017580831 instance=ExtResource("5_rope")]
-position = Vector2(3200, -950)
-detection_radius = 260.0
+position = Vector2(3196, -703)
+detection_radius = 1394.0
 
 [node name="S5_Corda" parent="Level/Ropes" index="1" unique_id=888749792 instance=ExtResource("5_rope")]
 position = Vector2(5500, -1500)
