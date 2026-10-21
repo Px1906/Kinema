@@ -27,6 +27,10 @@ SaveManager="*res://autoload/save_manager.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[gui]
+
+timers/tooltip_delay_sec=3.0
+
 [input]
 
 launch={
