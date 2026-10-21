@@ -40,25 +40,29 @@ func _snap_to_start_node() -> void:
 		global_position = start_node.global_position
 
 
+## Eixos tracejados com origem no marcador: o horizontal é a altura zero e o
+## vertical marca o x de partida.
 func _draw() -> void:
-	var span := _get_line_span()
+	var area := _get_local_area()
 	draw_dashed_line(
-		Vector2(span.x, 0.0), Vector2(span.y, 0.0), line_color, LINE_WIDTH, LINE_DASH_LENGTH
+		Vector2(area.position.x, 0.0), Vector2(area.end.x, 0.0),
+		line_color, LINE_WIDTH, LINE_DASH_LENGTH
+	)
+	draw_dashed_line(
+		Vector2(0.0, area.position.y), Vector2(0.0, area.end.y),
+		line_color, LINE_WIDTH, LINE_DASH_LENGTH
 	)
 
 
-## Extremos x (locais) do tracejado: a largura da fase, lida do bounds_rect do
-## LevelController; sem ele, um traço curto em volta do marcador.
-func _get_line_span() -> Vector2:
+## Área (local) coberta pelos eixos: a fase inteira, lida do bounds_rect do
+## LevelController; sem ele, um quadrado curto em volta do marcador.
+func _get_local_area() -> Rect2:
 	var level := owner as LevelController
 	if level == null or level.bounds_rect == null:
-		return Vector2(-LINE_HALF_LENGTH, LINE_HALF_LENGTH)
+		return Rect2(-Vector2.ONE * LINE_HALF_LENGTH, Vector2.ONE * LINE_HALF_LENGTH * 2.0)
 
 	var bounds := level.bounds_rect.get_global_rect()
-	return Vector2(
-		to_local(Vector2(bounds.position.x, global_position.y)).x,
-		to_local(Vector2(bounds.end.x, global_position.y)).x
-	)
+	return Rect2(to_local(bounds.position), Vector2.ZERO).expand(to_local(bounds.end))
 
 
 ## Altura em metros de um ponto global acima desta referência.
