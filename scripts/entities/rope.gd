@@ -192,7 +192,7 @@ func _get_tangent() -> Vector2:
 
 
 func _get_tangential_velocity() -> Vector2:
-	return _get_tangent() * _angular_velocity * detection_radius
+	return _get_tangent() * _angular_velocity * _rope_length
 
 
 func _get_gravity() -> float:

@@ -26,7 +26,7 @@ position = Vector2(570, 355)
 [node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
 target = NodePath("../Player")
 
-[node name="TrajectoryPreview" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=2116085463 node_paths=PackedStringArray("player")]
 script = ExtResource("8_trajectory_preview")
 player = NodePath("../Player")
 [node name="GoalZone" parent="." instance=ExtResource("8_goal_zone")]

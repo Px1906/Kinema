@@ -7,3 +7,6 @@ const OBSTACLE_GROUP: StringName = &"obstacle"
 signal game_started
 signal game_paused(is_paused: bool)
 signal player_died
+
+signal qte_started(barrier: QteBarrier)
+signal qte_finished(barrier: QteBarrier, correct: bool)

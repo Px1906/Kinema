@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_xhx2m"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="4_afiys"]
-[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
+[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="4_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="6_rtdc3"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="6_xhx2m"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface.tscn" id="7_5ta8y"]
@@ -12,9 +13,11 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="9_goal_zone"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="9_trajectory_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="10_result_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="11_pause_menu"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="13_rwtns"]
+[ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="16_tgs1u"]
+[ext_resource type="PackedScene" uid="uid://obid8vkxqq6a" path="res://scenes/ui/qte_overlay.tscn" id="17_qte_overlay"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
-[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="21_level_ui"]
 
 [node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "rope", "camera")]
 script = ExtResource("1_level_controller")
@@ -24,22 +27,7 @@ goal_zone = NodePath("Zones/GoalZone")
 rope = NodePath("Ropes/Rope")
 camera = NodePath("Camera")
 
-[node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
-position = Vector2(0, 685)
-script = ExtResource("4_rtdc3")
-
-[node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
-position = Vector2(137, 471)
-fator_velocidade_lancamento = 1.5
-
-[node name="Camera" parent="." unique_id=970045497 node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
-target = NodePath("../Player")
-
-[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=1405236732 node_paths=PackedStringArray("player")]
-script = ExtResource("9_trajectory_preview")
-player = NodePath("../Player")
-
-[node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
+[node name="PauseMenu" parent="." instance=ExtResource("11_pause_menu")]
 
 [node name="MouseControlArea" type="Control" parent="." unique_id=378341689 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
@@ -52,17 +40,33 @@ script = ExtResource("4_afiys")
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
 metadata/_custom_type_script = "uid://dbtiyy8up8knr"
-metadata/_edit_use_anchors_ = true
-
-[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("21_level_ui")]
-player = NodePath("../Player")
-launch_controller = NodePath("../LaunchInputController")
-camera = NodePath("../Camera")
 
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("8_launch_input")
 player = NodePath("../Player")
 rope = NodePath("../Ropes/Rope")
+
+[node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
+position = Vector2(0, 685)
+script = ExtResource("4_rtdc3")
+
+[node name="Player" parent="." unique_id=1362402254 instance=ExtResource("2_xhx2m")]
+position = Vector2(137, 471)
+fator_velocidade_lancamento = 0.4
+
+[node name="Camera" parent="." unique_id=970045497 node_paths=PackedStringArray("target") instance=ExtResource("20_follow_camera")]
+target = NodePath("../Player")
+
+[node name="TrajectoryPreview" type="Node2D" parent="." unique_id=1405236732 node_paths=PackedStringArray("player")]
+script = ExtResource("9_trajectory_preview")
+player = NodePath("../Player")
+
+[node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
+
+[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("21_level_ui")]
+player = NodePath("../Player")
+launch_controller = NodePath("../LaunchInputController")
+camera = NodePath("../Camera")
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]
 
@@ -78,7 +82,7 @@ is_obstacle = true
 position = Vector2(140, 502)
 
 [node name="PlatformSurface3" parent="Surfaces/Platforms" unique_id=1910304018 instance=ExtResource("7_afiys")]
-position = Vector2(639, 498)
+position = Vector2(732, 497)
 
 [node name="PlatformSurface2" parent="Surfaces/Platforms" unique_id=637604884 instance=ExtResource("7_afiys")]
 position = Vector2(1152, 492)
@@ -94,13 +98,21 @@ position = Vector2(1263, 202)
 [node name="Zones" type="Node" parent="." unique_id=1550378790]
 
 [node name="CheckpointZone" parent="Zones" unique_id=1258635173 instance=ExtResource("13_rwtns")]
-position = Vector2(641, 444)
+position = Vector2(733, 449)
 
 [node name="GoalZone" parent="Zones" unique_id=1542026926 instance=ExtResource("9_goal_zone")]
-position = Vector2(1143, 441)
+position = Vector2(769, 333)
+
+[node name="QteBarrier" parent="." unique_id=1497302973 instance=ExtResource("16_tgs1u")]
+position = Vector2(476, 428)
+trigger_distance = 100.0
+
+[node name="QteOverlay" parent="." unique_id=1374925807 node_paths=PackedStringArray("player") instance=ExtResource("17_qte_overlay")]
+player = NodePath("../Player")
+slow_motion_scale = 0.0001
 
 [node name="Ropes" type="Node" parent="." unique_id=632698247]
 
 [node name="Rope" parent="Ropes" unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(541, 354)
+position = Vector2(977, 162)
 detection_radius = 105.0

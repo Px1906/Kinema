@@ -19,11 +19,50 @@ theme_override_font_sizes/font_size = 28
 text = "Opções"
 horizontal_alignment = 1
 
-[node name="OptionsPlaceholder" type="Label" parent="VBoxContainer"]
+[node name="MasterLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "As opções serão adicionadas aqui."
-horizontal_alignment = 1
-autowrap_mode = 3
+text = "Volume Master"
+
+[node name="MasterSlider" type="HSlider" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="SFXLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Volume SFX"
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Volume Música"
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="WindowButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Janela: Modo janela"
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
