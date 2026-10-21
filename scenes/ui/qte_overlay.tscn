@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://cxf2mxf24mfvx"]
+[gd_scene format=3 uid="uid://obid8vkxqq6a"]
+
+[ext_resource type="Script" uid="uid://u6y1auqeir3d" path="res://scripts/ui/qte_overlay.gd" id="1_qte_overlay"]
 
 [node name="QteOverlay" type="CanvasLayer" unique_id=580786387]
 layer = 10
+script = ExtResource("1_qte_overlay")
 
 [node name="Vignette" type="ColorRect" parent="." unique_id=2013760052]
 unique_name_in_owner = true

@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
+[ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="3_follow_camera"]
+[ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="4_launch_input"]
+[ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="5_trajectory_preview"]
+[ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="6_mouse_control"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="7_level_ui"]
+[ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="8_result_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/qte_overlay.tscn" id="9_qte_overlay"]
+[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
+[ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
+
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel")]
+script = ExtResource("1_level_controller")
+bounds_rect = NodePath("Level/LevelBounds")
+goal_zone = NodePath("Level/Zones/GoalZone")
+camera = NodePath("Camera")
+player = NodePath("Player")
+result_panel = NodePath("Interface/AttemptResultPanel")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+
+[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_follow_camera")]
+target = NodePath("../Player")
+
+[node name="Gameplay" type="Node" parent="."]
+
+[node name="LaunchInputController" type="Node" parent="Gameplay" node_paths=PackedStringArray("player")]
+script = ExtResource("4_launch_input")
+player = NodePath("../../Player")
+
+[node name="TrajectoryPreview" type="Node2D" parent="Gameplay" node_paths=PackedStringArray("player")]
+script = ExtResource("5_trajectory_preview")
+player = NodePath("../../Player")
+
+[node name="MouseControlArea" type="Control" parent="Gameplay" node_paths=PackedStringArray("player", "launch_controller")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("6_mouse_control")
+player = NodePath("../../Player")
+launch_controller = NodePath("../LaunchInputController")
+
+[node name="Interface" type="Node" parent="."]
+
+[node name="UI" parent="Interface" node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("7_level_ui")]
+player = NodePath("../../Player")
+launch_controller = NodePath("../../Gameplay/LaunchInputController")
+camera = NodePath("../../Camera")
+
+[node name="AttemptResultPanel" parent="Interface" instance=ExtResource("8_result_panel")]
+
+[node name="QteOverlay" parent="Interface" node_paths=PackedStringArray("player") instance=ExtResource("9_qte_overlay")]
+player = NodePath("../../Player")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="HeightReference" type="Marker2D" parent="Level" node_paths=PackedStringArray("start_node")]
+script = ExtResource("10_height_reference")
+start_node = NodePath("../../Player")
+
+[node name="Surfaces" type="Node" parent="Level"]
+
+[node name="Floor" type="Node" parent="Level/Surfaces"]
+
+[node name="Platforms" type="Node" parent="Level/Surfaces"]
+
+[node name="Walls" type="Node" parent="Level/Surfaces"]
+
+[node name="Zones" type="Node" parent="Level"]
+
+[node name="Checkpoints" type="Node" parent="Level/Zones"]
+
+[node name="GoalZone" parent="Level/Zones" instance=ExtResource("11_goal_zone")]
+
+[node name="Ropes" type="Node" parent="Level"]
+
+[node name="QteBarriers" type="Node" parent="Level"]
+
+[node name="LevelBounds" type="ReferenceRect" parent="Level"]
+mouse_filter = 2
+offset_right = 1280.0
+offset_bottom = 720.0
+border_color = Color(0.2, 0.9, 1, 0.9)
+border_width = 2.0

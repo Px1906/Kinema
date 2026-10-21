@@ -9,14 +9,12 @@ const TEXT_COLOR := Color("#0f172a")
 
 ## One card is created per scene, in this order. Edit the list in the Inspector.
 @export_file("*.tscn") var level_paths: PackedStringArray = PackedStringArray([
-	"res://scenes/levels/teste_cenario.tscn",
-	"res://scenes/levels/player_launch_test.tscn",
+	"res://scenes/levels/fase_tutorial.tscn",
 ])
 ## Optional display names, in the same order as level_paths.
 ## Missing or empty names fall back to the scene file name.
 @export var level_titles: PackedStringArray = PackedStringArray([
-	"Teste de cenário",
-	"Teste de lançamento",
+	"Tutorial",
 ])
 ## Optional preview images, in the same order as level_paths.
 ## Levels without an image show their number inside the card.

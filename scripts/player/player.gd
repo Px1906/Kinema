@@ -138,33 +138,34 @@ func release_brake() -> void:
 
 
 func prepare_launch() -> void:
-	release_brake()
-	freeze = true
-	sleeping = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	_stop_detection_time = 0.0
-	_obstacle_hit_queued = false
-	set_physics_process(false)
-	_set_state(State.READY)
+	_reset_to_ready()
 	queue_redraw()
 
 
 func reset_attempt(start_position: Vector2) -> void:
+	# Teleporta antes de _reset_to_ready: quem ouve state_changed (ex.: a área de mira
+	# do MouseControl) lê global_position e precisa já ver a posição de reinício.
+	global_position = start_position
+	_pending_reset_position = start_position
+	_reset_pending = true
+	_reset_to_ready()
+	reset_physics_interpolation()
+	queue_redraw()
+
+
+func _reset_to_ready() -> void:
 	release_brake()
 	freeze = true
 	sleeping = true
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
-	global_position = start_position
-	_pending_reset_position = start_position
-	_reset_pending = true
-	reset_physics_interpolation()
 	_stop_detection_time = 0.0
 	_obstacle_hit_queued = false
+	launch_velocity = Vector2.ZERO
 	set_physics_process(false)
-	_set_state(State.READY)
-	queue_redraw()
+	_state = State.READY
+	state_changed.emit(_state)
+	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
 
 
 func get_min_launch_angle() -> float:
@@ -195,6 +196,13 @@ func get_total_linear_damp() -> float:
 
 func get_collision_radius() -> float:
 	return radius
+
+
+func get_ball_energy() -> BallEnergy:
+	for child in get_children():
+		if child is BallEnergy:
+			return child
+	return null
 
 
 func attach_to(anchor_global_position: Vector2) -> void:
@@ -267,6 +275,8 @@ func _update_collision_shape() -> void:
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
+	# Traço do centro até a borda, em coordenadas locais: gira junto com a bola.
+	draw_line(Vector2.ZERO, Vector2.RIGHT * radius, Color.WHITE, OUTLINE_WIDTH)
 
 	if _state == State.READY:
 		_draw_launch_arrow()
