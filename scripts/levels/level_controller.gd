@@ -16,6 +16,7 @@ const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 @export_category("Nodes")
 @export var controls: LaunchControls
 @export var goal_zone: GoalZone
+@export var rope: Rope
 ## Câmera da fase. Recebe level_bounds como limites para não mostrar fora da fase.
 @export var camera: FollowCamera
 
@@ -25,7 +26,6 @@ var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
 
 @onready var player: Player = $Player
-@onready var rope: Rope = get_node_or_null("Rope")
 @onready var result_panel: AttemptResultPanel = get_node_or_null("AttemptResultPanel")
 @onready var pause_menu: PauseMenu = get_node_or_null("PauseMenu")
 
@@ -39,6 +39,7 @@ func _ready() -> void:
 	_apply_camera_limits()
 
 	player.launched.connect(_on_player_launched)
+	player.state_changed.connect(_on_player_state_changed)
 	player.obstacle_hit.connect(_on_player_obstacle_hit)
 	player.stopped.connect(_on_player_stopped)
 	if goal_zone != null:
@@ -66,8 +67,16 @@ func _process(_delta: float) -> void:
 
 
 func _on_player_launched(_velocity: Vector2) -> void:
+	if camera != null:
+		camera.follow_target()
 	_attempt_active = true
 	_attempt_finished = false
+
+
+## Arrastar a câmera só faz sentido enquanto o jogador estuda a fase antes de lançar.
+func _on_player_state_changed(state: Player.State) -> void:
+	if camera != null:
+		camera.pan_enabled = state == Player.State.READY
 
 
 func _on_player_obstacle_hit() -> void:
@@ -158,8 +167,6 @@ func _get_failure_message(reason: FailureReason) -> String:
 			return "A bola atingiu um obstáculo."
 		FailureReason.OUT_OF_BOUNDS:
 			return "A bola saiu dos limites."
-		FailureReason.PLAYER_STOPPED:
-			return "A bola parou fora de um checkpoint."
 		_:
 			return "Tente novamente."
 
