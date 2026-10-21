@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b73wjf3pct1d3"]
 
 [ext_resource type="Script" uid="uid://djgaumelvpjqb" path="res://scripts/player/player.gd" id="1_ucweq"]
-[ext_resource type="Script" path="res://scripts/player/ball_energy.gd" id="2_energy"]
+[ext_resource type="Script" uid="uid://cnq8titlxd4yd" path="res://scripts/player/ball_energy.gd" id="2_energy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_08t41"]
 friction = 0.35
@@ -12,7 +12,6 @@ radius = 16.0
 
 [node name="Player" type="RigidBody2D" unique_id=1657232879]
 physics_material_override = SubResource("PhysicsMaterial_08t41")
-lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_ucweq")

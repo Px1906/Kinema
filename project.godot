@@ -29,7 +29,7 @@ window/size/viewport_height=720
 
 [gui]
 
-timers/tooltip_delay_sec=3.0
+timers/tooltip_delay_sec=1.5
 
 [input]
 

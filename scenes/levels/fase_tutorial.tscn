@@ -15,7 +15,7 @@ bounce = 0.55
 [node name="Player" parent="." index="0"]
 position = Vector2(140, 474)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
-lock_rotation = false
+angular_damp = 2.5
 fator_velocidade_lancamento = 0.6
 
 [node name="AttemptResultPanel" parent="Interface" index="1"]
@@ -55,10 +55,10 @@ is_obstacle = true
 position = Vector2(140, 502)
 
 [node name="S1_Plataforma1" parent="Level/Surfaces/Platforms" index="1" unique_id=1556819007 instance=ExtResource("3_platform")]
-position = Vector2(332, 502)
+position = Vector2(441, 500)
 
 [node name="S1_Plataforma2" parent="Level/Surfaces/Platforms" index="2" unique_id=1387306384 instance=ExtResource("3_platform")]
-position = Vector2(524, 502)
+position = Vector2(734, 446)
 
 [node name="S2_Degrau1" parent="Level/Surfaces/Platforms" index="3" unique_id=2123932505 instance=ExtResource("3_platform")]
 position = Vector2(1650, 150)
