@@ -57,8 +57,9 @@ player = NodePath("../../Player")
 
 [node name="Level" type="Node2D" parent="."]
 
-[node name="HeightReference" type="Marker2D" parent="Level"]
+[node name="HeightReference" type="Marker2D" parent="Level" node_paths=PackedStringArray("start_node")]
 script = ExtResource("10_height_reference")
+start_node = NodePath("../../Player")
 
 [node name="Surfaces" type="Node" parent="Level"]
 
