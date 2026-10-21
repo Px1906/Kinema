@@ -3,7 +3,7 @@ extends Node2D
 
 signal attempt_failed(reason: FailureReason)
 
-enum FailureReason { OBSTACLE_HIT, PLAYER_STOPPED, OUT_OF_BOUNDS }
+enum FailureReason { OBSTACLE_HIT, OUT_OF_BOUNDS }
 
 const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 
@@ -23,6 +23,8 @@ const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
 @export var rope: Rope
 ## Opcional. Sem painel, a bola volta direto ao último checkpoint ao falhar.
 @export var result_panel: AttemptResultPanel
+## Opcional. Sem menu de pausa, a fase não pode ser pausada.
+@export var pause_menu: PauseMenu
 
 var _attempt_active := false
 var _attempt_finished := false
@@ -47,6 +49,10 @@ func _ready() -> void:
 	if result_panel != null:
 		result_panel.retry_requested.connect(_on_retry_requested)
 		result_panel.exit_requested.connect(_on_exit_requested)
+	if pause_menu != null:
+		pause_menu.restart_full_requested.connect(reset_level)
+		pause_menu.restart_checkpoint_requested.connect(_respawn_at_last_checkpoint)
+		pause_menu.exit_requested.connect(_on_exit_requested)
 	if controls != null:
 		controls.rope = rope
 	Events.qte_finished.connect(_on_qte_finished)
@@ -62,6 +68,8 @@ func _find_unassigned_nodes() -> void:
 		rope = get_node_or_null("Rope") as Rope
 	if result_panel == null:
 		result_panel = get_node_or_null("AttemptResultPanel") as AttemptResultPanel
+	if pause_menu == null:
+		pause_menu = get_node_or_null("PauseMenu") as PauseMenu
 
 
 func _process(_delta: float) -> void:
@@ -93,6 +101,7 @@ func _on_level_completed(_player: Player) -> void:
 	_cancel_active_qte()
 	_attempt_finished = true
 	_attempt_active = false
+	_save_progress()
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
 		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
@@ -103,9 +112,14 @@ func reset_level() -> void:
 	_detach_rope()
 	_attempt_active = false
 	_attempt_finished = true
+	_last_checkpoint = null
+	for cp in _checkpoints:
+		cp.reset_zone()
 	if goal_zone != null:
 		goal_zone.reset_zone()
 	_reset_qte_barriers()
+	if pause_menu != null:
+		pause_menu.has_checkpoint = false
 	player.reset_attempt(player.get_initial_global_position())
 	if camera != null:
 		camera.snap_to_target()
@@ -125,27 +139,13 @@ func _save_progress() -> void:
 	var current_scene_path: String = scene_file_path
 	if current_scene_path.is_empty():
 		current_scene_path = get_tree().current_scene.scene_file_path
-	(
-		SaveManager
-		. save_progress(
-			{
-				"current_level": current_scene_path,
-				# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
-			}
-		)
-	)
-
-
-static func resume_game(tree: SceneTree) -> bool:
-	var progress: Dictionary = SaveManager.load_progress()
-	var level_path: String = progress.get("current_level", "")
-	if level_path.is_empty() or not ResourceLoader.exists(level_path):
-		return false
-	# var checkpoint_index: int = int(progress.get("last_checkpoint", -1))
-	tree.change_scene_to_file(level_path)
-	# Após o merge com feat/sistema-checkpoint, restaurar posição:
-	# _restore_checkpoint(checkpoint_index)
-	return true
+	assert(not current_scene_path.is_empty(), "LevelController: scene_file_path is empty.")
+	if current_scene_path.is_empty():
+		push_warning("LevelController: could not determine current scene path, skipping save.")
+		return
+	SaveManager.save_progress({
+		"current_level": current_scene_path,
+	})
 
 
 func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
@@ -174,8 +174,6 @@ func _get_failure_message(reason: FailureReason) -> String:
 			return "A bola atingiu um obstáculo."
 		FailureReason.OUT_OF_BOUNDS:
 			return "A bola saiu dos limites."
-		FailureReason.PLAYER_STOPPED:
-			return "A bola parou fora de um checkpoint."
 		_:
 			return "Tente novamente."
 
@@ -204,6 +202,8 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	if pause_menu != null:
+		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
 
 

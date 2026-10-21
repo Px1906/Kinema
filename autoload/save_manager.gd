@@ -88,6 +88,15 @@ func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
 
 
+func resume_game(tree: SceneTree) -> bool:
+	var progress: Dictionary = load_progress()
+	var level_path: String = progress.get("current_level", "")
+	if level_path.is_empty() or not ResourceLoader.exists(level_path):
+		return false
+	tree.change_scene_to_file(level_path)
+	return true
+
+
 func delete_save() -> bool:
 	if not has_save():
 		return true
