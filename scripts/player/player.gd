@@ -143,10 +143,12 @@ func prepare_launch() -> void:
 
 
 func reset_attempt(start_position: Vector2) -> void:
-	_reset_to_ready()
+	# Teleporta antes de _reset_to_ready: quem ouve state_changed (ex.: a área de mira
+	# do MouseControl) lê global_position e precisa já ver a posição de reinício.
 	global_position = start_position
 	_pending_reset_position = start_position
 	_reset_pending = true
+	_reset_to_ready()
 	reset_physics_interpolation()
 	queue_redraw()
 
@@ -273,6 +275,8 @@ func _update_collision_shape() -> void:
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, radius, particle_color)
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
+	# Traço do centro até a borda, em coordenadas locais: gira junto com a bola.
+	draw_line(Vector2.ZERO, Vector2.RIGHT * radius, Color.WHITE, OUTLINE_WIDTH)
 
 	if _state == State.READY:
 		_draw_launch_arrow()

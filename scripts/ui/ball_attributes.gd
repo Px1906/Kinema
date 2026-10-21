@@ -10,6 +10,7 @@ const MIN_BAR_MAX := 0.001
 var _ball_energy: BallEnergy
 
 @onready var _toggle_button: Button = %ToggleButton
+@onready var _reference_button: Button = %ReferenceButton
 @onready var _content_box: Control = %ContentBox
 @onready var _mass_value: Label = %MassValue
 @onready var _speed_value: Label = %SpeedValue
@@ -21,12 +22,22 @@ var _ball_energy: BallEnergy
 
 
 func _ready() -> void:
+	# Reserva a largura do painel antes de escondê-lo: senão o popup nasce com a largura
+	# só da linha de botões e eles "pulam" para o centro na primeira vez que abre.
+	custom_minimum_size.x = maxf(custom_minimum_size.x, get_combined_minimum_size().x)
+
 	_toggle_button.toggled.connect(_on_toggle_button_toggled)
 	_content_box.visible = _toggle_button.button_pressed
 
 	if player == null:
 		push_warning("BallAttributes: assign the 'Player' property in the Inspector.")
+		_reference_button.disabled = true
 		return
+
+	# A referência só muda com a bola pronta para lançar, nunca no meio de uma tentativa.
+	_reference_button.pressed.connect(_on_reference_button_pressed)
+	player.state_changed.connect(_on_player_state_changed)
+	_on_player_state_changed(player.get_state())
 
 	_ball_energy = _find_ball_energy()
 	if _ball_energy == null:
@@ -43,6 +54,20 @@ func _find_ball_energy() -> BallEnergy:
 			return child
 
 	return null
+
+
+func _on_player_state_changed(state: Player.State) -> void:
+	_reference_button.disabled = state != Player.State.READY
+
+
+func _on_reference_button_pressed() -> void:
+	if not player.can_launch():
+		return
+	var reference := get_tree().get_first_node_in_group(HeightReference.GROUP) as HeightReference
+	if reference == null:
+		push_warning("BallAttributes: nenhum HeightReference na fase para mover.")
+		return
+	reference.move_to(player.global_position)
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:

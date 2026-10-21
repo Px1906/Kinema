@@ -14,17 +14,20 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
+tooltip_text = "Abre os controles de velocidade e ângulo do lançamento"
 text = "Ajustar"
 
 [node name="LaunchButton" type="Button" parent="Row"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Lança a bola com a velocidade e o ângulo escolhidos"
 text = "Lançar"
 
 [node name="ReleaseButton" type="Button" parent="Row"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
+tooltip_text = "Solta a bola da corda"
 text = "Soltar"
 
 [node name="DragGrip" type="Button" parent="Row"]

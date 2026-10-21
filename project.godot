@@ -28,6 +28,17 @@ SaveManager="*res://autoload/save_manager.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[gui]
+
+timers/tooltip_delay_sec=1.5
+
+[importer_defaults]
+
+animation_library={
+&"import_script/path": "export/Kinema.exe",
+&"materials/extract_format": 1
+}
+
 [input]
 
 launch={
