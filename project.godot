@@ -15,6 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Kinema"
+run/main_scene="uid://cx5ymhkbcvmpt"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
 [autoload]
@@ -30,6 +31,13 @@ window/size/viewport_height=720
 [gui]
 
 timers/tooltip_delay_sec=1.5
+
+[importer_defaults]
+
+animation_library={
+&"import_script/path": "export/Kinema.exe",
+&"materials/extract_format": 1
+}
 
 [input]
 
