@@ -21,6 +21,10 @@ extends VBoxContainer
 
 
 func _ready() -> void:
+	# Reserva a largura do painel antes de escondê-lo: senão o popup nasce com a largura
+	# só da linha de botões e eles "pulam" para o centro na primeira vez que abre.
+	custom_minimum_size.x = maxf(custom_minimum_size.x, get_combined_minimum_size().x)
+
 	if player == null:
 		push_warning("LaunchControls: assign the 'Player' property in the Inspector.")
 		return
