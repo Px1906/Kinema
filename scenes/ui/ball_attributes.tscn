@@ -15,7 +15,15 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 toggle_mode = true
+tooltip_text = "Mostra a massa, a velocidade e as energias da bola"
 text = "Atributos"
+
+[node name="ReferenceButton" type="Button" parent="Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Move a altura zero da energia potencial para a posição atual da bola"
+text = "Atualizar referência"
 
 [node name="DragGrip" type="Button" parent="Row"]
 unique_name_in_owner = true

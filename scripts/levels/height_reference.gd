@@ -65,6 +65,12 @@ func _get_local_area() -> Rect2:
 	return Rect2(to_local(bounds.position), Vector2.ZERO).expand(to_local(bounds.end))
 
 
+## Move a altura zero (e os eixos) para um ponto global, ex.: a posição atual da bola.
+func move_to(global_point: Vector2) -> void:
+	global_position = global_point
+	queue_redraw()
+
+
 ## Altura em metros de um ponto global acima desta referência.
 func get_height_meters(global_point: Vector2) -> float:
 	return PhysicsUnits.pixels_to_meters(global_position.y - global_point.y)
