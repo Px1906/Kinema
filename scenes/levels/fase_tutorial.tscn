@@ -3,8 +3,9 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="2_floor"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface.tscn" id="3_platform"]
+[ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="4_qpfod"]
 
-[node name="FaseTutorial" instance=ExtResource("1_base_level")]
+[node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
 position = Vector2(140, 474)
@@ -13,15 +14,43 @@ fator_velocidade_lancamento = 0.4
 [node name="HeightReference" parent="Level" index="0"]
 position = Vector2(0, 685)
 
-[node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" instance=ExtResource("2_floor")]
+[node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=1403826304 instance=ExtResource("2_floor")]
 position = Vector2(640, 717)
 is_obstacle = true
 
-[node name="StartPlatform" parent="Level/Surfaces/Platforms" index="0" instance=ExtResource("3_platform")]
+[node name="FloorSurface2" parent="Level/Surfaces/Floor" index="1" unique_id=1146941452 instance=ExtResource("2_floor")]
+position = Vector2(7040, 717)
+is_obstacle = true
+
+[node name="FloorSurface3" parent="Level/Surfaces/Floor" index="2" unique_id=1313470932 instance=ExtResource("2_floor")]
+position = Vector2(5760, 717)
+is_obstacle = true
+
+[node name="FloorSurface4" parent="Level/Surfaces/Floor" index="3" unique_id=622385953 instance=ExtResource("2_floor")]
+position = Vector2(4480, 717)
+is_obstacle = true
+
+[node name="FloorSurface5" parent="Level/Surfaces/Floor" index="4" unique_id=632039137 instance=ExtResource("2_floor")]
+position = Vector2(3200, 717)
+is_obstacle = true
+
+[node name="FloorSurface6" parent="Level/Surfaces/Floor" index="5" unique_id=1556740323 instance=ExtResource("2_floor")]
+position = Vector2(1920, 717)
+is_obstacle = true
+
+[node name="StartPlatform" parent="Level/Surfaces/Platforms" index="0" unique_id=196469066 instance=ExtResource("3_platform")]
 position = Vector2(140, 502)
 
-[node name="GoalPlatform" parent="Level/Surfaces/Platforms" index="1" instance=ExtResource("3_platform")]
+[node name="GoalPlatform" parent="Level/Surfaces/Platforms" index="1" unique_id=1260196801 instance=ExtResource("3_platform")]
 position = Vector2(1100, 502)
 
 [node name="GoalZone" parent="Level/Zones" index="1"]
 position = Vector2(1100, 458)
+
+[node name="CheckpointZone" parent="Level/Zones/GoalZone" index="1" unique_id=1969356928 instance=ExtResource("4_qpfod")]
+position = Vector2(-445, -23)
+
+[node name="LevelBounds" parent="Level" index="5"]
+offset_top = -1972.0
+offset_right = 7681.0
+offset_bottom = 717.0

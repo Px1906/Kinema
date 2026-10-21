@@ -12,9 +12,9 @@
 [ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
 
-[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("controls", "goal_zone", "camera", "player", "result_panel")]
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "controls", "goal_zone", "camera", "player", "result_panel")]
 script = ExtResource("1_level_controller")
-level_bounds = Rect2(0, 0, 1280, 720)
+bounds_rect = NodePath("Level/LevelBounds")
 controls = NodePath("Interface/UI/LaunchControls")
 goal_zone = NodePath("Level/Zones/GoalZone")
 camera = NodePath("Camera")
@@ -77,3 +77,10 @@ script = ExtResource("10_height_reference")
 [node name="Ropes" type="Node" parent="Level"]
 
 [node name="QteBarriers" type="Node" parent="Level"]
+
+[node name="LevelBounds" type="ReferenceRect" parent="Level"]
+mouse_filter = 2
+offset_right = 1280.0
+offset_bottom = 720.0
+border_color = Color(0.2, 0.9, 1, 0.9)
+border_width = 2.0
