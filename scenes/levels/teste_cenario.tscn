@@ -19,11 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://obid8vkxqq6a" path="res://scenes/ui/qte_overlay.tscn" id="17_qte_overlay"]
 [ext_resource type="PackedScene" path="res://scenes/gameplay/follow_camera.tscn" id="20_follow_camera"]
 
-[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "camera")]
+[node name="PlayerGravityTest" type="Node2D" unique_id=1286642432 node_paths=PackedStringArray("controls", "goal_zone", "rope", "camera")]
 script = ExtResource("1_level_controller")
 level_bounds = Rect2(0, 0, 1280, 720)
 controls = NodePath("UI/LaunchControls")
 goal_zone = NodePath("Zones/GoalZone")
+rope = NodePath("Ropes/Rope")
 camera = NodePath("Camera")
 
 [node name="PauseMenu" parent="." instance=ExtResource("11_pause_menu")]
@@ -43,7 +44,7 @@ metadata/_custom_type_script = "uid://dbtiyy8up8knr"
 [node name="LaunchInputController" type="Node" parent="." unique_id=806339641 node_paths=PackedStringArray("player", "rope")]
 script = ExtResource("8_launch_input")
 player = NodePath("../Player")
-rope = NodePath("../Rope")
+rope = NodePath("../Ropes/Rope")
 
 [node name="HeightReference" type="Marker2D" parent="." unique_id=1315454037]
 position = Vector2(0, 685)
@@ -62,13 +63,10 @@ player = NodePath("../Player")
 
 [node name="AttemptResultPanel" parent="." unique_id=1609982068 instance=ExtResource("10_result_panel")]
 
-[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("21_level_ui")]
+[node name="UI" parent="." unique_id=425627 node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("21_level_ui")]
 player = NodePath("../Player")
 launch_controller = NodePath("../LaunchInputController")
-
-[node name="Rope" parent="." unique_id=1561143492 instance=ExtResource("6_rtdc3")]
-position = Vector2(977, 162)
-detection_radius = 105.0
+camera = NodePath("../Camera")
 
 [node name="Surfaces" type="Node" parent="." unique_id=728687883]
 
@@ -112,3 +110,9 @@ trigger_distance = 100.0
 [node name="QteOverlay" parent="." unique_id=1374925807 node_paths=PackedStringArray("player") instance=ExtResource("17_qte_overlay")]
 player = NodePath("../Player")
 slow_motion_scale = 0.0001
+
+[node name="Ropes" type="Node" parent="." unique_id=632698247]
+
+[node name="Rope" parent="Ropes" unique_id=1561143492 instance=ExtResource("6_rtdc3")]
+position = Vector2(977, 162)
+detection_radius = 105.0

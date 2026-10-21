@@ -1,10 +1,16 @@
 class_name LevelUI
 extends CanvasLayer
+## Camada de UI da fase: fica por cima do jogo e não se move com a câmera.
+## A fase instancia esta cena e atribui player e launch_controller uma vez só;
+## esta camada repassa as referências para os controles antes do _ready deles.
+## O botão de recentralizar só aparece com a câmera solta (arrastada pelo jogador).
 
 @export var player: Player
 @export var launch_controller: LaunchInputController
 @export var controls: LaunchControls
 @export var attributes: BallAttributes
+@export var camera: FollowCamera
+@export var recenter_button: Button
 
 
 func _enter_tree() -> void:
@@ -19,3 +25,21 @@ func _enter_tree() -> void:
 		push_warning("LevelUI: assign the 'Attributes' property in the Inspector.")
 	else:
 		attributes.player = player
+
+
+func _ready() -> void:
+	if recenter_button == null:
+		return
+
+	recenter_button.visible = false
+	if camera == null:
+		push_warning("LevelUI: assign the 'Camera' property to show the recenter button.")
+		return
+
+	recenter_button.pressed.connect(camera.follow_target)
+	camera.following_changed.connect(_on_camera_following_changed)
+	_on_camera_following_changed(camera.is_following())
+
+
+func _on_camera_following_changed(is_following: bool) -> void:
+	recenter_button.visible = not is_following

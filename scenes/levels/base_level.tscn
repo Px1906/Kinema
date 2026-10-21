@@ -45,9 +45,10 @@ launch_controller = NodePath("../LaunchInputController")
 
 [node name="Interface" type="Node" parent="."]
 
-[node name="UI" parent="Interface" node_paths=PackedStringArray("player", "launch_controller") instance=ExtResource("7_level_ui")]
+[node name="UI" parent="Interface" node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("7_level_ui")]
 player = NodePath("../../Player")
 launch_controller = NodePath("../../Gameplay/LaunchInputController")
+camera = NodePath("../../Camera")
 
 [node name="AttemptResultPanel" parent="Interface" instance=ExtResource("8_result_panel")]
 

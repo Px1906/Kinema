@@ -42,6 +42,7 @@ func _ready() -> void:
 	_apply_camera_limits()
 
 	player.launched.connect(_on_player_launched)
+	player.state_changed.connect(_on_player_state_changed)
 	player.obstacle_hit.connect(_on_player_obstacle_hit)
 	player.stopped.connect(_on_player_stopped)
 	if goal_zone != null:
@@ -82,8 +83,16 @@ func _process(_delta: float) -> void:
 
 
 func _on_player_launched(_velocity: Vector2) -> void:
+	if camera != null:
+		camera.follow_target()
 	_attempt_active = true
 	_attempt_finished = false
+
+
+## Arrastar a câmera só faz sentido enquanto o jogador estuda a fase antes de lançar.
+func _on_player_state_changed(state: Player.State) -> void:
+	if camera != null:
+		camera.pan_enabled = state == Player.State.READY
 
 
 func _on_player_obstacle_hit() -> void:
