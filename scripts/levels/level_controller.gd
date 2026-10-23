@@ -105,7 +105,7 @@ func _on_retry_requested() -> void:
 
 func _on_exit_requested() -> void:
 	_save_progress()
-	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+	SceneLoader.go_to(get_tree(), MAIN_MENU_SCENE)
 
 
 func _save_progress() -> void:
@@ -126,10 +126,11 @@ func _save_progress() -> void:
 static func resume_game(tree: SceneTree) -> bool:
 	var progress: Dictionary = SaveManager.load_progress()
 	var level_path: String = progress.get("current_level", "")
-	if level_path.is_empty() or not ResourceLoader.exists(level_path):
+	if level_path.is_empty():
 		return false
 	# var checkpoint_index: int = int(progress.get("last_checkpoint", -1))
-	tree.change_scene_to_file(level_path)
+	if not SceneLoader.go_to(tree, level_path):
+		return false
 	# Após o merge com feat/sistema-checkpoint, restaurar posição:
 	# _restore_checkpoint(checkpoint_index)
 	return true
