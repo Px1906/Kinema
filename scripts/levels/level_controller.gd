@@ -9,6 +9,7 @@ signal attempt_failed(reason: FailureReason)
 enum FailureReason { OBSTACLE_HIT, OUT_OF_BOUNDS }
 
 const MAIN_MENU_SCENE: String = "res://scenes/ui/main_menu.tscn"
+const INGAME_MUSIC := preload("res://audio/music/ingameMusic.ogg")
 const BOUNDS_MARGIN_COLOR := Color(1.0, 0.4, 0.4, 0.6)
 const BOUNDS_LINE_WIDTH := 2.0
 const BOUNDS_DASH_LENGTH := 8.0
@@ -64,6 +65,7 @@ func _ready() -> void:
 		level_bounds = get_viewport_rect()
 	_apply_camera_limits()
 
+	MusicManager.play_music(INGAME_MUSIC)
 	player.launched.connect(_on_player_launched)
 	player.state_changed.connect(_on_player_state_changed)
 	player.obstacle_hit.connect(_on_player_obstacle_hit)

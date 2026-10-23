@@ -19,6 +19,8 @@ physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 2.5
 fator_velocidade_lancamento = 0.9
 
+[node name="AudioController" parent="Gameplay" index="3"]
+
 [node name="AttemptResultPanel" parent="Interface" index="1"]
 visible = false
 

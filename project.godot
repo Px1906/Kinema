@@ -24,6 +24,7 @@ Events="*res://autoload/events.gd"
 SaveManager="*res://autoload/save_manager.gd"
 MusicManager="*res://autoload/music_manager.gd"
 SFXPool="*res://autoload/sfx_pool.gd"
+UIAudio="*res://autoload/ui_audio.gd"
 
 [display]
 

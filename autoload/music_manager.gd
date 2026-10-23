@@ -10,6 +10,8 @@ var _active_player: AudioStreamPlayer
 
 
 func _ready() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
+
 	_player_a = AudioStreamPlayer.new()
 	_player_a.bus = BUS
 	add_child(_player_a)
