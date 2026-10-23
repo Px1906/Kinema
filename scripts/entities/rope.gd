@@ -1,5 +1,8 @@
+@tool
 class_name Rope
 extends Node2D
+## @tool só para o editor mostrar o detection_radius ao vivo; a lógica de jogo é
+## protegida por Engine.is_editor_hint().
 
 signal activated
 signal deactivated
@@ -8,6 +11,7 @@ signal player_exited(player: Player)
 signal player_attached(player: Player)
 signal player_detached(player: Player)
 
+const GROUP := &"rope"
 const MIN_WIDTH := 1.0
 const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
@@ -50,11 +54,24 @@ var _area_animation_base_scale := Vector2.ONE
 @onready var area_animation: AnimatedSprite2D = $AnimatedSprite2D
 
 
+## A corda que está segurando a bola agora, entre todas as da fase; null se nenhuma.
+static func get_attached_rope(tree: SceneTree) -> Rope:
+	for node: Node in tree.get_nodes_in_group(GROUP):
+		var rope := node as Rope
+		if rope != null and rope.is_player_attached():
+			return rope
+	return null
+
+
 func _ready() -> void:
 	set_physics_process(false)
 	_area_animation_base_scale = area_animation.scale
 	_update_detection_shape()
 	_update_area_animation_scale()
+	if Engine.is_editor_hint():
+		return
+
+	add_to_group(GROUP)
 	area_animation.visible = true
 	area_animation.play()
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
@@ -192,7 +209,7 @@ func _get_tangent() -> Vector2:
 
 
 func _get_tangential_velocity() -> Vector2:
-	return _get_tangent() * _angular_velocity * detection_radius
+	return _get_tangent() * _angular_velocity * _rope_length
 
 
 func _get_gravity() -> float:

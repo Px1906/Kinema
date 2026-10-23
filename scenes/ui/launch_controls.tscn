@@ -1,35 +1,49 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="1_lc"]
+[ext_resource type="Script" path="res://scripts/ui/drag_handle.gd" id="2_drag"]
 
 [node name="LaunchControls" type="VBoxContainer"]
 script = ExtResource("1_lc")
 
 [node name="Row" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 
 [node name="ToggleButton" type="Button" parent="Row"]
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
+tooltip_text = "Abre os controles de velocidade e ângulo do lançamento"
 text = "Ajustar"
 
 [node name="LaunchButton" type="Button" parent="Row"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Lança a bola com a velocidade e o ângulo escolhidos"
 text = "Lançar"
 
 [node name="ReleaseButton" type="Button" parent="Row"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
+tooltip_text = "Solta a bola da corda"
 text = "Soltar"
+
+[node name="DragGrip" type="Button" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Arrastar"
+focus_mode = 0
+mouse_default_cursor_shape = 13
+text = "• • •"
 
 [node name="SlidersBox" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 
 [node name="Margin" type="MarginContainer" parent="SlidersBox"]
 layout_mode = 2
@@ -81,3 +95,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 max_value = 180.0
 step = 1.0
+
+[node name="DragHandle" type="Node" parent="." node_paths=PackedStringArray("handle")]
+script = ExtResource("2_drag")
+handle = NodePath("../Row/DragGrip")

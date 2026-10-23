@@ -1,5 +1,8 @@
+@tool
 class_name QteBarrier
 extends StaticBody2D
+## @tool só para o editor mostrar size e trigger_distance ao vivo; a lógica de jogo
+## é protegida por Engine.is_editor_hint().
 
 const GROUP := &"qte_barrier"
 const BARRIER_COLOR := Color("#f59e0b")
@@ -30,11 +33,14 @@ var _triggered := false
 
 
 func _ready() -> void:
-	add_to_group(GROUP)
 	_update_collision_shape()
 	_update_trigger_shape()
-	trigger_area.body_entered.connect(_on_trigger_body_entered)
 	queue_redraw()
+	if Engine.is_editor_hint():
+		return
+
+	add_to_group(GROUP)
+	trigger_area.body_entered.connect(_on_trigger_body_entered)
 
 
 func is_active() -> bool:

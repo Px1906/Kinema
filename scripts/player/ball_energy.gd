@@ -5,6 +5,11 @@ extends Node
 
 signal energy_updated(ball_energy: BallEnergy)
 
+## Alturas menores que isto (em px) contam como zero: parada sobre uma superfície, a
+## bola afunda um pouco no contato (contact_max_allowed_penetration) e ficaria com
+## energia potencial levemente negativa no nível da referência.
+const HEIGHT_TOLERANCE_PIXELS := 1.0
+
 ## Massa em kg.
 var mass: float = 0.0
 ## Área do disco em m².
@@ -65,7 +70,11 @@ func _is_at_rest() -> bool:
 
 
 func _get_height() -> float:
-	if _height_reference == null:
-		return PhysicsUnits.pixels_to_meters(-player.global_position.y)
-
-	return _height_reference.get_height_meters(player.global_position)
+	var height_meters := (
+		PhysicsUnits.pixels_to_meters(-player.global_position.y)
+		if _height_reference == null
+		else _height_reference.get_height_meters(player.global_position)
+	)
+	if absf(height_meters) < PhysicsUnits.pixels_to_meters(HEIGHT_TOLERANCE_PIXELS):
+		return 0.0
+	return height_meters
