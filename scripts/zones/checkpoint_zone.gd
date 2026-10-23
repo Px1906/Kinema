@@ -7,7 +7,6 @@ const MARKER_RADIUS := 12.0
 const MARKER_WIDTH := 2.0
 const COLOR_UNREACHED := Color("#6b7280")
 const COLOR_REACHED := Color("#22c55e")
-const BRAKE_DAMP := 15.0
 
 @export var checkpoint_index: int = 0
 
@@ -36,7 +35,8 @@ func reset_zone() -> void:
 func _on_player_entered(player: Player) -> void:
 	if _reached:
 		return
-	player.apply_brake(BRAKE_DAMP)
+	# Adiado: congelar o corpo dentro do body_entered falha durante a etapa de física.
+	player.pull_to.call_deferred(global_position)
 	reach()
 
 

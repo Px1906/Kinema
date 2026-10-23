@@ -1,7 +1,7 @@
 class_name Player
 extends RigidBody2D
 
-enum State { READY, MOVING, STOPPED, ATTACHED }
+enum State { READY, MOVING, STOPPED, ATTACHED, PULLED }
 
 signal launched(velocity: Vector2)
 signal stopped
@@ -17,6 +17,9 @@ const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
 const LAUNCH_ARROW_OFFSET := 4.0
+const PULL_DURATION := 0.45
+## Quanto a velocidade de entrada entorta a curva até o ímã (segundos de "embalo").
+const PULL_VELOCITY_INFLUENCE := 0.12
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -44,6 +47,7 @@ var _initial_global_position: Vector2 = Vector2.ZERO
 var _pending_reset_position: Vector2
 var _reset_pending := false
 var _base_linear_damp := 0.0
+var _pull_tween: Tween
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -119,9 +123,11 @@ func get_initial_global_position() -> Vector2:
 	return _initial_global_position
 
 
-## Velocidade real da bola em px/s, inclusive quando presa (congelada) a uma corda.
+## Velocidade real da bola em px/s, inclusive quando congelada (corda ou ímã).
 func get_current_velocity() -> Vector2:
-	return _carried_velocity if _state == State.ATTACHED else linear_velocity
+	if _state == State.ATTACHED or _state == State.PULLED:
+		return _carried_velocity
+	return linear_velocity
 
 
 ## Usado por quem move a bola presa (ex.: corda) para informar a velocidade real.
@@ -154,6 +160,7 @@ func reset_attempt(start_position: Vector2) -> void:
 
 
 func _reset_to_ready() -> void:
+	_kill_pull_tween()
 	release_brake()
 	freeze = true
 	sleeping = true
@@ -218,6 +225,53 @@ func attach_to(anchor_global_position: Vector2) -> void:
 	_set_state(State.ATTACHED)
 	set_physics_process(false)
 	queue_redraw()
+
+
+## Puxa a bola até o ponto como um ímã: a curva sai na direção em que ela vinha,
+## passa um pouco do alvo e volta. No fim, a bola fica suspensa ali, parada.
+func pull_to(target_global_position: Vector2) -> void:
+	if _state != State.MOVING:
+		return
+
+	var start := global_position
+	var control := start + linear_velocity * PULL_VELOCITY_INFLUENCE
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	_stop_detection_time = 0.0
+	_set_state(State.PULLED)
+	set_physics_process(false)
+	queue_redraw()
+
+	_kill_pull_tween()
+	_pull_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	_pull_tween.tween_method(
+		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, PULL_DURATION
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_pull_tween.tween_callback(_finish_pull)
+
+
+## Curva de Bézier quadrática de start até target, entortada por control.
+func _set_pull_progress(t: float, start: Vector2, control: Vector2, target: Vector2) -> void:
+	var previous := global_position
+	global_position = start.lerp(control, t).lerp(control.lerp(target, t), t)
+	set_carried_velocity((global_position - previous) / get_physics_process_delta_time())
+
+
+## Continua congelada no alvo e para como numa parada normal: quem ouve stopped
+## (o LevelController) prepara o próximo lançamento a partir daqui.
+func _finish_pull() -> void:
+	_pull_tween = null
+	_carried_velocity = Vector2.ZERO
+	_set_state(State.STOPPED)
+	stopped.emit()
+	queue_redraw()
+
+
+func _kill_pull_tween() -> void:
+	if _pull_tween != null:
+		_pull_tween.kill()
+		_pull_tween = null
 
 
 func detach(velocity: Vector2) -> void:
