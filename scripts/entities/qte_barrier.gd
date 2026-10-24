@@ -17,6 +17,12 @@ const BARRIER_TRIGGERED_COLOR := Color("#f59e0b", 0.5)
 			_update_trigger_shape()
 			queue_redraw()
 
+@export_category("Question")
+## Conteúdo das perguntas desta barreira (campo "content" em qte_questions.json).
+## Vazio sorteia entre todas as perguntas.
+@export_enum("energia_cinetica", "energia_potencial", "conservacao_energia", "corda", "lancamento")
+var content: String = ""
+
 @export_category("Trigger")
 @export var trigger_distance: float = 200.0:
 	set(value):

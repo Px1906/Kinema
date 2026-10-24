@@ -96,7 +96,7 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 	if _ball_energy == null:
 		return
 
-	var question_data := _question_generator.generate_random(_ball_energy)
+	var question_data := _question_generator.generate(_ball_energy, barrier.content)
 	if question_data.is_empty():
 		push_warning("QteOverlay: failed to generate question data.")
 		return
@@ -113,7 +113,7 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 	for i in _buttons.size():
 		_buttons[i].text = alternatives[i]
 
-	_attributes_panel.visible = question_data.get("show_attributes", true)
+	_attributes_panel.visible = question_data.get("show_attributes", false)
 	_update_attributes()
 	_show_overlay()
 

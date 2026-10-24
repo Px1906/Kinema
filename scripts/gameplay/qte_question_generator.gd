@@ -7,15 +7,8 @@ const ZERO_VALUE_OFFSET := 0.5
 var _rng := RandomNumberGenerator.new()
 var _templates: Array[Dictionary] = []
 
-var _value_lookup := {
-	"KINETIC_ENERGY": &"kinetic_energy",
-	"POTENTIAL_ENERGY": &"potential_energy",
-	"TOTAL_ENERGY": &"total_energy",
-	"SPEED": &"speed",
-	"MASS": &"mass",
-}
-
-var _hint_lookup := {
+## Propriedades de BallEnergy que o JSON pode citar em "answer" e "hint_values".
+var _property_lookup := {
 	"mass": &"mass",
 	"speed": &"speed",
 	"height": &"height",
@@ -30,12 +23,20 @@ func _init() -> void:
 	_load_templates()
 
 
-func generate_random(ball_energy: BallEnergy) -> Dictionary:
+## Sorteia uma pergunta do conteúdo pedido. Conteúdo vazio sorteia entre todas.
+func generate(ball_energy: BallEnergy, content: String) -> Dictionary:
 	if _templates.is_empty():
 		push_error("QteQuestionGenerator: nenhum modelo de pergunta carregado.")
 		return {}
 
-	var template: Dictionary = _templates[_rng.randi_range(0, _templates.size() - 1)]
+	var pool: Array = _templates
+	if not content.is_empty():
+		pool = _templates.filter(func(t: Dictionary) -> bool: return t.get("content", "") == content)
+		if pool.is_empty():
+			push_warning("QteQuestionGenerator: nenhuma pergunta com conteúdo '%s'; usando todas." % content)
+			pool = _templates
+
+	var template: Dictionary = pool[_rng.randi_range(0, pool.size() - 1)]
 	return _generate_from_template(template, ball_energy)
 
 
@@ -43,8 +44,7 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 	if template.has("alternatives"):
 		return _generate_fixed(template)
 
-	var question_type: String = template.get("type", "")
-	var correct_value := _get_value_for_type(question_type, ball_energy)
+	var correct_value := _get_ball_value(template.get("answer", ""), ball_energy)
 	var question_text := _format_question_text(template, ball_energy)
 	var unit: String = template.get("unit", "")
 	var min_factor: float = template.get("wrong_min_factor", 0.3)
@@ -62,7 +62,7 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 		"question": question_text,
 		"alternatives": alternatives,
 		"correct_index": correct_index,
-		"show_attributes": true,
+		"show_attributes": template.get("show_attributes", false),
 	}
 
 
@@ -89,9 +89,10 @@ func _generate_fixed(template: Dictionary) -> Dictionary:
 	}
 
 
-func _get_value_for_type(question_type: String, ball_energy: BallEnergy) -> float:
-	var property: StringName = _value_lookup.get(question_type, &"")
+func _get_ball_value(key: String, ball_energy: BallEnergy) -> float:
+	var property: StringName = _property_lookup.get(key, &"")
 	if property.is_empty():
+		push_error("QteQuestionGenerator: valor desconhecido no JSON: '%s'" % key)
 		return 0.0
 	return ball_energy.get(property)
 
@@ -104,11 +105,7 @@ func _format_question_text(template: Dictionary, ball_energy: BallEnergy) -> Str
 	var hints: Array = template.get("hint_values", [])
 	var values: Array = []
 	for hint: String in hints:
-		var property: StringName = _hint_lookup.get(hint, &"")
-		if property.is_empty():
-			values.append(0.0)
-		else:
-			values.append(ball_energy.get(property))
+		values.append(_get_ball_value(hint, ball_energy))
 
 	if values.is_empty():
 		return text

@@ -232,6 +232,7 @@ position = Vector2(3216, 48)
 rotation = -3.1415925
 size = Vector2(32, 224)
 trigger_height = 224.0
+content = "conservacao_energia"
 
 [node name="QteBarrier2" parent="Level/QteBarriers" index="1" unique_id=490689315 instance=ExtResource("7_kjfhl")]
 position = Vector2(2640, -400)
@@ -239,11 +240,13 @@ rotation = 4.712389
 size = Vector2(32, 256)
 trigger_distance = 80.0
 trigger_height = 256.0
+content = "energia_potencial"
 
 [node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
 position = Vector2(3904, -336)
 size = Vector2(32, 256)
 trigger_height = 224.0
+content = "corda"
 
 [node name="LevelBounds" parent="Level" index="5"]
 visible = false
