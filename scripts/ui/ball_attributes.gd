@@ -67,7 +67,7 @@ func _on_reference_button_pressed() -> void:
 	if reference == null:
 		push_warning("BallAttributes: nenhum HeightReference na fase para mover.")
 		return
-	reference.move_to(player.global_position)
+	reference.move_to(player.get_base_global_position())
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:

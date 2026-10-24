@@ -205,6 +205,12 @@ func get_collision_radius() -> float:
 	return radius
 
 
+## Ponto mais baixo da bola, sempre para baixo, qualquer que seja a rotação.
+## A altura da energia potencial é medida a partir dele.
+func get_base_global_position() -> Vector2:
+	return global_position + Vector2.DOWN * radius
+
+
 func get_ball_energy() -> BallEnergy:
 	for child in get_children():
 		if child is BallEnergy:
