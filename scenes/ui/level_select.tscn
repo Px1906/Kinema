@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_select"]
 [ext_resource type="Texture2D" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
+[ext_resource type="Script" path="res://scripts/ui/level_data.gd" id="3_level_data"]
+
+[sub_resource type="Resource" id="Resource_level1"]
+script = ExtResource("3_level_data")
+path = "res://scenes/levels/teste_cenario.tscn"
+title = "Teste de cenário"
+
+[sub_resource type="Resource" id="Resource_level2"]
+script = ExtResource("3_level_data")
+path = "res://scenes/levels/player_launch_test.tscn"
+title = "Teste de lançamento"
 
 [node name="LevelSelect" type="Control"]
 layout_mode = 3
@@ -11,6 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_select")
+levels = Array[ExtResource("3_level_data")]([SubResource("Resource_level1"), SubResource("Resource_level2")])
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

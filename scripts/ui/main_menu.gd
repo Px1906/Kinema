@@ -23,11 +23,7 @@ func _ready() -> void:
 
 
 func _on_play_pressed() -> void:
-	if not ResourceLoader.exists(level_select_scene_path):
-		push_warning("MainMenu: level_select_scene_path is not a valid scene: '%s'" % level_select_scene_path)
-		return
-
-	get_tree().change_scene_to_file(level_select_scene_path)
+	SceneLoader.go_to(get_tree(), level_select_scene_path)
 
 
 func _open_options() -> void:
