@@ -40,6 +40,9 @@ func generate_random(ball_energy: BallEnergy) -> Dictionary:
 
 
 func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> Dictionary:
+	if template.has("alternatives"):
+		return _generate_fixed(template)
+
 	var question_type: String = template.get("type", "")
 	var correct_value := _get_value_for_type(question_type, ball_energy)
 	var question_text := _format_question_text(template, ball_energy)
@@ -59,6 +62,30 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 		"question": question_text,
 		"alternatives": alternatives,
 		"correct_index": correct_index,
+		"show_attributes": true,
+	}
+
+
+## Pergunta com alternativas escritas no JSON (teoria ou cálculo com números fixos).
+## A primeira alternativa é a certa; a ordem é embaralhada aqui.
+func _generate_fixed(template: Dictionary) -> Dictionary:
+	var source: Array = template.get("alternatives", [])
+	if source.size() != 3:
+		var text: String = template.get("text", "")
+		push_error("QteQuestionGenerator: pergunta fixa precisa de 3 alternativas: %s" % text)
+		return {}
+
+	var correct_answer := str(source[0])
+	var alternatives: Array[String] = []
+	for alternative: Variant in source:
+		alternatives.append(str(alternative))
+	alternatives.shuffle()
+
+	return {
+		"question": template.get("text", ""),
+		"alternatives": alternatives,
+		"correct_index": alternatives.find(correct_answer),
+		"show_attributes": template.get("show_attributes", false),
 	}
 
 

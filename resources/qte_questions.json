@@ -63,5 +63,74 @@
 		"unit": "J",
 		"wrong_min_factor": 0.3,
 		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "TOTAL_ENERGY",
+		"text": "A bola tem m=%.1f kg, v=%.1f m/s e h=%.1f m. Qual é a energia mecânica?",
+		"hint_values": ["mass", "speed", "height"],
+		"unit": "J",
+		"wrong_min_factor": 0.4,
+		"wrong_max_factor": 2.0
+	},
+	{
+		"type": "SPEED",
+		"text": "A bola tem Ec=%.1f J e m=%.1f kg. Qual é a velocidade?",
+		"hint_values": ["kinetic_energy", "mass"],
+		"unit": "m/s",
+		"wrong_min_factor": 0.4,
+		"wrong_max_factor": 2.0
+	},
+	{
+		"type": "POTENTIAL_ENERGY",
+		"text": "A bola tem Em=%.1f J e Ec=%.1f J. Qual é a Ep?",
+		"hint_values": ["total_energy", "kinetic_energy"],
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"type": "FIXED",
+		"text": "Uma bola de 2 kg se move a 3 m/s. Qual é a energia cinética?",
+		"alternatives": ["9 J", "6 J", "18 J"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Uma bola de 0,5 kg está a 5 m de altura (g = 10 m/s²). Qual é a Ep?",
+		"alternatives": ["25 J", "2,5 J", "50 J"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Sem atrito, a bola cai de 5 m a partir do repouso (g = 10 m/s²). Com que velocidade chega ao chão?",
+		"alternatives": ["10 m/s", "50 m/s", "5 m/s"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Se a velocidade da bola dobra, a energia cinética...",
+		"alternatives": ["quadruplica", "dobra", "não muda"]
+	},
+	{
+		"type": "FIXED",
+		"text": "No ponto mais alto do balanço na corda, a energia da bola é principalmente...",
+		"alternatives": ["potencial", "cinética", "nula"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Sem atrito, a energia mecânica da bola...",
+		"alternatives": ["se conserva", "aumenta", "diminui"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Ao soltar a corda, a bola sai...",
+		"alternatives": ["tangente à trajetória", "em direção ao ponto de fixação", "para baixo, na vertical"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Sem resistência do ar, qual ângulo de lançamento dá o maior alcance?",
+		"alternatives": ["45°", "30°", "90°"]
+	},
+	{
+		"type": "FIXED",
+		"text": "Qual é a unidade de energia no Sistema Internacional?",
+		"alternatives": ["joule", "newton", "watt"]
 	}
 ]

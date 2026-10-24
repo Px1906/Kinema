@@ -159,6 +159,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Alternativa A"
+autowrap_mode = 3
 
 [node name="ButtonB" type="Button" parent="ButtonsContainer" unique_id=155680456]
 unique_name_in_owner = true
@@ -166,6 +167,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Alternativa B"
+autowrap_mode = 3
 
 [node name="ButtonC" type="Button" parent="ButtonsContainer" unique_id=1100639039]
 unique_name_in_owner = true
@@ -173,3 +175,4 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Alternativa C"
+autowrap_mode = 3
