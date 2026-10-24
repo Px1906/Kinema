@@ -25,7 +25,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3600, 160)
+position = Vector2(240, 528)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 2.5
 fator_velocidade_lancamento = 0.5
@@ -34,7 +34,7 @@ fator_velocidade_lancamento = 0.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3600, 160)
+position = Vector2(240, 544)
 
 [node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=1403826304 instance=ExtResource("2_floor")]
 position = Vector2(640, 717)
