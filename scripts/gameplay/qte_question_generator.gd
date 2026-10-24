@@ -21,9 +21,13 @@ func generate(ball_energy: BallEnergy, content: String) -> Dictionary:
 
 	var pool: Array = _templates
 	if not content.is_empty():
-		pool = _templates.filter(func(t: Dictionary) -> bool: return t.get("content", "") == content)
+		pool = _templates.filter(
+			func(t: Dictionary) -> bool: return t.get("content", "") == content
+		)
 		if pool.is_empty():
-			push_warning("QteQuestionGenerator: nenhuma pergunta com conteúdo '%s'; usando todas." % content)
+			push_warning(
+				"QteQuestionGenerator: nenhuma pergunta com conteúdo '%s'; usando todas." % content
+			)
 			pool = _templates
 
 	var template: Dictionary = pool[_rng.randi_range(0, pool.size() - 1)]
@@ -42,8 +46,12 @@ func _generate_from_template(template: Dictionary, ball_energy: BallEnergy) -> D
 	var max_factor: float = template.get("wrong_max_factor", 2.5)
 
 	var correct_answer := _format_value(correct_value, unit)
-	var wrong_1 := _generate_wrong_answer(correct_value, unit, min_factor, max_factor, [correct_answer])
-	var wrong_2 := _generate_wrong_answer(correct_value, unit, min_factor, max_factor, [correct_answer, wrong_1])
+	var wrong_1 := _generate_wrong_answer(
+		correct_value, unit, min_factor, max_factor, [correct_answer]
+	)
+	var wrong_2 := _generate_wrong_answer(
+		correct_value, unit, min_factor, max_factor, [correct_answer, wrong_1]
+	)
 
 	var alternatives: Array[String] = [correct_answer, wrong_1, wrong_2]
 	alternatives.shuffle()
@@ -122,7 +130,9 @@ func _format_question_text(template: Dictionary, values: Dictionary) -> String:
 
 
 ## Alternativa errada inteira, diferente da certa e das já sorteadas (em "taken").
-func _generate_wrong_answer(correct_value: int, unit: String, min_factor: float, max_factor: float, taken: Array) -> String:
+func _generate_wrong_answer(
+	correct_value: int, unit: String, min_factor: float, max_factor: float, taken: Array
+) -> String:
 	var base_value := float(correct_value)
 	if is_zero_approx(base_value):
 		base_value = ZERO_VALUE_OFFSET
