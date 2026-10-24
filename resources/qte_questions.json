@@ -2,7 +2,7 @@
 	{
 		"content": "energia_cinetica",
 		"style": "calculo",
-		"text": "A bola tem m=%.1f kg e v=%.1f m/s. Qual é a Ec?",
+		"text": "A bola tem m=%d kg e v=%d m/s. Qual é a Ec?",
 		"answer": "kinetic_energy",
 		"hint_values": ["mass", "speed"],
 		"unit": "J",
@@ -18,7 +18,7 @@
 	{
 		"content": "energia_potencial",
 		"style": "calculo",
-		"text": "A bola tem m=%.1f kg e h=%.1f m. Qual é a Ep?",
+		"text": "A bola tem m=%d kg e h=%d m. Qual é a Ep?",
 		"answer": "potential_energy",
 		"hint_values": ["mass", "height"],
 		"unit": "J",
@@ -28,8 +28,8 @@
 	{
 		"content": "energia_potencial",
 		"style": "calculo",
-		"text": "Uma bola de 0,5 kg está a 5 m de altura (g = 10 m/s²). Qual é a Ep?",
-		"alternatives": ["25 J", "2,5 J", "50 J"]
+		"text": "Uma bola de 2 kg está a 5 m de altura (g = 10 m/s²). Qual é a Ep?",
+		"alternatives": ["100 J", "10 J", "50 J"]
 	},
 	{
 		"content": "conservacao_energia",
@@ -40,7 +40,7 @@
 	{
 		"content": "conservacao_energia",
 		"style": "calculo",
-		"text": "A bola tem Em=%.1f J e Ec=%.1f J. Qual é a Ep?",
+		"text": "A bola tem Em=%d J e Ec=%d J. Qual é a Ep?",
 		"answer": "potential_energy",
 		"hint_values": ["total_energy", "kinetic_energy"],
 		"unit": "J",
