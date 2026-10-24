@@ -18,7 +18,7 @@
 	{
 		"content": "energia_potencial",
 		"style": "calculo",
-		"text": "A bola tem m=%d kg e h=%d m. Qual é a Ep?",
+		"text": "A bola tem m=%d kg e h=%d m (g = 10 m/s²). Qual é a Ep?",
 		"answer": "potential_energy",
 		"hint_values": ["mass", "height"],
 		"unit": "J",
@@ -28,7 +28,7 @@
 	{
 		"content": "energia_potencial",
 		"style": "calculo",
-		"text": "A bola tem m=%d kg e Ep=%d J. A que altura ela está?",
+		"text": "A bola tem m=%d kg e Ep=%d J (g = 10 m/s²). A que altura ela está?",
 		"answer": "height",
 		"hint_values": ["mass", "potential_energy"],
 		"unit": "m",

@@ -167,7 +167,7 @@ Menu principal (jogar, opções, créditos e sair), cutscene de introdução, fa
   - Criar Projeto Godot 4 e repositório no GitHub (.gitignore do Godot)
   - Definir a estrutura de pastas (cenas, scripts, resources, assets, ui, etc)
   - Ajustar Physics Ticks per Second para uma simulação estável
-  - Definir a escala de unidades (pixels por metro) e a aceleração da gravidade g (padrão 9,8 m/s²), usadas em todos os cálculos de física e de energia
+  - Definir a escala de unidades (pixels por metro) e a aceleração da gravidade g (10 m/s², o valor da Terra de 9,8 m/s² arredondado), usadas em todos os cálculos de física e de energia
   - Criar autoloads: GameManager (estado e progressão), SaveManager e AudioManager
   - Configurar a exportação para Windows (executável sem exigir o Godot instalado) e a resolução base, com suporte a 720p e 1080p, em tela cheia ou janela
 - Mecânicas de Fase
