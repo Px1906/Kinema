@@ -90,7 +90,7 @@ text = "Massa"
 [node name="QteMassValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1978159319]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0.00 kg"
+text = "0 kg"
 horizontal_alignment = 2
 
 [node name="SpeedLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1111046810]
@@ -101,7 +101,7 @@ text = "Velocidade"
 [node name="QteSpeedValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=307897392]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0.00 m/s"
+text = "0 m/s"
 horizontal_alignment = 2
 
 [node name="EcLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1858602743]
@@ -112,7 +112,7 @@ text = "Ec"
 [node name="QteEcValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1003467121]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0.00 J"
+text = "0 J"
 horizontal_alignment = 2
 
 [node name="EpLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=927068056]
@@ -123,7 +123,7 @@ text = "Ep"
 [node name="QteEpValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=667248945]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0.00 J"
+text = "0 J"
 horizontal_alignment = 2
 
 [node name="EtLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1789506628]
@@ -134,7 +134,7 @@ text = "E total"
 [node name="QteEtValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=14822630]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0.00 J"
+text = "0 J"
 horizontal_alignment = 2
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="." unique_id=1197479540]

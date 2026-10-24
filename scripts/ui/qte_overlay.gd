@@ -192,11 +192,11 @@ func _on_time_updated(time_remaining: float) -> void:
 func _update_attributes() -> void:
 	if _ball_energy == null:
 		return
-	_mass_label.text = "%.2f kg" % _ball_energy.mass
-	_speed_label.text = "%.2f m/s" % _ball_energy.speed
-	_ec_label.text = "%.2f J" % _ball_energy.kinetic_energy
-	_ep_label.text = "%.2f J" % _ball_energy.potential_energy
-	_et_label.text = "%.2f J" % _ball_energy.total_energy
+	_mass_label.text = AttributeFormat.format_value(_ball_energy.mass, "kg")
+	_speed_label.text = AttributeFormat.format_speed(_ball_energy.speed)
+	_ec_label.text = AttributeFormat.format_value(_ball_energy.kinetic_energy, "J")
+	_ep_label.text = AttributeFormat.format_value(_ball_energy.potential_energy, "J")
+	_et_label.text = AttributeFormat.format_value(_ball_energy.total_energy, "J")
 
 
 func _show_overlay() -> void:
