@@ -39,6 +39,7 @@ var content: String = ""
 
 var _active := true
 var _triggered := false
+var _cleared := false
 
 @onready var barrier_shape: CollisionShape2D = $BarrierShape
 @onready var trigger_area: Area2D = $TriggerArea
@@ -67,7 +68,18 @@ func remove_barrier() -> void:
 	queue_redraw()
 
 
-func reset_barrier() -> void:
+## Torna definitiva a remoção de uma barreira já respondida: voltar ao checkpoint
+## não a traz de volta. Só reset_barrier(true) a restaura.
+func confirm_removal() -> void:
+	if not _active:
+		_cleared = true
+
+
+## Com full = false, barreiras confirmadas por confirm_removal() continuam removidas.
+func reset_barrier(full: bool = false) -> void:
+	if _cleared and not full:
+		return
+	_cleared = false
 	_active = true
 	_triggered = false
 	barrier_shape.set_deferred("disabled", false)
