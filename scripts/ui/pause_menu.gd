@@ -49,11 +49,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func _pause() -> void:
 	_show_main()
 	get_tree().paused = true
+	UIAudio.play_pause(true)
 
 
 func _unpause() -> void:
 	_hide_all()
 	get_tree().paused = false
+	UIAudio.play_pause(false)
 
 
 func _show_main() -> void:
