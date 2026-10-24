@@ -22,8 +22,8 @@ text = "Atributos"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Move a altura zero da energia potencial para a posição atual da bola"
-text = "Atualizar referência"
+tooltip_text = "Centraliza na bola a referência de altura zero da energia potencial (ela também pode ser arrastada pela fase)"
+text = "Centralizar referência"
 
 [node name="DragGrip" type="Button" parent="Row"]
 unique_name_in_owner = true
