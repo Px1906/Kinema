@@ -3,131 +3,319 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
 [ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="2_floor"]
 [ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="3_platform"]
-[ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="4_qpfod"]
-[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="5_rope"]
-[ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="6_qte_barrier"]
+[ext_resource type="PackedScene" uid="uid://durw41bb8w0p6" path="res://scenes/entities/wall_surface.tscn" id="4_wall"]
+[ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="6_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="7_kjfhl"]
+[ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="7_rope"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
 
+[sub_resource type="LabelSettings" id="LabelSettings_dica"]
+font_size = 22
+outline_size = 8
+outline_color = Color(0, 0, 0, 0.85)
+
+[sub_resource type="LabelSettings" id="LabelSettings_titulo"]
+font_size = 30
+font_color = Color(0.98, 0.8, 0.08, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 0.85)
+
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(140, 474)
+position = Vector2(240, 528)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 2.5
-fator_velocidade_lancamento = 0.6
+fator_velocidade_lancamento = 0.5
 
-[node name="AttemptResultPanel" parent="Interface" index="1"]
-visible = false
-
-[node name="QteOverlay" parent="Interface" index="2"]
-visible = false
+[node name="MouseControlArea" parent="Gameplay" index="2"]
+metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(140, 474)
+position = Vector2(240, 544)
 
 [node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=1403826304 instance=ExtResource("2_floor")]
 position = Vector2(640, 717)
 is_obstacle = true
 
-[node name="FloorSurface2" parent="Level/Surfaces/Floor" index="1" unique_id=1146941452 instance=ExtResource("2_floor")]
-position = Vector2(7040, 717)
-is_obstacle = true
-
-[node name="FloorSurface3" parent="Level/Surfaces/Floor" index="2" unique_id=1313470932 instance=ExtResource("2_floor")]
-position = Vector2(5760, 717)
-is_obstacle = true
-
-[node name="FloorSurface4" parent="Level/Surfaces/Floor" index="3" unique_id=622385953 instance=ExtResource("2_floor")]
+[node name="FloorSurface4" parent="Level/Surfaces/Floor" index="1" unique_id=622385953 instance=ExtResource("2_floor")]
 position = Vector2(4480, 717)
 is_obstacle = true
 
-[node name="FloorSurface5" parent="Level/Surfaces/Floor" index="4" unique_id=632039137 instance=ExtResource("2_floor")]
+[node name="FloorSurface5" parent="Level/Surfaces/Floor" index="2" unique_id=632039137 instance=ExtResource("2_floor")]
 position = Vector2(3200, 717)
 is_obstacle = true
 
-[node name="FloorSurface6" parent="Level/Surfaces/Floor" index="5" unique_id=1556740323 instance=ExtResource("2_floor")]
+[node name="FloorSurface6" parent="Level/Surfaces/Floor" index="3" unique_id=1556740323 instance=ExtResource("2_floor")]
 position = Vector2(1920, 717)
 is_obstacle = true
 
-[node name="StartPlatform" parent="Level/Surfaces/Platforms" index="0" unique_id=196469066 instance=ExtResource("3_platform")]
-position = Vector2(140, 502)
+[node name="PlatformSurface" parent="Level/Surfaces/Platforms" index="0" unique_id=1357934232 instance=ExtResource("3_platform")]
+position = Vector2(240, 560)
 
-[node name="S1_Plataforma1" parent="Level/Surfaces/Platforms" index="1" unique_id=1556819007 instance=ExtResource("3_platform")]
-position = Vector2(488, 503)
+[node name="PlatformSurface2" parent="Level/Surfaces/Platforms" index="1" unique_id=1186912771 instance=ExtResource("3_platform")]
+position = Vector2(944, 560)
 
-[node name="S1_Plataforma2" parent="Level/Surfaces/Platforms" index="2" unique_id=1387306384 instance=ExtResource("3_platform")]
-position = Vector2(1150, 400)
+[node name="PlatformSurface3" parent="Level/Surfaces/Platforms" index="2" unique_id=1464730457 instance=ExtResource("3_platform")]
+position = Vector2(1280, 288)
 
-[node name="S2_Degrau1" parent="Level/Surfaces/Platforms" index="3" unique_id=2123932505 instance=ExtResource("3_platform")]
-position = Vector2(1650, 150)
+[node name="PlatformSurface4" parent="Level/Surfaces/Platforms" index="3" unique_id=735185508 instance=ExtResource("3_platform")]
+position = Vector2(1280, 128)
 
-[node name="S2_Degrau2" parent="Level/Surfaces/Platforms" index="4" unique_id=340900141 instance=ExtResource("3_platform")]
-position = Vector2(2150, -100)
+[node name="PlatformSurface5" parent="Level/Surfaces/Platforms" index="4" unique_id=325811512 instance=ExtResource("3_platform")]
+position = Vector2(928, 0)
 
-[node name="S2_Degrau3" parent="Level/Surfaces/Platforms" index="5" unique_id=12683368 instance=ExtResource("3_platform")]
-position = Vector2(2650, -350)
+[node name="PlatformSurface6" parent="Level/Surfaces/Platforms" index="5" unique_id=1707542747 instance=ExtResource("3_platform")]
+position = Vector2(288, 0)
 
-[node name="S3_PousoCorda" parent="Level/Surfaces/Platforms" index="6" unique_id=1698127640 instance=ExtResource("3_platform")]
-position = Vector2(3850, -480)
+[node name="PlatformSurface7" parent="Level/Surfaces/Platforms" index="6" unique_id=1153431685 instance=ExtResource("3_platform")]
+position = Vector2(288, -224)
 
-[node name="S4_Plataforma1" parent="Level/Surfaces/Platforms" index="7" unique_id=552207899 instance=ExtResource("3_platform")]
-position = Vector2(4400, -720)
+[node name="PlatformSurface8" parent="Level/Surfaces/Platforms" index="7" unique_id=256949193 instance=ExtResource("3_platform")]
+position = Vector2(544, -384)
 
-[node name="S4_PousoQte" parent="Level/Surfaces/Platforms" index="8" unique_id=73276826 instance=ExtResource("3_platform")]
-position = Vector2(4950, -960)
+[node name="PlatformSurface9" parent="Level/Surfaces/Platforms" index="8" unique_id=726711541 instance=ExtResource("3_platform")]
+position = Vector2(1600, -336)
 
-[node name="S5_PousoCordaQte" parent="Level/Surfaces/Platforms" index="9" unique_id=1909852030 instance=ExtResource("3_platform")]
-position = Vector2(6250, -1150)
+[node name="PlatformSurface10" parent="Level/Surfaces/Platforms" index="9" unique_id=2124984258 instance=ExtResource("3_platform")]
+position = Vector2(1792, -336)
 
-[node name="Final_Degrau" parent="Level/Surfaces/Platforms" index="10" unique_id=1547724957 instance=ExtResource("3_platform")]
-position = Vector2(6800, -1400)
+[node name="PlatformSurface11" parent="Level/Surfaces/Platforms" index="10" unique_id=2065392019 instance=ExtResource("3_platform")]
+position = Vector2(1792, -192)
 
-[node name="GoalPlatform" parent="Level/Surfaces/Platforms" index="11" unique_id=1260196801 instance=ExtResource("3_platform")]
-position = Vector2(7350, -1650)
+[node name="PlatformSurface12" parent="Level/Surfaces/Platforms" index="11" unique_id=38831859 instance=ExtResource("3_platform")]
+position = Vector2(1792, 192)
 
-[node name="Checkpoint1" parent="Level/Zones/Checkpoints" index="0" unique_id=1761897819 instance=ExtResource("4_qpfod")]
-position = Vector2(1150, 356)
-checkpoint_index = 1
+[node name="PlatformSurface16" parent="Level/Surfaces/Platforms" index="12" unique_id=1545627698 instance=ExtResource("3_platform")]
+position = Vector2(1984, 192)
 
-[node name="Checkpoint2" parent="Level/Zones/Checkpoints" index="1" unique_id=1249081488 instance=ExtResource("4_qpfod")]
-position = Vector2(2650, -394)
-checkpoint_index = 2
+[node name="PlatformSurface17" parent="Level/Surfaces/Platforms" index="13" unique_id=867665339 instance=ExtResource("3_platform")]
+position = Vector2(2176, 192)
 
-[node name="Checkpoint3" parent="Level/Zones/Checkpoints" index="2" unique_id=1715590263 instance=ExtResource("4_qpfod")]
-position = Vector2(3850, -524)
-checkpoint_index = 3
+[node name="PlatformSurface18" parent="Level/Surfaces/Platforms" index="14" unique_id=793604542 instance=ExtResource("3_platform")]
+position = Vector2(2368, 192)
 
-[node name="Checkpoint4" parent="Level/Zones/Checkpoints" index="3" unique_id=2011133958 instance=ExtResource("4_qpfod")]
-position = Vector2(4950, -1004)
-checkpoint_index = 4
+[node name="PlatformSurface19" parent="Level/Surfaces/Platforms" index="15" unique_id=190836217 instance=ExtResource("3_platform")]
+position = Vector2(2560, 192)
 
-[node name="Checkpoint5" parent="Level/Zones/Checkpoints" index="4" unique_id=594721818 instance=ExtResource("4_qpfod")]
-position = Vector2(6250, -1194)
-checkpoint_index = 5
+[node name="PlatformSurface20" parent="Level/Surfaces/Platforms" index="16" unique_id=489557239 instance=ExtResource("3_platform")]
+position = Vector2(2752, 192)
+
+[node name="PlatformSurface21" parent="Level/Surfaces/Platforms" index="17" unique_id=657799362 instance=ExtResource("3_platform")]
+position = Vector2(2944, 192)
+
+[node name="PlatformSurface22" parent="Level/Surfaces/Platforms" index="18" unique_id=90908596 instance=ExtResource("3_platform")]
+position = Vector2(3136, 192)
+
+[node name="PlatformSurface23" parent="Level/Surfaces/Platforms" index="19" unique_id=1892455366 instance=ExtResource("3_platform")]
+position = Vector2(3662, 195)
+
+[node name="PlatformSurface24" parent="Level/Surfaces/Platforms" index="20" unique_id=848874138 instance=ExtResource("3_platform")]
+position = Vector2(3854, 195)
+
+[node name="PlatformSurface25" parent="Level/Surfaces/Platforms" index="21" unique_id=599566117 instance=ExtResource("3_platform")]
+position = Vector2(4224, 417)
+
+[node name="PlatformSurface26" parent="Level/Surfaces/Platforms" index="22" unique_id=1528962234 instance=ExtResource("3_platform")]
+position = Vector2(2592, -96)
+
+[node name="PlatformSurface27" parent="Level/Surfaces/Platforms" index="23" unique_id=1930374477 instance=ExtResource("3_platform")]
+position = Vector2(2880, -400)
+
+[node name="WallSurface" parent="Level/Surfaces/Walls" index="0" unique_id=1733375275 instance=ExtResource("4_wall")]
+position = Vector2(1488, 272)
+
+[node name="WallSurface2" parent="Level/Surfaces/Walls" index="1" unique_id=11945964 instance=ExtResource("4_wall")]
+position = Vector2(624, -48)
+
+[node name="WallSurface3" parent="Level/Surfaces/Walls" index="2" unique_id=1241564073 instance=ExtResource("4_wall")]
+position = Vector2(64, -224)
+
+[node name="WallSurface5" parent="Level/Surfaces/Walls" index="3" unique_id=1059552523 instance=ExtResource("4_wall")]
+position = Vector2(1488, -144)
+
+[node name="WallSurface6" parent="Level/Surfaces/Walls" index="4" unique_id=392539211 instance=ExtResource("4_wall")]
+position = Vector2(1680, 0)
+
+[node name="WallSurface7" parent="Level/Surfaces/Walls" index="5" unique_id=1304443413 instance=ExtResource("4_wall")]
+position = Vector2(2480, -448)
+
+[node name="WallSurface8" parent="Level/Surfaces/Walls" index="6" unique_id=1464087483 instance=ExtResource("4_wall")]
+position = Vector2(2480, -32)
+
+[node name="WallSurface9" parent="Level/Surfaces/Walls" index="7" unique_id=995136270 instance=ExtResource("4_wall")]
+position = Vector2(3776, -656)
+
+[node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
+position = Vector2(944, 512)
+
+[node name="CheckpointZone2" parent="Level/Zones/Checkpoints" index="1" unique_id=1253131974 instance=ExtResource("6_checkpoint")]
+position = Vector2(1344, 240)
+
+[node name="CheckpointZone3" parent="Level/Zones/Checkpoints" index="2" unique_id=1863714908 instance=ExtResource("6_checkpoint")]
+position = Vector2(1216, 80)
+
+[node name="CheckpointZone4" parent="Level/Zones/Checkpoints" index="3" unique_id=227374071 instance=ExtResource("6_checkpoint")]
+position = Vector2(928, -48)
+
+[node name="CheckpointZone5" parent="Level/Zones/Checkpoints" index="4" unique_id=1868311026 instance=ExtResource("6_checkpoint")]
+position = Vector2(224, -48)
+
+[node name="CheckpointZone6" parent="Level/Zones/Checkpoints" index="5" unique_id=1482192906 instance=ExtResource("6_checkpoint")]
+position = Vector2(288, -272)
+
+[node name="CheckpointZone7" parent="Level/Zones/Checkpoints" index="6" unique_id=1505935824 instance=ExtResource("6_checkpoint")]
+position = Vector2(544, -432)
+
+[node name="CheckpointZone8" parent="Level/Zones/Checkpoints" index="7" unique_id=1532592797 instance=ExtResource("6_checkpoint")]
+position = Vector2(1600, -384)
+
+[node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="8" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
+position = Vector2(1712, -256)
+
+[node name="CheckpointZone10" parent="Level/Zones/Checkpoints" index="9" unique_id=144380188 instance=ExtResource("6_checkpoint")]
+position = Vector2(4224, 369)
+
+[node name="CheckpointZone11" parent="Level/Zones/Checkpoints" index="10" unique_id=275495322 instance=ExtResource("6_checkpoint")]
+position = Vector2(3758, 147)
+
+[node name="CheckpointZone12" parent="Level/Zones/Checkpoints" index="11" unique_id=24225696 instance=ExtResource("6_checkpoint")]
+position = Vector2(2944, 144)
+
+[node name="CheckpointZone13" parent="Level/Zones/Checkpoints" index="12" unique_id=89160300 instance=ExtResource("6_checkpoint")]
+position = Vector2(2592, -144)
+
+[node name="CheckpointZone14" parent="Level/Zones/Checkpoints" index="13" unique_id=1694242192 instance=ExtResource("6_checkpoint")]
+position = Vector2(2880, -448)
 
 [node name="GoalZone" parent="Level/Zones" index="1"]
-position = Vector2(7350, -1694)
+position = Vector2(4384, -336)
 
-[node name="S3_Corda" parent="Level/Ropes" index="0" unique_id=1017580831 instance=ExtResource("5_rope")]
-position = Vector2(3196, -703)
-detection_radius = 1394.0
+[node name="Rope" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
+position = Vector2(1056.07, -576)
 
-[node name="S5_Corda" parent="Level/Ropes" index="1" unique_id=888749792 instance=ExtResource("5_rope")]
-position = Vector2(5500, -1500)
-detection_radius = 260.0
+[node name="Rope2" parent="Level/Ropes" index="1" unique_id=585753711 instance=ExtResource("7_rope")]
+position = Vector2(2176, -480)
+detection_radius = 250.0
 
-[node name="S4_BarreiraQte" parent="Level/QteBarriers" index="0" unique_id=298692087 instance=ExtResource("6_qte_barrier")]
-position = Vector2(4680, -950)
-size = Vector2(32, 480)
+[node name="Rope3" parent="Level/Ropes" index="2" unique_id=958609452 instance=ExtResource("7_rope")]
+position = Vector2(1712, 416)
+detection_radius = 180.0
 
-[node name="S5_BarreiraQte" parent="Level/QteBarriers" index="1" unique_id=1265367530 instance=ExtResource("6_qte_barrier")]
-position = Vector2(5950, -1250)
-size = Vector2(32, 500)
+[node name="Rope4" parent="Level/Ropes" index="3" unique_id=1522263444 instance=ExtResource("7_rope")]
+position = Vector2(2768, 416)
+detection_radius = 180.0
+
+[node name="Rope5" parent="Level/Ropes" index="4" unique_id=355764779 instance=ExtResource("7_rope")]
+position = Vector2(3760, 416)
+detection_radius = 180.0
+
+[node name="Rope6" parent="Level/Ropes" index="5" unique_id=1501224207 instance=ExtResource("7_rope")]
+position = Vector2(3328, -336)
+
+[node name="Rope" parent="Level/Ropes/Rope6" index="3" unique_id=1707099237 instance=ExtResource("7_rope")]
+position = Vector2(720, 0)
+
+[node name="QteBarrier" parent="Level/QteBarriers" index="0" unique_id=480385079 instance=ExtResource("7_kjfhl")]
+position = Vector2(3216, 48)
+rotation = -3.1415925
+size = Vector2(32, 224)
+content = "conservacao_energia"
+trigger_height = 224.0
+
+[node name="QteBarrier2" parent="Level/QteBarriers" index="1" unique_id=490689315 instance=ExtResource("7_kjfhl")]
+position = Vector2(2640, -400)
+rotation = 4.712389
+size = Vector2(32, 256)
+content = "energia_potencial"
+trigger_distance = 80.0
+trigger_height = 256.0
+
+[node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
+position = Vector2(3776, -336)
+size = Vector2(32, 256)
+content = "corda"
+trigger_height = 224.0
 
 [node name="LevelBounds" parent="Level" index="5"]
 visible = false
-offset_top = -1972.0
-offset_right = 7681.0
+offset_top = -864.0
+offset_right = 4752.0
 offset_bottom = 717.0
+
+[node name="Dicas" type="Node2D" parent="Level" index="6" unique_id=1259953053]
+
+[node name="Dica1_Arremesso" type="Label" parent="Level/Dicas" index="0" unique_id=1159556331]
+visible = false
+offset_left = 380.0
+offset_top = 250.0
+offset_right = 1000.0
+offset_bottom = 400.0
+text = "1. ARREMESSO
+Escolha a força e o ângulo e aperte Espaço para lançar.
+Cuidado: o chão vermelho encerra a tentativa!"
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Dica2_Paredes" type="Label" parent="Level/Dicas" index="1" unique_id=1519240447]
+visible = false
+offset_left = 160.0
+offset_top = 120.0
+offset_right = 900.0
+offset_bottom = 230.0
+text = "2. PAREDES
+A bola quica nas paredes: use-as para subir de plataforma em plataforma."
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Dica3_Corda" type="Label" parent="Level/Dicas" index="2" unique_id=131791730]
+visible = false
+offset_left = 1260.0
+offset_top = -1760.0
+offset_right = 1980.0
+offset_bottom = -1650.0
+text = "3. CORDA
+Passe perto do gancho para se prender. Aperte Espaço para soltar."
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Dica4_Descida" type="Label" parent="Level/Dicas" index="3" unique_id=1638136763]
+visible = false
+offset_left = 2420.0
+offset_top = -1480.0
+offset_right = 3140.0
+offset_bottom = -1340.0
+text = "4. DESCIDA
+Desça pelo poço e pegue a corda lá embaixo.
+Solte na hora certa para cair na plataforma."
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Dica5_Qte" type="Label" parent="Level/Dicas" index="4" unique_id=1351102652]
+visible = false
+offset_left = 2960.0
+offset_top = 32.0
+offset_right = 3700.0
+offset_bottom = 172.0
+text = "5. BARREIRA
+Ao chegar perto da barreira amarela, o tempo desacelera.
+Responda certo para abri-la!"
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Dica6_Final" type="Label" parent="Level/Dicas" index="5" unique_id=699094629]
+visible = false
+offset_left = 4500.0
+offset_top = -340.0
+offset_right = 5240.0
+offset_bottom = -200.0
+text = "6. DESAFIO FINAL
+Corda, barreira e corda de novo.
+Depois é só subir até a chegada!"
+label_settings = SubResource("LabelSettings_dica")
+
+[node name="Chegada" type="Label" parent="Level/Dicas" index="6" unique_id=98780197]
+offset_left = 4272.0
+offset_top = -368.0
+offset_right = 4512.0
+offset_bottom = -318.0
+text = "CHEGADA"
+label_settings = SubResource("LabelSettings_titulo")
+horizontal_alignment = 1

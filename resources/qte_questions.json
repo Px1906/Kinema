@@ -1,67 +1,82 @@
 [
 	{
-		"type": "KINETIC_ENERGY",
-		"text": "Qual é a energia cinética da bola?",
-		"unit": "J",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 2.5
-	},
-	{
-		"type": "POTENTIAL_ENERGY",
-		"text": "Qual é a energia potencial gravitacional da bola?",
-		"unit": "J",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 2.5
-	},
-	{
-		"type": "TOTAL_ENERGY",
-		"text": "Qual é a energia mecânica total da bola?",
-		"unit": "J",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 2.5
-	},
-	{
-		"type": "SPEED",
-		"text": "Qual é a velocidade da bola neste instante?",
-		"unit": "m/s",
-		"wrong_min_factor": 0.4,
-		"wrong_max_factor": 2.0
-	},
-	{
-		"type": "MASS",
-		"text": "Qual é a massa da bola?",
-		"unit": "kg",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 3.0
-	},
-	{
-		"type": "KINETIC_ENERGY",
-		"text": "Se Ec = ½·m·v², qual é a energia cinética?",
-		"unit": "J",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 2.5
-	},
-	{
-		"type": "POTENTIAL_ENERGY",
-		"text": "Se Ep = m·g·h, qual é a energia potencial?",
-		"unit": "J",
-		"wrong_min_factor": 0.3,
-		"wrong_max_factor": 2.5
-	},
-	{
-		"type": "KINETIC_ENERGY",
-		"text": "A bola tem m=%.1f kg e v=%.1f m/s. Qual é a Ec?",
+		"content": "energia_cinetica",
+		"style": "calculo",
+		"text": "A bola tem m=%d kg e v=%d m/s. Qual é a Ec?",
+		"answer": "kinetic_energy",
 		"hint_values": ["mass", "speed"],
 		"unit": "J",
 		"wrong_min_factor": 0.3,
 		"wrong_max_factor": 2.5
 	},
 	{
-		"type": "POTENTIAL_ENERGY",
-		"text": "A bola tem m=%.1f kg e h=%.1f m. Qual é a Ep?",
+		"content": "energia_cinetica",
+		"style": "teoria",
+		"text": "Se a velocidade da bola dobra, a energia cinética...",
+		"alternatives": ["quadruplica", "dobra", "não muda"]
+	},
+	{
+		"content": "energia_potencial",
+		"style": "calculo",
+		"text": "A bola tem m=%d kg e h=%d m (g = 10 m/s²). Qual é a Ep?",
+		"answer": "potential_energy",
 		"hint_values": ["mass", "height"],
 		"unit": "J",
 		"wrong_min_factor": 0.3,
 		"wrong_max_factor": 2.5
+	},
+	{
+		"content": "energia_potencial",
+		"style": "calculo",
+		"text": "A bola tem m=%d kg e Ep=%d J (g = 10 m/s²). A que altura ela está?",
+		"answer": "height",
+		"hint_values": ["mass", "potential_energy"],
+		"unit": "m",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"content": "conservacao_energia",
+		"style": "calculo",
+		"text": "A bola tem Ec=%d J e Ep=%d J. Qual é a energia mecânica?",
+		"answer": "total_energy",
+		"hint_values": ["kinetic_energy", "potential_energy"],
+		"unit": "J",
+		"wrong_min_factor": 0.4,
+		"wrong_max_factor": 2.0
+	},
+	{
+		"content": "conservacao_energia",
+		"style": "calculo",
+		"text": "A bola tem Em=%d J e Ec=%d J. Qual é a Ep?",
+		"answer": "potential_energy",
+		"hint_values": ["total_energy", "kinetic_energy"],
+		"unit": "J",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
+	},
+	{
+		"content": "conservacao_energia",
+		"style": "teoria",
+		"text": "Sem atrito, durante a descida a energia mecânica da bola...",
+		"alternatives": ["se conserva", "aumenta", "diminui"]
+	},
+	{
+		"content": "corda",
+		"style": "teoria",
+		"text": "No ponto mais alto do balanço na corda, a energia da bola é principalmente...",
+		"alternatives": ["potencial", "cinética", "nula"]
+	},
+	{
+		"content": "corda",
+		"style": "teoria",
+		"text": "Ao soltar a corda, a bola sai...",
+		"alternatives": ["tangente à trajetória", "em direção ao gancho", "para baixo, na vertical"]
+	},
+	{
+		"content": "lancamento",
+		"style": "teoria",
+		"text": "Sem resistência do ar, qual ângulo de lançamento dá o maior alcance?",
+		"alternatives": ["45°", "30°", "90°"]
 	}
 ]
