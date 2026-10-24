@@ -111,9 +111,17 @@ func _pick_drag_mode(global_point: Vector2) -> DragMode:
 		return DragMode.BOTH
 
 	var area := _get_local_area()
-	if absf(local.y) * scale_factor <= AXIS_GRAB_DISTANCE and local.x >= area.position.x and local.x <= area.end.x:
+	if (
+		absf(local.y) * scale_factor <= AXIS_GRAB_DISTANCE
+		and local.x >= area.position.x
+		and local.x <= area.end.x
+	):
 		return DragMode.VERTICAL
-	if absf(local.x) * scale_factor <= AXIS_GRAB_DISTANCE and local.y >= area.position.y and local.y <= area.end.y:
+	if (
+		absf(local.x) * scale_factor <= AXIS_GRAB_DISTANCE
+		and local.y >= area.position.y
+		and local.y <= area.end.y
+	):
 		return DragMode.HORIZONTAL
 	return DragMode.NONE
 
@@ -189,16 +197,22 @@ func _draw() -> void:
 	var active := _drag_mode if _drag_mode != DragMode.NONE else _hover_mode
 	var area := _get_local_area()
 	draw_dashed_line(
-		Vector2(area.position.x, 0.0), Vector2(area.end.x, 0.0),
+		Vector2(area.position.x, 0.0),
+		Vector2(area.end.x, 0.0),
 		highlight_color if active in [DragMode.VERTICAL, DragMode.BOTH] else line_color,
-		LINE_WIDTH, LINE_DASH_LENGTH
+		LINE_WIDTH,
+		LINE_DASH_LENGTH
 	)
 	draw_dashed_line(
-		Vector2(0.0, area.position.y), Vector2(0.0, area.end.y),
+		Vector2(0.0, area.position.y),
+		Vector2(0.0, area.end.y),
 		highlight_color if active in [DragMode.HORIZONTAL, DragMode.BOTH] else line_color,
-		LINE_WIDTH, LINE_DASH_LENGTH
+		LINE_WIDTH,
+		LINE_DASH_LENGTH
 	)
-	draw_circle(Vector2.ZERO, ORIGIN_RADIUS, highlight_color if active == DragMode.BOTH else line_color)
+	draw_circle(
+		Vector2.ZERO, ORIGIN_RADIUS, highlight_color if active == DragMode.BOTH else line_color
+	)
 
 
 ## Área (local) coberta pelos eixos: a fase inteira, lida do bounds_rect do
