@@ -28,14 +28,22 @@
 	{
 		"content": "energia_potencial",
 		"style": "calculo",
-		"text": "Uma bola de 2 kg está a 5 m de altura (g = 10 m/s²). Qual é a Ep?",
-		"alternatives": ["100 J", "10 J", "50 J"]
+		"text": "A bola tem m=%d kg e Ep=%d J. A que altura ela está?",
+		"answer": "height",
+		"hint_values": ["mass", "potential_energy"],
+		"unit": "m",
+		"wrong_min_factor": 0.3,
+		"wrong_max_factor": 2.5
 	},
 	{
 		"content": "conservacao_energia",
 		"style": "calculo",
-		"text": "Sem atrito, a bola cai de 5 m a partir do repouso (g = 10 m/s²). Com que velocidade chega ao chão?",
-		"alternatives": ["10 m/s", "50 m/s", "5 m/s"]
+		"text": "A bola tem Ec=%d J e Ep=%d J. Qual é a energia mecânica?",
+		"answer": "total_energy",
+		"hint_values": ["kinetic_energy", "potential_energy"],
+		"unit": "J",
+		"wrong_min_factor": 0.4,
+		"wrong_max_factor": 2.0
 	},
 	{
 		"content": "conservacao_energia",
