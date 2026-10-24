@@ -17,6 +17,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Movimento pendular com gravidade configurável e liberação com velocidade tangencial.
 - Botão `Soltar` e atalho de teclado pela tecla `Espaço`.
 - Arquivos de skill de GDScript para apoiar o desenvolvimento Godot.
+- Altura da área de gatilho da barreira de QTE configurável pelo Inspector (`trigger_height`).
+- Layout da fase tutorial.
 
 ### Alterado
 - Cenas de teste podem funcionar sem uma corda ou painel de controles.
