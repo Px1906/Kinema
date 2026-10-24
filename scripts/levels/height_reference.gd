@@ -18,8 +18,9 @@ const AXIS_GRAB_DISTANCE := 8.0
 
 @export var line_color := Color("#94a3b8", 0.6)
 @export var highlight_color := Color("#e2e8f0")
-## Opcional. Se definido (ex.: o Player), a altura zero fica na posição inicial dele:
-## no editor acompanha o nó; no jogo, fica fixa onde ele começou a fase.
+## Opcional. Se definido (ex.: o Player), a altura zero fica na posição inicial dele
+## (na base, se o nó tiver "radius"): no editor acompanha o nó; no jogo, fica fixa
+## onde ele começou a fase.
 ## Se for um Player, o arrasto só funciona com a bola pronta para lançar.
 @export var start_node: Node2D:
 	set(value):
@@ -173,8 +174,13 @@ func _get_cursor_shape(mode: DragMode) -> Input.CursorShape:
 func _snap_to_start_node() -> void:
 	if start_node == null or not is_inside_tree() or not start_node.is_inside_tree():
 		return
-	if global_position != start_node.global_position:
-		global_position = start_node.global_position
+	var target := start_node.global_position
+	# Lido por get(): no editor o Player não é @tool e não responde a métodos.
+	var start_radius: Variant = start_node.get("radius")
+	if start_radius is float:
+		target += Vector2.DOWN * start_radius
+	if global_position != target:
+		global_position = target
 
 
 ## Eixos tracejados com origem no marcador: o horizontal é a altura zero e o
