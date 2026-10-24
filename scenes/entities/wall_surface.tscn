@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://durw41bb8w0p6"]
 
 [ext_resource type="PackedScene" path="res://scenes/entities/solid_surface.tscn" id="1_base"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
-size = Vector2(32, 400)
+size = Vector2(32, 416)
 
-[node name="WallSurface" instance=ExtResource("1_base")]
-size = Vector2(32, 400)
+[node name="WallSurface" unique_id=11945964 instance=ExtResource("1_base")]
+size = Vector2(32, 416)
 surface_color = Color(0.3216, 0.3765, 0.4784, 1)
 
 [node name="CollisionShape2D" parent="." index="0"]

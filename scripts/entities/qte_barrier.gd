@@ -24,6 +24,13 @@ const BARRIER_TRIGGERED_COLOR := Color("#f59e0b", 0.5)
 		if is_node_ready():
 			_update_trigger_shape()
 
+## Altura da área de gatilho. Em 0, usa o dobro da altura da barreira.
+@export var trigger_height: float = 0.0:
+	set(value):
+		trigger_height = maxf(value, 0.0)
+		if is_node_ready():
+			_update_trigger_shape()
+
 var _active := true
 var _triggered := false
 
@@ -88,7 +95,8 @@ func _update_collision_shape() -> void:
 func _update_trigger_shape() -> void:
 	if trigger_shape == null:
 		return
-	_ensure_rect_shape(trigger_shape).size = Vector2(trigger_distance, size.y * 2.0)
+	var height := trigger_height if trigger_height > 0.0 else size.y * 2.0
+	_ensure_rect_shape(trigger_shape).size = Vector2(trigger_distance, height)
 	trigger_shape.position = Vector2(-trigger_distance / 2.0 - size.x / 2.0, 0.0)
 
 
