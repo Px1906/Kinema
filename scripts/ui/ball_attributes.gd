@@ -4,6 +4,7 @@ extends VBoxContainer
 ## cinética e potencial são barras de 0 até a energia total.
 
 const MIN_BAR_MAX := 0.001
+const NEGATIVE_COLOR := Color("#f87171")
 
 @export var player: Player
 
@@ -19,6 +20,7 @@ var _ball_energy: BallEnergy
 @onready var _kinetic_value: Label = %KineticValue
 @onready var _potential_bar: ProgressBar = %PotentialBar
 @onready var _potential_value: Label = %PotentialValue
+@onready var _potential_warning: Label = %PotentialWarning
 
 
 func _ready() -> void:
@@ -88,6 +90,14 @@ func _on_energy_updated(ball_energy: BallEnergy) -> void:
 	var bar_max := maxf(ball_energy.total_energy, MIN_BAR_MAX)
 	_set_bar(_kinetic_bar, _kinetic_value, ball_energy.kinetic_energy, bar_max)
 	_set_bar(_potential_bar, _potential_value, ball_energy.potential_energy, bar_max)
+
+	# Arredonda como o rótulo, para não avisar quando ele mostra "-0.00 J".
+	var is_negative := snappedf(ball_energy.potential_energy, 0.01) < 0.0
+	_potential_warning.visible = is_negative
+	if is_negative:
+		_potential_value.add_theme_color_override("font_color", NEGATIVE_COLOR)
+	else:
+		_potential_value.remove_theme_color_override("font_color")
 
 
 func _set_bar(bar: ProgressBar, value_label: Label, value: float, bar_max: float) -> void:

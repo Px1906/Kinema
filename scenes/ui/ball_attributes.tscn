@@ -131,6 +131,15 @@ max_value = 1.0
 step = 0.0
 show_percentage = false
 
+[node name="PotentialWarning" type="Label" parent="ContentBox/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.972549, 0.443137, 0.443137, 1)
+text = "Energia potencial negativa: a bola está abaixo da referência de altura zero."
+autowrap_mode = 3
+
 [node name="DragHandle" type="Node" parent="." node_paths=PackedStringArray("handle")]
 script = ExtResource("2_drag")
 handle = NodePath("../Row/DragGrip")
