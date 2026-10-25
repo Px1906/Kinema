@@ -64,6 +64,9 @@ func _process(_delta: float) -> void:
 ## O clique só chega aqui se a UI (ex.: a área de lançamento em volta da bola)
 ## não o consumiu.
 func _unhandled_input(event: InputEvent) -> void:
+	# Teclado, controle etc. não interessam ao hover nem ao arrasto.
+	if not event is InputEventMouse:
+		return
 	if not _can_drag():
 		_set_hover_mode(DragMode.NONE)
 		return
