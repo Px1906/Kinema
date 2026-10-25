@@ -41,8 +41,15 @@ func _on_player_entered(player: Player) -> void:
 	if _reached:
 		return
 	# Adiado: congelar o corpo dentro do body_entered falha durante a etapa de física.
-	player.pull_to.call_deferred(global_position, pull_duration, pull_velocity_influence)
-	reach()
+	_pull_and_reach.call_deferred(player)
+
+
+## Só marca o checkpoint se o ímã de fato pegou a bola.
+func _pull_and_reach(player: Player) -> void:
+	if _reached or not is_instance_valid(player):
+		return
+	if player.pull_to(global_position, pull_duration, pull_velocity_influence):
+		reach()
 
 
 func _draw() -> void:

@@ -231,9 +231,10 @@ func attach_to(anchor_global_position: Vector2) -> void:
 ## Puxa a bola até o ponto como um ímã: a curva sai na direção em que ela vinha,
 ## passa um pouco do alvo e volta. No fim, a bola fica suspensa ali, parada.
 ## velocity_influence: quanto a velocidade de entrada entorta a curva (segundos de "embalo").
-func pull_to(target_global_position: Vector2, duration: float, velocity_influence: float) -> void:
+## Retorna false se a bola não estava em movimento e o puxão foi ignorado.
+func pull_to(target_global_position: Vector2, duration: float, velocity_influence: float) -> bool:
 	if _state != State.MOVING:
-		return
+		return false
 
 	var start := global_position
 	var control := start + linear_velocity * velocity_influence
@@ -248,6 +249,7 @@ func pull_to(target_global_position: Vector2, duration: float, velocity_influenc
 		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, duration
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_pull_tween.tween_callback(_finish_pull)
+	return true
 
 
 ## Curva de Bézier quadrática de start até target, entortada por control.
