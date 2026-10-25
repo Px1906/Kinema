@@ -125,9 +125,14 @@ func get_initial_global_position() -> Vector2:
 
 ## Velocidade real da bola em px/s, inclusive quando congelada (corda ou ímã).
 func get_current_velocity() -> Vector2:
-	if _state == State.ATTACHED or _state == State.PULLED:
+	if is_carried():
 		return _carried_velocity
 	return linear_velocity
+
+
+## A bola está congelada e sendo movida por fora (corda ou ímã), não pela física.
+func is_carried() -> bool:
+	return _state in [State.ATTACHED, State.PULLED]
 
 
 ## Usado por quem move a bola presa (ex.: corda) para informar a velocidade real.
