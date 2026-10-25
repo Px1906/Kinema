@@ -21,7 +21,6 @@ const AXIS_GRAB_DISTANCE := 8.0
 ## Opcional. Se definido (ex.: o Player), a altura zero fica na posição inicial dele
 ## (na base, se o nó tiver "radius"): no editor acompanha o nó; no jogo, fica fixa
 ## onde ele começou a fase.
-## Se for um Player, o arrasto só funciona com a bola pronta para lançar.
 @export var start_node: Node2D:
 	set(value):
 		start_node = value
@@ -31,6 +30,10 @@ const AXIS_GRAB_DISTANCE := 8.0
 @export var draggable := true
 ## Passo do arrasto em pixels, contado a partir da posição inicial. 32 px = 1 m.
 @export var snap_step: float = PhysicsUnits.PIXELS_PER_METER
+
+## Ligado e desligado em jogo por quem controla a fase (ex.: o LevelController só
+## libera o arrasto com a bola pronta para lançar). draggable é a config do Inspector.
+var drag_enabled := true
 
 var _drag_mode := DragMode.NONE
 var _hover_mode := DragMode.NONE
@@ -98,10 +101,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _can_drag() -> bool:
-	if not draggable:
-		return false
-	var player := start_node as Player
-	return player == null or player.can_launch()
+	return draggable and drag_enabled
 
 
 func _pick_drag_mode(global_point: Vector2) -> DragMode:
