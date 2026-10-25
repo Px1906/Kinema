@@ -33,7 +33,13 @@ const AXIS_GRAB_DISTANCE := 8.0
 
 ## Ligado e desligado em jogo por quem controla a fase (ex.: o LevelController só
 ## libera o arrasto com a bola pronta para lançar). draggable é a config do Inspector.
-var drag_enabled := true
+var drag_enabled := true:
+	set(value):
+		drag_enabled = value
+		if not value:
+			# O cursor é global: volta ao normal já, sem esperar o próximo evento de mouse.
+			_end_drag()
+			_set_hover_mode(DragMode.NONE)
 
 var _drag_mode := DragMode.NONE
 var _hover_mode := DragMode.NONE
@@ -43,6 +49,12 @@ var _snap_origin := Vector2.ZERO
 
 func _enter_tree() -> void:
 	add_to_group(GROUP)
+
+
+func _exit_tree() -> void:
+	# Trocar de fase com o mouse em cima de um eixo não pode deixar o cursor preso.
+	if _hover_mode != DragMode.NONE or _drag_mode != DragMode.NONE:
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 
 func _ready() -> void:
