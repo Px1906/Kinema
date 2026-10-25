@@ -25,6 +25,7 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Aviso no painel de atributos quando a energia potencial fica negativa.
 
 ### Alterado
+- Ao entrar num checkpoint, a bola é atraída para o centro como um ímã e fica suspensa ali, pronta para o próximo lançamento (antes ela freava e caía).
 - Cenas de teste podem funcionar sem uma corda ou painel de controles.
 - O painel de controles reutiliza a corda da fase quando disponível.
 - A tecla `Espaço` lança a partícula quando ela está preparada e solta a partícula quando ela está presa à corda.
