@@ -48,6 +48,7 @@ var _pending_reset_position: Vector2
 var _reset_pending := false
 var _base_linear_damp := 0.0
 var _pull_tween: Tween
+var _pull_elapsed := 0.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -243,6 +244,7 @@ func pull_to(target_global_position: Vector2) -> void:
 	queue_redraw()
 
 	_kill_pull_tween()
+	_pull_elapsed = 0.0
 	_pull_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_pull_tween.tween_method(
 		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, PULL_DURATION
@@ -254,7 +256,12 @@ func pull_to(target_global_position: Vector2) -> void:
 func _set_pull_progress(t: float, start: Vector2, control: Vector2, target: Vector2) -> void:
 	var previous := global_position
 	global_position = start.lerp(control, t).lerp(control.lerp(target, t), t)
-	set_carried_velocity((global_position - previous) / get_physics_process_delta_time())
+	# Delta medido pelo próprio tween: vale em qualquer process mode.
+	var elapsed := _pull_tween.get_total_elapsed_time()
+	var step := elapsed - _pull_elapsed
+	_pull_elapsed = elapsed
+	if step > 0.0:
+		set_carried_velocity((global_position - previous) / step)
 
 
 ## Continua congelada no alvo e para como numa parada normal: quem ouve stopped
