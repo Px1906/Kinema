@@ -183,7 +183,7 @@ func reset_level() -> void:
 		cp.reset_zone()
 	if goal_zone != null:
 		goal_zone.reset_zone()
-	_reset_qte_barriers()
+	_reset_qte_barriers(true)
 	if pause_menu != null:
 		pause_menu.has_checkpoint = false
 	player.reset_attempt(player.get_initial_global_position())
@@ -283,6 +283,8 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
+		barrier.confirm_removal()
 	if pause_menu != null:
 		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
@@ -300,9 +302,10 @@ func _cancel_active_qte() -> void:
 		overlay.cancel_qte()
 
 
-func _reset_qte_barriers() -> void:
+## Com full = true (reinício da fase), restaura também as barreiras já confirmadas.
+func _reset_qte_barriers(full: bool = false) -> void:
 	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
-		barrier.reset_barrier()
+		barrier.reset_barrier(full)
 
 
 func _get_all_descendants(node: Node) -> Array[Node]:

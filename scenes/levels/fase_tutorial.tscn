@@ -33,17 +33,8 @@ fator_velocidade_lancamento = 0.5
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 metadata/_edit_use_anchors_ = true
 
-[node name="UI" parent="Interface" index="0"]
-visible = false
-
-[node name="AttemptResultPanel" parent="Interface" index="1"]
-visible = false
-
-[node name="QteOverlay" parent="Interface" index="2"]
-visible = false
-
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(240, 528)
+position = Vector2(240, 544)
 
 [node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=1403826304 instance=ExtResource("2_floor")]
 position = Vector2(640, 717)
@@ -74,7 +65,7 @@ position = Vector2(1280, 288)
 position = Vector2(1280, 128)
 
 [node name="PlatformSurface5" parent="Level/Surfaces/Platforms" index="4" unique_id=325811512 instance=ExtResource("3_platform")]
-position = Vector2(896, 0)
+position = Vector2(928, 0)
 
 [node name="PlatformSurface6" parent="Level/Surfaces/Platforms" index="5" unique_id=1707542747 instance=ExtResource("3_platform")]
 position = Vector2(288, 0)
@@ -137,7 +128,7 @@ position = Vector2(2880, -400)
 position = Vector2(1488, 272)
 
 [node name="WallSurface2" parent="Level/Surfaces/Walls" index="1" unique_id=11945964 instance=ExtResource("4_wall")]
-position = Vector2(592, -48)
+position = Vector2(624, -48)
 
 [node name="WallSurface3" parent="Level/Surfaces/Walls" index="2" unique_id=1241564073 instance=ExtResource("4_wall")]
 position = Vector2(64, -224)
@@ -155,7 +146,7 @@ position = Vector2(2480, -448)
 position = Vector2(2480, -32)
 
 [node name="WallSurface9" parent="Level/Surfaces/Walls" index="7" unique_id=995136270 instance=ExtResource("4_wall")]
-position = Vector2(3904, -656)
+position = Vector2(3776, -656)
 
 [node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
 position = Vector2(944, 512)
@@ -167,7 +158,7 @@ position = Vector2(1344, 240)
 position = Vector2(1216, 80)
 
 [node name="CheckpointZone4" parent="Level/Zones/Checkpoints" index="3" unique_id=227374071 instance=ExtResource("6_checkpoint")]
-position = Vector2(896, -48)
+position = Vector2(928, -48)
 
 [node name="CheckpointZone5" parent="Level/Zones/Checkpoints" index="4" unique_id=1868311026 instance=ExtResource("6_checkpoint")]
 position = Vector2(224, -48)
@@ -200,7 +191,7 @@ position = Vector2(2592, -144)
 position = Vector2(2880, -448)
 
 [node name="GoalZone" parent="Level/Zones" index="1"]
-position = Vector2(4512, -336)
+position = Vector2(4384, -336)
 
 [node name="Rope" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
 position = Vector2(1056.07, -576)
@@ -225,36 +216,39 @@ detection_radius = 180.0
 position = Vector2(3328, -336)
 
 [node name="Rope" parent="Level/Ropes/Rope6" index="3" unique_id=1707099237 instance=ExtResource("7_rope")]
-position = Vector2(848, 0)
+position = Vector2(720, 0)
 
 [node name="QteBarrier" parent="Level/QteBarriers" index="0" unique_id=480385079 instance=ExtResource("7_kjfhl")]
 position = Vector2(3216, 48)
 rotation = -3.1415925
 size = Vector2(32, 224)
+content = "conservacao_energia"
 trigger_height = 224.0
 
 [node name="QteBarrier2" parent="Level/QteBarriers" index="1" unique_id=490689315 instance=ExtResource("7_kjfhl")]
 position = Vector2(2640, -400)
 rotation = 4.712389
 size = Vector2(32, 256)
+content = "energia_potencial"
 trigger_distance = 80.0
 trigger_height = 256.0
 
 [node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
-position = Vector2(3904, -336)
+position = Vector2(3776, -336)
 size = Vector2(32, 256)
+content = "corda"
 trigger_height = 224.0
 
 [node name="LevelBounds" parent="Level" index="5"]
 visible = false
-offset_top = -1800.0
-offset_right = 6640.0
+offset_top = -864.0
+offset_right = 4752.0
 offset_bottom = 717.0
 
 [node name="Dicas" type="Node2D" parent="Level" index="6" unique_id=1259953053]
-visible = false
 
 [node name="Dica1_Arremesso" type="Label" parent="Level/Dicas" index="0" unique_id=1159556331]
+visible = false
 offset_left = 380.0
 offset_top = 250.0
 offset_right = 1000.0
@@ -265,6 +259,7 @@ Cuidado: o chão vermelho encerra a tentativa!"
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Dica2_Paredes" type="Label" parent="Level/Dicas" index="1" unique_id=1519240447]
+visible = false
 offset_left = 160.0
 offset_top = 120.0
 offset_right = 900.0
@@ -274,6 +269,7 @@ A bola quica nas paredes: use-as para subir de plataforma em plataforma."
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Dica3_Corda" type="Label" parent="Level/Dicas" index="2" unique_id=131791730]
+visible = false
 offset_left = 1260.0
 offset_top = -1760.0
 offset_right = 1980.0
@@ -283,6 +279,7 @@ Passe perto do gancho para se prender. Aperte Espaço para soltar."
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Dica4_Descida" type="Label" parent="Level/Dicas" index="3" unique_id=1638136763]
+visible = false
 offset_left = 2420.0
 offset_top = -1480.0
 offset_right = 3140.0
@@ -293,6 +290,7 @@ Solte na hora certa para cair na plataforma."
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Dica5_Qte" type="Label" parent="Level/Dicas" index="4" unique_id=1351102652]
+visible = false
 offset_left = 2960.0
 offset_top = 32.0
 offset_right = 3700.0
@@ -303,6 +301,7 @@ Responda certo para abri-la!"
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Dica6_Final" type="Label" parent="Level/Dicas" index="5" unique_id=699094629]
+visible = false
 offset_left = 4500.0
 offset_top = -340.0
 offset_right = 5240.0
@@ -313,10 +312,10 @@ Depois é só subir até a chegada!"
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Chegada" type="Label" parent="Level/Dicas" index="6" unique_id=98780197]
-offset_left = 5530.0
-offset_top = -780.0
-offset_right = 5770.0
-offset_bottom = -730.0
+offset_left = 4272.0
+offset_top = -368.0
+offset_right = 4512.0
+offset_bottom = -318.0
 text = "CHEGADA"
 label_settings = SubResource("LabelSettings_titulo")
 horizontal_alignment = 1

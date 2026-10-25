@@ -17,6 +17,12 @@ const BARRIER_TRIGGERED_COLOR := Color("#f59e0b", 0.5)
 			_update_trigger_shape()
 			queue_redraw()
 
+@export_category("Question")
+## Conteúdo das perguntas desta barreira (campo "content" em qte_questions.json).
+## Vazio sorteia entre todas as perguntas.
+@export_enum("energia_cinetica", "energia_potencial", "conservacao_energia", "corda", "lancamento")
+var content: String = ""
+
 @export_category("Trigger")
 @export var trigger_distance: float = 200.0:
 	set(value):
@@ -33,6 +39,7 @@ const BARRIER_TRIGGERED_COLOR := Color("#f59e0b", 0.5)
 
 var _active := true
 var _triggered := false
+var _cleared := false
 
 @onready var barrier_shape: CollisionShape2D = $BarrierShape
 @onready var trigger_area: Area2D = $TriggerArea
@@ -61,7 +68,18 @@ func remove_barrier() -> void:
 	queue_redraw()
 
 
-func reset_barrier() -> void:
+## Torna definitiva a remoção de uma barreira já respondida: voltar ao checkpoint
+## não a traz de volta. Só reset_barrier(true) a restaura.
+func confirm_removal() -> void:
+	if not _active:
+		_cleared = true
+
+
+## Com full = false, barreiras confirmadas por confirm_removal() continuam removidas.
+func reset_barrier(full: bool = false) -> void:
+	if _cleared and not full:
+		return
+	_cleared = false
 	_active = true
 	_triggered = false
 	barrier_shape.set_deferred("disabled", false)
