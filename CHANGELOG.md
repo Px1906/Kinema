@@ -34,6 +34,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Os atributos da bola são exibidos como números inteiros, arredondando para cima só quando a parte decimal passa de 0,5; a velocidade abaixo de 1 m/s mantém uma casa decimal.
 - O painel de atributos do QTE fica escondido por padrão.
 - A gravidade do jogo passa a ser 10 m/s² (o valor da Terra arredondado).
+- Duração e curva do ímã do checkpoint configuráveis por checkpoint no Inspector (`pull_duration`, `pull_velocity_influence`).
+- A altura automática do gatilho da barreira de QTE passa a ser indicada por `trigger_height` negativo (-1), em vez de 0.
 
 ### Corrigido
 - Acoplamento da partícula à corda adiado para evitar alterações durante o processamento de consultas físicas do Godot.
@@ -42,3 +44,5 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A altura da energia potencial passa a ser medida pela base da bola, e não pelo centro.
 - A energia mecânica da bola se conserva no ar: ela deixou de herdar o amortecimento linear padrão do projeto.
 - Barreiras de QTE respondidas não voltam ao respawnar depois de alcançar um checkpoint.
+- O checkpoint só é marcado como alcançado quando o ímã de fato puxa a bola.
+- O fim do puxão do ímã não emite `stopped` se a bola já tiver mudado de estado (corda ou reinício).
