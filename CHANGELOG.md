@@ -34,6 +34,7 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Os atributos da bola são exibidos como números inteiros, arredondando para cima só quando a parte decimal passa de 0,5; a velocidade abaixo de 1 m/s mantém uma casa decimal.
 - O painel de atributos do QTE fica escondido por padrão.
 - A gravidade do jogo passa a ser 10 m/s² (o valor da Terra arredondado).
+- A referência de altura só pode ser arrastada com a bola pronta para lançar, controlada pelo `LevelController` (antes a própria referência consultava o Player).
 
 ### Corrigido
 - Acoplamento da partícula à corda adiado para evitar alterações durante o processamento de consultas físicas do Godot.
@@ -42,3 +43,6 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A altura da energia potencial passa a ser medida pela base da bola, e não pelo centro.
 - A energia mecânica da bola se conserva no ar: ela deixou de herdar o amortecimento linear padrão do projeto.
 - Barreiras de QTE respondidas não voltam ao respawnar depois de alcançar um checkpoint.
+- A energia mecânica da bola não cai mais em pleno voo (a velocidade usada no cálculo passa a ser a do meio do passo de física).
+- A energia potencial não fica mais negativa por um instante quando a bola quica no nível da referência.
+- O cursor volta ao normal assim que a referência de altura deixa de ser arrastável e ao trocar de fase.
