@@ -7,6 +7,8 @@ extends StaticBody2D
 const GROUP := &"qte_barrier"
 const BARRIER_COLOR := Color("#f59e0b")
 const BARRIER_TRIGGERED_COLOR := Color("#f59e0b", 0.5)
+## Valor de trigger_height que pede a altura automática.
+const TRIGGER_HEIGHT_AUTO := -1.0
 
 @export_category("Barrier")
 @export var size: Vector2 = Vector2(32.0, 128.0):
@@ -30,10 +32,10 @@ var content: String = ""
 		if is_node_ready():
 			_update_trigger_shape()
 
-## Altura da área de gatilho. Em 0, usa o dobro da altura da barreira.
-@export var trigger_height: float = 0.0:
+## Altura da área de gatilho. Negativo (-1) usa o dobro da altura da barreira.
+@export var trigger_height: float = TRIGGER_HEIGHT_AUTO:
 	set(value):
-		trigger_height = maxf(value, 0.0)
+		trigger_height = TRIGGER_HEIGHT_AUTO if value < 0.0 else maxf(value, 1.0)
 		if is_node_ready():
 			_update_trigger_shape()
 
@@ -113,7 +115,7 @@ func _update_collision_shape() -> void:
 func _update_trigger_shape() -> void:
 	if trigger_shape == null:
 		return
-	var height := trigger_height if trigger_height > 0.0 else size.y * 2.0
+	var height := size.y * 2.0 if trigger_height == TRIGGER_HEIGHT_AUTO else trigger_height
 	_ensure_rect_shape(trigger_shape).size = Vector2(trigger_distance, height)
 	trigger_shape.position = Vector2(-trigger_distance / 2.0 - size.x / 2.0, 0.0)
 
