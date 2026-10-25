@@ -1,6 +1,8 @@
 class_name CheckpointZone
 extends Zone
 
+## Emitido quando o ímã começa a puxar a bola, que ainda não chegou ao centro.
+## Quem ouve deve usar checkpoint.global_position, não a posição da bola.
 signal checkpoint_reached(checkpoint: CheckpointZone)
 
 const MARKER_RADIUS := 12.0
