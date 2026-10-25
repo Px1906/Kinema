@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="1_platform"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_very_long"]
+size = Vector2(1024, 64)
+
+[node name="PlatformSurfaceVeryLong" instance=ExtResource("1_platform")]
+size = Vector2(1024, 64)
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_very_long")

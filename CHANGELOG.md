@@ -20,6 +20,7 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Arquivos de skill de GDScript para apoiar o desenvolvimento Godot.
 - Altura da área de gatilho da barreira de QTE configurável pelo Inspector (`trigger_height`).
 - Layout da fase tutorial.
+- Cinco tamanhos prontos de plataforma: muito curta (64×32), curta (128×32), média (256×32), longa (512×64) e muito longa (1024×64).
 - Perguntas do QTE com conteúdo (`content`) e estilo (`style`, cálculo ou teoria); cada barreira de QTE escolhe o conteúdo pelo Inspector e sorteia só entre as perguntas dele.
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
