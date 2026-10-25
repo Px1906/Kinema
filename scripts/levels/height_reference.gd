@@ -70,17 +70,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseMotion:
 		_set_hover_mode(_pick_drag_mode(get_global_mouse_position()))
-	elif event is InputEventMouseButton:
-		var button := event as InputEventMouseButton
-		if button.button_index != MOUSE_BUTTON_LEFT or not button.pressed:
-			return
-		var mode := _pick_drag_mode(get_global_mouse_position())
-		if mode == DragMode.NONE:
-			return
-		_drag_mode = mode
-		_drag_offset = get_global_mouse_position() - global_position
-		set_process_input(true)
-		get_viewport().set_input_as_handled()
+	elif _is_left_press(event):
+		_begin_drag(_pick_drag_mode(get_global_mouse_position()))
 
 
 ## Durante o arrasto o movimento é lido em _input, para não travar quando o mouse
@@ -98,6 +89,21 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		_drag_to(get_global_mouse_position())
 		get_viewport().set_input_as_handled()
+
+
+func _is_left_press(event: InputEvent) -> bool:
+	var button := event as InputEventMouseButton
+	return button != null and button.button_index == MOUSE_BUTTON_LEFT and button.pressed
+
+
+## Pega a origem ou um eixo e passa a ler o movimento em _input até soltar.
+func _begin_drag(mode: DragMode) -> void:
+	if mode == DragMode.NONE:
+		return
+	_drag_mode = mode
+	_drag_offset = get_global_mouse_position() - global_position
+	set_process_input(true)
+	get_viewport().set_input_as_handled()
 
 
 func _can_drag() -> bool:
