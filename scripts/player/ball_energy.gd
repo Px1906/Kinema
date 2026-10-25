@@ -9,6 +9,9 @@ signal energy_updated(ball_energy: BallEnergy)
 ## bola afunda um pouco no contato (contact_max_allowed_penetration) e ficaria com
 ## energia potencial levemente negativa no nível da referência.
 const HEIGHT_TOLERANCE_PIXELS := 1.0
+## Rodadas de recuperação da penetração. Cada body_test_motion desfaz ~87% dela
+## (quatro iterações internas de 40%); duas rodadas deixam menos de 2%.
+const DEPENETRATION_PASSES := 2
 
 ## Massa em kg.
 var mass: float = 0.0
@@ -82,11 +85,31 @@ func _get_measured_velocity() -> Vector2:
 	return velocity + gravity * get_physics_process_delta_time() * 0.5
 
 
+## No passo do impacto a bola fica afundada alguns px no chão até o solver empurrá-la
+## para fora. A altura usa a posição já sem essa penetração, como se o solver tivesse
+## terminado; sem isso, a Ep pisca negativa a cada quique no nível da referência.
+func _get_resolved_base_position() -> Vector2:
+	var base := player.get_base_global_position()
+	if player.get_state() != Player.State.MOVING:
+		return base
+
+	var params := PhysicsTestMotionParameters2D.new()
+	params.from = player.global_transform
+	params.margin = 0.0
+	var result := PhysicsTestMotionResult2D.new()
+	for _pass in DEPENETRATION_PASSES:
+		if not PhysicsServer2D.body_test_motion(player.get_rid(), params, result):
+			break
+		params.from.origin += result.get_travel()
+	return base + params.from.origin - player.global_position
+
+
 func _get_height() -> float:
+	var base := _get_resolved_base_position()
 	var height_meters := (
-		PhysicsUnits.pixels_to_meters(-player.get_base_global_position().y)
+		PhysicsUnits.pixels_to_meters(-base.y)
 		if _height_reference == null
-		else _height_reference.get_height_meters(player.get_base_global_position())
+		else _height_reference.get_height_meters(base)
 	)
 	if absf(height_meters) < PhysicsUnits.pixels_to_meters(HEIGHT_TOLERANCE_PIXELS):
 		return 0.0
