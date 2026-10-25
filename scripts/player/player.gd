@@ -261,6 +261,9 @@ func _set_pull_progress(t: float, start: Vector2, control: Vector2, target: Vect
 ## (o LevelController) prepara o próximo lançamento a partir daqui.
 func _finish_pull() -> void:
 	_pull_tween = null
+	# Outro caminho (corda, reinício) pode ter mudado o estado durante o puxão.
+	if _state != State.PULLED:
+		return
 	_carried_velocity = Vector2.ZERO
 	_set_state(State.STOPPED)
 	stopped.emit()
