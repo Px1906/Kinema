@@ -1,7 +1,7 @@
 class_name Player
 extends RigidBody2D
 
-enum State { READY, MOVING, STOPPED, ATTACHED, PULLED }
+enum State { READY, MOVING, STOPPED, ATTACHED, PULLED, STUCK }
 
 signal launched(velocity: Vector2)
 signal stopped
@@ -48,6 +48,7 @@ var _pending_reset_position: Vector2
 var _reset_pending := false
 var _base_linear_damp := 0.0
 var _pull_tween: Tween
+var _stick_tween: Tween
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -123,9 +124,9 @@ func get_initial_global_position() -> Vector2:
 	return _initial_global_position
 
 
-## Velocidade real da bola em px/s, inclusive quando congelada (corda ou ímã).
+## Velocidade real da bola em px/s, inclusive quando congelada (corda, ímã ou espinhos).
 func get_current_velocity() -> Vector2:
-	if _state == State.ATTACHED or _state == State.PULLED:
+	if _state in [State.ATTACHED, State.PULLED, State.STUCK]:
 		return _carried_velocity
 	return linear_velocity
 
@@ -161,6 +162,7 @@ func reset_attempt(start_position: Vector2) -> void:
 
 func _reset_to_ready() -> void:
 	_kill_pull_tween()
+	_kill_stick_tween()
 	release_brake()
 	freeze = true
 	sleeping = true
@@ -278,6 +280,59 @@ func _kill_pull_tween() -> void:
 	if _pull_tween != null:
 		_pull_tween.kill()
 		_pull_tween = null
+
+
+## Finca a bola (ex.: nos espinhos): ela segue na direção em que vinha, freando até
+## parar no máximo max_depth px adiante, fica presa por hold_time e então emite
+## obstacle_hit, como uma batida em obstáculo. stop_duration é o tempo da freada
+## sem o limite de profundidade.
+func stick_into(stop_duration: float, max_depth: float, hold_time: float) -> void:
+	if _state != State.MOVING:
+		return
+
+	var velocity := linear_velocity
+	var speed := velocity.length()
+	# Desaceleração constante: anda v·t/2 até parar. Limitada, freia mais forte.
+	var depth := minf(speed * stop_duration / 2.0, max_depth)
+	var duration := 2.0 * depth / speed if speed > 0.0 else 0.0
+	var start := global_position
+	var target := start + velocity.normalized() * depth
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	_stop_detection_time = 0.0
+	_set_state(State.STUCK)
+	set_physics_process(false)
+	queue_redraw()
+
+	_kill_stick_tween()
+	_stick_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	if duration > 0.0:
+		# QUAD + EASE_OUT é exatamente o movimento com desaceleração constante.
+		_stick_tween.tween_method(
+			_set_stick_progress.bind(start, target), 0.0, 1.0, duration
+		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_stick_tween.tween_callback(set_carried_velocity.bind(Vector2.ZERO))
+	_stick_tween.tween_interval(hold_time)
+	_stick_tween.tween_callback(_finish_stick)
+
+
+func _set_stick_progress(t: float, start: Vector2, target: Vector2) -> void:
+	var previous := global_position
+	global_position = start.lerp(target, t)
+	set_carried_velocity((global_position - previous) / get_physics_process_delta_time())
+
+
+func _finish_stick() -> void:
+	_stick_tween = null
+	if _state == State.STUCK:
+		obstacle_hit.emit()
+
+
+func _kill_stick_tween() -> void:
+	if _stick_tween != null:
+		_stick_tween.kill()
+		_stick_tween = null
 
 
 func detach(velocity: Vector2) -> void:
