@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="7_kjfhl"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="7_rope"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
@@ -65,7 +66,7 @@ is_obstacle = true
 position = Vector2(256, 560)
 
 [node name="PlatformSurface3" parent="Level/Surfaces/Platforms" index="1" unique_id=1300331941 instance=ExtResource("2_platform_short")]
-position = Vector2(912, 560)
+position = Vector2(896, 560)
 
 [node name="PlatformSurface5" parent="Level/Surfaces/Platforms" index="2" unique_id=559749988 instance=ExtResource("2_platform_short")]
 position = Vector2(1280, 272)
@@ -128,16 +129,16 @@ position = Vector2(1680, -128)
 position = Vector2(1680, 64)
 
 [node name="WallSurfaceShort" parent="Level/Surfaces/Walls" index="3" unique_id=1074087806 instance=ExtResource("2_wall_short")]
-position = Vector2(576, -64)
+position = Vector2(592, -64)
 
 [node name="WallSurfaceShort2" parent="Level/Surfaces/Walls" index="4" unique_id=1058010082 instance=ExtResource("2_wall_short")]
-position = Vector2(576, -288)
+position = Vector2(592, -288)
 
 [node name="WallSurfaceVeryLong" parent="Level/Surfaces/Walls" index="5" unique_id=709063334 instance=ExtResource("9_fjmsq")]
 position = Vector2(1472, 128)
 
 [node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
-position = Vector2(912, 528)
+position = Vector2(896, 528)
 
 [node name="CheckpointZone2" parent="Level/Zones/Checkpoints" index="1" unique_id=1253131974 instance=ExtResource("6_checkpoint")]
 position = Vector2(1312, 240)
@@ -158,7 +159,7 @@ position = Vector2(288, -272)
 position = Vector2(576, -400)
 
 [node name="CheckpointZone8" parent="Level/Zones/Checkpoints" index="7" unique_id=1532592797 instance=ExtResource("6_checkpoint")]
-position = Vector2(1632, -400)
+position = Vector2(1728, -400)
 
 [node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="8" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
 position = Vector2(1696, -208)
@@ -189,8 +190,8 @@ position = Vector2(1072, -544)
 detection_radius = 192.0
 
 [node name="Rope2" parent="Level/Ropes" index="1" unique_id=585753711 instance=ExtResource("7_rope")]
-position = Vector2(2112, -480)
-detection_radius = 250.0
+position = Vector2(2048, -512)
+detection_radius = 256.0
 
 [node name="Rope3" parent="Level/Ropes" index="2" unique_id=958609452 instance=ExtResource("7_rope")]
 position = Vector2(1744, 416)
@@ -210,12 +211,12 @@ content = "conservacao_energia"
 trigger_height = 224.0
 
 [node name="QteBarrier2" parent="Level/QteBarriers" index="1" unique_id=490689315 instance=ExtResource("7_kjfhl")]
-position = Vector2(2656, -400)
+position = Vector2(2608, -400)
 rotation = 4.712389
-size = Vector2(32, 256)
+size = Vector2(32, 352)
 content = "energia_potencial"
 trigger_distance = 80.0
-trigger_height = 256.0
+trigger_height = 352.0
 
 [node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
 position = Vector2(3664, -768)
@@ -225,9 +226,9 @@ trigger_height = 767.645
 
 [node name="LevelBounds" parent="Level" index="5"]
 visible = false
-offset_top = -864.0
-offset_right = 4752.0
-offset_bottom = 717.0
+offset_top = -896.0
+offset_right = 4352.0
+offset_bottom = 704.0
 
 [node name="Dicas" type="Node2D" parent="Level" index="6" unique_id=1259953053]
 
@@ -311,7 +312,10 @@ position = Vector2(1744, -320)
 position = Vector2(1824, -176)
 
 [node name="WallSurfaceVeryLong" parent="." index="7" unique_id=1521399488 instance=ExtResource("9_fjmsq")]
-position = Vector2(2464, -384)
+position = Vector2(2368, -384)
 
 [node name="WallSurfaceMedium" parent="." index="8" unique_id=1755763110 instance=ExtResource("2_wall_medium")]
 position = Vector2(4240, 448)
+
+[node name="WallSurfaceLong" parent="." index="9" unique_id=413085442 instance=ExtResource("13_ijnuu")]
+position = Vector2(1632, -736)
