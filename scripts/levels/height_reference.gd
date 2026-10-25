@@ -186,7 +186,7 @@ func _snap_to_start_node() -> void:
 	# Lido por get(): no editor o Player não é @tool e não responde a métodos.
 	var start_radius: Variant = start_node.get("radius")
 	if start_radius is float:
-		target += Vector2.DOWN * start_radius
+		target = get_base_point(target, start_radius)
 	if global_position != target:
 		global_position = target
 
@@ -239,6 +239,12 @@ func move_to(global_point: Vector2) -> void:
 	global_position = global_point
 	_snap_origin = global_point
 	queue_redraw()
+
+
+## Ponto mais baixo de uma bola, sempre para baixo: a altura é medida a partir dele,
+## não do centro. Única fonte dessa regra (o Player também a usa).
+static func get_base_point(center: Vector2, ball_radius: float) -> Vector2:
+	return center + Vector2.DOWN * ball_radius
 
 
 ## Altura em metros de um ponto global acima desta referência.
