@@ -118,7 +118,9 @@ func _update_collision_shape() -> void:
 func _update_trigger_shape() -> void:
 	if trigger_shape == null:
 		return
-	var height := size.y * DEFAULT_TRIGGER_HEIGHT_FACTOR if trigger_height == TRIGGER_HEIGHT_AUTO else trigger_height
+	var height := trigger_height
+	if trigger_height == TRIGGER_HEIGHT_AUTO:
+		height = size.y * DEFAULT_TRIGGER_HEIGHT_FACTOR
 	_ensure_rect_shape(trigger_shape).size = Vector2(trigger_distance, height)
 	trigger_shape.position = Vector2(-trigger_distance / 2.0 - size.x / 2.0, 0.0)
 
