@@ -71,9 +71,9 @@ func _is_at_rest() -> bool:
 
 func _get_height() -> float:
 	var height_meters := (
-		PhysicsUnits.pixels_to_meters(-player.global_position.y)
+		PhysicsUnits.pixels_to_meters(-player.get_base_global_position().y)
 		if _height_reference == null
-		else _height_reference.get_height_meters(player.global_position)
+		else _height_reference.get_height_meters(player.get_base_global_position())
 	)
 	if absf(height_meters) < PhysicsUnits.pixels_to_meters(HEIGHT_TOLERANCE_PIXELS):
 		return 0.0
