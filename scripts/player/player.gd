@@ -17,9 +17,6 @@ const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
 const LAUNCH_ARROW_OFFSET := 4.0
-const PULL_DURATION := 0.45
-## Quanto a velocidade de entrada entorta a curva até o ímã (segundos de "embalo").
-const PULL_VELOCITY_INFLUENCE := 0.12
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -233,12 +230,13 @@ func attach_to(anchor_global_position: Vector2) -> void:
 
 ## Puxa a bola até o ponto como um ímã: a curva sai na direção em que ela vinha,
 ## passa um pouco do alvo e volta. No fim, a bola fica suspensa ali, parada.
-func pull_to(target_global_position: Vector2) -> void:
+## velocity_influence: quanto a velocidade de entrada entorta a curva (segundos de "embalo").
+func pull_to(target_global_position: Vector2, duration: float, velocity_influence: float) -> void:
 	if _state != State.MOVING:
 		return
 
 	var start := global_position
-	var control := start + linear_velocity * PULL_VELOCITY_INFLUENCE
+	var control := start + linear_velocity * velocity_influence
 	_freeze_body()
 	_set_state(State.PULLED)
 	queue_redraw()
@@ -247,7 +245,7 @@ func pull_to(target_global_position: Vector2) -> void:
 	_pull_elapsed = 0.0
 	_pull_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_pull_tween.tween_method(
-		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, PULL_DURATION
+		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, duration
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_pull_tween.tween_callback(_finish_pull)
 

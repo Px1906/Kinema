@@ -10,6 +10,11 @@ const COLOR_REACHED := Color("#22c55e")
 
 @export var checkpoint_index: int = 0
 
+@export_category("Magnet")
+@export var pull_duration: float = 0.45
+## Quanto a velocidade de entrada entorta a curva até o ímã (segundos de "embalo").
+@export var pull_velocity_influence: float = 0.12
+
 var _reached := false
 
 
@@ -36,7 +41,7 @@ func _on_player_entered(player: Player) -> void:
 	if _reached:
 		return
 	# Adiado: congelar o corpo dentro do body_entered falha durante a etapa de física.
-	player.pull_to.call_deferred(global_position)
+	player.pull_to.call_deferred(global_position, pull_duration, pull_velocity_influence)
 	reach()
 
 
