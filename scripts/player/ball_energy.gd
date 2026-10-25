@@ -53,8 +53,8 @@ func _update_values() -> void:
 	var radius_meters := PhysicsUnits.pixels_to_meters(player.radius)
 	mass = player.mass
 	area = PI * radius_meters * radius_meters
-	speed = 0.0 if _is_at_rest() else PhysicsUnits.pixels_to_meters(
-		player.get_current_velocity().length()
+	speed = (
+		0.0 if _is_at_rest() else PhysicsUnits.pixels_to_meters(_get_measured_velocity().length())
 	)
 	height = _get_height()
 	kinetic_energy = 0.5 * mass * speed * speed
@@ -67,6 +67,19 @@ func _update_values() -> void:
 func _is_at_rest() -> bool:
 	var state := player.get_state()
 	return state == Player.State.READY or state == Player.State.STOPPED
+
+
+## A física do Godot (Euler semi-implícito) soma a gravidade à velocidade antes de
+## mover a bola. A posição atual fica, então, entre a velocidade de chegada e a de
+## saída do passo: usar linear_velocity crua faz Ec + Ep cair ½·m·g²·Δt² a cada passo
+## em pleno voo. A velocidade no meio do passo (v + ½·g·Δt) conserva a energia.
+## Rolando no chão, a correção soma só ~0,08 m/s para baixo, desprezível.
+func _get_measured_velocity() -> Vector2:
+	var velocity := player.get_current_velocity()
+	if player.get_state() != Player.State.MOVING:
+		return velocity
+	var gravity := player.get_gravity() * player.gravity_scale
+	return velocity + gravity * get_physics_process_delta_time() * 0.5
 
 
 func _get_height() -> float:
