@@ -167,14 +167,10 @@ func reset_attempt(start_position: Vector2) -> void:
 func _reset_to_ready() -> void:
 	_kill_pull_tween()
 	release_brake()
-	freeze = true
+	_freeze_body()
 	sleeping = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	_stop_detection_time = 0.0
 	_obstacle_hit_queued = false
 	launch_velocity = Vector2.ZERO
-	set_physics_process(false)
 	_state = State.READY
 	state_changed.emit(_state)
 	launch_parameters_changed.emit(launch_speed, launch_angle_degrees)
@@ -228,13 +224,9 @@ func attach_to(anchor_global_position: Vector2) -> void:
 		return
 
 	_was_frozen_before_attach = freeze
-	freeze = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
+	_freeze_body()
 	global_position = anchor_global_position
-	_stop_detection_time = 0.0
 	_set_state(State.ATTACHED)
-	set_physics_process(false)
 	queue_redraw()
 
 
@@ -246,12 +238,8 @@ func pull_to(target_global_position: Vector2) -> void:
 
 	var start := global_position
 	var control := start + linear_velocity * PULL_VELOCITY_INFLUENCE
-	freeze = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	_stop_detection_time = 0.0
+	_freeze_body()
 	_set_state(State.PULLED)
-	set_physics_process(false)
 	queue_redraw()
 
 	_kill_pull_tween()
@@ -277,6 +265,15 @@ func _finish_pull() -> void:
 	_set_state(State.STOPPED)
 	stopped.emit()
 	queue_redraw()
+
+
+## Para a bola e tira da física: congela, zera velocidades e a detecção de parada.
+func _freeze_body() -> void:
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	_stop_detection_time = 0.0
+	set_physics_process(false)
 
 
 func _kill_pull_tween() -> void:
