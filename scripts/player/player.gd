@@ -29,7 +29,7 @@ const SURFACE_HIT_COOLDOWN := 0.15
 			_update_collision_shape()
 			queue_redraw()
 @export var particle_color := Color("#5eead4")
-@export var arrow_color := Color("#facc15")
+@export var arrow_color := Color("#000000")
 
 @export_category("Launch")
 @export var fator_velocidade_lancamento: float = 1.0
