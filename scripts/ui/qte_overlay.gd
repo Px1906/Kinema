@@ -18,7 +18,6 @@ const STYLE_STATES: Array[StringName] = [&"normal", &"hover", &"pressed", &"disa
 @export_category("Reactions")
 @export var correct_reactions: Array[QteReaction] = []
 @export var wrong_reactions: Array[QteReaction] = []
-@export var audio_bus: StringName = &"SFX"
 
 @export_category("Timing")
 @export_range(0.1, 5.0, 0.1) var result_display_time: float = 1.5
@@ -33,7 +32,6 @@ var _question_generator := QteQuestionGenerator.new()
 var _ball_energy: BallEnergy
 var _current_correct_index := -1
 var _answered := false
-var _audio_player: AudioStreamPlayer
 var _exit_tween: Tween
 var _question_base_y: float
 var _buttons_base_y: float
@@ -59,10 +57,6 @@ var _style_wrong: StyleBoxFlat
 
 func _ready() -> void:
 	add_to_group(GROUP)
-
-	_audio_player = AudioStreamPlayer.new()
-	_audio_player.bus = audio_bus
-	add_child(_audio_player)
 
 	add_child(_qte_manager)
 	_qte_manager.time_updated.connect(_on_time_updated)
@@ -179,9 +173,8 @@ func _play_reaction(reactions: Array[QteReaction]) -> void:
 
 	var reaction: QteReaction = reactions.pick_random()
 
-	if reaction.sound != null and _audio_player != null:
-		_audio_player.stream = reaction.sound
-		_audio_player.play()
+	if reaction.sound != null:
+		SFXPool.play(reaction.sound)
 
 	if reaction.sprite_frames != null and _reward_sprite != null:
 		_reward_sprite.sprite_frames = reaction.sprite_frames

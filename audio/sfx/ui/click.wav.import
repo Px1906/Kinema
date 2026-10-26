@@ -7,7 +7,7 @@ path="res://.godot/imported/clik.wav-262a037c9eb41d3eb86a864c2e3fd596.sample"
 
 [deps]
 
-source_file="res://audio/sfx/ui/clik.wav"
+source_file="res://audio/sfx/ui/click.wav"
 dest_files=["res://.godot/imported/clik.wav-262a037c9eb41d3eb86a864c2e3fd596.sample"]
 
 [params]

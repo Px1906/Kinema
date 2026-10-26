@@ -7,7 +7,7 @@ path="res://.godot/imported/contagem-regressiva.wav-a26b46fd63bea262c30b00af17e8
 
 [deps]
 
-source_file="res://audio/sfx/qte/contagem-regressiva.wav"
+source_file="res://audio/sfx/qte/qte-wrong.wav"
 dest_files=["res://.godot/imported/contagem-regressiva.wav-a26b46fd63bea262c30b00af17e80369.sample"]
 
 [params]

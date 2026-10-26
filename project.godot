@@ -22,6 +22,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 
 Events="*res://autoload/events.gd"
 SaveManager="*res://autoload/save_manager.gd"
+AudioSettings="*res://autoload/audio_settings.gd"
 MusicManager="*res://autoload/music_manager.gd"
 SFXPool="*res://autoload/sfx_pool.gd"
 UIAudio="*res://autoload/ui_audio.gd"

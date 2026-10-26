@@ -7,7 +7,7 @@ path="res://.godot/imported/menuMusic.ogg-3f6fbb4f17ccb37ff0830d6a1b6e9753.oggvo
 
 [deps]
 
-source_file="res://audio/music/menuMusic.ogg"
+source_file="res://audio/music/menu-music.ogg"
 dest_files=["res://.godot/imported/menuMusic.ogg-3f6fbb4f17ccb37ff0830d6a1b6e9753.oggvorbisstr"]
 
 [params]

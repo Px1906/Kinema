@@ -7,7 +7,7 @@ path="res://.godot/imported/ui_swipe_soft_01.wav-4c1415a691365704db8d2cd879f99bd
 
 [deps]
 
-source_file="res://audio/sfx/rope/ui_swipe_soft_01.wav"
+source_file="res://audio/sfx/ui/ui-swipe.wav"
 dest_files=["res://.godot/imported/ui_swipe_soft_01.wav-4c1415a691365704db8d2cd879f99bd4.sample"]
 
 [params]

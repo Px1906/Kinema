@@ -7,7 +7,7 @@ path="res://.godot/imported/object-hiting.ogg-c5352675b3e35e4b97aa0a9e58b35a28.o
 
 [deps]
 
-source_file="res://audio/sfx/player/object-hiting.ogg"
+source_file="res://audio/sfx/player/object-hitting.ogg"
 dest_files=["res://.godot/imported/object-hiting.ogg-c5352675b3e35e4b97aa0a9e58b35a28.oggvorbisstr"]
 
 [params]
