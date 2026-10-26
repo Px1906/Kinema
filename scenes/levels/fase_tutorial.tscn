@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
 [ext_resource type="PackedScene" path="res://scenes/zones/spike_zone.tscn" id="9_ijnuu"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
-[ext_resource type="PackedScene" uid="uid://7b8u8p1o4ua5" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
+[ext_resource type="PackedScene" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
 [ext_resource type="Script" uid="uid://b7ri66qwrjh6h" path="res://scripts/resources/tutorial_popup_data.gd" id="17_popup_data"]
 [ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="17_tdtmq"]
 
@@ -35,7 +35,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(4031, 292)
+position = Vector2(256, 528)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -44,14 +44,14 @@ fator_velocidade_lancamento = 0.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(4031, 308)
+position = Vector2(256, 544)
 
 [node name="Sprite2D" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
 z_index = -100
 texture_repeat = 2
-position = Vector2(0, -956.00006)
-scale = Vector2(1.15, 0.7638888)
+position = Vector2(-129, -1056)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("17_tdtmq")
 centered = false
 
@@ -203,7 +203,10 @@ position = Vector2(2592, -128)
 position = Vector2(2880, -432)
 
 [node name="CheckpointZone15" parent="Level/Zones/Checkpoints" index="14" unique_id=1418529397 instance=ExtResource("6_checkpoint")]
-position = Vector2(4032, 304)
+position = Vector2(4032, 305)
+
+[node name="CheckpointZone16" parent="Level/Zones/Checkpoints" index="15" unique_id=1125130368 instance=ExtResource("6_checkpoint")]
+position = Vector2(4864, -1824)
 
 [node name="SpikeZone" parent="Level/Zones/Spikes" index="0" unique_id=1178256078 instance=ExtResource("9_ijnuu")]
 position = Vector2(1376, 624)
@@ -385,3 +388,12 @@ offset_bottom = -542.0
 text = "CHEGADA"
 label_settings = SubResource("LabelSettings_titulo")
 horizontal_alignment = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="Level" index="9" unique_id=2097116447]
+modulate = Color(1, 1, 1, 0.83137256)
+z_index = -100
+texture_repeat = 2
+position = Vector2(2943, -1056)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("17_tdtmq")
+centered = false
