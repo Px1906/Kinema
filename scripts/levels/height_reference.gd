@@ -21,7 +21,6 @@ const AXIS_GRAB_DISTANCE := 8.0
 ## Opcional. Se definido (ex.: o Player), a altura zero fica na posição inicial dele
 ## (na base, se o nó tiver "radius"): no editor acompanha o nó; no jogo, fica fixa
 ## onde ele começou a fase.
-## Se for um Player, o arrasto só funciona com a bola pronta para lançar.
 @export var start_node: Node2D:
 	set(value):
 		start_node = value
@@ -32,6 +31,16 @@ const AXIS_GRAB_DISTANCE := 8.0
 ## Passo do arrasto em pixels, contado a partir da posição inicial. 32 px = 1 m.
 @export var snap_step: float = PhysicsUnits.PIXELS_PER_METER
 
+## Ligado e desligado em jogo por quem controla a fase (ex.: o LevelController só
+## libera o arrasto com a bola pronta para lançar). draggable é a config do Inspector.
+var drag_enabled := true:
+	set(value):
+		drag_enabled = value
+		if not value:
+			# O cursor é global: volta ao normal já, sem esperar o próximo evento de mouse.
+			_end_drag()
+			_set_hover_mode(DragMode.NONE)
+
 var _drag_mode := DragMode.NONE
 var _hover_mode := DragMode.NONE
 var _drag_offset := Vector2.ZERO
@@ -40,6 +49,12 @@ var _snap_origin := Vector2.ZERO
 
 func _enter_tree() -> void:
 	add_to_group(GROUP)
+
+
+func _exit_tree() -> void:
+	# Trocar de fase com o mouse em cima de um eixo não pode deixar o cursor preso.
+	if _hover_mode != DragMode.NONE or _drag_mode != DragMode.NONE:
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 
 func _ready() -> void:
@@ -61,23 +76,17 @@ func _process(_delta: float) -> void:
 ## O clique só chega aqui se a UI (ex.: a área de lançamento em volta da bola)
 ## não o consumiu.
 func _unhandled_input(event: InputEvent) -> void:
+	# Teclado, controle etc. não interessam ao hover nem ao arrasto.
+	if not event is InputEventMouse:
+		return
 	if not _can_drag():
 		_set_hover_mode(DragMode.NONE)
 		return
 
 	if event is InputEventMouseMotion:
 		_set_hover_mode(_pick_drag_mode(get_global_mouse_position()))
-	elif event is InputEventMouseButton:
-		var button := event as InputEventMouseButton
-		if button.button_index != MOUSE_BUTTON_LEFT or not button.pressed:
-			return
-		var mode := _pick_drag_mode(get_global_mouse_position())
-		if mode == DragMode.NONE:
-			return
-		_drag_mode = mode
-		_drag_offset = get_global_mouse_position() - global_position
-		set_process_input(true)
-		get_viewport().set_input_as_handled()
+	elif _is_left_press(event):
+		_begin_drag(_pick_drag_mode(get_global_mouse_position()))
 
 
 ## Durante o arrasto o movimento é lido em _input, para não travar quando o mouse
@@ -97,11 +106,23 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
+func _is_left_press(event: InputEvent) -> bool:
+	var button := event as InputEventMouseButton
+	return button != null and button.button_index == MOUSE_BUTTON_LEFT and button.pressed
+
+
+## Pega a origem ou um eixo e passa a ler o movimento em _input até soltar.
+func _begin_drag(mode: DragMode) -> void:
+	if mode == DragMode.NONE:
+		return
+	_drag_mode = mode
+	_drag_offset = get_global_mouse_position() - global_position
+	set_process_input(true)
+	get_viewport().set_input_as_handled()
+
+
 func _can_drag() -> bool:
-	if not draggable:
-		return false
-	var player := start_node as Player
-	return player == null or player.can_launch()
+	return draggable and drag_enabled
 
 
 func _pick_drag_mode(global_point: Vector2) -> DragMode:
@@ -186,7 +207,7 @@ func _snap_to_start_node() -> void:
 	# Lido por get(): no editor o Player não é @tool e não responde a métodos.
 	var start_radius: Variant = start_node.get("radius")
 	if start_radius is float:
-		target += Vector2.DOWN * start_radius
+		target = get_base_point(target, start_radius)
 	if global_position != target:
 		global_position = target
 
@@ -239,6 +260,12 @@ func move_to(global_point: Vector2) -> void:
 	global_position = global_point
 	_snap_origin = global_point
 	queue_redraw()
+
+
+## Ponto mais baixo de uma bola, sempre para baixo: a altura é medida a partir dele,
+## não do centro. Única fonte dessa regra (o Player também a usa).
+static func get_base_point(center: Vector2, ball_radius: float) -> Vector2:
+	return center + Vector2.DOWN * ball_radius
 
 
 ## Altura em metros de um ponto global acima desta referência.

@@ -49,9 +49,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func _pause() -> void:
 	_show_main()
 	get_tree().paused = true
+	UIAudio.play_pause(true)
 
 
 func _unpause() -> void:
+	_close_and_unpause()
+	UIAudio.play_pause(false)
+
+
+func _close_and_unpause() -> void:
 	_hide_all()
 	get_tree().paused = false
 
@@ -99,20 +105,20 @@ func _on_restart_pressed() -> void:
 	if has_checkpoint:
 		_open_restart()
 	else:
-		_unpause()
+		_close_and_unpause()
 		restart_full_requested.emit()
 
 
 func _on_restart_full() -> void:
-	_unpause()
+	_close_and_unpause()
 	restart_full_requested.emit()
 
 
 func _on_restart_checkpoint() -> void:
-	_unpause()
+	_close_and_unpause()
 	restart_checkpoint_requested.emit()
 
 
 func _on_exit() -> void:
-	_unpause()
+	_close_and_unpause()
 	exit_requested.emit()
