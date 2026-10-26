@@ -1,8 +1,11 @@
 class_name CheckpointZone
 extends Zone
 
+## Emitido quando o ímã começa a puxar a bola, que ainda não chegou ao centro.
+## Quem ouve deve usar checkpoint.global_position, não a posição da bola.
 signal checkpoint_reached(checkpoint: CheckpointZone)
 
+const GROUP := &"checkpoint"
 const MARKER_RADIUS := 12.0
 const MARKER_WIDTH := 2.0
 const COLOR_UNREACHED := Color("#6b7280")
@@ -10,11 +13,17 @@ const COLOR_REACHED := Color("#22c55e")
 
 @export var checkpoint_index: int = 0
 
+@export_category("Magnet")
+@export var pull_duration: float = 0.45
+## Quanto a velocidade de entrada entorta a curva até o ímã (segundos de "embalo").
+@export var pull_velocity_influence: float = 0.12
+
 var _reached := false
 
 
 func _ready() -> void:
 	super._ready()
+	add_to_group(GROUP)
 	player_entered.connect(_on_player_entered)
 	queue_redraw()
 
@@ -36,8 +45,15 @@ func _on_player_entered(player: Player) -> void:
 	if _reached:
 		return
 	# Adiado: congelar o corpo dentro do body_entered falha durante a etapa de física.
-	player.pull_to.call_deferred(global_position)
-	reach()
+	_pull_and_reach.call_deferred(player)
+
+
+## Só marca o checkpoint se o ímã de fato pegou a bola.
+func _pull_and_reach(player: Player) -> void:
+	if _reached or not is_instance_valid(player):
+		return
+	if player.pull_to(global_position, pull_duration, pull_velocity_influence):
+		reach()
 
 
 func _draw() -> void:
