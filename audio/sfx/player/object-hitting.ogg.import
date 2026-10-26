@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://cm78spkxxfhsf"
-path="res://.godot/imported/object-hiting.ogg-c5352675b3e35e4b97aa0a9e58b35a28.oggvorbisstr"
+path="res://.godot/imported/object-hitting.ogg-2e6d36f0652f9217645d8b796d64e54d.oggvorbisstr"
 
 [deps]
 
 source_file="res://audio/sfx/player/object-hitting.ogg"
-dest_files=["res://.godot/imported/object-hiting.ogg-c5352675b3e35e4b97aa0a9e58b35a28.oggvorbisstr"]
+dest_files=["res://.godot/imported/object-hitting.ogg-2e6d36f0652f9217645d8b796d64e54d.oggvorbisstr"]
 
 [params]
 

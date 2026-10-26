@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bvclerstb3hxp"
-path="res://.godot/imported/ui_swipe_soft_01.wav-4c1415a691365704db8d2cd879f99bd4.sample"
+path="res://.godot/imported/ui-swipe.wav-01510883c28ee60b7f42d510bc354512.sample"
 
 [deps]
 
 source_file="res://audio/sfx/ui/ui-swipe.wav"
-dest_files=["res://.godot/imported/ui_swipe_soft_01.wav-4c1415a691365704db8d2cd879f99bd4.sample"]
+dest_files=["res://.godot/imported/ui-swipe.wav-01510883c28ee60b7f42d510bc354512.sample"]
 
 [params]
 
