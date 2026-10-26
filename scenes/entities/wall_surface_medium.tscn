@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://durw41bb8w0p6" path="res://scenes/entities/wall_surface.tscn" id="1_wall"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_medium"]
+size = Vector2(32, 256)
+
+[node name="WallSurfaceMedium" instance=ExtResource("1_wall")]
+size = Vector2(32, 256)
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_medium")

@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://bxylwkj36jcac"]
 
 [ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
-[ext_resource type="PackedScene" uid="uid://ch6ftsma1waaq" path="res://scenes/entities/floor_surface.tscn" id="2_floor"]
-[ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="3_platform"]
-[ext_resource type="PackedScene" uid="uid://durw41bb8w0p6" path="res://scenes/entities/wall_surface.tscn" id="4_wall"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_medium.tscn" id="2_platform_medium"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_short.tscn" id="2_platform_short"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_very_long.tscn" id="2_platform_very_long"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_medium.tscn" id="2_wall_medium"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_short.tscn" id="2_wall_short"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_short.tscn" id="2_wall_very_short"]
 [ext_resource type="PackedScene" path="res://scenes/zones/checkpoint_zone.tscn" id="6_checkpoint"]
+[ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_long.tscn" id="6_ijnuu"]
 [ext_resource type="PackedScene" uid="uid://di4b5qcseeqwp" path="res://scenes/entities/qte_barrier.tscn" id="7_kjfhl"]
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="7_rope"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
+[ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
@@ -25,140 +31,123 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(240, 528)
+position = Vector2(256, 528)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
-angular_damp = 2.5
+angular_damp = 0.5
 fator_velocidade_lancamento = 0.5
 
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(240, 544)
+position = Vector2(256, 544)
 
-[node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=1403826304 instance=ExtResource("2_floor")]
-position = Vector2(640, 717)
+[node name="FloorSurface" parent="Level/Surfaces/Floor" index="0" unique_id=474348553 instance=ExtResource("2_platform_very_long")]
+position = Vector2(512, 672)
 is_obstacle = true
 
-[node name="FloorSurface4" parent="Level/Surfaces/Floor" index="1" unique_id=622385953 instance=ExtResource("2_floor")]
-position = Vector2(4480, 717)
+[node name="FloorSurface2" parent="Level/Surfaces/Floor" index="1" unique_id=1586989846 instance=ExtResource("2_platform_very_long")]
+position = Vector2(1536, 672)
 is_obstacle = true
 
-[node name="FloorSurface5" parent="Level/Surfaces/Floor" index="2" unique_id=632039137 instance=ExtResource("2_floor")]
-position = Vector2(3200, 717)
+[node name="FloorSurface3" parent="Level/Surfaces/Floor" index="2" unique_id=803916128 instance=ExtResource("2_platform_very_long")]
+position = Vector2(2560, 672)
 is_obstacle = true
 
-[node name="FloorSurface6" parent="Level/Surfaces/Floor" index="3" unique_id=1556740323 instance=ExtResource("2_floor")]
-position = Vector2(1920, 717)
+[node name="FloorSurface4" parent="Level/Surfaces/Floor" index="3" unique_id=1326675203 instance=ExtResource("2_platform_very_long")]
+position = Vector2(3584, 672)
 is_obstacle = true
 
-[node name="PlatformSurface" parent="Level/Surfaces/Platforms" index="0" unique_id=1357934232 instance=ExtResource("3_platform")]
-position = Vector2(240, 560)
+[node name="FloorSurface5" parent="Level/Surfaces/Floor" index="4" unique_id=878041298 instance=ExtResource("2_platform_very_long")]
+position = Vector2(4608, 672)
+is_obstacle = true
 
-[node name="PlatformSurface2" parent="Level/Surfaces/Platforms" index="1" unique_id=1186912771 instance=ExtResource("3_platform")]
-position = Vector2(944, 560)
+[node name="PlatformSurface" parent="Level/Surfaces/Platforms" index="0" unique_id=16588544 instance=ExtResource("2_platform_short")]
+position = Vector2(256, 560)
 
-[node name="PlatformSurface3" parent="Level/Surfaces/Platforms" index="2" unique_id=1464730457 instance=ExtResource("3_platform")]
-position = Vector2(1280, 288)
+[node name="PlatformSurface3" parent="Level/Surfaces/Platforms" index="1" unique_id=1300331941 instance=ExtResource("2_platform_short")]
+position = Vector2(896, 560)
 
-[node name="PlatformSurface4" parent="Level/Surfaces/Platforms" index="3" unique_id=735185508 instance=ExtResource("3_platform")]
-position = Vector2(1280, 128)
+[node name="PlatformSurface5" parent="Level/Surfaces/Platforms" index="2" unique_id=559749988 instance=ExtResource("2_platform_short")]
+position = Vector2(1280, 272)
 
-[node name="PlatformSurface5" parent="Level/Surfaces/Platforms" index="4" unique_id=325811512 instance=ExtResource("3_platform")]
-position = Vector2(928, 0)
+[node name="PlatformSurface7" parent="Level/Surfaces/Platforms" index="3" unique_id=1986737920 instance=ExtResource("2_platform_short")]
+position = Vector2(1280, 112)
 
-[node name="PlatformSurface6" parent="Level/Surfaces/Platforms" index="5" unique_id=1707542747 instance=ExtResource("3_platform")]
-position = Vector2(288, 0)
+[node name="PlatformSurface9" parent="Level/Surfaces/Platforms" index="4" unique_id=1417469206 instance=ExtResource("2_platform_short")]
+position = Vector2(896, -16)
 
-[node name="PlatformSurface7" parent="Level/Surfaces/Platforms" index="6" unique_id=1153431685 instance=ExtResource("3_platform")]
-position = Vector2(288, -224)
+[node name="PlatformSurface11" parent="Level/Surfaces/Platforms" index="5" unique_id=646354618 instance=ExtResource("2_platform_short")]
+position = Vector2(256, -16)
 
-[node name="PlatformSurface8" parent="Level/Surfaces/Platforms" index="7" unique_id=256949193 instance=ExtResource("3_platform")]
-position = Vector2(544, -384)
+[node name="PlatformSurface13" parent="Level/Surfaces/Platforms" index="6" unique_id=1181433452 instance=ExtResource("2_platform_short")]
+position = Vector2(256, -240)
 
-[node name="PlatformSurface9" parent="Level/Surfaces/Platforms" index="8" unique_id=726711541 instance=ExtResource("3_platform")]
-position = Vector2(1600, -336)
+[node name="PlatformSurface15" parent="Level/Surfaces/Platforms" index="7" unique_id=1196581073 instance=ExtResource("2_platform_short")]
+position = Vector2(576, -368)
 
-[node name="PlatformSurface10" parent="Level/Surfaces/Platforms" index="9" unique_id=2124984258 instance=ExtResource("3_platform")]
-position = Vector2(1792, -336)
+[node name="PlatformSurface17" parent="Level/Surfaces/Platforms" index="8" unique_id=2068080691 instance=ExtResource("2_platform_medium")]
+position = Vector2(1632, -368)
 
-[node name="PlatformSurface11" parent="Level/Surfaces/Platforms" index="10" unique_id=2065392019 instance=ExtResource("3_platform")]
-position = Vector2(1792, -192)
+[node name="PlatformSurface27" parent="Level/Surfaces/Platforms" index="9" unique_id=1595797661 instance=ExtResource("2_platform_medium")]
+position = Vector2(3712, 144)
 
-[node name="PlatformSurface12" parent="Level/Surfaces/Platforms" index="11" unique_id=38831859 instance=ExtResource("3_platform")]
-position = Vector2(1792, 192)
+[node name="PlatformSurface28" parent="Level/Surfaces/Platforms" index="10" unique_id=202627972 instance=ExtResource("2_platform_short")]
+position = Vector2(4032, 336)
 
-[node name="PlatformSurface16" parent="Level/Surfaces/Platforms" index="12" unique_id=1545627698 instance=ExtResource("3_platform")]
-position = Vector2(1984, 192)
+[node name="PlatformSurface31" parent="Level/Surfaces/Platforms" index="11" unique_id=874841297 instance=ExtResource("2_platform_short")]
+position = Vector2(2592, -80)
 
-[node name="PlatformSurface17" parent="Level/Surfaces/Platforms" index="13" unique_id=867665339 instance=ExtResource("3_platform")]
-position = Vector2(2176, 192)
-
-[node name="PlatformSurface18" parent="Level/Surfaces/Platforms" index="14" unique_id=793604542 instance=ExtResource("3_platform")]
-position = Vector2(2368, 192)
-
-[node name="PlatformSurface19" parent="Level/Surfaces/Platforms" index="15" unique_id=190836217 instance=ExtResource("3_platform")]
-position = Vector2(2560, 192)
-
-[node name="PlatformSurface20" parent="Level/Surfaces/Platforms" index="16" unique_id=489557239 instance=ExtResource("3_platform")]
-position = Vector2(2752, 192)
-
-[node name="PlatformSurface21" parent="Level/Surfaces/Platforms" index="17" unique_id=657799362 instance=ExtResource("3_platform")]
-position = Vector2(2944, 192)
-
-[node name="PlatformSurface22" parent="Level/Surfaces/Platforms" index="18" unique_id=90908596 instance=ExtResource("3_platform")]
-position = Vector2(3136, 192)
-
-[node name="PlatformSurface23" parent="Level/Surfaces/Platforms" index="19" unique_id=1892455366 instance=ExtResource("3_platform")]
-position = Vector2(3662, 195)
-
-[node name="PlatformSurface24" parent="Level/Surfaces/Platforms" index="20" unique_id=848874138 instance=ExtResource("3_platform")]
-position = Vector2(3854, 195)
-
-[node name="PlatformSurface25" parent="Level/Surfaces/Platforms" index="21" unique_id=599566117 instance=ExtResource("3_platform")]
-position = Vector2(4224, 417)
-
-[node name="PlatformSurface26" parent="Level/Surfaces/Platforms" index="22" unique_id=1528962234 instance=ExtResource("3_platform")]
-position = Vector2(2592, -96)
-
-[node name="PlatformSurface27" parent="Level/Surfaces/Platforms" index="23" unique_id=1930374477 instance=ExtResource("3_platform")]
+[node name="PlatformSurface33" parent="Level/Surfaces/Platforms" index="12" unique_id=1830112193 instance=ExtResource("2_platform_short")]
 position = Vector2(2880, -400)
 
-[node name="WallSurface" parent="Level/Surfaces/Walls" index="0" unique_id=1733375275 instance=ExtResource("4_wall")]
-position = Vector2(1488, 272)
+[node name="PlatformSurfaceLong" parent="Level/Surfaces/Platforms" index="13" unique_id=1869252577 instance=ExtResource("6_ijnuu")]
+position = Vector2(1952, 160)
 
-[node name="WallSurface2" parent="Level/Surfaces/Walls" index="1" unique_id=11945964 instance=ExtResource("4_wall")]
-position = Vector2(624, -48)
+[node name="PlatformSurfaceLong2" parent="Level/Surfaces/Platforms" index="14" unique_id=2022985139 instance=ExtResource("6_ijnuu")]
+position = Vector2(2464, 160)
 
-[node name="WallSurface3" parent="Level/Surfaces/Walls" index="2" unique_id=1241564073 instance=ExtResource("4_wall")]
+[node name="PlatformSurfaceLong3" parent="Level/Surfaces/Platforms" index="15" unique_id=1232229492 instance=ExtResource("6_ijnuu")]
+position = Vector2(2976, 160)
+
+[node name="PlatformSurfaceLong4" parent="Level/Surfaces/Platforms" index="16" unique_id=801518572 instance=ExtResource("6_ijnuu")]
+position = Vector2(2944, 544)
+
+[node name="PlatformSurfaceLong5" parent="Level/Surfaces/Platforms" index="17" unique_id=1067488478 instance=ExtResource("6_ijnuu")]
+position = Vector2(3456, 544)
+
+[node name="PlatformSurfaceLong6" parent="Level/Surfaces/Platforms" index="18" unique_id=215590420 instance=ExtResource("6_ijnuu")]
+position = Vector2(3968, 544)
+
+[node name="WallSurface12" parent="Level/Surfaces/Walls" index="0" unique_id=932201973 instance=ExtResource("2_wall_medium")]
 position = Vector2(64, -224)
 
-[node name="WallSurface5" parent="Level/Surfaces/Walls" index="3" unique_id=1059552523 instance=ExtResource("4_wall")]
-position = Vector2(1488, -144)
+[node name="WallSurface13" parent="Level/Surfaces/Walls" index="1" unique_id=1140145513 instance=ExtResource("2_wall_short")]
+position = Vector2(1680, -128)
 
-[node name="WallSurface6" parent="Level/Surfaces/Walls" index="4" unique_id=392539211 instance=ExtResource("4_wall")]
-position = Vector2(1680, 0)
+[node name="WallSurface14" parent="Level/Surfaces/Walls" index="2" unique_id=533754965 instance=ExtResource("2_wall_medium")]
+position = Vector2(1680, 64)
 
-[node name="WallSurface7" parent="Level/Surfaces/Walls" index="5" unique_id=1304443413 instance=ExtResource("4_wall")]
-position = Vector2(2480, -448)
+[node name="WallSurfaceShort" parent="Level/Surfaces/Walls" index="3" unique_id=1074087806 instance=ExtResource("2_wall_short")]
+position = Vector2(592, -64)
 
-[node name="WallSurface8" parent="Level/Surfaces/Walls" index="6" unique_id=1464087483 instance=ExtResource("4_wall")]
-position = Vector2(2480, -32)
+[node name="WallSurfaceShort2" parent="Level/Surfaces/Walls" index="4" unique_id=1058010082 instance=ExtResource("2_wall_short")]
+position = Vector2(592, -288)
 
-[node name="WallSurface9" parent="Level/Surfaces/Walls" index="7" unique_id=995136270 instance=ExtResource("4_wall")]
-position = Vector2(3776, -656)
+[node name="WallSurfaceVeryLong" parent="Level/Surfaces/Walls" index="5" unique_id=709063334 instance=ExtResource("9_fjmsq")]
+position = Vector2(1472, 128)
 
 [node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
-position = Vector2(944, 512)
+position = Vector2(896, 528)
 
 [node name="CheckpointZone2" parent="Level/Zones/Checkpoints" index="1" unique_id=1253131974 instance=ExtResource("6_checkpoint")]
-position = Vector2(1344, 240)
+position = Vector2(1312, 240)
 
 [node name="CheckpointZone3" parent="Level/Zones/Checkpoints" index="2" unique_id=1863714908 instance=ExtResource("6_checkpoint")]
-position = Vector2(1216, 80)
+position = Vector2(1248, 80)
 
 [node name="CheckpointZone4" parent="Level/Zones/Checkpoints" index="3" unique_id=227374071 instance=ExtResource("6_checkpoint")]
-position = Vector2(928, -48)
+position = Vector2(896, -48)
 
 [node name="CheckpointZone5" parent="Level/Zones/Checkpoints" index="4" unique_id=1868311026 instance=ExtResource("6_checkpoint")]
 position = Vector2(224, -48)
@@ -167,83 +156,79 @@ position = Vector2(224, -48)
 position = Vector2(288, -272)
 
 [node name="CheckpointZone7" parent="Level/Zones/Checkpoints" index="6" unique_id=1505935824 instance=ExtResource("6_checkpoint")]
-position = Vector2(544, -432)
+position = Vector2(576, -400)
 
 [node name="CheckpointZone8" parent="Level/Zones/Checkpoints" index="7" unique_id=1532592797 instance=ExtResource("6_checkpoint")]
-position = Vector2(1600, -384)
+position = Vector2(1728, -400)
 
 [node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="8" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
-position = Vector2(1712, -256)
+position = Vector2(1696, -208)
 
 [node name="CheckpointZone10" parent="Level/Zones/Checkpoints" index="9" unique_id=144380188 instance=ExtResource("6_checkpoint")]
-position = Vector2(4224, 369)
+position = Vector2(4064, 496)
 
 [node name="CheckpointZone11" parent="Level/Zones/Checkpoints" index="10" unique_id=275495322 instance=ExtResource("6_checkpoint")]
-position = Vector2(3758, 147)
+position = Vector2(3712, 112)
 
 [node name="CheckpointZone12" parent="Level/Zones/Checkpoints" index="11" unique_id=24225696 instance=ExtResource("6_checkpoint")]
-position = Vector2(2944, 144)
+position = Vector2(2944, 112)
 
 [node name="CheckpointZone13" parent="Level/Zones/Checkpoints" index="12" unique_id=89160300 instance=ExtResource("6_checkpoint")]
-position = Vector2(2592, -144)
+position = Vector2(2592, -112)
 
 [node name="CheckpointZone14" parent="Level/Zones/Checkpoints" index="13" unique_id=1694242192 instance=ExtResource("6_checkpoint")]
-position = Vector2(2880, -448)
+position = Vector2(2880, -432)
+
+[node name="CheckpointZone15" parent="Level/Zones/Checkpoints" index="14" unique_id=1418529397 instance=ExtResource("6_checkpoint")]
+position = Vector2(4032, 304)
 
 [node name="GoalZone" parent="Level/Zones" index="1"]
-position = Vector2(4384, -336)
+position = Vector2(4256, -576)
 
 [node name="Rope" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
-position = Vector2(1056.07, -576)
+position = Vector2(1072, -544)
+detection_radius = 192.0
 
 [node name="Rope2" parent="Level/Ropes" index="1" unique_id=585753711 instance=ExtResource("7_rope")]
-position = Vector2(2176, -480)
-detection_radius = 250.0
+position = Vector2(2048, -512)
+detection_radius = 256.0
 
 [node name="Rope3" parent="Level/Ropes" index="2" unique_id=958609452 instance=ExtResource("7_rope")]
-position = Vector2(1712, 416)
-detection_radius = 180.0
+position = Vector2(1744, 416)
+detection_radius = 192.0
 
-[node name="Rope4" parent="Level/Ropes" index="3" unique_id=1522263444 instance=ExtResource("7_rope")]
-position = Vector2(2768, 416)
-detection_radius = 180.0
+[node name="Rope6" parent="Level/Ropes" index="3" unique_id=1501224207 instance=ExtResource("7_rope")]
+position = Vector2(3168, -544)
 
-[node name="Rope5" parent="Level/Ropes" index="4" unique_id=355764779 instance=ExtResource("7_rope")]
-position = Vector2(3760, 416)
-detection_radius = 180.0
-
-[node name="Rope6" parent="Level/Ropes" index="5" unique_id=1501224207 instance=ExtResource("7_rope")]
-position = Vector2(3328, -336)
-
-[node name="Rope" parent="Level/Ropes/Rope6" index="3" unique_id=1707099237 instance=ExtResource("7_rope")]
-position = Vector2(720, 0)
+[node name="Rope7" parent="Level/Ropes" index="4" unique_id=1707099237 instance=ExtResource("7_rope")]
+position = Vector2(3920, -544)
 
 [node name="QteBarrier" parent="Level/QteBarriers" index="0" unique_id=480385079 instance=ExtResource("7_kjfhl")]
-position = Vector2(3216, 48)
+position = Vector2(3216, 16)
 rotation = -3.1415925
 size = Vector2(32, 224)
 content = "conservacao_energia"
 trigger_height = 224.0
 
 [node name="QteBarrier2" parent="Level/QteBarriers" index="1" unique_id=490689315 instance=ExtResource("7_kjfhl")]
-position = Vector2(2640, -400)
+position = Vector2(2608, -400)
 rotation = 4.712389
-size = Vector2(32, 256)
+size = Vector2(32, 352)
 content = "energia_potencial"
 trigger_distance = 80.0
-trigger_height = 256.0
+trigger_height = 352.0
 
 [node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
-position = Vector2(3776, -336)
-size = Vector2(32, 256)
+position = Vector2(3664, -768)
+size = Vector2(32, 768)
 content = "corda"
-trigger_height = 224.0
+trigger_height = 767.645
 
 [node name="LevelBounds" parent="Level" index="5"]
 visible = false
-offset_top = -864.0
-offset_right = 4752.0
-offset_bottom = 717.0
+offset_top = -896.0
+offset_right = 4352.0
+offset_bottom = 704.0
 
 [node name="Dicas" type="Node2D" parent="Level" index="6" unique_id=1259953053]
 
@@ -312,10 +297,25 @@ Depois é só subir até a chegada!"
 label_settings = SubResource("LabelSettings_dica")
 
 [node name="Chegada" type="Label" parent="Level/Dicas" index="6" unique_id=98780197]
-offset_left = 4272.0
-offset_top = -368.0
-offset_right = 4512.0
-offset_bottom = -318.0
+offset_left = 4128.0
+offset_top = -592.0
+offset_right = 4368.0
+offset_bottom = -542.0
 text = "CHEGADA"
 label_settings = SubResource("LabelSettings_titulo")
 horizontal_alignment = 1
+
+[node name="WallSurfaceVeryShort" parent="." index="5" unique_id=1292639624 instance=ExtResource("2_wall_very_short")]
+position = Vector2(1744, -320)
+
+[node name="PlatformSurfaceMedium" parent="." index="6" unique_id=947828774 instance=ExtResource("2_platform_medium")]
+position = Vector2(1824, -176)
+
+[node name="WallSurfaceVeryLong" parent="." index="7" unique_id=1521399488 instance=ExtResource("9_fjmsq")]
+position = Vector2(2368, -384)
+
+[node name="WallSurfaceMedium" parent="." index="8" unique_id=1755763110 instance=ExtResource("2_wall_medium")]
+position = Vector2(4240, 448)
+
+[node name="WallSurfaceLong" parent="." index="9" unique_id=413085442 instance=ExtResource("13_ijnuu")]
+position = Vector2(1632, -736)

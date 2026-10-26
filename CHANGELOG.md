@@ -20,6 +20,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Arquivos de skill de GDScript para apoiar o desenvolvimento Godot.
 - Altura da área de gatilho da barreira de QTE configurável pelo Inspector (`trigger_height`).
 - Layout da fase tutorial.
+- Cinco tamanhos prontos de plataforma: muito curta (64×32), curta (128×32), média (256×32), longa (512×64) e muito longa (1024×64).
+- Cinco tamanhos prontos de parede: muito curta (32×64), curta (32×128), média (32×256), longa (64×512) e muito longa (64×1024).
 - Perguntas do QTE com conteúdo (`content`) e estilo (`style`, cálculo ou teoria); cada barreira de QTE escolhe o conteúdo pelo Inspector e sorteia só entre as perguntas dele.
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
@@ -34,6 +36,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Os atributos da bola são exibidos como números inteiros, arredondando para cima só quando a parte decimal passa de 0,5; a velocidade abaixo de 1 m/s mantém uma casa decimal.
 - O painel de atributos do QTE fica escondido por padrão.
 - A gravidade do jogo passa a ser 10 m/s² (o valor da Terra arredondado).
+- A fase tutorial passa a usar só os tamanhos prontos de plataforma e parede, com o layout e os checkpoints ajustados a eles.
+- A bola gira mais livre (`angular_damp` de 2,5 para 0,5 na fase tutorial).
 - A referência de altura só pode ser arrastada com a bola pronta para lançar, controlada pelo `LevelController` (antes a própria referência consultava o Player).
 - Duração e curva do ímã do checkpoint configuráveis por checkpoint no Inspector (`pull_duration`, `pull_velocity_influence`).
 - A altura automática do gatilho da barreira de QTE passa a ser indicada por `trigger_height` negativo (-1), em vez de 0.
