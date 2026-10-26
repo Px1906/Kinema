@@ -7,7 +7,7 @@ extends Node2D
 @export_range(2, 64, 1) var point_count: int = 24
 @export_range(0.01, 1.0, 0.01) var time_step: float = 0.08
 @export var point_radius: float = 3.0
-@export var point_color := Color("#facc15", 0.65)
+@export var point_color := Color("#000000", 0.65)
 
 var _points := PackedVector2Array()
 var _first_visible_point := 0
