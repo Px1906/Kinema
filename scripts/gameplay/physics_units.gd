@@ -4,7 +4,7 @@ extends RefCounted
 ## Mantenha physics/2d/default_gravity igual a GRAVITY * PIXELS_PER_METER.
 
 const PIXELS_PER_METER := 32.0
-const GRAVITY := 9.8
+const GRAVITY := 10.0
 
 
 static func gravity_pixels() -> float:

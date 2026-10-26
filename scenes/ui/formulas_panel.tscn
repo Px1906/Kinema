@@ -53,7 +53,7 @@ text = "Energia Potencial Gravitacional"
 layout_mode = 2
 text = "Ep = m · g · h
 Unidade: Joules (J)
-m = massa (kg), g = 9,8 m/s², h = altura (m)"
+m = massa (kg), g = 10 m/s², h = altura (m)"
 autowrap_mode = 2
 
 [node name="EpSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
@@ -96,9 +96,10 @@ text = "Gravidade"
 
 [node name="GravFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
 layout_mode = 2
-text = "g ≈ 9,8 m/s²
-Aceleração da gravidade na superfície
-da Terra."
+text = "g = 10 m/s²
+Aceleração da gravidade usada no jogo:
+o valor real na superfície da Terra
+(9,8 m/s²) arredondado."
 autowrap_mode = 2
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]

@@ -12,9 +12,11 @@ radius = 16.0
 
 [node name="Player" type="RigidBody2D" unique_id=1657232879]
 physics_material_override = SubResource("PhysicsMaterial_08t41")
+linear_damp_mode = 1
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_ucweq")
+fator_velocidade_lancamento = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1569915225]
 shape = SubResource("CircleShape2D_ew1dm")

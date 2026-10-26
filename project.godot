@@ -73,4 +73,4 @@ pause={
 
 [physics]
 
-2d/default_gravity=313.6
+2d/default_gravity=320.0

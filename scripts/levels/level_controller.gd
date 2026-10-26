@@ -183,7 +183,7 @@ func reset_level() -> void:
 		cp.reset_zone()
 	if goal_zone != null:
 		goal_zone.reset_zone()
-	_reset_qte_barriers()
+	_reset_qte_barriers(true)
 	if pause_menu != null:
 		pause_menu.has_checkpoint = false
 	player.reset_attempt(player.get_initial_global_position())
@@ -198,20 +198,35 @@ func _on_retry_requested() -> void:
 
 func _on_exit_requested() -> void:
 	_save_progress()
-	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+	SceneLoader.go_to(get_tree(), MAIN_MENU_SCENE)
 
 
 func _save_progress() -> void:
 	var current_scene_path: String = scene_file_path
 	if current_scene_path.is_empty():
 		current_scene_path = get_tree().current_scene.scene_file_path
-	assert(not current_scene_path.is_empty(), "LevelController: scene_file_path is empty.")
-	if current_scene_path.is_empty():
-		push_warning("LevelController: could not determine current scene path, skipping save.")
-		return
-	SaveManager.save_progress({
-		"current_level": current_scene_path,
-	})
+	(
+		SaveManager
+		. save_progress(
+			{
+				"current_level": current_scene_path,
+				# "last_checkpoint": _last_checkpoint.checkpoint_index if _last_checkpoint != null else -1,
+			}
+		)
+	)
+
+
+static func resume_game(tree: SceneTree) -> bool:
+	var progress: Dictionary = SaveManager.load_progress()
+	var level_path: String = progress.get("current_level", "")
+	if level_path.is_empty():
+		return false
+	# var checkpoint_index: int = int(progress.get("last_checkpoint", -1))
+	if not SceneLoader.go_to(tree, level_path):
+		return false
+	# Após o merge com feat/sistema-checkpoint, restaurar posição:
+	# _restore_checkpoint(checkpoint_index)
+	return true
 
 
 func _on_qte_finished(barrier: QteBarrier, correct: bool) -> void:
@@ -268,6 +283,8 @@ func _discover_checkpoints() -> void:
 
 func _on_checkpoint_reached(checkpoint: CheckpointZone) -> void:
 	_last_checkpoint = checkpoint
+	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
+		barrier.confirm_removal()
 	if pause_menu != null:
 		pause_menu.has_checkpoint = true
 	print_debug("LevelController: checkpoint %d alcançado." % checkpoint.checkpoint_index)
@@ -285,9 +302,10 @@ func _cancel_active_qte() -> void:
 		overlay.cancel_qte()
 
 
-func _reset_qte_barriers() -> void:
+## Com full = true (reinício da fase), restaura também as barreiras já confirmadas.
+func _reset_qte_barriers(full: bool = false) -> void:
 	for barrier: QteBarrier in get_tree().get_nodes_in_group(QteBarrier.GROUP):
-		barrier.reset_barrier()
+		barrier.reset_barrier(full)
 
 
 func _get_all_descendants(node: Node) -> Array[Node]:
