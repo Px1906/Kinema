@@ -1,12 +1,41 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" uid="uid://durw41bb8w0p6" path="res://scenes/entities/wall_surface.tscn" id="1_wall"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_01.png" id="2_frame1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_02.png" id="3_frame2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_03.png" id="4_frame3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_medium"]
 size = Vector2(32, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_barra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_frame1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_frame2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_frame3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_frame4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [node name="WallSurfaceMedium" instance=ExtResource("1_wall")]
 size = Vector2(32, 256)
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_medium")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 1.6)
+sprite_frames = SubResource("SpriteFrames_barra")
+autoplay = "default"

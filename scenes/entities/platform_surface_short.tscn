@@ -1,12 +1,40 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="1_platform"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_curto/bloco_curto_frame_01.png" id="2_frame1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_curto/bloco_curto_frame_02.png" id="3_frame2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_curto/bloco_curto_frame_03.png" id="4_frame3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_curto/bloco_curto_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_short"]
 size = Vector2(128, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bloco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_frame1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_frame2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_frame3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_frame4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [node name="PlatformSurfaceShort" instance=ExtResource("1_platform")]
 size = Vector2(128, 32)
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_short")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bloco")
+autoplay = "default"

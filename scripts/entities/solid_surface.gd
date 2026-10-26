@@ -32,9 +32,11 @@ extends StaticBody2D
 			_apply_physics_material()
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+var _has_animated_sprite := false
 
 
 func _ready() -> void:
+	_has_animated_sprite = get_node_or_null("AnimatedSprite2D") != null
 	_update_obstacle_group()
 	if collision_shape.shape == null:
 		collision_shape.shape = RectangleShape2D.new()
@@ -72,6 +74,8 @@ func _apply_physics_material() -> void:
 
 
 func _draw() -> void:
+	if _has_animated_sprite:
+		return
 	var bounds := Rect2(-size / 2.0, size)
 	draw_rect(bounds, obstacle_color if is_obstacle else surface_color)
 	draw_line(bounds.position, Vector2(bounds.end.x, bounds.position.y), Color.WHITE, 2.0)
