@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
 [ext_resource type="PackedScene" uid="uid://7b8u8p1o4ua5" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
 [ext_resource type="Script" uid="uid://b7ri66qwrjh6h" path="res://scripts/resources/tutorial_popup_data.gd" id="17_popup_data"]
+[ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="17_tdtmq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
@@ -44,6 +45,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
 position = Vector2(4031, 308)
+
+[node name="Sprite2D" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
+modulate = Color(1, 1, 1, 0.83137256)
+z_index = -100
+texture_repeat = 2
+position = Vector2(0, -956.00006)
+scale = Vector2(1.15, 0.7638888)
+texture = ExtResource("17_tdtmq")
+centered = false
 
 [node name="PlatformSurface1" parent="Level/Surfaces/Platforms" index="0" unique_id=1181433452 instance=ExtResource("2_platform_short")]
 position = Vector2(256, -240)
@@ -357,17 +367,17 @@ size = Vector2(32, 768)
 content = "corda"
 trigger_height = 767.645
 
-[node name="LevelBounds" parent="Level" index="5"]
+[node name="LevelBounds" parent="Level" index="6"]
 visible = false
 offset_top = -896.0
 offset_right = 4352.0
 offset_bottom = 704.0
 
-[node name="TutorialZoneTest" parent="Level" index="6" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
+[node name="TutorialZoneTest" parent="Level" index="7" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
 position = Vector2(3715, 94)
 popup_data = SubResource("Resource_dica_teste")
 
-[node name="Chegada" type="Label" parent="Level" index="7" unique_id=1171516689]
+[node name="Chegada" type="Label" parent="Level" index="8" unique_id=1171516689]
 offset_left = 4128.0
 offset_top = -592.0
 offset_right = 4368.0

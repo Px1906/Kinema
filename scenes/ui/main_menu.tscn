@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://drk76l7d2eouu" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="Texture2D" uid="uid://q80uhkiqyr3x" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="3_options"]
+[ext_resource type="Texture2D" uid="uid://bpmgpynpfhel4" path="res://assets/sprites/Sprite-Animacoes/Logo/Kinema_Logo.png" id="4_logo"]
 
 [node name="MainMenu" type="Control" unique_id=934184901]
 layout_mode = 3
@@ -39,12 +40,12 @@ custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/MenuBox" unique_id=436695611]
+[node name="LogoTexture" type="TextureRect" parent="CenterContainer/MenuBox" unique_id=1736187454]
+custom_minimum_size = Vector2(260, 120)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
-theme_override_font_sizes/font_size = 48
-text = "Kinema"
-horizontal_alignment = 1
+texture = ExtResource("4_logo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PlayButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1613760920]
 unique_name_in_owner = true
