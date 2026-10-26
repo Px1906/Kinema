@@ -46,6 +46,7 @@ var _attempt_active := false
 var _attempt_finished := false
 var _checkpoints: Array[CheckpointZone] = []
 var _last_checkpoint: CheckpointZone = null
+var _height_reference: HeightReference
 
 
 func _ready() -> void:
@@ -79,6 +80,9 @@ func _ready() -> void:
 		pause_menu.exit_requested.connect(_on_exit_requested)
 	Events.qte_finished.connect(_on_qte_finished)
 	_discover_checkpoints()
+	_height_reference = (
+		get_tree().get_first_node_in_group(HeightReference.GROUP) as HeightReference
+	)
 
 
 ## Fases que não herdam de base_level.tscn não ligam esses nós no Inspector;
@@ -150,6 +154,8 @@ func _on_player_launched(_velocity: Vector2) -> void:
 func _on_player_state_changed(state: Player.State) -> void:
 	if camera != null:
 		camera.pan_enabled = state == Player.State.READY
+	if _height_reference != null:
+		_height_reference.drag_enabled = player.can_launch()
 
 
 func _on_player_obstacle_hit() -> void:
