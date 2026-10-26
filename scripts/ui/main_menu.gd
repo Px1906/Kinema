@@ -1,6 +1,8 @@
 class_name MainMenu
 extends Control
 
+const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
+
 ## Scene opened by the Play button (the level selector).
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/ui/level_select.tscn"
 
@@ -20,6 +22,7 @@ func _ready() -> void:
 	_options_menu.visible = false
 	_menu_box.visible = true
 	_play_button.grab_focus()
+	MusicManager.play_music(MENU_MUSIC)
 
 
 func _on_play_pressed() -> void:

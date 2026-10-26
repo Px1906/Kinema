@@ -5,6 +5,7 @@ extends Zone
 ## Quem ouve deve usar checkpoint.global_position, não a posição da bola.
 signal checkpoint_reached(checkpoint: CheckpointZone)
 
+const GROUP := &"checkpoint"
 const MARKER_RADIUS := 12.0
 const MARKER_WIDTH := 2.0
 const COLOR_UNREACHED := Color("#6b7280")
@@ -22,6 +23,7 @@ var _reached := false
 
 func _ready() -> void:
 	super._ready()
+	add_to_group(GROUP)
 	player_entered.connect(_on_player_entered)
 	queue_redraw()
 

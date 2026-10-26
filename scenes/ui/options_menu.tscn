@@ -58,6 +58,19 @@ max_value = 100.0
 step = 1.0
 value = 100.0
 
+[node name="UILabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Volume UI"
+
+[node name="UISlider" type="HSlider" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
 [node name="WindowButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
