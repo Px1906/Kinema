@@ -42,9 +42,6 @@ fator_velocidade_lancamento = 0.5
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 metadata/_edit_use_anchors_ = true
 
-[node name="QteOverlay" parent="Interface" index="2"]
-visible = false
-
 [node name="HeightReference" parent="Level" index="0"]
 position = Vector2(4031, 308)
 

@@ -26,9 +26,11 @@ signal following_changed(is_following: bool)
 ## Velocidade da animação do zoom (maior = mais rápido). 0 aplica o zoom na hora.
 @export_range(0.0, 30.0, 0.5) var zoom_smoothing: float = 12.0
 
+const QTE_OFFSET_FACTOR := 0.65
+
 @export_category("QTE Zoom")
 @export_range(1.0, 5.0, 0.1) var qte_zoom: float = 2.0
-@export_range(0.1, 2.0, 0.1) var qte_zoom_duration: float = 0.5
+@export_range(0.1, 2.0, 0.1) var qte_zoom_duration: float = 1.0
 
 ## Permite arrastar a câmera. O LevelController só libera enquanto a bola espera o
 ## lançamento, para um clique direito durante o voo não soltar a câmera sem querer.
@@ -40,7 +42,14 @@ var _target_zoom := 1.0
 var _zoom_anchor := Vector2.ZERO
 var _pre_qte_zoom := 1.0
 var _qte_active := false
-var _qte_tween: Tween
+var _qte_offset := Vector2.ZERO
+var _qte_barrier: QteBarrier
+var _qte_anim_active := false
+var _qte_anim_start_msec := 0
+var _qte_anim_zoom_from := 1.0
+var _qte_anim_zoom_to := 1.0
+var _qte_anim_offset_from := Vector2.ZERO
+var _qte_anim_offset_to := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -64,10 +73,13 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if _following:
-		global_position = target.global_position
+		global_position = target.global_position + _qte_offset
 
 
 func _process(delta: float) -> void:
+	if _qte_anim_active:
+		_step_qte_zoom()
+		return
 	if _qte_active:
 		return
 	var current_zoom := zoom.x
@@ -120,6 +132,7 @@ func follow_target() -> void:
 ## Volta a seguir o alvo e move a câmera direto para ele, sem a suavização.
 func snap_to_target() -> void:
 	follow_target()
+	_reset_qte_state()
 	if not is_instance_valid(target):
 		return
 
@@ -194,35 +207,70 @@ func _set_following(value: bool) -> void:
 	following_changed.emit(_following)
 
 
-func _on_qte_started(_barrier: QteBarrier) -> void:
+func _on_qte_started(barrier: QteBarrier) -> void:
 	_pre_qte_zoom = _target_zoom
 	_qte_active = true
-	_kill_qte_tween()
-	var speed := 1.0 / maxf(Engine.time_scale, 0.0001)
-	_qte_tween = create_tween()
-	_qte_tween.set_speed_scale(speed)
-	_qte_tween.tween_method(_set_zoom_direct, zoom.x, qte_zoom, qte_zoom_duration)
+	_qte_barrier = barrier
+
+	_qte_anim_zoom_from = zoom.x
+	_qte_anim_zoom_to = qte_zoom
+	_qte_anim_offset_from = _qte_offset
+	_qte_anim_offset_to = Vector2.ZERO
+	if is_instance_valid(target) and is_instance_valid(_qte_barrier):
+		_qte_anim_offset_to = (_qte_barrier.global_position - target.global_position) * QTE_OFFSET_FACTOR
+	_qte_anim_start_msec = Time.get_ticks_msec()
+	_qte_anim_active = true
 
 
 func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
 	_qte_active = false
-	_kill_qte_tween()
-	_qte_tween = create_tween()
-	_qte_tween.tween_method(_set_zoom_direct, zoom.x, _pre_qte_zoom, qte_zoom_duration)
-	_qte_tween.tween_callback(func() -> void: _target_zoom = _pre_qte_zoom)
+	_qte_anim_zoom_from = zoom.x
+	_qte_anim_zoom_to = _pre_qte_zoom
+	_qte_anim_offset_from = _qte_offset
+	_qte_anim_offset_to = Vector2.ZERO
+	_qte_anim_start_msec = Time.get_ticks_msec()
+	_qte_anim_active = true
 
 
-func _set_zoom_direct(value: float) -> void:
-	zoom = Vector2.ONE * value
-	_target_zoom = value
+func _step_qte_zoom() -> void:
+	var elapsed := (Time.get_ticks_msec() - _qte_anim_start_msec) / 1000.0
+	var t := clampf(elapsed / qte_zoom_duration, 0.0, 1.0)
+	var eased_t := _ease_out_cubic(t) if _qte_active else _ease_in_out_cubic(t)
+
+	zoom = Vector2.ONE * lerpf(_qte_anim_zoom_from, _qte_anim_zoom_to, eased_t)
+	_target_zoom = zoom.x
+	_qte_offset = _qte_anim_offset_from.lerp(_qte_anim_offset_to, eased_t)
+	if _following and is_instance_valid(target):
+		global_position = target.global_position + _qte_offset
+
+	if t >= 1.0:
+		_qte_anim_active = false
+		if not _qte_active:
+			_qte_barrier = null
 
 
-func _kill_qte_tween() -> void:
-	if _qte_tween != null and _qte_tween.is_valid():
-		_qte_tween.kill()
+func _reset_qte_state() -> void:
+	if _qte_active:
+		_target_zoom = _pre_qte_zoom
+		zoom = Vector2.ONE * _target_zoom
+	_qte_active = false
+	_qte_anim_active = false
+	_qte_offset = Vector2.ZERO
+	_qte_barrier = null
+
+
+static func _ease_out_cubic(t: float) -> float:
+	return 1.0 - (1.0 - t) ** 3
+
+
+static func _ease_in_out_cubic(t: float) -> float:
+	if t < 0.5:
+		return 4.0 * t * t * t
+	return 1.0 - (-2.0 * t + 2.0) ** 3 / 2.0
 
 
 func _exit_tree() -> void:
+	_reset_qte_state()
 	if Events.qte_started.is_connected(_on_qte_started):
 		Events.qte_started.disconnect(_on_qte_started)
 	if Events.qte_finished.is_connected(_on_qte_finished):

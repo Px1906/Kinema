@@ -48,7 +48,7 @@ var _style_wrong: StyleBoxFlat
 @onready var _button_b: Button = %ButtonB
 @onready var _button_c: Button = %ButtonC
 @onready var _reward_sprite: AnimatedSprite2D = get_node_or_null("%RewardSprite")
-@onready var _attributes_panel: Control = $AttributesPanel
+@onready var _attributes_panel: PanelContainer = %AttributesPanel
 @onready var _mass_label: Label = %QteMassValue
 @onready var _speed_label: Label = %QteSpeedValue
 @onready var _ec_label: Label = %QteEcValue
@@ -107,7 +107,7 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 	for i in _buttons.size():
 		_buttons[i].text = alternatives[i]
 
-	_attributes_panel.visible = question_data.get("show_attributes", false)
+	_attributes_panel.visible = question_data.get("show_attributes", true)
 	_update_attributes()
 	_show_overlay()
 
@@ -202,6 +202,8 @@ func _update_attributes() -> void:
 func _show_overlay() -> void:
 	_reset_button_colors()
 	_set_buttons_disabled(false)
+	_attributes_panel.show()
+	_attributes_panel.modulate.a = 1.0
 	visible = true
 	if not _positions_initialized:
 		_question_base_y = _question_label.position.y
