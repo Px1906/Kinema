@@ -11,14 +11,17 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/qte_overlay.tscn" id="9_qte_overlay"]
 [ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
 [ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
+[ext_resource type="Script" path="res://scripts/gameplay/audio_controller.gd" id="12_audio_controller"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="13_pause_menu"]
 
-[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel")]
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel", "pause_menu")]
 script = ExtResource("1_level_controller")
 bounds_rect = NodePath("Level/LevelBounds")
 goal_zone = NodePath("Level/Zones/GoalZone")
 camera = NodePath("Camera")
 player = NodePath("Player")
 result_panel = NodePath("Interface/AttemptResultPanel")
+pause_menu = NodePath("Interface/PauseMenu")
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 
@@ -42,6 +45,12 @@ script = ExtResource("6_mouse_control")
 player = NodePath("../../Player")
 launch_controller = NodePath("../LaunchInputController")
 
+[node name="AudioController" type="Node" parent="Gameplay" node_paths=PackedStringArray("player", "level_controller", "goal_zone")]
+script = ExtResource("12_audio_controller")
+player = NodePath("../../Player")
+level_controller = NodePath("../..")
+goal_zone = NodePath("../../Level/Zones/GoalZone")
+
 [node name="Interface" type="Node" parent="."]
 
 [node name="UI" parent="Interface" node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("7_level_ui")]
@@ -53,6 +62,8 @@ camera = NodePath("../../Camera")
 
 [node name="QteOverlay" parent="Interface" node_paths=PackedStringArray("player") instance=ExtResource("9_qte_overlay")]
 player = NodePath("../../Player")
+
+[node name="PauseMenu" parent="Interface" instance=ExtResource("13_pause_menu")]
 
 [node name="Level" type="Node2D" parent="."]
 

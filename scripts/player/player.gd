@@ -6,6 +6,7 @@ enum State { READY, MOVING, STOPPED, ATTACHED, PULLED, STUCK }
 signal launched(velocity: Vector2)
 signal stopped
 signal obstacle_hit
+signal surface_collided(impact_speed: float)
 signal launch_parameters_changed(speed: float, angle_degrees: float)
 signal state_changed(state: State)
 
@@ -17,6 +18,8 @@ const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
 const LAUNCH_ARROW_WIDTH := 3.0
 const LAUNCH_ARROW_OFFSET := 4.0
+const SURFACE_HIT_MIN_SPEED := 50.0
+const SURFACE_HIT_COOLDOWN := 0.15
 
 @export_category("Particle")
 @export var radius: float = 16.0:
@@ -47,6 +50,7 @@ var _base_linear_damp := 0.0
 var _pull_tween: Tween
 var _pull_elapsed := 0.0
 var _stick_tween: Tween
+var _surface_hit_cooldown := 0.0
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -72,14 +76,23 @@ func _integrate_forces(state_2d: PhysicsDirectBodyState2D) -> void:
 		_reset_pending = false
 
 	if _state == State.MOVING:
+		var max_impact := 0.0
 		for contact_index in range(state_2d.get_contact_count()):
 			var body := state_2d.get_contact_collider_object(contact_index)
 			if body is Node and body.is_in_group(Events.OBSTACLE_GROUP):
 				_queue_obstacle_hit()
-				break
+			if body is StaticBody2D:
+				var normal := state_2d.get_contact_local_normal(contact_index)
+				max_impact = maxf(max_impact, absf(linear_velocity.dot(normal)))
+		if max_impact >= SURFACE_HIT_MIN_SPEED and _surface_hit_cooldown <= 0.0:
+			_surface_hit_cooldown = SURFACE_HIT_COOLDOWN
+			surface_collided.emit(max_impact)
 
 
 func _physics_process(delta: float) -> void:
+	if _surface_hit_cooldown > 0.0:
+		_surface_hit_cooldown -= delta
+
 	if _state != State.MOVING:
 		return
 
@@ -170,6 +183,7 @@ func _reset_to_ready() -> void:
 	_freeze_body()
 	sleeping = true
 	_obstacle_hit_queued = false
+	_surface_hit_cooldown = 0.0
 	launch_velocity = Vector2.ZERO
 	_state = State.READY
 	state_changed.emit(_state)
