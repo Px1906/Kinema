@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://mp8mh80do3rb"]
 
-[ext_resource type="Script" path="res://scripts/zones/goal_zone.gd" id="1_goal_zone"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_01.png" id="2_flag1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_02.png" id="3_flag2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_03.png" id="4_flag3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_04.png" id="5_flag4"]
+[ext_resource type="Script" uid="uid://dgoal0one001" path="res://scripts/zones/goal_zone.gd" id="1_goal_zone"]
+[ext_resource type="Texture2D" uid="uid://cuh4wst8g2tss" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_01.png" id="2_flag1"]
+[ext_resource type="Texture2D" uid="uid://cpp5tkkvc1auh" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_02.png" id="3_flag2"]
+[ext_resource type="Texture2D" uid="uid://dtswfiugp8l0n" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_03.png" id="4_flag3"]
+[ext_resource type="Texture2D" uid="uid://ctkdrcfjmcd0v" path="res://assets/sprites/Sprite-Animacoes/Objetos/bandeira_meta/bandeira_meta_frame_04.png" id="5_flag4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
 size = Vector2(64, 64)
@@ -29,15 +29,15 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="GoalZone" type="Area2D"]
+[node name="GoalZone" type="Area2D" unique_id=2127295501]
 collision_layer = 0
-collision_mask = 1
-monitoring = true
 script = ExtResource("1_goal_zone")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=767430635]
 shape = SubResource("RectangleShape2D_goal")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1273186235]
+position = Vector2(0, 10)
+scale = Vector2(0.41, 0.41)
 sprite_frames = SubResource("SpriteFrames_flag")
 autoplay = "default"
