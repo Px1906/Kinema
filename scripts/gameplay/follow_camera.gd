@@ -26,6 +26,10 @@ signal following_changed(is_following: bool)
 ## Velocidade da animação do zoom (maior = mais rápido). 0 aplica o zoom na hora.
 @export_range(0.0, 30.0, 0.5) var zoom_smoothing: float = 12.0
 
+@export_category("QTE Zoom")
+@export_range(1.0, 5.0, 0.1) var qte_zoom: float = 2.0
+@export_range(0.1, 2.0, 0.1) var qte_zoom_duration: float = 0.5
+
 ## Permite arrastar a câmera. O LevelController só libera enquanto a bola espera o
 ## lançamento, para um clique direito durante o voo não soltar a câmera sem querer.
 var pan_enabled := true
@@ -34,6 +38,9 @@ var _following := true
 var _panning := false
 var _target_zoom := 1.0
 var _zoom_anchor := Vector2.ZERO
+var _pre_qte_zoom := 1.0
+var _qte_active := false
+var _qte_tween: Tween
 
 
 func _ready() -> void:
@@ -47,6 +54,9 @@ func _ready() -> void:
 
 	snap_to_target()
 
+	Events.qte_started.connect(_on_qte_started)
+	Events.qte_finished.connect(_on_qte_finished)
+
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(target):
@@ -58,6 +68,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _process(delta: float) -> void:
+	if _qte_active:
+		return
 	var current_zoom := zoom.x
 	if is_equal_approx(current_zoom, _target_zoom):
 		return
@@ -180,3 +192,38 @@ func _set_following(value: bool) -> void:
 
 	_following = value
 	following_changed.emit(_following)
+
+
+func _on_qte_started(_barrier: QteBarrier) -> void:
+	_pre_qte_zoom = _target_zoom
+	_qte_active = true
+	_kill_qte_tween()
+	var speed := 1.0 / maxf(Engine.time_scale, 0.0001)
+	_qte_tween = create_tween()
+	_qte_tween.set_speed_scale(speed)
+	_qte_tween.tween_method(_set_zoom_direct, zoom.x, qte_zoom, qte_zoom_duration)
+
+
+func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
+	_qte_active = false
+	_kill_qte_tween()
+	_qte_tween = create_tween()
+	_qte_tween.tween_method(_set_zoom_direct, zoom.x, _pre_qte_zoom, qte_zoom_duration)
+	_qte_tween.tween_callback(func() -> void: _target_zoom = _pre_qte_zoom)
+
+
+func _set_zoom_direct(value: float) -> void:
+	zoom = Vector2.ONE * value
+	_target_zoom = value
+
+
+func _kill_qte_tween() -> void:
+	if _qte_tween != null and _qte_tween.is_valid():
+		_qte_tween.kill()
+
+
+func _exit_tree() -> void:
+	if Events.qte_started.is_connected(_on_qte_started):
+		Events.qte_started.disconnect(_on_qte_started)
+	if Events.qte_finished.is_connected(_on_qte_finished):
+		Events.qte_finished.disconnect(_on_qte_finished)

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://7b8u8p1o4ua5"]
+
+[ext_resource type="Script" uid="uid://dnlm8ai4eehh7" path="res://scripts/zones/tutorial_popup_zone.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77xvj"]
+
+[node name="TutorialPopupZone" type="Area2D" unique_id=2013405035]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1560653708]
+shape = SubResource("RectangleShape2D_zone")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=641839809]
+unique_name_in_owner = true
+visible = false
+offset_left = -160.0
+offset_top = -200.0
+offset_right = 160.0
+offset_bottom = -16.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=310642304]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=919477504]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Sprite" type="TextureRect" parent="Panel/MarginContainer/VBox" unique_id=766203478]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AnimPlayer" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBox" unique_id=1155141305]
+unique_name_in_owner = true
+visible = false
+sprite_frames = SubResource("SpriteFrames_77xvj")
+
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBox" unique_id=636301646]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false

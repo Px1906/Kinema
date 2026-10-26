@@ -14,14 +14,16 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
 [ext_resource type="PackedScene" path="res://scenes/zones/spike_zone.tscn" id="9_ijnuu"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
+[ext_resource type="PackedScene" uid="uid://7b8u8p1o4ua5" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
+[ext_resource type="Script" uid="uid://b7ri66qwrjh6h" path="res://scripts/resources/tutorial_popup_data.gd" id="17_popup_data"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
 
-[sub_resource type="LabelSettings" id="LabelSettings_dica"]
-font_size = 22
-outline_size = 8
-outline_color = Color(0, 0, 0, 0.85)
+[sub_resource type="Resource" id="Resource_dica_teste"]
+script = ExtResource("17_popup_data")
+text = "Escolha a força e o ângulo e aperte Espaço para lançar.
+Cuidado: o chão vermelho encerra a tentativa!"
 
 [sub_resource type="LabelSettings" id="LabelSettings_titulo"]
 font_size = 30
@@ -32,7 +34,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(1792, -208)
+position = Vector2(4031, 292)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -40,8 +42,11 @@ fator_velocidade_lancamento = 0.5
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 metadata/_edit_use_anchors_ = true
 
+[node name="QteOverlay" parent="Interface" index="2"]
+visible = false
+
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(1792, -192)
+position = Vector2(4031, 308)
 
 [node name="PlatformSurface1" parent="Level/Surfaces/Platforms" index="0" unique_id=1181433452 instance=ExtResource("2_platform_short")]
 position = Vector2(256, -240)
@@ -185,7 +190,7 @@ position = Vector2(3712, 112)
 position = Vector2(2944, 112)
 
 [node name="CheckpointZone13" parent="Level/Zones/Checkpoints" index="12" unique_id=89160300 instance=ExtResource("6_checkpoint")]
-position = Vector2(2592, -112)
+position = Vector2(2592, -128)
 
 [node name="CheckpointZone14" parent="Level/Zones/Checkpoints" index="13" unique_id=1694242192 instance=ExtResource("6_checkpoint")]
 position = Vector2(2880, -432)
@@ -361,73 +366,11 @@ offset_top = -896.0
 offset_right = 4352.0
 offset_bottom = 704.0
 
-[node name="Dicas" type="Node2D" parent="Level" index="6" unique_id=1259953053]
+[node name="TutorialZoneTest" parent="Level" index="6" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
+position = Vector2(3715, 94)
+popup_data = SubResource("Resource_dica_teste")
 
-[node name="Dica1_Arremesso" type="Label" parent="Level/Dicas" index="0" unique_id=1159556331]
-visible = false
-offset_left = 380.0
-offset_top = 250.0
-offset_right = 1000.0
-offset_bottom = 400.0
-text = "1. ARREMESSO
-Escolha a força e o ângulo e aperte Espaço para lançar.
-Cuidado: o chão vermelho encerra a tentativa!"
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Dica2_Paredes" type="Label" parent="Level/Dicas" index="1" unique_id=1519240447]
-visible = false
-offset_left = 160.0
-offset_top = 120.0
-offset_right = 900.0
-offset_bottom = 230.0
-text = "2. PAREDES
-A bola quica nas paredes: use-as para subir de plataforma em plataforma."
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Dica3_Corda" type="Label" parent="Level/Dicas" index="2" unique_id=131791730]
-visible = false
-offset_left = 1260.0
-offset_top = -1760.0
-offset_right = 1980.0
-offset_bottom = -1650.0
-text = "3. CORDA
-Passe perto do gancho para se prender. Aperte Espaço para soltar."
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Dica4_Descida" type="Label" parent="Level/Dicas" index="3" unique_id=1638136763]
-visible = false
-offset_left = 2420.0
-offset_top = -1480.0
-offset_right = 3140.0
-offset_bottom = -1340.0
-text = "4. DESCIDA
-Desça pelo poço e pegue a corda lá embaixo.
-Solte na hora certa para cair na plataforma."
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Dica5_Qte" type="Label" parent="Level/Dicas" index="4" unique_id=1351102652]
-visible = false
-offset_left = 2960.0
-offset_top = 32.0
-offset_right = 3700.0
-offset_bottom = 172.0
-text = "5. BARREIRA
-Ao chegar perto da barreira amarela, o tempo desacelera.
-Responda certo para abri-la!"
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Dica6_Final" type="Label" parent="Level/Dicas" index="5" unique_id=699094629]
-visible = false
-offset_left = 4500.0
-offset_top = -340.0
-offset_right = 5240.0
-offset_bottom = -200.0
-text = "6. DESAFIO FINAL
-Corda, barreira e corda de novo.
-Depois é só subir até a chegada!"
-label_settings = SubResource("LabelSettings_dica")
-
-[node name="Chegada" type="Label" parent="Level/Dicas" index="6" unique_id=98780197]
+[node name="Chegada" type="Label" parent="Level" index="7" unique_id=1171516689]
 offset_left = 4128.0
 offset_top = -592.0
 offset_right = 4368.0
