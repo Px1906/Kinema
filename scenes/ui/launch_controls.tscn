@@ -8,9 +8,12 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="6_peq3"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="7_peq4"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="8_peq_pressed"]
+[ext_resource type="AudioStream" uid="uid://1htq8snuw3ie" path="res://audio/sfx/ui/Knob.wav" id="9_knob"]
 
 [node name="LaunchControls" type="VBoxContainer"]
 script = ExtResource("1_lc")
+knob_sound = ExtResource("9_knob")
+knob_volume_db = 0.5
 
 [node name="Row" type="HBoxContainer" parent="."]
 layout_mode = 2

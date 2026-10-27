@@ -43,7 +43,6 @@ knob_notches = 3
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 knob_sound = ExtResource("2_clegd")
 knob_volume_db = 0.5
-speed_notch_step = 57.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
