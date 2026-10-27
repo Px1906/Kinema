@@ -36,7 +36,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3518, 19)
+position = Vector2(1658, -273)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -53,7 +53,7 @@ speed_notch_step = 57.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3518, 35)
+position = Vector2(1658, -257)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -166,7 +166,7 @@ position = Vector2(592, -64)
 position = Vector2(1472, 128)
 
 [node name="WallSurface5" parent="Level/Surfaces/Walls" index="4" unique_id=413085442 instance=ExtResource("13_ijnuu")]
-position = Vector2(1632, -736)
+position = Vector2(1635, -769)
 
 [node name="WallSurface6" parent="Level/Surfaces/Walls" index="5" unique_id=1140145513 instance=ExtResource("2_wall_short")]
 position = Vector2(1680, -128)
