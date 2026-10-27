@@ -1,0 +1,9 @@
+{
+	"lancamento": {
+		"mode": "text_and_sprite",
+		"text": "Escolha a força e o ângulo e aperte Espaço para lançar.\nCuidado: o chão vermelho encerra a tentativa!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	}
+}

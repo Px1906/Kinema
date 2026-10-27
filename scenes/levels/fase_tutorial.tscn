@@ -15,16 +15,10 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/spike_zone.tscn" id="9_ijnuu"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
 [ext_resource type="PackedScene" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
-[ext_resource type="Script" uid="uid://b7ri66qwrjh6h" path="res://scripts/resources/tutorial_popup_data.gd" id="17_popup_data"]
 [ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="17_tdtmq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
 bounce = 0.55
-
-[sub_resource type="Resource" id="Resource_dica_teste"]
-script = ExtResource("17_popup_data")
-text = "Escolha a força e o ângulo e aperte Espaço para lançar.
-Cuidado: o chão vermelho encerra a tentativa!"
 
 [sub_resource type="LabelSettings" id="LabelSettings_titulo"]
 font_size = 30
@@ -167,7 +161,7 @@ position = Vector2(4240, 448)
 
 [node name="TutorialZoneTest" parent="Level/Zones" index="0" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
 position = Vector2(418, 473)
-popup_data = SubResource("Resource_dica_teste")
+popup_id = "lancamento"
 
 [node name="CollisionShape2D" parent="Level/Zones/TutorialZoneTest" index="0" unique_id=1560653708]
 position = Vector2(177, -28)

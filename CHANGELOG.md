@@ -26,6 +26,7 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Perguntas do QTE com conteúdo (`content`) e estilo (`style`, cálculo ou teoria); cada barreira de QTE escolhe o conteúdo pelo Inspector e sorteia só entre as perguntas dele.
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
+- Texto, imagem e animação dos popups de tutorial em `resources/tutorial_popups.json`; cada `TutorialPopupZone` escolhe o seu pelo `popup_id`.
 
 ### Alterado
 - Ao entrar num checkpoint, a bola é atraída para o centro como um ímã e fica suspensa ali, pronta para o próximo lançamento (antes ela freava e caía).

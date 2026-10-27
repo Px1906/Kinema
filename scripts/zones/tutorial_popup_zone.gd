@@ -5,6 +5,9 @@ const GROUP := &"tutorial_popup_zone"
 const ANIM_DURATION := 0.25
 const EXIT_GRACE_FRAMES := 3
 
+## Id do popup em resources/tutorial_popups.json (texto, imagem e animação).
+@export var popup_id: String = ""
+## Alternativa ao JSON: um TutorialPopupData montado no Inspector. Usado só sem popup_id.
 @export var popup_data: TutorialPopupData
 
 var _player_inside := false
@@ -22,6 +25,8 @@ var _exit_frames := 0
 
 func _ready() -> void:
 	add_to_group(GROUP)
+	if not popup_id.is_empty():
+		popup_data = TutorialPopupData.from_json(popup_id)
 	body_entered.connect(_on_body_entered)
 	_panel.visible = false
 	var anchor_pos := _display_anchor.position
