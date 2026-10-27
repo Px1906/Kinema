@@ -1,83 +1,54 @@
-[gd_resource type="Resource" script_class="QteReaction" format=3 uid="uid://d062go3o77m3v"]
+[gd_resource type="Resource" script_class="QteReaction" format=3 uid="uid://d2m3p7p2xhxpl"]
 
 [ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="1_abyd0"]
-[ext_resource type="AudioStream" uid="uid://bytmdkohj84ur" path="res://audio/sfx/reactions/faustao-errou.mp3" id="2_7ius7"]
-[ext_resource type="Texture2D" uid="uid://dqiw5tl1gjcv5" path="res://assets/ui/gifs/fausto/2.jpeg" id="2_ip0wh"]
-[ext_resource type="Texture2D" uid="uid://mxv70kpn678u" path="res://assets/ui/gifs/fausto/1.jpeg" id="3_7ius7"]
-[ext_resource type="Texture2D" uid="uid://eud2wax45nin" path="res://assets/ui/gifs/fausto/3.jpeg" id="4_45s2o"]
-[ext_resource type="Texture2D" uid="uid://b10ipa658as0k" path="res://assets/ui/gifs/fausto/4.jpeg" id="5_m0ko7"]
-[ext_resource type="Texture2D" uid="uid://c0r76qux0nw3" path="res://assets/ui/gifs/fausto/5.jpeg" id="6_whdax"]
-[ext_resource type="Texture2D" uid="uid://bgpnlcklefm7u" path="res://assets/ui/gifs/fausto/6.jpeg" id="7_kio00"]
-[ext_resource type="Texture2D" uid="uid://caqrpxrsh3gji" path="res://assets/ui/gifs/fausto/7.jpeg" id="8_v678r"]
-[ext_resource type="Texture2D" uid="uid://klhg1ijuynca" path="res://assets/ui/gifs/fausto/8.jpeg" id="9_kaqc4"]
-[ext_resource type="Texture2D" uid="uid://b0q3tk0nndv8j" path="res://assets/ui/gifs/fausto/9.jpeg" id="10_225d8"]
-[ext_resource type="Texture2D" uid="uid://myiw02c4h4ep" path="res://assets/ui/gifs/fausto/10.jpeg" id="11_salep"]
-[ext_resource type="Texture2D" uid="uid://dtj6s57p3nejk" path="res://assets/ui/gifs/fausto/11.jpeg" id="12_u87tq"]
-[ext_resource type="Texture2D" uid="uid://landnaxg4qhc" path="res://assets/ui/gifs/fausto/12.jpeg" id="13_ipnrh"]
-[ext_resource type="Texture2D" uid="uid://dp1hghojpn1r" path="res://assets/ui/gifs/fausto/13.jpeg" id="14_gk0i1"]
-[ext_resource type="Texture2D" uid="uid://ksecitjvadqn" path="res://assets/ui/gifs/fausto/14.jpeg" id="15_ptllt"]
-[ext_resource type="Texture2D" uid="uid://dr2pk5ks3fj3y" path="res://assets/ui/gifs/fausto/15.jpeg" id="16_3vm7q"]
-[ext_resource type="Texture2D" uid="uid://dy0et3m0bssax" path="res://assets/ui/gifs/fausto/16.jpeg" id="17_pnxs7"]
+[ext_resource type="AudioStream" uid="uid://cu8hq7rnlwenw" path="res://audio/sfx/reactions/defy-gravity-x-god-is-kanye (mp3cut.net).mp3" id="2_rwec5"]
+[ext_resource type="Texture2D" uid="uid://cjgauk7ikxijv" path="res://assets/ui/gifs/jordan/1.jpeg" id="3_715qw"]
+[ext_resource type="Texture2D" uid="uid://dc5x4noxy1bh" path="res://assets/ui/gifs/jordan/2.jpeg" id="4_o88jl"]
+[ext_resource type="Texture2D" uid="uid://cn0vtoguhajgd" path="res://assets/ui/gifs/jordan/3.jpeg" id="5_3ij7e"]
+[ext_resource type="Texture2D" uid="uid://bdpbmsl8y3yno" path="res://assets/ui/gifs/jordan/4.jpeg" id="6_5r1cd"]
+[ext_resource type="Texture2D" uid="uid://cldk4s5rdjr08" path="res://assets/ui/gifs/jordan/5.jpeg" id="7_y7ny3"]
+[ext_resource type="Texture2D" uid="uid://dh0esrqv0gvjd" path="res://assets/ui/gifs/jordan/6.jpeg" id="8_cesdt"]
+[ext_resource type="Texture2D" uid="uid://b7s3t44a40q4b" path="res://assets/ui/gifs/jordan/7.jpeg" id="9_ip0wh"]
+[ext_resource type="Texture2D" uid="uid://b58exssy7mcsu" path="res://assets/ui/gifs/jordan/8.jpeg" id="10_7ius7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0dehr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_45s2o"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_7ius7")
+"texture": ExtResource("3_715qw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_ip0wh")
+"texture": ExtResource("4_o88jl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_45s2o")
+"texture": ExtResource("5_3ij7e")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_m0ko7")
+"texture": ExtResource("6_5r1cd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_whdax")
+"texture": ExtResource("7_y7ny3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_kio00")
+"texture": ExtResource("8_cesdt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_v678r")
+"texture": ExtResource("9_ip0wh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_kaqc4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_225d8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_salep")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_u87tq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_ipnrh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_gk0i1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_ptllt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_3vm7q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_pnxs7")
+"texture": ExtResource("10_7ius7")
 }],
 "loop": true,
-"name": &"fausto",
-"speed": 8.0
+"name": &"jordan",
+"speed": 5.0
 }]
 
 [resource]
 script = ExtResource("1_abyd0")
-sprite_frames = SubResource("SpriteFrames_0dehr")
-animation_name = &"Errou"
-sound = ExtResource("2_7ius7")
+sprite_frames = SubResource("SpriteFrames_45s2o")
+animation_name = &"jordan"
+sound = ExtResource("2_rwec5")
+volume_db = -2.5
+start_scale = 0.2
+end_scale = 2.695
 metadata/_custom_type_script = "uid://cb4c4o4igcch5"
