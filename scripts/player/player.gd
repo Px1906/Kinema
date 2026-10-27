@@ -28,6 +28,10 @@ const ANGLE_LABEL_GAP := 14.0
 const ANGLE_LABEL_FONT_SIZE := 14
 const SPEED_LABEL_FONT_SIZE := 14
 const SPEED_LABEL_GAP := 6.0
+const SPEED_LABEL_MIN_DISTANCE := 6.0
+## Textos de referência para medir os rótulos: o tamanho não muda a cada dígito.
+const SPEED_LABEL_LAYOUT_TEXT := "|v| = 00 m/s"
+const ANGLE_LABEL_LAYOUT_TEXT := "180°"
 const SPEED_VECTOR_MARK_WIDTH := -1.0  # Negativa: linha de 1 px na tela, a mais fina possível.
 const SPEED_VECTOR_MARK_HEAD := 2.0
 const SURFACE_HIT_MIN_SPEED := 50.0
@@ -493,17 +497,36 @@ func _draw_launch_angle() -> void:
 		)
 
 	var font := ThemeDB.fallback_font
-	var text := "%d°" % AttributeFormat.round_value(launch_angle_degrees)
-	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE)
-	var label_center := Vector2.RIGHT.rotated(end_angle * 0.5) * (arc_radius + ANGLE_LABEL_GAP)
-	label_center = _move_label_off_arrow(label_center, text_size, Vector2.RIGHT.rotated(end_angle))
-	# draw_string posiciona pela linha de base; centraliza o texto no ponto.
-	var ascent := font.get_ascent(ANGLE_LABEL_FONT_SIZE)
-	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
+	# draw_string posiciona pela linha de base, que fica a ascent do topo do retângulo.
+	var baseline := _get_angle_label_rect().position
+	baseline.y += font.get_ascent(ANGLE_LABEL_FONT_SIZE)
 	draw_string(
-		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE, angle_color
+		font,
+		baseline,
+		_get_angle_label_text(),
+		HORIZONTAL_ALIGNMENT_LEFT,
+		-1,
+		ANGLE_LABEL_FONT_SIZE,
+		angle_color
 	)
 	draw_set_transform(Vector2.ZERO)
+
+
+func _get_angle_label_text() -> String:
+	return "%d°" % AttributeFormat.round_value(launch_angle_degrees)
+
+
+## Retângulo do texto do ângulo no referencial alinhado ao mundo, já afastado da seta.
+func _get_angle_label_rect() -> Rect2:
+	var font := ThemeDB.fallback_font
+	var text_size := font.get_string_size(
+		_get_angle_label_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
+	)
+	var end_angle := deg_to_rad(-launch_angle_degrees)
+	var arc_radius := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP
+	var label_center := Vector2.RIGHT.rotated(end_angle * 0.5) * (arc_radius + ANGLE_LABEL_GAP)
+	label_center = _move_label_off_arrow(label_center, text_size, Vector2.RIGHT.rotated(end_angle))
+	return Rect2(label_center - text_size * 0.5, text_size)
 
 
 ## Se o texto cairia sobre a seta (ângulos pequenos ou seta longa), empurra-o para o
@@ -581,15 +604,24 @@ func _draw_launch_speed() -> void:
 	var text := "%s%s| = %s" % [prefix, symbol, AttributeFormat.format_speed(_get_exit_speed_mps())]
 	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE)
 
+	var layout_size := font.get_string_size(
+		SPEED_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+	)
 	var dir := launch_velocity.normalized()
-	var middle := dir * (radius + LAUNCH_ARROW_OFFSET + _get_launch_arrow_length() * 0.5)
 	# Perpendicular à seta apontando para cima na tela (y cresce para baixo).
 	var up := dir.orthogonal()
 	if up.y > 0.0:
 		up = -up
-	# Meia extensão do retângulo do texto na direção perpendicular, para não encostar na seta.
-	var half_across := absf(up.x) * text_size.x * 0.5 + absf(up.y) * text_size.y * 0.5
-	var label_center := middle + up * (half_across + LAUNCH_ARROW_WIDTH * 0.5 + SPEED_LABEL_GAP)
+	# Meia extensão do retângulo do texto ao longo da seta e da perpendicular.
+	var half_along := absf(dir.x) * layout_size.x * 0.5 + absf(dir.y) * layout_size.y * 0.5
+	var half_across := absf(up.x) * layout_size.x * 0.5 + absf(up.y) * layout_size.y * 0.5
+
+	# Fica no meio da seta, mas com a borda mais próxima da bola sempre fora da zona do
+	# arco e do texto do ângulo. Tudo contínuo: o rótulo não salta quando a seta encurta.
+	var middle := radius + LAUNCH_ARROW_OFFSET + _get_launch_arrow_length() * 0.5
+	var along := maxf(middle, _get_angle_zone_radius() + SPEED_LABEL_MIN_DISTANCE + half_along)
+	var across := half_across + LAUNCH_ARROW_WIDTH * 0.5 + SPEED_LABEL_GAP
+	var label_center := dir * along + up * across
 
 	var ascent := font.get_ascent(SPEED_LABEL_FONT_SIZE)
 	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
@@ -612,3 +644,17 @@ func _draw_launch_speed() -> void:
 	draw_line(mark_end, mark_end + Vector2(-head, -head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
 	draw_line(mark_end, mark_end + Vector2(-head, head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
 	draw_set_transform(Vector2.ZERO)
+
+
+## Raio a partir do centro da bola que contém o arco e o texto do ângulo em qualquer
+## posição, inclusive quando _move_label_off_arrow o empurra para o lado da seta.
+func _get_angle_zone_radius() -> float:
+	var font := ThemeDB.fallback_font
+	var angle_size := font.get_string_size(
+		ANGLE_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
+	)
+	var half_diagonal := angle_size.length() * 0.5
+	var label_distance := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP + ANGLE_LABEL_GAP
+	var arrow_half_width := LAUNCH_ARROW_HEAD_SIZE * LAUNCH_ARROW_HEAD_SPREAD
+	var max_push := half_diagonal + arrow_half_width + ANGLE_LABEL_ARROW_MARGIN
+	return Vector2(label_distance, max_push).length() + half_diagonal
