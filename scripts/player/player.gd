@@ -16,8 +16,17 @@ const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
 const OUTLINE_SEGMENTS := 32
 const OUTLINE_WIDTH := 2.0
-const LAUNCH_ARROW_WIDTH := 3.0
+const LAUNCH_ARROW_WIDTH := 4.0
 const LAUNCH_ARROW_OFFSET := 4.0
+const LAUNCH_ARROW_LENGTH_SCALE := 0.3
+const LAUNCH_ARROW_HEAD_SIZE := 14.0
+const LAUNCH_ARROW_HEAD_SPREAD := 0.6
+const ANGLE_LABEL_ARROW_MARGIN := 4.0
+const ANGLE_ARC_GAP := 18.0
+const ANGLE_ARC_WIDTH := 2.0
+const ANGLE_ARC_SEGMENTS := 32
+const ANGLE_LABEL_GAP := 14.0
+const ANGLE_LABEL_FONT_SIZE := 14
 const SURFACE_HIT_MIN_SPEED := 50.0
 const SURFACE_HIT_COOLDOWN := 0.15
 
@@ -29,7 +38,8 @@ const SURFACE_HIT_COOLDOWN := 0.15
 			_update_collision_shape()
 			queue_redraw()
 @export var particle_color := Color("#5eead4")
-@export var arrow_color := Color("#facc15")
+@export var arrow_color := Color.BLACK
+@export var angle_color := Color.BLACK
 
 @export_category("Launch")
 @export var fator_velocidade_lancamento: float = 1.0
@@ -421,6 +431,78 @@ func _draw() -> void:
 
 	if _state == State.READY:
 		_draw_launch_arrow()
+		_draw_launch_angle()
+
+## Arco do eixo horizontal até a seta, com o ângulo em graus. Desenha num referencial
+## alinhado ao mundo: o eixo fica horizontal e o texto legível mesmo com a bola girada.
+func _draw_launch_angle() -> void:
+	if launch_velocity.length_squared() < 1.0:
+		return
+
+	draw_set_transform(Vector2.ZERO, -global_rotation)
+	var arc_radius := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP
+	var axis_start := Vector2.RIGHT * (radius + LAUNCH_ARROW_OFFSET)
+	var axis_end := Vector2.RIGHT * arc_radius
+	draw_line(axis_start, axis_end, angle_color, ANGLE_ARC_WIDTH, true)
+
+	# Ângulo positivo aponta para cima; no canvas o y cresce para baixo, daí o sinal.
+	var end_angle := deg_to_rad(-launch_angle_degrees)
+	if not is_zero_approx(end_angle):
+		draw_arc(
+			Vector2.ZERO,
+			arc_radius,
+			0.0,
+			end_angle,
+			ANGLE_ARC_SEGMENTS,
+			angle_color,
+			ANGLE_ARC_WIDTH,
+			true
+		)
+
+	var font := ThemeDB.fallback_font
+	var text := "%d°" % AttributeFormat.round_value(launch_angle_degrees)
+	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE)
+	var label_center := Vector2.RIGHT.rotated(end_angle * 0.5) * (arc_radius + ANGLE_LABEL_GAP)
+	label_center = _move_label_off_arrow(label_center, text_size, Vector2.RIGHT.rotated(end_angle))
+	# draw_string posiciona pela linha de base; centraliza o texto no ponto.
+	var ascent := font.get_ascent(ANGLE_LABEL_FONT_SIZE)
+	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
+	draw_string(
+		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE, angle_color
+	)
+	draw_set_transform(Vector2.ZERO)
+
+
+## Se o texto cairia sobre a seta (ângulos pequenos ou seta longa), empurra-o para o
+## lado da seta oposto ao arco, encostado nela. Fora disso, devolve o centro como está.
+func _move_label_off_arrow(
+	label_center: Vector2, text_size: Vector2, arrow_dir: Vector2
+) -> Vector2:
+	var arrow_start := radius + LAUNCH_ARROW_OFFSET
+	var arrow_end := arrow_start + launch_velocity.length() * LAUNCH_ARROW_LENGTH_SCALE
+	var arrow_half_width := LAUNCH_ARROW_HEAD_SIZE * LAUNCH_ARROW_HEAD_SPREAD
+
+	var away := arrow_dir.orthogonal()
+	var away_dot_axis := away.dot(Vector2.RIGHT)
+	# Na horizontal o arco não tem lado: o texto vai para cima.
+	if absf(away_dot_axis) < 0.01:
+		if away.y > 0.0:
+			away = -away
+	elif away_dot_axis > 0.0:
+		away = -away
+
+	# Meia extensão do retângulo do texto ao longo da seta e da perpendicular.
+	var half_along := absf(arrow_dir.x) * text_size.x * 0.5 + absf(arrow_dir.y) * text_size.y * 0.5
+	var half_across := absf(away.x) * text_size.x * 0.5 + absf(away.y) * text_size.y * 0.5
+	var along := label_center.dot(arrow_dir)
+	var across := label_center.dot(away)
+	var overlaps := along + half_along >= arrow_start and along - half_along <= arrow_end \
+		and absf(across) < half_across + arrow_half_width
+	if not overlaps:
+		return label_center
+
+	return arrow_dir * along + away * (half_across + arrow_half_width + ANGLE_LABEL_ARROW_MARGIN)
+
 
 func _draw_launch_arrow() -> void:
 	if launch_velocity.length_squared() < 1.0:
@@ -428,14 +510,15 @@ func _draw_launch_arrow() -> void:
 
 	var dir := launch_velocity.normalized().rotated(-global_rotation)
 	var start := dir * (radius + LAUNCH_ARROW_OFFSET)
-	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + launch_velocity.length() * 0.15)
-	var head := 10.0
+	var length := launch_velocity.length() * LAUNCH_ARROW_LENGTH_SCALE
+	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + length)
+	var head := LAUNCH_ARROW_HEAD_SIZE
 	var side := dir.orthogonal()
 	var base := tip - dir * head
 	draw_line(start, base, arrow_color, LAUNCH_ARROW_WIDTH)
 	var arrow_points := PackedVector2Array([
 		tip,
-		base + side * head * 0.6,
-		base - side * head * 0.6,
+		base + side * head * LAUNCH_ARROW_HEAD_SPREAD,
+		base - side * head * LAUNCH_ARROW_HEAD_SPREAD,
 	])
 	draw_colored_polygon(arrow_points, arrow_color)
