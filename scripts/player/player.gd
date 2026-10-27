@@ -26,6 +26,10 @@ const ANGLE_ARC_WIDTH := 2.0
 const ANGLE_ARC_SEGMENTS := 32
 const ANGLE_LABEL_GAP := 14.0
 const ANGLE_LABEL_FONT_SIZE := 14
+const SPEED_LABEL_FONT_SIZE := 14
+const SPEED_LABEL_GAP := 6.0
+const SPEED_VECTOR_MARK_WIDTH := -1.0  # Negativa: linha de 1 px na tela, a mais fina possível.
+const SPEED_VECTOR_MARK_HEAD := 2.0
 const SURFACE_HIT_MIN_SPEED := 50.0
 const SURFACE_HIT_COOLDOWN := 0.15
 
@@ -459,6 +463,7 @@ func _draw() -> void:
 	if _state == State.READY:
 		_draw_launch_arrow()
 		_draw_launch_angle()
+		_draw_launch_speed()
 
 
 ## Arco do eixo horizontal até a seta, com o ângulo em graus. Desenha num referencial
@@ -535,9 +540,12 @@ func _move_label_off_arrow(
 ## Comprimento da seta em px, na escala do mundo: a bola saindo a N m/s ganha uma
 ## seta de N metros (o mesmo número que o painel mostra, já com o fator de lançamento).
 func _get_launch_arrow_length() -> float:
-	var exit_speed := launch_velocity.length() * fator_velocidade_lancamento
-	var speed_mps := PhysicsUnits.pixels_to_meters(exit_speed)
-	return PhysicsUnits.meters_to_pixels(speed_mps)
+	return PhysicsUnits.meters_to_pixels(_get_exit_speed_mps())
+
+
+## Velocidade com que a bola sai, em m/s, já com o fator de lançamento.
+func _get_exit_speed_mps() -> float:
+	return PhysicsUnits.pixels_to_meters(launch_velocity.length() * fator_velocidade_lancamento)
 
 
 func _draw_launch_arrow() -> void:
@@ -558,3 +566,49 @@ func _draw_launch_arrow() -> void:
 		base - side * head * LAUNCH_ARROW_HEAD_SPREAD,
 	])
 	draw_colored_polygon(arrow_points, arrow_color)
+
+
+## Módulo da velocidade (|v⃗| = N m/s) sobre o meio da seta, do lado de cima da tela.
+## Como o ângulo, desenha num referencial alinhado ao mundo para o texto ficar legível.
+func _draw_launch_speed() -> void:
+	if launch_velocity.length_squared() < 1.0:
+		return
+
+	draw_set_transform(Vector2.ZERO, -global_rotation)
+	var font := ThemeDB.fallback_font
+	var prefix := "|"
+	var symbol := "v"
+	var text := "%s%s| = %s" % [prefix, symbol, AttributeFormat.format_speed(_get_exit_speed_mps())]
+	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE)
+
+	var dir := launch_velocity.normalized()
+	var middle := dir * (radius + LAUNCH_ARROW_OFFSET + _get_launch_arrow_length() * 0.5)
+	# Perpendicular à seta apontando para cima na tela (y cresce para baixo).
+	var up := dir.orthogonal()
+	if up.y > 0.0:
+		up = -up
+	# Meia extensão do retângulo do texto na direção perpendicular, para não encostar na seta.
+	var half_across := absf(up.x) * text_size.x * 0.5 + absf(up.y) * text_size.y * 0.5
+	var label_center := middle + up * (half_across + LAUNCH_ARROW_WIDTH * 0.5 + SPEED_LABEL_GAP)
+
+	var ascent := font.get_ascent(SPEED_LABEL_FONT_SIZE)
+	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
+	draw_string(
+		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE, arrow_color
+	)
+
+	# Setinha de vetor sobre o "v", no espaço livre acima das minúsculas.
+	var symbol_left := baseline.x + font.get_string_size(
+		prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+	).x
+	var symbol_width := font.get_string_size(
+		symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+	).x
+	var mark_y := baseline.y - ascent + SPEED_VECTOR_MARK_HEAD
+	var mark_start := Vector2(symbol_left, mark_y)
+	var mark_end := Vector2(symbol_left + symbol_width, mark_y)
+	var head := SPEED_VECTOR_MARK_HEAD
+	draw_line(mark_start, mark_end, arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
+	draw_line(mark_end, mark_end + Vector2(-head, -head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
+	draw_line(mark_end, mark_end + Vector2(-head, head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
+	draw_set_transform(Vector2.ZERO)
