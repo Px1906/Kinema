@@ -62,8 +62,11 @@ func _on_slider_changed(_value: float) -> void:
 func _on_player_params_changed(speed: float, angle: float) -> void:
 	_speed_slider.set_value_no_signal(speed)
 	_angle_slider.set_value_no_signal(angle)
-	_speed_label.text = "Velocidade: %d" % speed
-	_angle_label.text = "Ângulo: %d°" % angle
+	# Mostra a velocidade com que a bola sai de fato (já com o fator de lançamento), em m/s.
+	var initial_speed := PhysicsUnits.pixels_to_meters(player.get_initial_velocity().length())
+	# Nome e valor em linhas separadas: cabem na largura da coluna sem cortar.
+	_speed_label.text = "Velocidade\n%s" % AttributeFormat.format_speed(initial_speed)
+	_angle_label.text = "Ângulo\n%d°" % angle
 
 
 ## Soltar vale para qualquer corda da fase: basta a bola estar presa (ATTACHED).
