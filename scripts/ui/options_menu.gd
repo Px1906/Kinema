@@ -3,21 +3,19 @@ extends PanelContainer
 
 signal closed
 
-const BUS_MASTER := &"Master"
-const BUS_SFX := &"SFX"
-const BUS_MUSIC := &"Music"
-
-@onready var _master_slider: HSlider = %MasterSlider
-@onready var _sfx_slider: HSlider = %SFXSlider
-@onready var _music_slider: HSlider = %MusicSlider
+@onready var _sliders: Dictionary = {
+	AudioSettings.BUS_MASTER: %MasterSlider as HSlider,
+	AudioSettings.BUS_SFX: %SFXSlider as HSlider,
+	AudioSettings.BUS_MUSIC: %MusicSlider as HSlider,
+	AudioSettings.BUS_UI: %UISlider as HSlider,
+}
 @onready var _window_button: Button = %WindowButton
 @onready var _back_button: Button = %BackButton
 
 
 func _ready() -> void:
-	_master_slider.value_changed.connect(_on_master_changed)
-	_sfx_slider.value_changed.connect(_on_sfx_changed)
-	_music_slider.value_changed.connect(_on_music_changed)
+	for bus_name: StringName in _sliders:
+		(_sliders[bus_name] as HSlider).value_changed.connect(_on_volume_changed.bind(bus_name))
 	_window_button.pressed.connect(_on_window_toggled)
 	_back_button.pressed.connect(close)
 
@@ -36,14 +34,14 @@ func open() -> void:
 
 
 func close() -> void:
+	AudioSettings.save_settings()
 	hide()
 	closed.emit()
 
 
 func _sync_sliders() -> void:
-	_master_slider.value = _get_bus_volume_percent(BUS_MASTER)
-	_sfx_slider.value = _get_bus_volume_percent(BUS_SFX)
-	_music_slider.value = _get_bus_volume_percent(BUS_MUSIC)
+	for bus_name: StringName in _sliders:
+		(_sliders[bus_name] as HSlider).value = AudioSettings.get_bus_volume_percent(bus_name)
 
 
 func _sync_window_label() -> void:
@@ -52,16 +50,8 @@ func _sync_window_label() -> void:
 	_window_button.text = "Janela: Tela cheia" if is_fullscreen else "Janela: Modo janela"
 
 
-func _on_master_changed(value: float) -> void:
-	_set_bus_volume(BUS_MASTER, value)
-
-
-func _on_sfx_changed(value: float) -> void:
-	_set_bus_volume(BUS_SFX, value)
-
-
-func _on_music_changed(value: float) -> void:
-	_set_bus_volume(BUS_MUSIC, value)
+func _on_volume_changed(value: float, bus_name: StringName) -> void:
+	AudioSettings.apply_bus_volume(bus_name, value)
 
 
 func _on_window_toggled() -> void:
@@ -72,23 +62,3 @@ func _on_window_toggled() -> void:
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	_sync_window_label()
-
-
-func _set_bus_volume(bus_name: StringName, percent: float) -> void:
-	var idx := AudioServer.get_bus_index(bus_name)
-	if idx < 0:
-		return
-	if percent <= 0.0:
-		AudioServer.set_bus_mute(idx, true)
-	else:
-		AudioServer.set_bus_mute(idx, false)
-		AudioServer.set_bus_volume_db(idx, linear_to_db(percent / 100.0))
-
-
-func _get_bus_volume_percent(bus_name: StringName) -> float:
-	var idx := AudioServer.get_bus_index(bus_name)
-	if idx < 0:
-		return 100.0
-	if AudioServer.is_bus_mute(idx):
-		return 0.0
-	return db_to_linear(AudioServer.get_bus_volume_db(idx)) * 100.0
