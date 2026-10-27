@@ -22,6 +22,7 @@ gizmo_extents = 20.0
 [node name="Panel" type="PanelContainer" parent="." unique_id=641839809]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 2
 offset_left = -160.0
 offset_top = -200.0
 offset_right = 160.0
@@ -29,6 +30,7 @@ offset_bottom = -16.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=310642304]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
@@ -36,12 +38,14 @@ theme_override_constants/margin_bottom = 8
 
 [node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=919477504]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 6
 
 [node name="Sprite" type="TextureRect" parent="Panel/MarginContainer/VBox" unique_id=766203478]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 3
 stretch_mode = 5
 
@@ -53,6 +57,7 @@ sprite_frames = SubResource("SpriteFrames_77xvj")
 [node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBox" unique_id=636301646]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
