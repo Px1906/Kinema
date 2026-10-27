@@ -125,6 +125,10 @@ func _can_drag() -> bool:
 	return draggable and drag_enabled
 
 
+func would_claim_input(global_point: Vector2) -> bool:
+	return _can_drag() and _pick_drag_mode(global_point) != DragMode.NONE
+
+
 func _pick_drag_mode(global_point: Vector2) -> DragMode:
 	var scale_factor := get_viewport().get_canvas_transform().get_scale().x
 	var local := to_local(global_point)

@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" path="res://scripts/ui/ball_attributes.gd" id="1_ba"]
 [ext_resource type="Script" path="res://scripts/ui/drag_handle.gd" id="2_drag"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="3_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="4_peq1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="5_peq2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="6_peq3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="7_peq4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="8_peq_pressed"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="9_medio1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="10_medio2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="11_medio3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="12_medio4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="13_medio_pressed"]
 
 [node name="BallAttributes" type="VBoxContainer"]
 script = ExtResource("1_ba")
@@ -12,18 +23,35 @@ size_flags_horizontal = 4
 
 [node name="ToggleButton" type="Button" parent="Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 toggle_mode = true
 tooltip_text = "Mostra a massa, a velocidade e as energias da bola"
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Atributos"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
+pressed_frame = ExtResource("8_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
 
 [node name="ReferenceButton" type="Button" parent="Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Centraliza na bola a referência de altura zero da energia potencial (ela também pode ser arrastada pela fase)"
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Centralizar referência"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("9_medio1"), ExtResource("10_medio2"), ExtResource("11_medio3"), ExtResource("12_medio4")])
+pressed_frame = ExtResource("13_medio_pressed")
+animation_fps = 2.0
 
 [node name="DragGrip" type="Button" parent="Row"]
 unique_name_in_owner = true
@@ -32,7 +60,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Arrastar"
 focus_mode = 0
+flat = true
 mouse_default_cursor_shape = 13
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "• • •"
 
 [node name="ContentBox" type="PanelContainer" parent="."]

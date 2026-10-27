@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxylwkj36jcac"]
 
 [ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
+[ext_resource type="AudioStream" uid="uid://1htq8snuw3ie" path="res://audio/sfx/ui/Knob.wav" id="2_clegd"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_medium.tscn" id="2_platform_medium"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_short.tscn" id="2_platform_short"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_very_long.tscn" id="2_platform_very_long"]
@@ -34,7 +35,15 @@ physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
 
+[node name="Camera" parent="." index="1"]
+knob_sound = ExtResource("2_clegd")
+knob_volume_db = 1.5
+knob_notches = 3
+
 [node name="MouseControlArea" parent="Gameplay" index="2"]
+knob_sound = ExtResource("2_clegd")
+knob_volume_db = 0.5
+speed_notch_step = 57.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]

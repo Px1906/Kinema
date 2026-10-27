@@ -27,6 +27,10 @@ const STYLE_STATES: Array[StringName] = [&"normal", &"hover", &"pressed", &"disa
 @export_range(0.1, 2.0, 0.05) var anim_duration: float = 0.3
 @export var anim_slide_offset: float = 100.0
 
+@export_category("Reaction GIF")
+@export_range(0.1, 3.0, 0.05) var reaction_zoom_duration: float = 0.8
+@export_range(0.0, 1.0, 0.05) var reaction_fade_start: float = 0.6
+
 var _qte_manager := QteManager.new()
 var _question_generator := QteQuestionGenerator.new()
 var _ball_energy: BallEnergy
@@ -37,6 +41,7 @@ var _question_base_y: float
 var _buttons_base_y: float
 var _positions_initialized := false
 var _buttons: Array[Button] = []
+var _reaction_tween: Tween
 var _style_correct: StyleBoxFlat
 var _style_wrong: StyleBoxFlat
 
@@ -176,13 +181,40 @@ func _play_reaction(reactions: Array[QteReaction]) -> void:
 	var reaction: QteReaction = reactions.pick_random()
 
 	if reaction.sound != null:
-		SFXPool.play(reaction.sound)
+		SFXPool.play(reaction.sound, reaction.volume_db)
 
 	if reaction.sprite_frames != null and _reward_sprite != null:
 		_reward_sprite.sprite_frames = reaction.sprite_frames
 		_reward_sprite.animation = reaction.animation_name
+		_reward_sprite.scale = Vector2.ONE * reaction.start_scale
+		_reward_sprite.modulate.a = 1.0
 		_reward_sprite.visible = true
 		_reward_sprite.play()
+		_animate_reaction(reaction.end_scale)
+
+
+func _animate_reaction(end_scale: float) -> void:
+	_kill_reaction_tween()
+	var speed := _get_tween_speed()
+	var end := Vector2.ONE * end_scale
+	_reaction_tween = create_tween()
+	_reaction_tween.set_speed_scale(speed)
+	_reaction_tween.tween_property(_reward_sprite, "scale", end, reaction_zoom_duration)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	_reaction_tween.parallel().tween_property(_reward_sprite, "modulate:a", 0.0, reaction_zoom_duration)\
+		.set_delay(reaction_zoom_duration * reaction_fade_start)
+	_reaction_tween.finished.connect(_on_reaction_finished)
+
+
+func _on_reaction_finished() -> void:
+	if _reward_sprite != null:
+		_reward_sprite.visible = false
+		_reward_sprite.stop()
+
+
+func _kill_reaction_tween() -> void:
+	if _reaction_tween != null and _reaction_tween.is_valid():
+		_reaction_tween.kill()
 
 
 func _on_time_updated(time_remaining: float) -> void:
@@ -218,6 +250,7 @@ func _show_overlay() -> void:
 
 func _hide_overlay() -> void:
 	_kill_exit_tween()
+	_kill_reaction_tween()
 	visible = false
 	if _reward_sprite != null:
 		_reward_sprite.visible = false
@@ -282,8 +315,11 @@ func _set_button_style(button: Button, style: StyleBoxFlat) -> void:
 
 func _reset_button_colors() -> void:
 	for button in _buttons:
-		for state in STYLE_STATES:
-			button.remove_theme_stylebox_override(state)
+		if button is AnimatedStyleButton:
+			button.reapply_styleboxes()
+		else:
+			for state in STYLE_STATES:
+				button.remove_theme_stylebox_override(state)
 
 
 func _set_buttons_disabled(disabled: bool) -> void:

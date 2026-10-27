@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="1_lc"]
 [ext_resource type="Script" path="res://scripts/ui/drag_handle.gd" id="2_drag"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="3_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="4_peq1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="5_peq2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="6_peq3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="7_peq4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="8_peq_pressed"]
 
 [node name="LaunchControls" type="VBoxContainer"]
 script = ExtResource("1_lc")
@@ -12,23 +18,50 @@ size_flags_horizontal = 4
 
 [node name="ToggleButton" type="Button" parent="Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 toggle_mode = true
 tooltip_text = "Abre os controles de velocidade e ângulo do lançamento"
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Ajustar"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
+pressed_frame = ExtResource("8_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
 
 [node name="LaunchButton" type="Button" parent="Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 tooltip_text = "Lança a bola com a velocidade e o ângulo escolhidos"
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Lançar"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
+pressed_frame = ExtResource("8_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
 
 [node name="ReleaseButton" type="Button" parent="Row"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 disabled = true
 tooltip_text = "Solta a bola da corda"
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Soltar"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
+pressed_frame = ExtResource("8_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
 
 [node name="DragGrip" type="Button" parent="Row"]
 unique_name_in_owner = true
@@ -37,7 +70,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Arrastar"
 focus_mode = 0
+flat = true
 mouse_default_cursor_shape = 13
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "• • •"
 
 [node name="SlidersBox" type="PanelContainer" parent="."]

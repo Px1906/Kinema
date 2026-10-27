@@ -6,6 +6,7 @@ const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
 ## Scene opened by the Play button (the level selector).
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/ui/level_select.tscn"
 
+@onready var _logo: TextureRect = %LogoTexture
 @onready var _menu_box: Control = %MenuBox
 @onready var _play_button: Button = %PlayButton
 @onready var _options_button: Button = %OptionsButton
@@ -30,12 +31,14 @@ func _on_play_pressed() -> void:
 
 
 func _open_options() -> void:
-	_menu_box.visible = false
+	_logo.hide()
+	_menu_box.hide()
 	_options_menu.open()
 
 
 func _on_options_closed() -> void:
-	_menu_box.visible = true
+	_logo.show()
+	_menu_box.show()
 	_options_button.grab_focus()
 
 

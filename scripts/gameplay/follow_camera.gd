@@ -32,6 +32,11 @@ const QTE_OFFSET_FACTOR := 0.65
 @export_range(1.0, 5.0, 0.1) var qte_zoom: float = 2.0
 @export_range(0.1, 2.0, 0.1) var qte_zoom_duration: float = 1.0
 
+@export_category("Zoom Knob SFX")
+@export var knob_sound: AudioStream
+@export_range(-40.0, 6.0, 0.5, "suffix:dB") var knob_volume_db: float = 0.0
+@export_range(2, 20, 1) var knob_notches: int = 6
+
 ## Permite arrastar a câmera. O LevelController só libera enquanto a bola espera o
 ## lançamento, para um clique direito durante o voo não soltar a câmera sem querer.
 var pan_enabled := true
@@ -50,6 +55,7 @@ var _qte_anim_zoom_from := 1.0
 var _qte_anim_zoom_to := 1.0
 var _qte_anim_offset_from := Vector2.ZERO
 var _qte_anim_offset_to := Vector2.ZERO
+var _knob_last_notch := -1
 
 
 func _ready() -> void:
@@ -99,8 +105,10 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_in"):
 		_request_zoom(zoom_step, event)
+		_play_knob_click()
 	elif event.is_action_pressed("zoom_out"):
 		_request_zoom(1.0 / zoom_step, event)
+		_play_knob_click()
 	elif pan_enabled and event.is_action_pressed("camera_pan"):
 		_start_pan()
 	else:
@@ -220,6 +228,7 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 		_qte_anim_offset_to = (_qte_barrier.global_position - target.global_position) * QTE_OFFSET_FACTOR
 	_qte_anim_start_msec = Time.get_ticks_msec()
 	_qte_anim_active = true
+	_knob_last_notch = -1
 
 
 func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
@@ -230,6 +239,7 @@ func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
 	_qte_anim_offset_to = Vector2.ZERO
 	_qte_anim_start_msec = Time.get_ticks_msec()
 	_qte_anim_active = true
+	_knob_last_notch = -1
 
 
 func _step_qte_zoom() -> void:
@@ -243,10 +253,29 @@ func _step_qte_zoom() -> void:
 	if _following and is_instance_valid(target):
 		global_position = target.global_position + _qte_offset
 
+	_play_knob_notch(t)
+
 	if t >= 1.0:
 		_qte_anim_active = false
+		_knob_last_notch = -1
 		if not _qte_active:
 			_qte_barrier = null
+
+
+func _play_knob_click() -> void:
+	if knob_sound == null:
+		return
+	SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
+
+
+func _play_knob_notch(t: float) -> void:
+	if knob_sound == null:
+		return
+	var notch := int(t * knob_notches)
+	if notch == _knob_last_notch:
+		return
+	_knob_last_notch = notch
+	_play_knob_click()
 
 
 func _reset_qte_state() -> void:

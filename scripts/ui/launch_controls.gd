@@ -4,6 +4,15 @@ extends VBoxContainer
 @export var player: Player
 @export var launch_controller: LaunchInputController
 
+@export_category("Slider SFX")
+@export var knob_sound: AudioStream
+@export_range(-40.0, 6.0, 0.5, "suffix:dB") var knob_volume_db: float = 0.0
+@export_range(1.0, 100.0, 1.0) var speed_notch_step: float = 50.0
+@export_range(1.0, 45.0, 1.0) var angle_notch_step: float = 10.0
+
+var _last_speed_notch := -1
+var _last_angle_notch := -1
+
 @onready var _toggle_button: Button = %ToggleButton
 @onready var _sliders_box: Control = %SlidersBox
 @onready var _speed_label: Label = %SpeedLabel
@@ -47,6 +56,8 @@ func _ready() -> void:
 
 	_on_player_params_changed(player.launch_speed, player.launch_angle_degrees)
 	player.set_launch_parameters(player.launch_speed, player.launch_angle_degrees)
+	_last_speed_notch = int(player.launch_speed / speed_notch_step)
+	_last_angle_notch = int(player.launch_angle_degrees / angle_notch_step)
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:
@@ -57,6 +68,21 @@ func _on_toggle_button_toggled(is_open: bool) -> void:
 func _on_slider_changed(_value: float) -> void:
 	player.set_launch_parameters(_speed_slider.value, _angle_slider.value)
 
+	var speed_notch := int(_speed_slider.value / speed_notch_step)
+	var angle_notch := int(_angle_slider.value / angle_notch_step)
+	var changed := false
+
+	if speed_notch != _last_speed_notch and _last_speed_notch >= 0:
+		changed = true
+	if angle_notch != _last_angle_notch and _last_angle_notch >= 0:
+		changed = true
+
+	_last_speed_notch = speed_notch
+	_last_angle_notch = angle_notch
+
+	if changed:
+		_play_knob_click()
+
 
 # Player -> Slider (without emitting value_changed and creating a loop)
 func _on_player_params_changed(speed: float, angle: float) -> void:
@@ -64,6 +90,12 @@ func _on_player_params_changed(speed: float, angle: float) -> void:
 	_angle_slider.set_value_no_signal(angle)
 	_speed_label.text = "Velocidade: %d" % speed
 	_angle_label.text = "Ângulo: %d°" % angle
+
+
+func _play_knob_click() -> void:
+	if knob_sound == null:
+		return
+	SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
 
 
 ## Soltar vale para qualquer corda da fase: basta a bola estar presa (ATTACHED).
