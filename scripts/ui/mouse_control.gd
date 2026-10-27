@@ -100,6 +100,3 @@ func _draw() -> void:
 	if show_area:
 		draw_rect(Rect2(Vector2.ZERO, size), area_color)
 		draw_rect(Rect2(Vector2.ZERO, size), vector_color, false, 1.0)
-	if _dragging:
-		draw_line(_start, _current, vector_color, 2.0)
-		draw_circle(_start, 4.0, vector_color)
