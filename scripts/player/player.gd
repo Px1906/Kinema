@@ -14,8 +14,8 @@ const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
-const OUTLINE_SEGMENTS := 32
-const OUTLINE_WIDTH := 2.0
+const BALL_FRAME_COUNT := 18
+const BALL_FRAME_PATH := "res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_%02d.png"
 const LAUNCH_ARROW_WIDTH := 3.0
 const LAUNCH_ARROW_OFFSET := 4.0
 const SURFACE_HIT_MIN_SPEED := 50.0
@@ -27,8 +27,9 @@ const SURFACE_HIT_COOLDOWN := 0.15
 		radius = maxf(value, 1.0)
 		if is_node_ready():
 			_update_collision_shape()
+			_update_ball_sprite_scale()
 			queue_redraw()
-@export var particle_color := Color("#5eead4")
+@export var fill_color := Color("#5eead4")
 @export var arrow_color := Color("#000000")
 
 @export_category("Launch")
@@ -51,14 +52,19 @@ var _pull_tween: Tween
 var _pull_elapsed := 0.0
 var _stick_tween: Tween
 var _surface_hit_cooldown := 0.0
+var _ball_frames: Array[Texture2D] = []
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var _ball_sprite: Sprite2D = $BallSprite
 
 
 func _ready() -> void:
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
 	_update_collision_shape()
+	_load_ball_frames()
+	_update_ball_sprite_scale()
+	_update_ball_frame()
 	freeze = true
 	_initial_global_position = global_position
 	_base_linear_damp = linear_damp
@@ -413,12 +419,34 @@ func _update_collision_shape() -> void:
 	circle.radius = radius
 
 
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, particle_color)
-	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
-	# Traço do centro até a borda, em coordenadas locais: gira junto com a bola.
-	draw_line(Vector2.ZERO, Vector2.RIGHT * radius, Color.WHITE, OUTLINE_WIDTH)
+func _process(_delta: float) -> void:
+	_update_ball_frame()
 
+
+func _load_ball_frames() -> void:
+	for i in range(1, BALL_FRAME_COUNT + 1):
+		_ball_frames.append(load(BALL_FRAME_PATH % i))
+
+
+func _update_ball_sprite_scale() -> void:
+	if _ball_frames.is_empty() or _ball_sprite == null:
+		return
+	var tex_size := _ball_frames[0].get_size()
+	var desired_diameter := radius * 2.4
+	_ball_sprite.scale = Vector2.ONE * (desired_diameter / maxf(tex_size.x, tex_size.y))
+
+
+func _update_ball_frame() -> void:
+	if _ball_frames.is_empty() or _ball_sprite == null:
+		return
+	_ball_sprite.rotation = -rotation
+	var angle := fposmod(rotation, TAU)
+	var frame_index := int(angle / TAU * BALL_FRAME_COUNT) % BALL_FRAME_COUNT
+	_ball_sprite.texture = _ball_frames[frame_index]
+
+
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, radius, fill_color)
 	if _state == State.READY:
 		_draw_launch_arrow()
 

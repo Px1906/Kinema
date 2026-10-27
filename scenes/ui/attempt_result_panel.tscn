@@ -1,11 +1,23 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/attempt_result_panel.gd" id="1_result"]
+[ext_resource type="Shader" path="res://shaders/blur_background.gdshader" id="0_blur_shader"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="2_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="3_medio1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="4_medio2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="5_medio3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="6_medio4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="7_medio_pressed"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
+shader = ExtResource("0_blur_shader")
+shader_parameter/blur_strength = 2.5
 
 [node name="AttemptResultPanel" type="CanvasLayer"]
 script = ExtResource("1_result")
 
-[node name="Dimmer" type="ColorRect" parent="."]
+[node name="BlurRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_blur")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-color = Color(0, 0, 0, 0.45)
+color = Color(1, 1, 1, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -48,10 +60,28 @@ autowrap_mode = 2
 
 [node name="RetryButton" type="Button" parent="CenterContainer/Panel/Content"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Tentar novamente"
+
+script = ExtResource("2_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
+pressed_frame = ExtResource("7_medio_pressed")
+animation_fps = 2.0
 
 [node name="ExitButton" type="Button" parent="CenterContainer/Panel/Content"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Sair da fase"
+
+script = ExtResource("2_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
+pressed_frame = ExtResource("7_medio_pressed")
+animation_fps = 2.0

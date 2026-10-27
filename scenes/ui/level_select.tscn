@@ -1,8 +1,19 @@
-[gd_scene format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_select"]
 [ext_resource type="Texture2D" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
 [ext_resource type="Script" path="res://scripts/ui/level_data.gd" id="3_level_data"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="4_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="5_grande1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_02.png" id="6_grande2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="7_grande3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="8_grande4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/apertado/frame_01.png" id="9_grande_pressed"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="10_peq1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="11_peq2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="12_peq3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="12b_peq4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="13_peq_pressed"]
 
 [sub_resource type="Resource" id="Resource_level1"]
 script = ExtResource("3_level_data")
@@ -69,8 +80,15 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
 theme_override_font_sizes/font_size = 32
 text = "<"
+
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_peq1"), ExtResource("11_peq2"), ExtResource("12_peq3"), ExtResource("12b_peq4")])
+pressed_frame = ExtResource("13_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
 
 [node name="CardsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarouselRow"]
 unique_name_in_owner = true
@@ -85,12 +103,28 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
 theme_override_font_sizes/font_size = 32
 text = ">"
 
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_peq1"), ExtResource("11_peq2"), ExtResource("12_peq3"), ExtResource("12b_peq4")])
+pressed_frame = ExtResource("13_peq_pressed")
+animation_fps = 2.0
+texture_margin = 12.0
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 48)
+custom_minimum_size = Vector2(260, 56)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 22
 text = "Voltar"
+
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("5_grande1"), ExtResource("6_grande2"), ExtResource("7_grande3"), ExtResource("8_grande4")])
+pressed_frame = ExtResource("9_grande_pressed")
+animation_fps = 2.0

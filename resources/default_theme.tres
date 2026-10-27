@@ -1,0 +1,14 @@
+[gd_resource type="Theme" format=3]
+
+[resource]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 0)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+Button/colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

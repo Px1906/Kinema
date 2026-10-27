@@ -315,8 +315,11 @@ func _set_button_style(button: Button, style: StyleBoxFlat) -> void:
 
 func _reset_button_colors() -> void:
 	for button in _buttons:
-		for state in STYLE_STATES:
-			button.remove_theme_stylebox_override(state)
+		if button is AnimatedStyleButton:
+			button.reapply_styleboxes()
+		else:
+			for state in STYLE_STATES:
+				button.remove_theme_stylebox_override(state)
 
 
 func _set_buttons_disabled(disabled: bool) -> void:

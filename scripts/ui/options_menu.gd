@@ -1,5 +1,5 @@
 class_name OptionsMenu
-extends PanelContainer
+extends VBoxContainer
 
 signal closed
 

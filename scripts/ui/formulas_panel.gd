@@ -1,5 +1,5 @@
 class_name FormulasPanel
-extends PanelContainer
+extends VBoxContainer
 
 signal closed
 

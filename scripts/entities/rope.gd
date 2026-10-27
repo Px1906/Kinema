@@ -20,6 +20,11 @@ const DEFAULT_DETECTION_RADIUS := 160.0
 const MIN_GRAVITY := 0.0
 const DEFAULT_DIRECTION := Vector2.DOWN
 const MIN_ATTACH_SPEED_SQUARED := 1.0
+const SEGMENT_LENGTH := 12.0
+const WAVE_AMPLITUDE := 3.0
+const WAVE_CYCLES := 4.0
+const KNOT_RADIUS := 3.0
+const KNOT_INTERVAL := 4
 
 @export_category("Rope")
 @export_range(MIN_WIDTH, MAX_WIDTH, 1.0) var width: float = 4.0:
@@ -239,4 +244,21 @@ func _draw() -> void:
 	if not _active:
 		return
 
-	draw_line(Vector2.ZERO, _direction * _rope_length, rope_color, width, true)
+	var endpoint := _direction * _rope_length
+	var segment_count := maxi(int(_rope_length / SEGMENT_LENGTH), 2)
+	var dir := _direction
+	var perp := dir.rotated(PI / 2.0)
+
+	var points := PackedVector2Array()
+	for i in range(segment_count + 1):
+		var t := float(i) / segment_count
+		var base_pos := endpoint * t
+		var wave: float = sin(t * TAU * WAVE_CYCLES) * WAVE_AMPLITUDE * (1.0 - absf(2.0 * t - 1.0))
+		points.append(base_pos + perp * wave)
+
+	draw_polyline(points, rope_color, width, true)
+
+	var darker := rope_color.darkened(0.3)
+	for i in range(segment_count + 1):
+		if i % KNOT_INTERVAL == 0 and i > 0 and i < segment_count:
+			draw_circle(points[i], KNOT_RADIUS, darker)
