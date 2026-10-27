@@ -35,7 +35,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3643, 12)
+position = Vector2(3518, 19)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -44,7 +44,7 @@ fator_velocidade_lancamento = 0.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3643, 28)
+position = Vector2(3518, 35)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -166,7 +166,7 @@ position = Vector2(1680, -128)
 position = Vector2(1680, 64)
 
 [node name="WallSurface8" parent="Level/Surfaces/Walls" index="7" unique_id=1292639624 instance=ExtResource("2_wall_very_short")]
-position = Vector2(1744, -320)
+position = Vector2(1717, -349)
 
 [node name="WallSurface9" parent="Level/Surfaces/Walls" index="8" unique_id=1521399488 instance=ExtResource("9_fjmsq")]
 position = Vector2(2368, -384)
@@ -389,7 +389,7 @@ trigger_distance = 80.0
 trigger_height = 352.0
 
 [node name="QteBarrier3" parent="Level/QteBarriers" index="2" unique_id=946640564 instance=ExtResource("7_kjfhl")]
-position = Vector2(3664, -692.00006)
+position = Vector2(3597, -708)
 scale = Vector2(1, 0.66759276)
 size = Vector2(32, 766.9)
 content = "corda"
