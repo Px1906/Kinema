@@ -28,6 +28,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Aviso no painel de atributos quando a energia potencial fica negativa.
 - Texto, imagem e animação dos popups de tutorial em `resources/tutorial_popups.json`; cada `TutorialPopupZone` escolhe o seu pelo `popup_id`.
 - Popups de tutorial na fase tutorial: controles, atributos, referência, energias potencial, cinética e mecânica, e perda de energia nas colisões.
+- Ângulo de lançamento desenhado na bola: arco do eixo horizontal até a seta, com o valor em graus (cor configurável em `angle_color`).
+- Prévia de trajetória enquanto a bola está na corda, mostrando o caminho se ela for solta naquele instante, com limite e espaçamento próprios (`attached_point_count`, `attached_time_step`).
 
 ### Alterado
 - A tabela de atributos chama a energia total de "Energia mecânica".
@@ -46,6 +48,9 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A fase tutorial passa a usar só os tamanhos prontos de plataforma e parede, com o layout e os checkpoints ajustados a eles.
 - A bola gira mais livre (`angular_damp` de 2,5 para 0,5 na fase tutorial).
 - A fase tutorial não tem mais piso que mata; o perigo passa a ser os espinhos.
+- A seta de lançamento e as bolinhas da prévia de trajetória passam a ser pretas; a seta fica com o dobro do comprimento e mais grossa.
+- O arraste do mouse para mirar não desenha mais o traço vermelho.
+- A velocidade no painel de lançamento é exibida em m/s e já considera o fator de lançamento; os rótulos dos sliders mostram nome e valor em duas linhas para não cortar o texto.
 
 ### Corrigido
 - Acoplamento da partícula à corda adiado para evitar alterações durante o processamento de consultas físicas do Godot.

@@ -16,9 +16,6 @@ extends Control
 @export_range(1.0, 100.0, 1.0) var speed_notch_step: float = 50.0
 @export_range(1.0, 45.0, 1.0) var angle_notch_step: float = 10.0
 
-@export_category("Visual")
-@export var vector_color := Color("#f87171")
-
 var _dragging := false
 var _last_speed_notch := -1
 var _last_angle_notch := -1
@@ -54,7 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _dragging:
 			_dragging = false
 			get_viewport().set_input_as_handled()
-		queue_redraw()
 
 	elif event is InputEventMouseMotion and _dragging:
 		if not player.can_launch():
@@ -63,7 +59,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			_current = event.global_position
 			_apply_launch_vector()
 			get_viewport().set_input_as_handled()
-		queue_redraw()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed and _dragging:
@@ -105,14 +100,4 @@ func _apply_launch_vector() -> void:
 
 func _on_player_state_changed(_new_state) -> void:
 	_dragging = false
-	queue_redraw()
 
-
-func _draw() -> void:
-	if not _dragging:
-		return
-	var offset := global_position
-	var draw_start := _start - offset
-	var draw_current := _current - offset
-	draw_line(draw_start, draw_current, vector_color, 2.0)
-	draw_circle(draw_start, 4.0, vector_color)
