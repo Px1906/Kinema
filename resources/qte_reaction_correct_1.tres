@@ -80,4 +80,3 @@ script = ExtResource("1_abyd0")
 sprite_frames = SubResource("SpriteFrames_0dehr")
 animation_name = &"Errou"
 sound = ExtResource("2_7ius7")
-metadata/_custom_type_script = "uid://cb4c4o4igcch5"
