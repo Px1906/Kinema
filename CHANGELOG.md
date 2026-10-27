@@ -26,6 +26,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Perguntas do QTE com conteúdo (`content`) e estilo (`style`, cálculo ou teoria); cada barreira de QTE escolhe o conteúdo pelo Inspector e sorteia só entre as perguntas dele.
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
+- Ângulo de lançamento desenhado na bola: arco do eixo horizontal até a seta, com o valor em graus (cor configurável em `angle_color`).
+- Prévia de trajetória enquanto a bola está na corda, mostrando o caminho se ela for solta naquele instante, com limite e espaçamento próprios (`attached_point_count`, `attached_time_step`).
 
 ### Alterado
 - Ao entrar num checkpoint, a bola é atraída para o centro como um ímã e fica suspensa ali, pronta para o próximo lançamento (antes ela freava e caía).
@@ -43,6 +45,9 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A fase tutorial passa a usar só os tamanhos prontos de plataforma e parede, com o layout e os checkpoints ajustados a eles.
 - A bola gira mais livre (`angular_damp` de 2,5 para 0,5 na fase tutorial).
 - A fase tutorial não tem mais piso que mata; o perigo passa a ser os espinhos.
+- A seta de lançamento e as bolinhas da prévia de trajetória passam a ser pretas; a seta fica com o dobro do comprimento e mais grossa.
+- O arraste do mouse para mirar não desenha mais o traço vermelho.
+- A velocidade no painel de lançamento é exibida em m/s e já considera o fator de lançamento; os rótulos dos sliders mostram nome e valor em duas linhas para não cortar o texto.
 
 ### Corrigido
 - Acoplamento da partícula à corda adiado para evitar alterações durante o processamento de consultas físicas do Godot.
