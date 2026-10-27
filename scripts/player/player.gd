@@ -18,7 +18,6 @@ const BALL_FRAME_COUNT := 18
 const BALL_FRAME_PATH := "res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_%02d.png"
 const LAUNCH_ARROW_WIDTH := 4.0
 const LAUNCH_ARROW_OFFSET := 4.0
-const LAUNCH_ARROW_LENGTH_SCALE := 0.3
 const LAUNCH_ARROW_HEAD_SIZE := 14.0
 const LAUNCH_ARROW_HEAD_SPREAD := 0.6
 const ANGLE_LABEL_ARROW_MARGIN := 4.0
@@ -508,7 +507,7 @@ func _move_label_off_arrow(
 	label_center: Vector2, text_size: Vector2, arrow_dir: Vector2
 ) -> Vector2:
 	var arrow_start := radius + LAUNCH_ARROW_OFFSET
-	var arrow_end := arrow_start + launch_velocity.length() * LAUNCH_ARROW_LENGTH_SCALE
+	var arrow_end := arrow_start + _get_launch_arrow_length()
 	var arrow_half_width := LAUNCH_ARROW_HEAD_SIZE * LAUNCH_ARROW_HEAD_SPREAD
 
 	var away := arrow_dir.orthogonal()
@@ -533,13 +532,21 @@ func _move_label_off_arrow(
 	return arrow_dir * along + away * (half_across + arrow_half_width + ANGLE_LABEL_ARROW_MARGIN)
 
 
+## Comprimento da seta em px, na escala do mundo: a bola saindo a N m/s ganha uma
+## seta de N metros (o mesmo número que o painel mostra, já com o fator de lançamento).
+func _get_launch_arrow_length() -> float:
+	var exit_speed := launch_velocity.length() * fator_velocidade_lancamento
+	var speed_mps := PhysicsUnits.pixels_to_meters(exit_speed)
+	return PhysicsUnits.meters_to_pixels(speed_mps)
+
+
 func _draw_launch_arrow() -> void:
 	if launch_velocity.length_squared() < 1.0:
 		return
 
 	var dir := launch_velocity.normalized().rotated(-global_rotation)
 	var start := dir * (radius + LAUNCH_ARROW_OFFSET)
-	var length := launch_velocity.length() * LAUNCH_ARROW_LENGTH_SCALE
+	var length := _get_launch_arrow_length()
 	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + length)
 	var head := LAUNCH_ARROW_HEAD_SIZE
 	var side := dir.orthogonal()
