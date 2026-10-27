@@ -15,6 +15,9 @@ script = ExtResource("1_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1560653708]
 shape = SubResource("RectangleShape2D_zone")
 
+[node name="DisplayAnchor" type="Marker2D" parent="." unique_id=1892405122]
+gizmo_extents = 20.0
+
 [node name="Panel" type="PanelContainer" parent="." unique_id=641839809]
 unique_name_in_owner = true
 visible = false

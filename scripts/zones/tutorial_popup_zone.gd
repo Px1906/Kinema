@@ -17,12 +17,33 @@ var _exit_frames := 0
 @onready var _sprite: TextureRect = %Sprite
 @onready var _anim_player: AnimatedSprite2D = %AnimPlayer
 @onready var _collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var _display_anchor: Marker2D = $DisplayAnchor
 
 
 func _ready() -> void:
 	add_to_group(GROUP)
 	body_entered.connect(_on_body_entered)
 	_panel.visible = false
+	var anchor_pos := _display_anchor.position
+	if anchor_pos != Vector2.ZERO:
+		_panel.offset_left += anchor_pos.x
+		_panel.offset_right += anchor_pos.x
+		_panel.offset_top += anchor_pos.y
+		_panel.offset_bottom += anchor_pos.y
+	_find_player.call_deferred()
+
+
+func _find_player() -> void:
+	if _tracked_player != null:
+		return
+	_tracked_player = _get_player_in_tree()
+
+
+func _get_player_in_tree() -> Player:
+	var root := get_tree().current_scene
+	if root == null:
+		return null
+	return root.find_child("Player", true, false) as Player
 
 
 func _on_body_entered(body: Node2D) -> void:

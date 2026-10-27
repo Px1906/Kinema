@@ -1,10 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b870xfkjl6don"]
 
 [ext_resource type="PackedScene" uid="uid://durw41bb8w0p6" path="res://scenes/entities/wall_surface.tscn" id="1_wall"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_01.png" id="2_frame1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_02.png" id="3_frame2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_03.png" id="4_frame3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_04.png" id="5_frame4"]
+[ext_resource type="Texture2D" uid="uid://dee7hq17oev8g" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_01.png" id="2_frame1"]
+[ext_resource type="Texture2D" uid="uid://dfuf87wnjbxxl" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_03.png" id="4_frame3"]
+[ext_resource type="Texture2D" uid="uid://drgtqj11o0vuh" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/barra_fina_vertical/barra_fina_vertical_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_medium"]
 size = Vector2(32, 256)
@@ -14,9 +13,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_frame1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_frame2")
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_frame3")
@@ -29,13 +25,15 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="WallSurfaceMedium" instance=ExtResource("1_wall")]
+[node name="WallSurfaceMedium" unique_id=2114949032 instance=ExtResource("1_wall")]
 size = Vector2(32, 256)
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_medium")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 1.6)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=1212589976]
+position = Vector2(0, 1.4999883)
+scale = Vector2(1.5625001, 2.49375)
 sprite_frames = SubResource("SpriteFrames_barra")
 autoplay = "default"
+frame_progress = 0.33800507

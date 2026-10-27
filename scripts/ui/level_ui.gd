@@ -28,6 +28,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	Events.qte_started.connect(_on_qte_started)
+	Events.qte_finished.connect(_on_qte_finished)
+
 	if recenter_button == null:
 		return
 
@@ -43,3 +46,19 @@ func _ready() -> void:
 
 func _on_camera_following_changed(is_following: bool) -> void:
 	recenter_button.visible = not is_following
+
+
+func _on_qte_started(_barrier: QteBarrier) -> void:
+	if controls != null:
+		controls.visible = false
+	if attributes != null:
+		attributes.visible = false
+	if recenter_button != null:
+		recenter_button.visible = false
+
+
+func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
+	if controls != null:
+		controls.visible = true
+	if attributes != null:
+		attributes.visible = true
