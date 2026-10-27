@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxylwkj36jcac"]
 
 [ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
+[ext_resource type="AudioStream" uid="uid://1htq8snuw3ie" path="res://audio/sfx/ui/Knob.wav" id="2_clegd"]
 [ext_resource type="PackedScene" uid="uid://d3oehoccfpspf" path="res://scenes/entities/platform_surface_medium.tscn" id="2_platform_medium"]
 [ext_resource type="PackedScene" uid="uid://d30tc0jximh7" path="res://scenes/entities/platform_surface_short.tscn" id="2_platform_short"]
 [ext_resource type="PackedScene" path="res://scenes/entities/platform_surface_very_long.tscn" id="2_platform_very_long"]
@@ -40,7 +41,14 @@ physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
 
+[node name="Camera" parent="." index="1"]
+knob_sound = ExtResource("2_clegd")
+knob_volume_db = 1.5
+knob_notches = 3
+
 [node name="MouseControlArea" parent="Gameplay" index="2"]
+knob_sound = ExtResource("2_clegd")
+knob_volume_db = 0.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
@@ -175,11 +183,11 @@ position = Vector2(2368, -384)
 position = Vector2(4240, 448)
 
 [node name="TutorialZoneTest" parent="Level/Zones" index="0" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
-position = Vector2(418, 473)
+position = Vector2(342, 442)
 popup_data = SubResource("Resource_dica_teste")
 
 [node name="CollisionShape2D" parent="Level/Zones/TutorialZoneTest" index="0" unique_id=1560653708]
-position = Vector2(177, -28)
+position = Vector2(0, 9)
 
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZoneTest" index="1" unique_id=1892405122]
 position = Vector2(304, -75)
@@ -218,10 +226,10 @@ position = Vector2(4096, 507)
 position = Vector2(3712, 128)
 
 [node name="CheckpointZone12" parent="Level/Zones/Checkpoints" index="11" unique_id=24225696 instance=ExtResource("6_checkpoint")]
-position = Vector2(2944, 123)
+position = Vector2(2945, 108)
 
 [node name="CheckpointZone13" parent="Level/Zones/Checkpoints" index="12" unique_id=89160300 instance=ExtResource("6_checkpoint")]
-position = Vector2(2592, -96)
+position = Vector2(2592, -103)
 
 [node name="CheckpointZone14" parent="Level/Zones/Checkpoints" index="13" unique_id=1694242192 instance=ExtResource("6_checkpoint")]
 position = Vector2(2880, -416)
