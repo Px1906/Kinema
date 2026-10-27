@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://u6y1auqeir3d" path="res://scripts/ui/qte_overlay.gd" id="1_qte_overlay"]
 [ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="2_qkamg"]
 [ext_resource type="Resource" uid="uid://d2m3p7p2xhxpl" path="res://resources/qte_reaction_correct_1.tres" id="3_f7530"]
-[ext_resource type="Resource" uid="uid://d062go3o77m3v" path="res://resources/qte_reaction_wrong_1.tres" id="4_f7530"]
+[ext_resource type="Resource" uid="uid://dtqyq2lp834hn" path="res://resources/qte_reaction_wrong_1.tres" id="4_f7530"]
 [ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="5_anim_style"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="6_medio1"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="7_medio2"]
