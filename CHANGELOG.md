@@ -27,8 +27,10 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
 - Texto, imagem e animação dos popups de tutorial em `resources/tutorial_popups.json`; cada `TutorialPopupZone` escolhe o seu pelo `popup_id`.
+- Popups de tutorial na fase tutorial: controles, atributos, referência, energias potencial, cinética e mecânica, e perda de energia nas colisões.
 
 ### Alterado
+- A tabela de atributos chama a energia total de "Energia mecânica".
 - Ao entrar num checkpoint, a bola é atraída para o centro como um ímã e fica suspensa ali, pronta para o próximo lançamento (antes ela freava e caía).
 - Cenas de teste podem funcionar sem uma corda ou painel de controles.
 - O painel de controles reutiliza a corda da fase quando disponível.
