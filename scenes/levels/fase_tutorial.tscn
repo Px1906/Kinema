@@ -29,7 +29,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3056, 112)
+position = Vector2(-3904, 624)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -45,7 +45,7 @@ knob_volume_db = 0.5
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3056, 128)
+position = Vector2(-3904, 640)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -223,7 +223,7 @@ position = Vector2(256, -48)
 position = Vector2(256, -272)
 
 [node name="CheckpointZone7" parent="Level/Zones/Checkpoints" index="5" unique_id=1505935824 instance=ExtResource("6_checkpoint")]
-position = Vector2(592, -480)
+position = Vector2(576, -400)
 
 [node name="CheckpointZone8" parent="Level/Zones/Checkpoints" index="6" unique_id=1532592797 instance=ExtResource("6_checkpoint")]
 position = Vector2(1584, -432)
@@ -429,7 +429,7 @@ position = Vector2(256, -48)
 popup_id = "referencial"
 
 [node name="TutorialPopupZone10" parent="Level/Zones/TutorialZone" index="9" unique_id=1859154781 instance=ExtResource("15_popup_zone")]
-position = Vector2(704, -432)
+position = Vector2(576, -416)
 popup_id = "corda"
 
 [node name="TutorialPopupZone11" parent="Level/Zones/TutorialZone" index="10" unique_id=2035959513 instance=ExtResource("15_popup_zone")]
