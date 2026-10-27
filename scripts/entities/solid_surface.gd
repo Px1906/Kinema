@@ -55,7 +55,7 @@ func _update_obstacle_group() -> void:
 
 
 func _update_collision_shape() -> void:
-	if collision_shape == null:
+	if collision_shape == null or _has_animated_sprite:
 		return
 	var rectangle := collision_shape.shape as RectangleShape2D
 	if rectangle == null:
