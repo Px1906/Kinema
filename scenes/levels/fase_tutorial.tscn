@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
 [ext_resource type="PackedScene" path="res://scenes/zones/spike_zone.tscn" id="9_ijnuu"]
 [ext_resource type="PackedScene" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
-[ext_resource type="PackedScene" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
+[ext_resource type="PackedScene" uid="uid://ddsm8v38tgvsh" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
 [ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="17_tdtmq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lvf83"]
@@ -29,16 +29,16 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(1760, -208)
+position = Vector2(256, 528)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
-angular_damp = 10.0
+angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
 
 [node name="MouseControlArea" parent="Gameplay" index="2"]
 metadata/_edit_use_anchors_ = true
 
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(1760, -192)
+position = Vector2(256, 544)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -158,16 +158,6 @@ position = Vector2(2368, -384)
 
 [node name="WallSurface10" parent="Level/Surfaces/Walls" index="9" unique_id=1755763110 instance=ExtResource("2_wall_medium")]
 position = Vector2(4240, 448)
-
-[node name="TutorialZoneTest" parent="Level/Zones" index="0" unique_id=1843821919 instance=ExtResource("15_popup_zone")]
-position = Vector2(418, 473)
-popup_id = "lancamento"
-
-[node name="CollisionShape2D" parent="Level/Zones/TutorialZoneTest" index="0" unique_id=1560653708]
-position = Vector2(177, -28)
-
-[node name="DisplayAnchor" parent="Level/Zones/TutorialZoneTest" index="1" unique_id=1892405122]
-position = Vector2(304, -75)
 
 [node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
 position = Vector2(896, 528)
@@ -334,8 +324,38 @@ position = Vector2(1888, 112)
 [node name="SpikeZone40" parent="Level/Zones/Spikes" index="39" unique_id=209346010 instance=ExtResource("9_ijnuu")]
 position = Vector2(1760, 112)
 
-[node name="GoalZone" parent="Level/Zones" index="3"]
+[node name="GoalZone" parent="Level/Zones" index="2"]
 position = Vector2(4256, -576)
+
+[node name="TutorialZone" type="Node" parent="Level/Zones" index="3" unique_id=1886318060]
+
+[node name="TutorialPopupZone" parent="Level/Zones/TutorialZone" index="0" unique_id=2013405035 instance=ExtResource("15_popup_zone")]
+position = Vector2(256, 480)
+popup_id = "controles"
+
+[node name="TutorialPopupZoneAtributos" parent="Level/Zones/TutorialZone" index="1" unique_id=1031416407 instance=ExtResource("15_popup_zone")]
+position = Vector2(896, 528)
+popup_id = "atributos"
+
+[node name="TutorialPopupZoneReferencia" parent="Level/Zones/TutorialZone" index="2" unique_id=1568992645 instance=ExtResource("15_popup_zone")]
+position = Vector2(1280, 240)
+popup_id = "referencia"
+
+[node name="TutorialPopupZonePotencial" parent="Level/Zones/TutorialZone" index="3" unique_id=879635360 instance=ExtResource("15_popup_zone")]
+position = Vector2(1280, 80)
+popup_id = "potencial"
+
+[node name="TutorialPopupZoneCinetica" parent="Level/Zones/TutorialZone" index="4" unique_id=2079249586 instance=ExtResource("15_popup_zone")]
+position = Vector2(256, -48)
+popup_id = "cinetica"
+
+[node name="TutorialPopupZoneMecanica" parent="Level/Zones/TutorialZone" index="5" unique_id=637205713 instance=ExtResource("15_popup_zone")]
+position = Vector2(256, -272)
+popup_id = "mecanica"
+
+[node name="TutorialPopupZoneColisao" parent="Level/Zones/TutorialZone" index="6" unique_id=546531678 instance=ExtResource("15_popup_zone")]
+position = Vector2(576, -400)
+popup_id = "colisao"
 
 [node name="Rope1" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
 position = Vector2(1072, -544)
@@ -401,5 +421,3 @@ position = Vector2(896, -16)
 
 [node name="WallSurfaceVeryShort" parent="." index="6" unique_id=2098316248 instance=ExtResource("2_wall_very_short")]
 position = Vector2(816, -32)
-
-[editable path="Level/Zones/TutorialZoneTest"]

@@ -1,4 +1,53 @@
 {
+	"controles": {
+		"mode": "text_and_sprite",
+		"text": "Arraste o mouse a partir da bola para mirar e dar força.\nOu abra \"Ajustar\" e use os sliders de velocidade e ângulo.",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"atributos": {
+		"mode": "text_and_sprite",
+		"text": "Abra \"Atributos\" para ver a massa, a velocidade e as energias da bola.\nFique de olho nesses valores: você vai precisar deles nas perguntas!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"referencia": {
+		"mode": "text_and_sprite",
+		"text": "Com a bola parada, arraste a origem ou os eixos do gráfico, ou use \"Centralizar referência\" em Atributos.\nMantenha uma boa referência: é a partir dela que você vai calcular os valores nas perguntas!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"potencial": {
+		"mode": "text_and_sprite",
+		"text": "Energia potencial: quanto mais alto a bola estiver em relação à referência, maior ela é.\nAbaixo da referência, ela fica negativa!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"cinetica": {
+		"mode": "text_and_sprite",
+		"text": "Energia cinética: cresce com a massa e, mais ainda, com a velocidade (ela entra ao quadrado).\nQuanto mais rápida a bola, maior ela é!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"mecanica": {
+		"mode": "text_and_sprite",
+		"text": "Energia mecânica: é a soma da potencial com a cinética.\nNo ar ela se conserva: o que a bola perde em uma, ganha na outra!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
+	"colisao": {
+		"mode": "text_and_sprite",
+		"text": "A cada colisão, a bola perde energia mecânica.\nRepare no valor caindo em Atributos depois de cada batida!",
+		"sprite": "",
+		"animation_frames": "",
+		"animation_name": "default"
+	},
 	"lancamento": {
 		"mode": "text_and_sprite",
 		"text": "Escolha a força e o ângulo e aperte Espaço para lançar.\nCuidado: o chão vermelho encerra a tentativa!",
