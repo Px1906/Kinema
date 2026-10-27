@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="QteReaction" format=3 uid="uid://d062go3o77m3v"]
 
-[ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="1_abyd0"]
+[ext_resource type="Script" path="res://resources/qte_reaction.gd" id="1_abyd0"]
 [ext_resource type="AudioStream" uid="uid://bytmdkohj84ur" path="res://audio/sfx/reactions/faustao-errou.mp3" id="2_7ius7"]
 [ext_resource type="Texture2D" uid="uid://dqiw5tl1gjcv5" path="res://assets/ui/gifs/fausto/2.jpeg" id="2_ip0wh"]
 [ext_resource type="Texture2D" uid="uid://mxv70kpn678u" path="res://assets/ui/gifs/fausto/1.jpeg" id="3_7ius7"]
