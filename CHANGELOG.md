@@ -26,8 +26,16 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Perguntas do QTE com conteúdo (`content`) e estilo (`style`, cálculo ou teoria); cada barreira de QTE escolhe o conteúdo pelo Inspector e sorteia só entre as perguntas dele.
 - Banco de 10 perguntas sobre os assuntos da fase tutorial.
 - Aviso no painel de atributos quando a energia potencial fica negativa.
+- Texto, imagem e animação dos popups de tutorial em `resources/tutorial_popups.json`; cada `TutorialPopupZone` escolhe o seu pelo `popup_id`.
+- Popups de tutorial na fase tutorial: controles, atributos, referência, energias potencial, cinética e mecânica, e perda de energia nas colisões.
+- Ângulo de lançamento desenhado na bola: arco do eixo horizontal até a seta, com o valor em graus (cor configurável em `angle_color`).
+- Prévia de trajetória enquanto a bola está na corda, mostrando o caminho se ela for solta naquele instante, com limite e espaçamento próprios (`attached_point_count`, `attached_time_step`).
+- Módulo da velocidade (`|v| = N m/s`) desenhado sobre o meio da seta de lançamento, afastado do arco e do texto do ângulo quando a seta é curta.
+- Som de knob nos sliders de velocidade e ângulo do painel de lançamento.
+- Fase tutorial estendida para a esquerda, com novas plataformas, checkpoints e espinhos.
 
 ### Alterado
+- A tabela de atributos chama a energia total de "Energia mecânica".
 - Ao entrar num checkpoint, a bola é atraída para o centro como um ímã e fica suspensa ali, pronta para o próximo lançamento (antes ela freava e caía).
 - Cenas de teste podem funcionar sem uma corda ou painel de controles.
 - O painel de controles reutiliza a corda da fase quando disponível.
@@ -43,6 +51,12 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A fase tutorial passa a usar só os tamanhos prontos de plataforma e parede, com o layout e os checkpoints ajustados a eles.
 - A bola gira mais livre (`angular_damp` de 2,5 para 0,5 na fase tutorial).
 - A fase tutorial não tem mais piso que mata; o perigo passa a ser os espinhos.
+- A seta de lançamento e as bolinhas da prévia de trajetória passam a ser pretas; a seta fica com o dobro do comprimento e mais grossa.
+- O arraste do mouse para mirar não desenha mais o traço vermelho.
+- A velocidade no painel de lançamento é exibida em m/s e já considera o fator de lançamento; os rótulos dos sliders mostram nome e valor em duas linhas para não cortar o texto.
+- A seta de lançamento tem o comprimento da velocidade de saída na escala do mundo: saindo a N m/s, ela mede N metros.
+- O som de knob toca a cada 1 m/s da velocidade de saída e a cada 10° de ângulo, com histerese para não repetir com o valor parado na borda (`KnobNotch`).
+- Os popups da fase tutorial foram reescritos em 17 textos, do lançamento às considerações finais; os que mostram fórmulas pedem para acompanhar os valores em "Atributos", e o texto da caixa fica justificado.
 
 ### Corrigido
 - Acoplamento da partícula à corda adiado para evitar alterações durante o processamento de consultas físicas do Godot.
@@ -56,3 +70,5 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A energia mecânica da bola não cai mais em pleno voo (a velocidade usada no cálculo passa a ser a do meio do passo de física).
 - A energia potencial não fica mais negativa por um instante quando a bola quica no nível da referência.
 - O cursor volta ao normal assim que a referência de altura deixa de ser arrastável e ao trocar de fase.
+- A caixa de texto dos popups de tutorial não bloqueia mais o arraste do vetor de lançamento nem da referência de altura.
+- O som de knob toca ao chegar em 180° e na velocidade máxima, e o ângulo negativo também clica nos sliders.

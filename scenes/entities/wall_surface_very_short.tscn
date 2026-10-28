@@ -36,3 +36,4 @@ position = Vector2(5.1259995e-06, 1.1920929e-06)
 scale = Vector2(1.5625, 0.61249995)
 sprite_frames = SubResource("SpriteFrames_barra")
 autoplay = "default"
+frame_progress = 0.78698987

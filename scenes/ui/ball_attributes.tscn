@@ -109,7 +109,7 @@ horizontal_alignment = 2
 [node name="TotalLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Energia total"
+text = "Energia mecânica"
 
 [node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values"]
 unique_name_in_owner = true

@@ -13,11 +13,10 @@ extends Control
 @export_category("Drag SFX")
 @export var knob_sound: AudioStream
 @export_range(-40.0, 6.0, 0.5, "suffix:dB") var knob_volume_db: float = 0.0
-@export_range(1.0, 100.0, 1.0) var speed_notch_step: float = 50.0
-@export_range(1.0, 45.0, 1.0) var angle_notch_step: float = 10.0
-
-@export_category("Visual")
-@export var vector_color := Color("#f87171")
+## Um clique do knob a cada tantos m/s da velocidade de saída (a mesma do painel).
+@export_range(0.5, 20.0, 0.5, "suffix:m/s") var speed_notch_step: float = 1.0
+## Um clique do knob a cada tantos graus de ângulo.
+@export_range(1.0, 45.0, 1.0, "suffix:°") var angle_notch_step: float = 10.0
 
 var _dragging := false
 var _last_speed_notch := -1
@@ -48,13 +47,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			_dragging = true
 			_start = player.get_global_transform_with_canvas().origin
 			_current = event.global_position
-			_last_speed_notch = int(player.launch_speed / speed_notch_step)
-			_last_angle_notch = int(player.launch_angle_degrees / angle_notch_step)
+			_last_speed_notch = floori(_get_speed_notch_position())
+			_last_angle_notch = floori(_get_angle_notch_position())
 			get_viewport().set_input_as_handled()
 		elif _dragging:
 			_dragging = false
 			get_viewport().set_input_as_handled()
-		queue_redraw()
 
 	elif event is InputEventMouseMotion and _dragging:
 		if not player.can_launch():
@@ -63,7 +61,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			_current = event.global_position
 			_apply_launch_vector()
 			get_viewport().set_input_as_handled()
-		queue_redraw()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed and _dragging:
@@ -94,8 +91,12 @@ func _apply_launch_vector() -> void:
 	var speed := minf(vector.length() * speed_factor, max_speed)
 	player.set_launch_parameters(speed, angle)
 
-	var sn := int(speed / speed_notch_step)
-	var an := int(angle / angle_notch_step)
+	var sn := KnobNotch.next(
+		_get_speed_notch_position(), _last_speed_notch, _is_speed_at_limit()
+	)
+	var an := KnobNotch.next(
+		_get_angle_notch_position(), _last_angle_notch, _is_angle_at_limit()
+	)
 	if (sn != _last_speed_notch or an != _last_angle_notch) and _last_speed_notch >= 0:
 		if knob_sound != null:
 			SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
@@ -103,16 +104,26 @@ func _apply_launch_vector() -> void:
 	_last_angle_notch = an
 
 
+## Posição da velocidade de saída em degraus. O +0,5 põe as bordas no meio dos
+## inteiros: com passo de 1 m/s o clique sai quando o número do painel muda.
+func _get_speed_notch_position() -> float:
+	var speed_mps := PhysicsUnits.pixels_to_meters(player.get_initial_velocity().length())
+	return speed_mps / speed_notch_step + 0.5
+
+
+func _get_angle_notch_position() -> float:
+	return player.launch_angle_degrees / angle_notch_step
+
+
+func _is_speed_at_limit() -> bool:
+	return player.launch_speed <= 0.0 or player.launch_speed >= minf(max_speed, Player.MAX_SPEED)
+
+
+func _is_angle_at_limit() -> bool:
+	var angle := player.launch_angle_degrees
+	return angle <= player.get_min_launch_angle() or angle >= Player.MAX_ANGLE
+
+
 func _on_player_state_changed(_new_state) -> void:
 	_dragging = false
-	queue_redraw()
 
-
-func _draw() -> void:
-	if not _dragging:
-		return
-	var offset := global_position
-	var draw_start := _start - offset
-	var draw_current := _current - offset
-	draw_line(draw_start, draw_current, vector_color, 2.0)
-	draw_circle(draw_start, 4.0, vector_color)

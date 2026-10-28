@@ -1,7 +1,7 @@
 class_name BallAttributes
 extends VBoxContainer
 ## Pop-up com os atributos da bola. Massa e velocidade são numéricas; as energias
-## cinética e potencial são barras de 0 até a energia total.
+## cinética e potencial são barras de 0 até a energia mecânica.
 
 const MIN_BAR_MAX := 0.001
 const NEGATIVE_COLOR := Color("#f87171")
