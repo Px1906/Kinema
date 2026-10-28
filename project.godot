@@ -34,8 +34,8 @@ window/size/viewport_height=720
 
 [gui]
 
-theme/custom="res://resources/default_theme.tres"
 timers/tooltip_delay_sec=1.5
+theme/custom="res://resources/default_theme.tres"
 
 [importer_defaults]
 
