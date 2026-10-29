@@ -12,32 +12,25 @@ signal player_attached(player: Player)
 signal player_detached(player: Player)
 
 const GROUP := &"rope"
-const MIN_WIDTH := 1.0
-const MAX_WIDTH := 32.0
 const MIN_DETECTION_RADIUS := 1.0
 const MAX_DETECTION_RADIUS := 2000.0
 const DEFAULT_DETECTION_RADIUS := 160.0
 const MIN_GRAVITY := 0.0
 const DEFAULT_DIRECTION := Vector2.DOWN
 const MIN_ATTACH_SPEED_SQUARED := 1.0
-const SEGMENT_LENGTH := 12.0
-const WAVE_AMPLITUDE := 3.0
-const WAVE_CYCLES := 4.0
-const KNOT_RADIUS := 3.0
-const KNOT_INTERVAL := 4
+const AREA_ROTATION_DURATION := 6.0
+const ROPE_DRAW_HEIGHT := 12.0
+const TEX_ROPE_START: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_inicio.png")
+const TEX_ROPE_MID: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_meio.png")
+const TEX_ROPE_END: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_fim.png")
 
 @export_category("Rope")
-@export_range(MIN_WIDTH, MAX_WIDTH, 1.0) var width: float = 4.0:
-	set(value):
-		width = maxf(value, MIN_WIDTH)
-		queue_redraw()
-@export var rope_color := Color("#94a3b8")
 @export_range(MIN_DETECTION_RADIUS, MAX_DETECTION_RADIUS, 1.0) var detection_radius: float = 160.0:
 	set(value):
 		detection_radius = maxf(value, MIN_DETECTION_RADIUS)
 		if is_node_ready():
 			_update_detection_shape()
-			_update_area_animation_scale()
+			_update_area_sprite_scale()
 @export_range(MIN_GRAVITY, 10.0, 0.1) var gravity_multiplier: float = 1.0
 ## Tolerância do cosseno entre a velocidade da bola e o vetor corda→bola para
 ## considerar os dois perpendiculares (0,05 ≈ 3°).
@@ -52,11 +45,11 @@ var _angular_velocity := 0.0
 var _rope_length := 0.0
 var _last_alignment := 0.0
 var _has_last_alignment := false
-var _area_animation_base_scale := Vector2.ONE
+var _area_sprite_base_scale := Vector2.ONE
 
 @onready var detection_area: Area2D = $DetectionArea
 @onready var detection_shape: CollisionShape2D = $DetectionArea/CollisionShape2D
-@onready var area_animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _area_sprite: Sprite2D = $AreaSprite
 
 
 ## A corda que está segurando a bola agora, entre todas as da fase; null se nenhuma.
@@ -70,15 +63,16 @@ static func get_attached_rope(tree: SceneTree) -> Rope:
 
 func _ready() -> void:
 	set_physics_process(false)
-	_area_animation_base_scale = area_animation.scale
+	_area_sprite_base_scale = _area_sprite.scale
 	_update_detection_shape()
-	_update_area_animation_scale()
+	_update_area_sprite_scale()
 	if Engine.is_editor_hint():
 		return
 
 	add_to_group(GROUP)
-	area_animation.visible = true
-	area_animation.play()
+	_area_sprite.visible = true
+	var tween := create_tween().set_loops()
+	tween.tween_property(_area_sprite, "rotation", TAU, AREA_ROTATION_DURATION).from(0.0)
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
 	detection_area.body_exited.connect(_on_detection_area_body_exited)
 
@@ -153,9 +147,9 @@ func _update_detection_shape() -> void:
 	circle.radius = detection_radius
 
 
-func _update_area_animation_scale() -> void:
+func _update_area_sprite_scale() -> void:
 	var scale_factor := detection_radius / DEFAULT_DETECTION_RADIUS
-	area_animation.scale = _area_animation_base_scale * scale_factor
+	_area_sprite.scale = _area_sprite_base_scale * scale_factor
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
@@ -201,7 +195,7 @@ func _attach_player(player: Player) -> void:
 	_pendulum_angle = _direction.angle() - Vector2.DOWN.angle()
 	_angular_velocity = player.linear_velocity.dot(_get_tangent()) / _rope_length
 	_attached_player = player
-	area_animation.visible = false
+	_area_sprite.visible = false
 	player.attach_to(get_endpoint_global_position())
 	player.set_carried_velocity(_get_tangential_velocity())
 	set_physics_process(true)
@@ -224,7 +218,7 @@ func _get_gravity() -> float:
 func _cleanup_attachment() -> void:
 	_attached_player = null
 	_detected_player = null
-	area_animation.visible = true
+	_area_sprite.visible = true
 	set_physics_process(false)
 	deactivate()
 
@@ -244,21 +238,25 @@ func _draw() -> void:
 	if not _active:
 		return
 
-	var endpoint := _direction * _rope_length
-	var segment_count := maxi(int(_rope_length / SEGMENT_LENGTH), 2)
-	var dir := _direction
-	var perp := dir.rotated(PI / 2.0)
+	var angle := _direction.angle()
+	var tex_h := float(TEX_ROPE_START.get_height())
+	var h_scale := ROPE_DRAW_HEIGHT / tex_h
 
-	var points := PackedVector2Array()
-	for i in range(segment_count + 1):
-		var t := float(i) / segment_count
-		var base_pos := endpoint * t
-		var wave: float = sin(t * TAU * WAVE_CYCLES) * WAVE_AMPLITUDE * (1.0 - absf(2.0 * t - 1.0))
-		points.append(base_pos + perp * wave)
+	var start_w := float(TEX_ROPE_START.get_width()) * h_scale
+	var end_w := float(TEX_ROPE_END.get_width()) * h_scale
+	var cap_total := start_w + end_w
 
-	draw_polyline(points, rope_color, width, true)
+	if cap_total > _rope_length:
+		var shrink := _rope_length / cap_total
+		start_w *= shrink
+		end_w *= shrink
 
-	var darker := rope_color.darkened(0.3)
-	for i in range(segment_count + 1):
-		if i % KNOT_INTERVAL == 0 and i > 0 and i < segment_count:
-			draw_circle(points[i], KNOT_RADIUS, darker)
+	var mid_w := maxf(_rope_length - start_w - end_w, 0.0)
+	var half_h := ROPE_DRAW_HEIGHT * 0.5
+
+	draw_set_transform(Vector2.ZERO, angle)
+	draw_texture_rect(TEX_ROPE_START, Rect2(0.0, -half_h, start_w, ROPE_DRAW_HEIGHT), false)
+	if mid_w > 0.0:
+		draw_texture_rect(TEX_ROPE_MID, Rect2(start_w, -half_h, mid_w, ROPE_DRAW_HEIGHT), false)
+	draw_texture_rect(TEX_ROPE_END, Rect2(start_w + mid_w, -half_h, end_w, ROPE_DRAW_HEIGHT), false)
+	draw_set_transform(Vector2.ZERO, 0.0)
