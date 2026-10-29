@@ -58,6 +58,12 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Opções"
 
+[node name="CreditsButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1269671152]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Créditos"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/MenuBox" unique_id=520976533]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
