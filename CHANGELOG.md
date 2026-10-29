@@ -45,11 +45,11 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - Os atributos da bola são exibidos como números inteiros, arredondando para cima só quando a parte decimal passa de 0,5; a velocidade abaixo de 1 m/s mantém uma casa decimal.
 - O painel de atributos do QTE fica escondido por padrão.
 - A gravidade do jogo passa a ser 10 m/s² (o valor da Terra arredondado).
-- Duração e curva do ímã do checkpoint configuráveis por checkpoint no Inspector (`pull_duration`, `pull_velocity_influence`).
-- A altura automática do gatilho da barreira de QTE passa a ser indicada por `trigger_height` negativo (-1), em vez de 0.
-- A referência de altura só pode ser arrastada com a bola pronta para lançar, controlada pelo `LevelController` (antes a própria referência consultava o Player).
 - A fase tutorial passa a usar só os tamanhos prontos de plataforma e parede, com o layout e os checkpoints ajustados a eles.
 - A bola gira mais livre (`angular_damp` de 2,5 para 0,5 na fase tutorial).
+- A referência de altura só pode ser arrastada com a bola pronta para lançar, controlada pelo `LevelController` (antes a própria referência consultava o Player).
+- Duração e curva do ímã do checkpoint configuráveis por checkpoint no Inspector (`pull_duration`, `pull_velocity_influence`).
+- A altura automática do gatilho da barreira de QTE passa a ser indicada por `trigger_height` negativo (-1), em vez de 0.
 - A fase tutorial não tem mais piso que mata; o perigo passa a ser os espinhos.
 - A seta de lançamento e as bolinhas da prévia de trajetória passam a ser pretas; a seta fica com o dobro do comprimento e mais grossa.
 - O arraste do mouse para mirar não desenha mais o traço vermelho.
