@@ -1,25 +1,44 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://dht68mux37k45"]
 
-[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
+[ext_resource type="Shader" uid="uid://csl38klhd6wcw" path="res://shaders/blur_background.gdshader" id="0_blur_shader"]
+[ext_resource type="Script" uid="uid://bbcxsvkie7pat" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="2_options"]
 [ext_resource type="PackedScene" path="res://scenes/ui/formulas_panel.tscn" id="3_formulas"]
+[ext_resource type="Script" uid="uid://cnp5j8iibuc7f" path="res://scripts/ui/animated_texture_button.gd" id="4_anim_btn"]
+[ext_resource type="Texture2D" uid="uid://bbmtdbf6utsa" path="res://assets/sprites/Sprite-Animacoes/UI/botao_recomeçar/botao_recomeçar_frame_01.png" id="5_restart1"]
+[ext_resource type="Texture2D" uid="uid://drmkt52vj0bfl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_recomeçar/botao_recomeçar_frame_02.png" id="6_restart2"]
+[ext_resource type="Texture2D" uid="uid://dck8v2utcouu3" path="res://assets/sprites/Sprite-Animacoes/UI/botao_recomeçar/botao_recomeçar_frame_03.png" id="7_restart3"]
+[ext_resource type="Texture2D" uid="uid://bda75a10y2t8x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_recomeçar/botao_recomeçar_frame_04.png" id="8_restart4"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="9_anim_style"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="10_medio1"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="11_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="12_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="13_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="14_medio_pressed"]
+[ext_resource type="Texture2D" uid="uid://bf8jikcsutp34" path="res://assets/sprites/Sprite-Animacoes/UI/botao_play/botao_play_frame_01.png" id="15_play1"]
+[ext_resource type="Texture2D" uid="uid://rbym6t2gbp31" path="res://assets/sprites/Sprite-Animacoes/UI/botao_play/botao_play_frame_02.png" id="16_play2"]
+[ext_resource type="Texture2D" uid="uid://cx52cil24tina" path="res://assets/sprites/Sprite-Animacoes/UI/botao_play/botao_play_frame_03.png" id="17_play3"]
+[ext_resource type="Texture2D" uid="uid://cgid0gffmnasa" path="res://assets/sprites/Sprite-Animacoes/UI/botao_play/botao_play_frame_04.png" id="18_play4"]
+[ext_resource type="Texture2D" uid="uid://dfww7otfkft1x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="19_peq1"]
+[ext_resource type="Texture2D" uid="uid://deit7ujgsg6uu" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="20_peq2"]
+[ext_resource type="Texture2D" uid="uid://jf0ndr6lj8d0" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="21_peq3"]
+[ext_resource type="Texture2D" uid="uid://b0of5pgdq37ch" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="22_peq4"]
+[ext_resource type="Texture2D" uid="uid://g7c1w1vqrn1r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="23_peq_pressed"]
+[ext_resource type="Texture2D" uid="uid://dmk0he74rh0a1" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="24_grande1"]
+[ext_resource type="Texture2D" uid="uid://dh5y0aaw6a1sl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_02.png" id="25_grande2"]
+[ext_resource type="Texture2D" uid="uid://cgwr485sbrafe" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="26_grande3"]
+[ext_resource type="Texture2D" uid="uid://pdnh2g5rhoew" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="27_grande4"]
 
-[node name="PauseMenu" type="CanvasLayer"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
+shader = ExtResource("0_blur_shader")
+shader_parameter/blur_strength = 2.5
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=305994716]
 process_mode = 3
 script = ExtResource("1_pause")
 
-[node name="Dimmer" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0, 0, 0, 0.45)
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
+[node name="BlurRect" type="ColorRect" parent="." unique_id=1758520076]
+material = SubResource("ShaderMaterial_blur")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,99 +46,146 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="MainPanel" type="PanelContainer" parent="CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=222370829]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="VBoxContainer" parent="CenterContainer" unique_id=551636238]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 0)
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
-mouse_filter = 1
+theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainPanel"]
+[node name="Title" type="Label" parent="CenterContainer/MainPanel" unique_id=1376810166]
 layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="CenterContainer/MainPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 36
 text = "PAUSE"
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
+[node name="IconRow" type="HBoxContainer" parent="CenterContainer/MainPanel" unique_id=58871187]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="ResumeButton" type="TextureButton" parent="CenterContainer/MainPanel/IconRow" unique_id=1009735993]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("15_play1")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_anim_btn")
+frames = Array[Texture2D]([ExtResource("15_play1"), ExtResource("16_play2"), ExtResource("17_play3"), ExtResource("18_play4")])
+
+[node name="RestartButton" type="TextureButton" parent="CenterContainer/MainPanel/IconRow" unique_id=672687279]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture_normal = ExtResource("5_restart1")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_anim_btn")
+frames = Array[Texture2D]([ExtResource("5_restart1"), ExtResource("6_restart2"), ExtResource("7_restart3"), ExtResource("8_restart4")])
+
+[node name="FormulasButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1739303196]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-text = "Continuar"
-
-[node name="IconRow" type="HBoxContainer" parent="CenterContainer/MainPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="FormulasButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/IconRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 20
 text = "?"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("19_peq1"), ExtResource("20_peq2"), ExtResource("21_peq3"), ExtResource("22_peq4")])
+pressed_frame = ExtResource("23_peq_pressed")
+texture_margin = 12.0
 
-[node name="RestartButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/IconRow"]
+[node name="OptionsButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1223159978]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "↺"
-
-[node name="OptionsButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 18
 text = "Opções"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
+pressed_frame = ExtResource("14_medio_pressed")
 
-[node name="ExitButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1997209001]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_font_sizes/font_size = 18
 text = "Sair"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
+pressed_frame = ExtResource("14_medio_pressed")
 
-[node name="RestartPanel" type="PanelContainer" parent="CenterContainer"]
+[node name="RestartPanel" type="VBoxContainer" parent="CenterContainer" unique_id=321699775]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(320, 0)
-layout_mode = 2
 visible = false
-mouse_filter = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/RestartPanel"]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="CenterContainer/RestartPanel/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/RestartPanel" unique_id=1262883665]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Reiniciar"
 horizontal_alignment = 1
 
-[node name="RestartFullButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+[node name="RestartFullButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=995719658]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
 text = "Reiniciar fase toda"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
+pressed_frame = ExtResource("14_medio_pressed")
 
-[node name="RestartCheckpointButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+[node name="RestartCheckpointButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=2014909349]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
 text = "Voltar ao checkpoint"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
+pressed_frame = ExtResource("14_medio_pressed")
 
-[node name="RestartBackButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+[node name="RestartBackButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=34106817]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
 text = "Voltar"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
+pressed_frame = ExtResource("14_medio_pressed")
 
-[node name="OptionsMenu" parent="CenterContainer" instance=ExtResource("2_options")]
+[node name="OptionsMenu" parent="CenterContainer" unique_id=634441185 instance=ExtResource("2_options")]
 unique_name_in_owner = true
-layout_mode = 2
 visible = false
+layout_mode = 2
 
-[node name="FormulasPanel" parent="CenterContainer" instance=ExtResource("3_formulas")]
+[node name="FormulasPanel" parent="CenterContainer" unique_id=379450250 instance=ExtResource("3_formulas")]
 unique_name_in_owner = true
-layout_mode = 2
 visible = false
+layout_mode = 2

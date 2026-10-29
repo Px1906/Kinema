@@ -104,7 +104,7 @@ func _process(_delta: float) -> void:
 
 	var bounds := level_bounds.grow(bounds_margin)
 	if not bounds.has_point(player.global_position):
-		_fail_attempt(FailureReason.OUT_OF_BOUNDS)
+		_respawn_at_last_checkpoint()
 
 
 ## O ReferenceRect já desenha a própria borda; aqui só entra a margem de saída.

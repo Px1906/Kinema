@@ -51,8 +51,8 @@ versionamento seguindo [SemVer](https://semver.org/lang/pt-BR/).
 - A altura da energia potencial passa a ser medida pela base da bola, e não pelo centro.
 - A energia mecânica da bola se conserva no ar: ela deixou de herdar o amortecimento linear padrão do projeto.
 - Barreiras de QTE respondidas não voltam ao respawnar depois de alcançar um checkpoint.
+- O checkpoint só é marcado como alcançado quando o ímã de fato puxa a bola.
+- O fim do puxão do ímã não emite `stopped` se a bola já tiver mudado de estado (corda ou reinício).
 - A energia mecânica da bola não cai mais em pleno voo (a velocidade usada no cálculo passa a ser a do meio do passo de física).
 - A energia potencial não fica mais negativa por um instante quando a bola quica no nível da referência.
 - O cursor volta ao normal assim que a referência de altura deixa de ser arrastável e ao trocar de fase.
-- O checkpoint só é marcado como alcançado quando o ímã de fato puxa a bola.
-- O fim do puxão do ímã não emite `stopped` se a bola já tiver mudado de estado (corda ou reinício).

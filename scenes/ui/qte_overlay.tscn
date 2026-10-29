@@ -1,18 +1,36 @@
-[gd_scene format=3 uid="uid://obid8vkxqq6a"]
+[gd_scene load_steps=11 format=3 uid="uid://obid8vkxqq6a"]
 
 [ext_resource type="Script" uid="uid://u6y1auqeir3d" path="res://scripts/ui/qte_overlay.gd" id="1_qte_overlay"]
+[ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="2_qkamg"]
+[ext_resource type="Resource" uid="uid://d2m3p7p2xhxpl" path="res://resources/qte_reaction_correct_1.tres" id="3_f7530"]
+[ext_resource type="Resource" uid="uid://d062go3o77m3v" path="res://resources/qte_reaction_wrong_1.tres" id="4_f7530"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="5_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="6_medio1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="7_medio2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="8_medio3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="9_medio4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="10_medio_pressed"]
 
 [node name="QteOverlay" type="CanvasLayer" unique_id=580786387]
 layer = 10
 script = ExtResource("1_qte_overlay")
+correct_reactions = Array[ExtResource("2_qkamg")]([ExtResource("3_f7530")])
+wrong_reactions = Array[ExtResource("2_qkamg")]([ExtResource("4_f7530")])
+
+[node name="RewardSprite" type="AnimatedSprite2D" parent="." unique_id=37760412]
+unique_name_in_owner = true
+position = Vector2(640, 345)
 
 [node name="Vignette" type="ColorRect" parent="." unique_id=2013760052]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4)
+metadata/_edit_lock_ = true
 
 [node name="QuestionPanel" type="MarginContainer" parent="." unique_id=602407620]
 anchors_preset = 10
@@ -28,6 +46,8 @@ theme_override_constants/margin_right = 200
 [node name="QuestionLabel" type="Label" parent="QuestionPanel" unique_id=1016056769]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
 text = "Pergunta"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -155,24 +175,45 @@ theme_override_constants/separation = 12
 
 [node name="ButtonA" type="Button" parent="ButtonsContainer" unique_id=644445640]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Alternativa A"
 autowrap_mode = 3
+script = ExtResource("5_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
+pressed_frame = ExtResource("10_medio_pressed")
+animation_fps = 2.0
 
 [node name="ButtonB" type="Button" parent="ButtonsContainer" unique_id=155680456]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Alternativa B"
 autowrap_mode = 3
+script = ExtResource("5_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
+pressed_frame = ExtResource("10_medio_pressed")
+animation_fps = 2.0
 
 [node name="ButtonC" type="Button" parent="ButtonsContainer" unique_id=1100639039]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Alternativa C"
 autowrap_mode = 3
+script = ExtResource("5_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
+pressed_frame = ExtResource("10_medio_pressed")
+animation_fps = 2.0

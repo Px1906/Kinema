@@ -1,24 +1,36 @@
-[gd_scene format=3]
+[gd_scene load_steps=15 format=3 uid="uid://bpct0q5hf50ng"]
 
-[ext_resource type="Script" path="res://scripts/ui/level_ui.gd" id="1_level_ui"]
+[ext_resource type="Script" uid="uid://bc42yqt8mws45" path="res://scripts/ui/level_ui.gd" id="1_level_ui"]
 [ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="2_launch_controls"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ball_attributes.tscn" id="3_ball_attributes"]
+[ext_resource type="Script" uid="uid://cnp5j8iibuc7f" path="res://scripts/ui/animated_texture_button.gd" id="4_anim_btn"]
+[ext_resource type="Texture2D" uid="uid://dat2y7rl3k0p5" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_01.png" id="5_pause1"]
+[ext_resource type="Texture2D" uid="uid://c85j4ajqxhc7r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_02.png" id="6_pause2"]
+[ext_resource type="Texture2D" uid="uid://b72or0ivwlqqk" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_03.png" id="7_pause3"]
+[ext_resource type="Texture2D" uid="uid://dyk1kxd4d5ysy" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_04.png" id="8_pause4"]
+[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="9_anim_style"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="10_medio1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="11_medio2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="12_medio3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="13_medio4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="14_medio_pressed"]
 
-[node name="LevelUI" type="CanvasLayer" node_paths=PackedStringArray("controls", "attributes", "recenter_button")]
+[node name="LevelUI" type="CanvasLayer" unique_id=1745138128 node_paths=PackedStringArray("controls", "attributes", "recenter_button", "pause_button")]
 script = ExtResource("1_level_ui")
 controls = NodePath("LaunchControls")
 attributes = NodePath("BallAttributes")
 recenter_button = NodePath("RecenterButton")
+pause_button = NodePath("PauseButton")
 
-[node name="LaunchControls" parent="." instance=ExtResource("2_launch_controls")]
+[node name="LaunchControls" parent="." unique_id=233328626 instance=ExtResource("2_launch_controls")]
 offset_left = 7.0
 offset_top = 7.0
 
-[node name="BallAttributes" parent="." instance=ExtResource("3_ball_attributes")]
+[node name="BallAttributes" parent="." unique_id=2017188507 instance=ExtResource("3_ball_attributes")]
 offset_left = 297.0
 offset_top = 7.0
 
-[node name="RecenterButton" type="Button" parent="."]
+[node name="RecenterButton" type="Button" parent="." unique_id=465932880]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -33,4 +45,27 @@ grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "Voltar a câmera para a bola"
 focus_mode = 0
+theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 text = "Recentralizar"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
+pressed_frame = ExtResource("14_medio_pressed")
+animation_fps = 2.0
+
+[node name="PauseButton" type="TextureButton" parent="." unique_id=650877185]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.99988
+offset_top = 1.0000005
+offset_right = -28.999878
+offset_bottom = 49.0
+grow_horizontal = 0
+scale = Vector2(1.595, 1.595)
+texture_normal = ExtResource("5_pause1")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_anim_btn")
+frames = Array[Texture2D]([ExtResource("5_pause1"), ExtResource("6_pause2"), ExtResource("7_pause3"), ExtResource("8_pause4")])
