@@ -29,7 +29,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3712, 95)
+position = Vector2(-3904, 624)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -44,20 +44,8 @@ knob_sound = ExtResource("2_clegd")
 knob_volume_db = 0.5
 metadata/_edit_use_anchors_ = true
 
-[node name="UI" parent="Interface" index="0"]
-visible = false
-
-[node name="AttemptResultPanel" parent="Interface" index="1"]
-visible = false
-
-[node name="QteOverlay" parent="Interface" index="2"]
-visible = false
-
-[node name="PauseMenu" parent="Interface" index="3"]
-visible = false
-
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3712, 111)
+position = Vector2(-3904, 640)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -256,7 +244,7 @@ position = Vector2(1760, -213)
 position = Vector2(4160, 488)
 
 [node name="CheckpointZone11" parent="Level/Zones/Checkpoints" index="9" unique_id=275495322 instance=ExtResource("6_checkpoint")]
-position = Vector2(3712, 108)
+position = Vector2(3712, 112)
 
 [node name="CheckpointZone12" parent="Level/Zones/Checkpoints" index="10" unique_id=24225696 instance=ExtResource("6_checkpoint")]
 position = Vector2(2944, 104)
@@ -548,6 +536,9 @@ position = Vector2(144, -56)
 position = Vector2(3712, 85)
 popup_id = "barreiras_qte"
 
+[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone16" index="0" unique_id=1560653708]
+position = Vector2(0, 43)
+
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone16" index="1" unique_id=1892405122]
 position = Vector2(255, -125)
 
@@ -615,6 +606,7 @@ offset_bottom = 704.0
 metadata/_edit_lock_ = true
 
 [node name="Chegada" type="Label" parent="Level" index="10" unique_id=1171516689]
+visible = false
 offset_left = 4128.0
 offset_top = -592.0
 offset_right = 4368.0
