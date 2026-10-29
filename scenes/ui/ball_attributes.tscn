@@ -1,31 +1,121 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dw07u4nooqh47"]
 
-[ext_resource type="Script" path="res://scripts/ui/ball_attributes.gd" id="1_ba"]
+[ext_resource type="Script" uid="uid://ct7nmq4m8dg8t" path="res://scripts/ui/ball_attributes.gd" id="1_ba"]
 [ext_resource type="Script" path="res://scripts/ui/drag_handle.gd" id="2_drag"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="3_anim_style"]
+[ext_resource type="Texture2D" uid="uid://dfww7otfkft1x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="4_peq1"]
+[ext_resource type="Texture2D" uid="uid://deit7ujgsg6uu" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="5_peq2"]
+[ext_resource type="Texture2D" uid="uid://jf0ndr6lj8d0" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="6_peq3"]
+[ext_resource type="Texture2D" uid="uid://b0of5pgdq37ch" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="7_peq4"]
+[ext_resource type="Texture2D" uid="uid://g7c1w1vqrn1r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="8_peq_pressed"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="9_medio1"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="10_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="11_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="12_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="13_medio_pressed"]
+[ext_resource type="Texture2D" uid="uid://dfe3wq4s61esj" path="res://assets/sprites/Sprite-Animacoes/UI/icones/bar-chart-diagram-graph-large-svgrepo-com.svg" id="14_icon_chart"]
+[ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="15_swm_font"]
+[ext_resource type="Texture2D" uid="uid://cccr6v61g315q" path="res://assets/sprites/NovosSprites/Kinema_Postits_Lousas_Revisados_Frames/post_it_01/frame_01.png" id="16_postit"]
 
-[node name="BallAttributes" type="VBoxContainer"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r1gbq"]
+texture = ExtResource("4_peq1")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_76li5"]
+texture = ExtResource("8_peq_pressed")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ei857"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qnpie"]
+texture = ExtResource("9_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dj242"]
+texture = ExtResource("13_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rqky"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_postit"]
+content_margin_left = 30.0
+content_margin_top = 50.0
+content_margin_right = 30.0
+content_margin_bottom = 25.0
+texture = ExtResource("16_postit")
+texture_margin_left = 20.0
+texture_margin_top = 40.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[node name="BallAttributes" type="Control" unique_id=175127103]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_ba")
 
-[node name="Row" type="HBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 4
+[node name="Row" type="HBoxContainer" parent="." unique_id=809919929]
+layout_mode = 0
 
-[node name="ToggleButton" type="Button" parent="Row"]
+[node name="ToggleButton" type="Button" parent="Row" unique_id=833656529]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(87.78001, 48.84)
 layout_mode = 2
 size_flags_horizontal = 4
-toggle_mode = true
 tooltip_text = "Mostra a massa, a velocidade e as energias da bola"
-text = "Atributos"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_r1gbq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_76li5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_r1gbq")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_r1gbq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ei857")
+toggle_mode = true
+icon = ExtResource("14_icon_chart")
+icon_alignment = 1
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
+pressed_frame = ExtResource("8_peq_pressed")
+texture_margin = 12.0
+sprite_scale = 0.66
 
-[node name="ReferenceButton" type="Button" parent="Row"]
+[node name="ReferenceButton" type="Button" parent="Row" unique_id=1675912664]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(168.96, 93.060005)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Centraliza na bola a referência de altura zero da energia potencial (ela também pode ser arrastada pela fase)"
-text = "Centralizar referência"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_qnpie")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dj242")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qnpie")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_qnpie")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0rqky")
+text = "   Centralizar"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("9_medio1"), ExtResource("10_medio2"), ExtResource("11_medio3"), ExtResource("12_medio4")])
+pressed_frame = ExtResource("13_medio_pressed")
+sprite_scale = 0.66
 
-[node name="DragGrip" type="Button" parent="Row"]
+[node name="DragGrip" type="Button" parent="Row" unique_id=569569223]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
@@ -33,75 +123,90 @@ size_flags_horizontal = 4
 tooltip_text = "Arrastar"
 focus_mode = 0
 mouse_default_cursor_shape = 13
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "• • •"
+flat = true
 
-[node name="ContentBox" type="PanelContainer" parent="."]
+[node name="ContentBox" type="PanelContainer" parent="." unique_id=539714683]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = -96.0
+offset_top = 68.0
+offset_right = 164.0
+offset_bottom = 319.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_postit")
 
-[node name="Margin" type="MarginContainer" parent="ContentBox"]
+[node name="Margin" type="MarginContainer" parent="ContentBox" unique_id=1932294880]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Content" type="VBoxContainer" parent="ContentBox/Margin"]
+[node name="Content" type="VBoxContainer" parent="ContentBox/Margin" unique_id=426435414]
 layout_mode = 2
 
-[node name="Values" type="GridContainer" parent="ContentBox/Margin/Content"]
+[node name="Values" type="GridContainer" parent="ContentBox/Margin/Content" unique_id=2033208983]
 layout_mode = 2
 columns = 2
 
-[node name="MassLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="MassLabel" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=694106949]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Massa"
 
-[node name="MassValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="MassValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1990010069]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "0 kg"
 horizontal_alignment = 2
 
-[node name="SpeedLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="SpeedLabel" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=2086975071]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Velocidade"
 
-[node name="SpeedValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="SpeedValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=576988859]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "0 m/s"
 horizontal_alignment = 2
 
-[node name="TotalLabel" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="TotalLabel" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1375052160]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Energia total"
 
-[node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values"]
+[node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1753009222]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "0 J"
 horizontal_alignment = 2
 
-[node name="KineticRow" type="HBoxContainer" parent="ContentBox/Margin/Content"]
+[node name="KineticRow" type="HBoxContainer" parent="ContentBox/Margin/Content" unique_id=107531989]
 layout_mode = 2
 
-[node name="KineticLabel" type="Label" parent="ContentBox/Margin/Content/KineticRow"]
+[node name="KineticLabel" type="Label" parent="ContentBox/Margin/Content/KineticRow" unique_id=2024765003]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Energia cinética"
 
-[node name="KineticValue" type="Label" parent="ContentBox/Margin/Content/KineticRow"]
+[node name="KineticValue" type="Label" parent="ContentBox/Margin/Content/KineticRow" unique_id=107125775]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "0 J"
 horizontal_alignment = 2
 
-[node name="KineticBar" type="ProgressBar" parent="ContentBox/Margin/Content"]
+[node name="KineticBar" type="ProgressBar" parent="ContentBox/Margin/Content" unique_id=862892127]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
@@ -109,21 +214,23 @@ max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="PotentialRow" type="HBoxContainer" parent="ContentBox/Margin/Content"]
+[node name="PotentialRow" type="HBoxContainer" parent="ContentBox/Margin/Content" unique_id=1807171523]
 layout_mode = 2
 
-[node name="PotentialLabel" type="Label" parent="ContentBox/Margin/Content/PotentialRow"]
+[node name="PotentialLabel" type="Label" parent="ContentBox/Margin/Content/PotentialRow" unique_id=741032911]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Energia potencial"
 
-[node name="PotentialValue" type="Label" parent="ContentBox/Margin/Content/PotentialRow"]
+[node name="PotentialValue" type="Label" parent="ContentBox/Margin/Content/PotentialRow" unique_id=2076312566]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "0 J"
 horizontal_alignment = 2
 
-[node name="PotentialBar" type="ProgressBar" parent="ContentBox/Margin/Content"]
+[node name="PotentialBar" type="ProgressBar" parent="ContentBox/Margin/Content" unique_id=1567798690]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
@@ -131,15 +238,16 @@ max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="PotentialWarning" type="Label" parent="ContentBox/Margin/Content"]
+[node name="PotentialWarning" type="Label" parent="ContentBox/Margin/Content" unique_id=872329017]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.972549, 0.443137, 0.443137, 1)
+theme_override_fonts/font = ExtResource("15_swm_font")
 text = "Energia potencial negativa: a bola está abaixo da referência de altura zero."
 autowrap_mode = 3
 
-[node name="DragHandle" type="Node" parent="." node_paths=PackedStringArray("handle")]
+[node name="DragHandle" type="Node" parent="." unique_id=2122379189 node_paths=PackedStringArray("handle")]
 script = ExtResource("2_drag")
 handle = NodePath("../Row/DragGrip")

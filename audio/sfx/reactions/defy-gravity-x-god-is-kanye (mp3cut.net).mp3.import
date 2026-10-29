@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cu8hq7rnlwenw"
+path="res://.godot/imported/defy-gravity-x-god-is-kanye (mp3cut.net).mp3-b5abe4130d019096d21775c5dbb9db42.mp3str"
+
+[deps]
+
+source_file="res://audio/sfx/reactions/defy-gravity-x-god-is-kanye (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/defy-gravity-x-god-is-kanye (mp3cut.net).mp3-b5abe4130d019096d21775c5dbb9db42.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

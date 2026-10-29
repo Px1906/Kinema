@@ -1,20 +1,74 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://rwm54jpnfrxc"]
 
-[ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_select"]
-[ext_resource type="Texture2D" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
-[ext_resource type="Script" path="res://scripts/ui/level_data.gd" id="3_level_data"]
+[ext_resource type="Script" uid="uid://cdwxyp5dddj5g" path="res://scripts/ui/level_select.gd" id="1_select"]
+[ext_resource type="Texture2D" uid="uid://q80uhkiqyr3x" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
+[ext_resource type="Script" uid="uid://baua5f5654hf7" path="res://scripts/ui/level_data.gd" id="3_level_data"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="4_anim_style"]
+[ext_resource type="Texture2D" uid="uid://dmk0he74rh0a1" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="5_grande1"]
+[ext_resource type="Texture2D" uid="uid://dh5y0aaw6a1sl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_02.png" id="6_grande2"]
+[ext_resource type="Texture2D" uid="uid://cgwr485sbrafe" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="7_grande3"]
+[ext_resource type="Texture2D" uid="uid://pdnh2g5rhoew" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="8_grande4"]
+[ext_resource type="Texture2D" uid="uid://bwhrphkp64260" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/apertado/frame_01.png" id="9_grande_pressed"]
+[ext_resource type="Texture2D" uid="uid://dfww7otfkft1x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="10_peq1"]
+[ext_resource type="Texture2D" uid="uid://deit7ujgsg6uu" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="11_peq2"]
+[ext_resource type="Texture2D" uid="uid://b0of5pgdq37ch" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="12b_peq4"]
+[ext_resource type="Texture2D" uid="uid://jf0ndr6lj8d0" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="12_peq3"]
+[ext_resource type="Texture2D" uid="uid://g7c1w1vqrn1r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="13_peq_pressed"]
 
 [sub_resource type="Resource" id="Resource_level1"]
 script = ExtResource("3_level_data")
-path = "res://scenes/levels/teste_cenario.tscn"
-title = "Teste de cenário"
+path = "res://scenes/levels/fase_tutorial.tscn"
+title = "Tutorial"
 
-[sub_resource type="Resource" id="Resource_level2"]
-script = ExtResource("3_level_data")
-path = "res://scenes/levels/player_launch_test.tscn"
-title = "Teste de lançamento"
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6iing"]
+texture = ExtResource("11_peq2")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
 
-[node name="LevelSelect" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecnhd"]
+texture = ExtResource("13_peq_pressed")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e375g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_na4ef"]
+texture = ExtResource("11_peq2")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xogkw"]
+texture = ExtResource("13_peq_pressed")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d1lmv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vln0j"]
+texture = ExtResource("6_grande2")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4o8hj"]
+texture = ExtResource("9_grande_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3aigx"]
+
+[node name="LevelSelect" type="Control" unique_id=856120808]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,9 +76,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_select")
-levels = Array[ExtResource("3_level_data")]([SubResource("Resource_level1"), SubResource("Resource_level2")])
+levels = Array[ExtResource("3_level_data")]([SubResource("Resource_level1")])
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=2133175177]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +90,7 @@ texture = ExtResource("2_paper")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1569660090]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,31 +102,43 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1379797650]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1013290405]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
-theme_override_font_sizes/font_size = 48
-text = "Selecionar fase"
+text = "Select   level"
 horizontal_alignment = 1
 
-[node name="CarouselRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CarouselRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=98404844]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="PreviousButton" type="Button" parent="MarginContainer/VBoxContainer/CarouselRow"]
+[node name="PreviousButton" type="Button" parent="MarginContainer/VBoxContainer/CarouselRow" unique_id=136611494]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(133, 74)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_6iing")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecnhd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6iing")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_6iing")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e375g")
 text = "<"
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_peq1"), ExtResource("11_peq2"), ExtResource("12_peq3"), ExtResource("12b_peq4")])
+pressed_frame = ExtResource("13_peq_pressed")
+texture_margin = 12.0
 
-[node name="CardsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarouselRow"]
+[node name="CardsBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarouselRow" unique_id=230854146]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -80,17 +146,44 @@ size_flags_vertical = 4
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/CarouselRow"]
+[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/CarouselRow" unique_id=803705015]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(133, 74)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_na4ef")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xogkw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_na4ef")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_na4ef")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d1lmv")
 text = ">"
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_peq1"), ExtResource("11_peq2"), ExtResource("12_peq3"), ExtResource("12b_peq4")])
+pressed_frame = ExtResource("13_peq_pressed")
+texture_margin = 12.0
 
-[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1518206604]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 48)
+custom_minimum_size = Vector2(205.22, 120.28)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Voltar"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_vln0j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4o8hj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vln0j")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vln0j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3aigx")
+text = " Back"
+script = ExtResource("4_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("5_grande1"), ExtResource("6_grande2"), ExtResource("7_grande3"), ExtResource("8_grande4")])
+pressed_frame = ExtResource("9_grande_pressed")
+sprite_scale = 0.62

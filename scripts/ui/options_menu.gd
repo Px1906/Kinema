@@ -1,5 +1,5 @@
 class_name OptionsMenu
-extends PanelContainer
+extends VBoxContainer
 
 signal closed
 
@@ -14,10 +14,19 @@ signal closed
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	for bus_name: StringName in _sliders:
 		(_sliders[bus_name] as HSlider).value_changed.connect(_on_volume_changed.bind(bus_name))
 	_window_button.pressed.connect(_on_window_toggled)
 	_back_button.pressed.connect(close)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply($OptionsTitle, FontSettings.ui_subtitle)
+	for label_name: StringName in [&"MasterLabel", &"SFXLabel", &"MusicLabel", &"UILabel"]:
+		FontSettings.apply(get_node(NodePath(label_name)), FontSettings.ui_body)
+	FontSettings.apply(_window_button, FontSettings.ui_button)
+	FontSettings.apply(_back_button, FontSettings.ui_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -47,7 +56,7 @@ func _sync_sliders() -> void:
 func _sync_window_label() -> void:
 	var mode := DisplayServer.window_get_mode()
 	var is_fullscreen := mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
-	_window_button.text = "Janela: Tela cheia" if is_fullscreen else "Janela: Modo janela"
+	_window_button.text = "Window: Fullscreen" if is_fullscreen else "Window: Windowed"
 
 
 func _on_volume_changed(value: float, bus_name: StringName) -> void:

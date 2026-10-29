@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="QteReaction" format=3 uid="uid://dtqyq2lp834hn"]
+
+[ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="1_abyd0"]
+[ext_resource type="AudioStream" uid="uid://bytmdkohj84ur" path="res://audio/sfx/reactions/faustao-errou.mp3" id="2_7ius7"]
+[ext_resource type="Texture2D" uid="uid://dqiw5tl1gjcv5" path="res://assets/ui/gifs/fausto/2.jpeg" id="2_ip0wh"]
+[ext_resource type="Texture2D" uid="uid://mxv70kpn678u" path="res://assets/ui/gifs/fausto/1.jpeg" id="3_7ius7"]
+[ext_resource type="Texture2D" uid="uid://eud2wax45nin" path="res://assets/ui/gifs/fausto/3.jpeg" id="4_45s2o"]
+[ext_resource type="Texture2D" uid="uid://b10ipa658as0k" path="res://assets/ui/gifs/fausto/4.jpeg" id="5_m0ko7"]
+[ext_resource type="Texture2D" uid="uid://c0r76qux0nw3" path="res://assets/ui/gifs/fausto/5.jpeg" id="6_whdax"]
+[ext_resource type="Texture2D" uid="uid://bgpnlcklefm7u" path="res://assets/ui/gifs/fausto/6.jpeg" id="7_kio00"]
+[ext_resource type="Texture2D" uid="uid://caqrpxrsh3gji" path="res://assets/ui/gifs/fausto/7.jpeg" id="8_v678r"]
+[ext_resource type="Texture2D" uid="uid://klhg1ijuynca" path="res://assets/ui/gifs/fausto/8.jpeg" id="9_kaqc4"]
+[ext_resource type="Texture2D" uid="uid://b0q3tk0nndv8j" path="res://assets/ui/gifs/fausto/9.jpeg" id="10_225d8"]
+[ext_resource type="Texture2D" uid="uid://myiw02c4h4ep" path="res://assets/ui/gifs/fausto/10.jpeg" id="11_salep"]
+[ext_resource type="Texture2D" uid="uid://dtj6s57p3nejk" path="res://assets/ui/gifs/fausto/11.jpeg" id="12_u87tq"]
+[ext_resource type="Texture2D" uid="uid://landnaxg4qhc" path="res://assets/ui/gifs/fausto/12.jpeg" id="13_ipnrh"]
+[ext_resource type="Texture2D" uid="uid://dp1hghojpn1r" path="res://assets/ui/gifs/fausto/13.jpeg" id="14_gk0i1"]
+[ext_resource type="Texture2D" uid="uid://ksecitjvadqn" path="res://assets/ui/gifs/fausto/14.jpeg" id="15_ptllt"]
+[ext_resource type="Texture2D" uid="uid://dr2pk5ks3fj3y" path="res://assets/ui/gifs/fausto/15.jpeg" id="16_3vm7q"]
+[ext_resource type="Texture2D" uid="uid://dy0et3m0bssax" path="res://assets/ui/gifs/fausto/16.jpeg" id="17_pnxs7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0dehr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7ius7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ip0wh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_45s2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_m0ko7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_whdax")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kio00")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v678r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kaqc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_225d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_salep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_u87tq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ipnrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_gk0i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ptllt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3vm7q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_pnxs7")
+}],
+"loop": true,
+"name": &"fausto",
+"speed": 16.0
+}]
+
+[resource]
+script = ExtResource("1_abyd0")
+sprite_frames = SubResource("SpriteFrames_0dehr")
+animation_name = &"fausto"
+sound = ExtResource("2_7ius7")
+volume_db = 6.0
+metadata/_custom_type_script = "uid://cb4c4o4igcch5"
