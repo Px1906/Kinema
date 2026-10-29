@@ -182,7 +182,6 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="CenterContainer/MainPanel" unique_id=1376810166]
 layout_mode = 2
-theme_override_font_sizes/font_size = 68
 text = "PAUSE"
 horizontal_alignment = 1
 
@@ -200,7 +199,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxTexture_ukr1j")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0q18a")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ukr1j")
@@ -220,7 +218,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxTexture_3xddx")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2nrdc")
 theme_override_styles/hover = SubResource("StyleBoxTexture_3xddx")
@@ -241,7 +238,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxTexture_1prsh")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2v8jl")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1prsh")
@@ -262,7 +258,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxTexture_57h4f")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xabod")
 theme_override_styles/hover = SubResource("StyleBoxTexture_57h4f")
@@ -282,7 +277,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxTexture_pb823")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ybc7j")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pb823")
@@ -302,7 +296,6 @@ theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="CenterContainer/RestartPanel" unique_id=1262883665]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 text = "Restart"
 horizontal_alignment = 1
 

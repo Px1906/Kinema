@@ -79,7 +79,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxTexture_r1gbq")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_76li5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_r1gbq")
@@ -105,7 +104,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_qnpie")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dj242")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qnpie")
@@ -157,14 +155,12 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Massa"
 
 [node name="MassValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1990010069]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 kg"
 horizontal_alignment = 2
 
@@ -172,14 +168,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Velocidade"
 
 [node name="SpeedValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=576988859]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 m/s"
 horizontal_alignment = 2
 
@@ -187,14 +181,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Energia total"
 
 [node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1753009222]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -205,14 +197,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Energia cinética"
 
 [node name="KineticValue" type="Label" parent="ContentBox/Margin/Content/KineticRow" unique_id=107125775]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -231,14 +221,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Energia potencial"
 
 [node name="PotentialValue" type="Label" parent="ContentBox/Margin/Content/PotentialRow" unique_id=2076312566]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("15_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 

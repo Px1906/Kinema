@@ -26,6 +26,7 @@ AudioSettings="*res://autoload/audio_settings.gd"
 MusicManager="*res://autoload/music_manager.gd"
 SFXPool="*res://autoload/sfx_pool.gd"
 UIAudio="*res://autoload/ui_audio.gd"
+FontSettings="*res://autoload/font_settings.gd"
 
 [display]
 

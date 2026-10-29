@@ -14,10 +14,19 @@ signal closed
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	for bus_name: StringName in _sliders:
 		(_sliders[bus_name] as HSlider).value_changed.connect(_on_volume_changed.bind(bus_name))
 	_window_button.pressed.connect(_on_window_toggled)
 	_back_button.pressed.connect(close)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply($OptionsTitle, FontSettings.ui_subtitle)
+	for label_name: StringName in [&"MasterLabel", &"SFXLabel", &"MusicLabel", &"UILabel"]:
+		FontSettings.apply(get_node(NodePath(label_name)), FontSettings.ui_body)
+	FontSettings.apply(_window_button, FontSettings.ui_button)
+	FontSettings.apply(_back_button, FontSettings.ui_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:

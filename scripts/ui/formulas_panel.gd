@@ -7,7 +7,18 @@ signal closed
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_back_button.pressed.connect(close)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply($Title, FontSettings.ui_title)
+	FontSettings.apply(_back_button, FontSettings.ui_button)
+	var list: VBoxContainer = $ScrollContainer/FormulasList
+	for child: Control in list.get_children():
+		if child is Label:
+			var is_title := child.name.ends_with("Title")
+			FontSettings.apply(child, FontSettings.ui_subtitle if is_title else FontSettings.ui_body)
 
 
 func _unhandled_input(event: InputEvent) -> void:

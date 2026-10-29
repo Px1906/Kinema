@@ -80,6 +80,7 @@ func _ready() -> void:
 	if player != null:
 		_ball_energy = player.get_ball_energy()
 
+	_apply_font_sizes()
 	_hide_overlay()
 
 
@@ -320,6 +321,17 @@ func _reset_button_colors() -> void:
 		else:
 			for state in STYLE_STATES:
 				button.remove_theme_stylebox_override(state)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply(_question_label, FontSettings.ui_title)
+	FontSettings.apply(_timer_label, FontSettings.ui_subtitle)
+	for button in _buttons:
+		FontSettings.apply(button, FontSettings.ui_button)
+	var grid: GridContainer = _attributes_panel.get_node("Margin/Content/Grid")
+	for child: Control in grid.get_children():
+		FontSettings.apply(child, FontSettings.attributes)
+	FontSettings.apply(_attributes_panel.get_node("Margin/Content/Title"), FontSettings.attributes)
 
 
 func _set_buttons_disabled(disabled: bool) -> void:

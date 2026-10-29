@@ -60,14 +60,12 @@ script = ExtResource("1_options")
 [node name="OptionsTitle" type="Label" parent="." unique_id=1872465618]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 39
 text = "Options"
 horizontal_alignment = 1
 
 [node name="MasterLabel" type="Label" parent="." unique_id=6142045]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 22
 text = "Volume Master"
 
 [node name="MasterSlider" type="HSlider" parent="." unique_id=1256533073]
@@ -84,7 +82,6 @@ value = 100.0
 [node name="SFXLabel" type="Label" parent="." unique_id=1208682051]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 22
 text = "Volume SFX"
 
 [node name="SFXSlider" type="HSlider" parent="." unique_id=336991562]
@@ -101,7 +98,6 @@ value = 100.0
 [node name="MusicLabel" type="Label" parent="." unique_id=1265727617]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 22
 text = "Volume Music"
 
 [node name="MusicSlider" type="HSlider" parent="." unique_id=1087565804]
@@ -118,7 +114,6 @@ value = 100.0
 [node name="UILabel" type="Label" parent="." unique_id=1877074470]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 22
 text = "Volume UI"
 
 [node name="UISlider" type="HSlider" parent="." unique_id=1916789113]
@@ -141,7 +136,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_hb1yv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ovlcw")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hb1yv")
@@ -163,7 +157,6 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_dqh3v")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2046m")
 theme_override_styles/hover = SubResource("StyleBoxTexture_dqh3v")

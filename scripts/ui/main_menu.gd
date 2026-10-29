@@ -15,6 +15,7 @@ const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_play_button.pressed.connect(_on_play_pressed)
 	_options_button.pressed.connect(_open_options)
 	_quit_button.pressed.connect(_on_quit_pressed)
@@ -24,6 +25,12 @@ func _ready() -> void:
 	_menu_box.visible = true
 	_play_button.grab_focus()
 	MusicManager.play_music(MENU_MUSIC)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply(_play_button, FontSettings.ui_button)
+	FontSettings.apply(_options_button, FontSettings.ui_button)
+	FontSettings.apply(_quit_button, FontSettings.ui_button)
 
 
 func _on_play_pressed() -> void:
