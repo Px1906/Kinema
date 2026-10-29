@@ -143,14 +143,14 @@ func get_initial_global_position() -> Vector2:
 
 ## Velocidade real da bola em px/s, inclusive quando congelada (corda, ímã ou espinhos).
 func get_current_velocity() -> Vector2:
-	if _state in [State.ATTACHED, State.PULLED, State.STUCK]:
+	if _is_carried():
 		return _carried_velocity
 	return linear_velocity
 
 
-## A bola está congelada e sendo movida por fora (corda ou ímã), não pela física.
+## A bola está congelada e sendo movida por fora (corda, ímã ou espinhos), não pela física.
 func _is_carried() -> bool:
-	return _state in [State.ATTACHED, State.PULLED]
+	return _state in [State.ATTACHED, State.PULLED, State.STUCK]
 
 
 ## Usado por quem move a bola presa (ex.: corda) para informar a velocidade real.
@@ -329,12 +329,8 @@ func stick_into(stop_duration: float, max_depth: float, hold_time: float) -> voi
 	var duration := 2.0 * depth / speed if speed > 0.0 else 0.0
 	var start := global_position
 	var target := start + velocity.normalized() * depth
-	freeze = true
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	_stop_detection_time = 0.0
+	_freeze_body()
 	_set_state(State.STUCK)
-	set_physics_process(false)
 	queue_redraw()
 
 	_kill_stick_tween()
