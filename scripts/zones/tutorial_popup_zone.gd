@@ -28,6 +28,7 @@ func _ready() -> void:
 	if not popup_id.is_empty():
 		popup_data = TutorialPopupData.from_json(popup_id)
 	body_entered.connect(_on_body_entered)
+	FontSettings.apply(_label, FontSettings.popup)
 	_panel.visible = false
 	var anchor_pos := _display_anchor.position
 	if anchor_pos != Vector2.ZERO:

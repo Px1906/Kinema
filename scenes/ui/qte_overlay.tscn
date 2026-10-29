@@ -109,7 +109,6 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 51
 text = "Pergunta"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -130,7 +129,6 @@ theme_override_constants/margin_right = 10
 [node name="TimerLabel" type="Label" parent="TimerPanel" unique_id=955916892]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 35
 text = "30"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -161,7 +159,6 @@ layout_mode = 2
 [node name="Title" type="Label" parent="AttributesPanel/Margin/Content" unique_id=613393328]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Atributos"
 horizontal_alignment = 1
 
@@ -173,14 +170,12 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Massa"
 
 [node name="QteMassValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1978159319]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 kg"
 horizontal_alignment = 2
 
@@ -188,14 +183,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Velocidade"
 
 [node name="QteSpeedValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=307897392]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 m/s"
 horizontal_alignment = 2
 
@@ -203,14 +196,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Ec"
 
 [node name="QteEcValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1003467121]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -218,14 +209,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "Ep"
 
 [node name="QteEpValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=667248945]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -233,14 +222,12 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "E total"
 
 [node name="QteEtValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=14822630]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -271,7 +258,6 @@ theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_hopuu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_jdoft")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hopuu")
@@ -294,7 +280,6 @@ theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_xek6p")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_kmm2a")
 theme_override_styles/hover = SubResource("StyleBoxTexture_xek6p")
@@ -317,7 +302,6 @@ theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_fonts/font = ExtResource("11_swm_font")
-theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxTexture_kg6ws")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_njboh")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kg6ws")

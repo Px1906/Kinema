@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://d3oehoccfpspf"]
 
 [ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="1_platform"]
-[ext_resource type="Texture2D" uid="uid://b21eatvwnlwxc" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_medio/bloco_medio_frame_01.png" id="2_frame1"]
 [ext_resource type="Texture2D" uid="uid://cpqubg7mycnta" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_medio/bloco_medio_frame_02.png" id="3_frame2"]
 [ext_resource type="Texture2D" uid="uid://bllbjf4047mpd" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_medio/bloco_medio_frame_03.png" id="4_frame3"]
-[ext_resource type="Texture2D" uid="uid://bc64lv7qm4n25" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_medio/bloco_medio_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_medium"]
 size = Vector2(143, 25)
@@ -13,20 +11,14 @@ size = Vector2(143, 25)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_frame1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_frame2")
-}, {
-"duration": 1.0,
 "texture": ExtResource("4_frame3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_frame4")
+"texture": ExtResource("3_frame2")
 }],
 "loop": true,
 "name": &"default",
-"speed": 6.0
+"speed": 2.0
 }]
 
 [node name="PlatformSurfaceMedium" unique_id=408805504 instance=ExtResource("1_platform")]
@@ -37,5 +29,9 @@ position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_medium")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=8798434]
+position = Vector2(2.1457672e-06, -4.7683716e-07)
+scale = Vector2(1.0625, 1.0625)
 sprite_frames = SubResource("SpriteFrames_bloco")
 autoplay = "default"
+frame = 1
+frame_progress = 0.6832457

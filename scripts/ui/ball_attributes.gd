@@ -24,6 +24,7 @@ var _ball_energy: BallEnergy
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_toggle_button.toggled.connect(_on_toggle_button_toggled)
 	_content_box.visible = _toggle_button.button_pressed
 
@@ -44,6 +45,19 @@ func _ready() -> void:
 
 	_ball_energy.energy_updated.connect(_on_energy_updated)
 	_on_energy_updated(_ball_energy)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply(_toggle_button, FontSettings.caption)
+	FontSettings.apply(_reference_button, FontSettings.attributes)
+	var content: VBoxContainer = _content_box.get_node("Margin/Content")
+	for child: Node in content.get_children():
+		if child is Label:
+			FontSettings.apply(child, FontSettings.attributes)
+		elif child is Container:
+			for sub: Node in child.get_children():
+				if sub is Label:
+					FontSettings.apply(sub, FontSettings.attributes)
 
 
 func _find_ball_energy() -> BallEnergy:

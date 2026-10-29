@@ -26,8 +26,10 @@ const ANGLE_ARC_GAP := 18.0
 const ANGLE_ARC_WIDTH := 2.0
 const ANGLE_ARC_SEGMENTS := 32
 const ANGLE_LABEL_GAP := 14.0
-const ANGLE_LABEL_FONT_SIZE := 14
-const SPEED_LABEL_FONT_SIZE := 14
+var ANGLE_LABEL_FONT_SIZE: int:
+	get: return FontSettings.hud
+var SPEED_LABEL_FONT_SIZE: int:
+	get: return FontSettings.hud
 const SPEED_LABEL_GAP := 6.0
 const SPEED_LABEL_MIN_DISTANCE := 6.0
 ## Textos de referência para medir os rótulos: o tamanho não muda a cada dígito.

@@ -25,6 +25,7 @@ var _qte_active := false
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_resume_button.pressed.connect(_unpause)
 	_formulas_button.pressed.connect(_open_formulas)
 	_restart_button.pressed.connect(_on_restart_pressed)
@@ -38,6 +39,16 @@ func _ready() -> void:
 	_hide_all()
 	Events.qte_started.connect(func(_b: QteBarrier) -> void: _qte_active = true)
 	Events.qte_finished.connect(func(_b: QteBarrier, _c: bool) -> void: _qte_active = false)
+
+
+func _apply_font_sizes() -> void:
+	_main_panel.get_node("Title").add_theme_font_size_override("font_size", FontSettings.ui_title)
+	FontSettings.apply(_resume_button, FontSettings.ui_button)
+	FontSettings.apply(_restart_button, FontSettings.ui_button)
+	FontSettings.apply(_formulas_button, FontSettings.ui_button)
+	FontSettings.apply(_options_button, FontSettings.ui_button)
+	FontSettings.apply(_exit_button, FontSettings.ui_button)
+	_restart_panel.get_node("Title").add_theme_font_size_override("font_size", FontSettings.ui_subtitle)
 
 
 func _unhandled_input(event: InputEvent) -> void:

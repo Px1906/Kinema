@@ -57,6 +57,7 @@ func _ready() -> void:
 	player.set_launch_parameters(player.launch_speed, player.launch_angle_degrees)
 	_last_speed_notch = floori(_get_speed_notch_position())
 	_last_angle_notch = floori(_get_angle_notch_position())
+	FontSettings.apply(_launch_button, FontSettings.hud)
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:
