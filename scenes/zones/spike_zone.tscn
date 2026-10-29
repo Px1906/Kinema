@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/espinhos/espinhos_frame_03.png" id="4_frame3"]
 [ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/espinhos/espinhos_frame_04.png" id="5_frame4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_spike"]
-size = Vector2(128, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_spikes"]
 animations = [{
 "frames": [{
@@ -35,8 +32,8 @@ collision_mask = 1
 monitoring = true
 script = ExtResource("1_spike_zone")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_spike")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-64, 16, -64, 10, -48, -14, -32, 10, -16, -14, 0, 10, 16, -14, 32, 10, 48, -14, 64, 10, 64, 16)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_spikes")

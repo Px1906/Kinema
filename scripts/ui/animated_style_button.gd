@@ -1,12 +1,14 @@
+@tool
 class_name AnimatedStyleButton
 extends Button
 ## Button com fundo animado via StyleBoxTexture.
-## Usado para botões retangulares (grande, médio, pequeno) com texto por cima.
+## Ajusta o tamanho mínimo do botão à proporção real do sprite.
 
 @export var normal_frames: Array[Texture2D] = []
 @export var pressed_frame: Texture2D
 @export var animation_fps: float = 2.0
 @export var texture_margin: float = 20.0
+@export_range(0.1, 2.0, 0.01) var sprite_scale: float = 1.0
 
 var _current_frame := 0
 var _timer := 0.0
@@ -20,6 +22,7 @@ func _ready() -> void:
 
 	if not normal_frames.is_empty():
 		_normal_stylebox.texture = normal_frames[0]
+		_apply_minimum_size(normal_frames[0])
 
 	add_theme_stylebox_override("normal", _normal_stylebox)
 	add_theme_stylebox_override("hover", _normal_stylebox)
@@ -37,6 +40,13 @@ func _ready() -> void:
 	add_theme_color_override("font_disabled_color", Color(0.55, 0.55, 0.55))
 
 	set_process(normal_frames.size() > 1)
+
+
+func _apply_minimum_size(tex: Texture2D) -> void:
+	if tex == null:
+		return
+	var tex_size := tex.get_size() * sprite_scale
+	custom_minimum_size = tex_size
 
 
 func _process(delta: float) -> void:

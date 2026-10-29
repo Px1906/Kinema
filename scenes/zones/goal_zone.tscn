@@ -37,7 +37,8 @@ script = ExtResource("1_goal_zone")
 shape = SubResource("RectangleShape2D_goal")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1273186235]
-position = Vector2(0, 10)
-scale = Vector2(0.41, 0.41)
+position = Vector2(3, 10)
+scale = Vector2(0.426, 0.426)
 sprite_frames = SubResource("SpriteFrames_flag")
 autoplay = "default"
+frame_progress = 0.29216072

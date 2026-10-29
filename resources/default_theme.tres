@@ -1,14 +1,19 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://dnsf4tl6v2xvk"]
+
+[ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="1_font"]
+
+[sub_resource type="FontVariation" id="FontVariation_bold"]
+base_font = ExtResource("1_font")
+variation_embolden = 0.6
 
 [resource]
+default_font = SubResource("FontVariation_bold")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 0)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
-
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-Button/colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

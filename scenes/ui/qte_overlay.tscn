@@ -1,15 +1,76 @@
-[gd_scene load_steps=11 format=3 uid="uid://obid8vkxqq6a"]
+[gd_scene format=3 uid="uid://obid8vkxqq6a"]
 
 [ext_resource type="Script" uid="uid://u6y1auqeir3d" path="res://scripts/ui/qte_overlay.gd" id="1_qte_overlay"]
 [ext_resource type="Script" uid="uid://cb4c4o4igcch5" path="res://resources/qte_reaction.gd" id="2_qkamg"]
 [ext_resource type="Resource" uid="uid://d2m3p7p2xhxpl" path="res://resources/qte_reaction_correct_1.tres" id="3_f7530"]
 [ext_resource type="Resource" uid="uid://dtqyq2lp834hn" path="res://resources/qte_reaction_wrong_1.tres" id="4_f7530"]
-[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="5_anim_style"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="6_medio1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="7_medio2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="8_medio3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="9_medio4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="10_medio_pressed"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="5_anim_style"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="6_medio1"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="7_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="8_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="9_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="10_medio_pressed"]
+[ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="11_swm_font"]
+[ext_resource type="Texture2D" uid="uid://cccr6v61g315q" path="res://assets/sprites/NovosSprites/Kinema_Postits_Lousas_Revisados_Frames/post_it_01/frame_01.png" id="12_postit"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_postit"]
+content_margin_left = 30.0
+content_margin_top = 50.0
+content_margin_right = 30.0
+content_margin_bottom = 25.0
+texture = ExtResource("12_postit")
+texture_margin_left = 20.0
+texture_margin_top = 40.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hopuu"]
+texture = ExtResource("6_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jdoft"]
+texture = ExtResource("10_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wdf1x"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xek6p"]
+texture = ExtResource("6_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmm2a"]
+texture = ExtResource("10_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_djmuh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kg6ws"]
+texture = ExtResource("6_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_njboh"]
+texture = ExtResource("10_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_avhtj"]
 
 [node name="QteOverlay" type="CanvasLayer" unique_id=580786387]
 layer = 10
@@ -35,8 +96,8 @@ metadata/_edit_lock_ = true
 [node name="QuestionPanel" type="MarginContainer" parent="." unique_id=602407620]
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 96.0
-offset_bottom = 176.0
+offset_top = 80.0
+offset_bottom = 160.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 200
@@ -47,7 +108,8 @@ theme_override_constants/margin_right = 200
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 51
 text = "Pergunta"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -57,7 +119,8 @@ autowrap_mode = 2
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -80.0
+offset_left = -96.0
+offset_right = -16.0
 offset_bottom = 60.0
 grow_horizontal = 0
 mouse_filter = 2
@@ -67,6 +130,7 @@ theme_override_constants/margin_right = 10
 [node name="TimerLabel" type="Label" parent="TimerPanel" unique_id=955916892]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 35
 text = "30"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -77,24 +141,27 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 10.0
-offset_top = -100.0
-offset_right = 220.0
-offset_bottom = 100.0
+offset_top = -150.0
+offset_right = 280.0
+offset_bottom = 150.0
 grow_vertical = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_postit")
 
 [node name="Margin" type="MarginContainer" parent="AttributesPanel" unique_id=1270852159]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="Content" type="VBoxContainer" parent="AttributesPanel/Margin" unique_id=1096042433]
 layout_mode = 2
 
 [node name="Title" type="Label" parent="AttributesPanel/Margin/Content" unique_id=613393328]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "Atributos"
 horizontal_alignment = 1
 
@@ -105,55 +172,75 @@ columns = 2
 [node name="MassLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=582142]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "Massa"
 
 [node name="QteMassValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1978159319]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "0 kg"
 horizontal_alignment = 2
 
 [node name="SpeedLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1111046810]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "Velocidade"
 
 [node name="QteSpeedValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=307897392]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "0 m/s"
 horizontal_alignment = 2
 
 [node name="EcLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1858602743]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "Ec"
 
 [node name="QteEcValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1003467121]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
 [node name="EpLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=927068056]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "Ep"
 
 [node name="QteEpValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=667248945]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
 [node name="EtLabel" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=1789506628]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "E total"
 
 [node name="QteEtValue" type="Label" parent="AttributesPanel/Margin/Content/Grid" unique_id=14822630]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 20
 text = "0 J"
 horizontal_alignment = 2
 
@@ -175,45 +262,69 @@ theme_override_constants/separation = 12
 
 [node name="ButtonA" type="Button" parent="ButtonsContainer" unique_id=644445640]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(256, 141)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_hopuu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jdoft")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hopuu")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_hopuu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wdf1x")
 text = "Alternativa A"
 autowrap_mode = 3
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
 pressed_frame = ExtResource("10_medio_pressed")
-animation_fps = 2.0
 
 [node name="ButtonB" type="Button" parent="ButtonsContainer" unique_id=155680456]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(256, 141)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_xek6p")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kmm2a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xek6p")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_xek6p")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_djmuh")
 text = "Alternativa B"
 autowrap_mode = 3
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
 pressed_frame = ExtResource("10_medio_pressed")
-animation_fps = 2.0
 
 [node name="ButtonC" type="Button" parent="ButtonsContainer" unique_id=1100639039]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(256, 141)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_fonts/font = ExtResource("11_swm_font")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_kg6ws")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_njboh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kg6ws")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_kg6ws")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_avhtj")
 text = "Alternativa C"
 autowrap_mode = 3
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_medio1"), ExtResource("7_medio2"), ExtResource("8_medio3"), ExtResource("9_medio4")])
 pressed_frame = ExtResource("10_medio_pressed")
-animation_fps = 2.0

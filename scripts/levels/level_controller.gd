@@ -176,7 +176,7 @@ func _on_level_completed(_player: Player) -> void:
 	_save_progress()
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
-		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
+		result_panel.show_result("Fase completa", "Você chegou à meta!")
 
 
 func reset_level() -> void:
@@ -258,7 +258,7 @@ func _fail_attempt(reason: FailureReason) -> void:
 func _get_failure_message(reason: FailureReason) -> String:
 	match reason:
 		FailureReason.OBSTACLE_HIT:
-			return "A bola atingiu um obstáculo."
+			return "A bola bateu em um obstáculo."
 		FailureReason.OUT_OF_BOUNDS:
 			return "A bola saiu dos limites."
 		_:

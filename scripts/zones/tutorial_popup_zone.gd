@@ -15,7 +15,7 @@ var _tracked_player: Player = null
 var _tween: Tween
 var _exit_frames := 0
 
-@onready var _panel: PanelContainer = %Panel
+@onready var _panel: Control = %Panel
 @onready var _label: RichTextLabel = %Label
 @onready var _sprite: TextureRect = %Sprite
 @onready var _anim_player: AnimatedSprite2D = %AnimPlayer
