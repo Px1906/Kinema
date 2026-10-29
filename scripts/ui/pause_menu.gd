@@ -6,6 +6,7 @@ signal restart_checkpoint_requested
 signal exit_requested
 
 var has_checkpoint := false
+var _qte_active := false
 
 @onready var _blur_rect: ColorRect = $BlurRect
 @onready var _center: CenterContainer = $CenterContainer
@@ -35,10 +36,15 @@ func _ready() -> void:
 	_options_menu.closed.connect(_on_sub_closed)
 	_formulas_panel.closed.connect(_on_sub_closed)
 	_hide_all()
+	Events.qte_started.connect(func(_b: QteBarrier) -> void: _qte_active = true)
+	Events.qte_finished.connect(func(_b: QteBarrier, _c: bool) -> void: _qte_active = false)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
+		if _qte_active:
+			get_viewport().set_input_as_handled()
+			return
 		if get_tree().paused:
 			_unpause()
 		else:

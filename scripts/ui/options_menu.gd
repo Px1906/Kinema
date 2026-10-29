@@ -47,7 +47,7 @@ func _sync_sliders() -> void:
 func _sync_window_label() -> void:
 	var mode := DisplayServer.window_get_mode()
 	var is_fullscreen := mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
-	_window_button.text = "Janela: Tela cheia" if is_fullscreen else "Janela: Modo janela"
+	_window_button.text = "Window: Fullscreen" if is_fullscreen else "Window: Windowed"
 
 
 func _on_volume_changed(value: float, bus_name: StringName) -> void:

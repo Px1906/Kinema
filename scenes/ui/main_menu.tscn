@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drk76l7d2eouu" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 [ext_resource type="Texture2D" uid="uid://q80uhkiqyr3x" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
-[ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="3_options"]
+[ext_resource type="PackedScene" uid="uid://k6chnxto0xu5" path="res://scenes/ui/options_menu.tscn" id="3_options"]
 [ext_resource type="Texture2D" uid="uid://bpmgpynpfhel4" path="res://assets/sprites/Sprite-Animacoes/Logo/Kinema_Logo.png" id="4_logo"]
 [ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="5_anim_style"]
 [ext_resource type="Texture2D" uid="uid://dmk0he74rh0a1" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="6_grande1"]
@@ -10,6 +10,54 @@
 [ext_resource type="Texture2D" uid="uid://cgwr485sbrafe" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="8_grande3"]
 [ext_resource type="Texture2D" uid="uid://pdnh2g5rhoew" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="9_grande4"]
 [ext_resource type="Texture2D" uid="uid://bwhrphkp64260" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/apertado/frame_01.png" id="10_grande_pressed"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8g5eo"]
+texture = ExtResource("7_grande2")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7suek"]
+texture = ExtResource("10_grande_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_otr3d"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ekit"]
+texture = ExtResource("7_grande2")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n4uci"]
+texture = ExtResource("10_grande_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_877pj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ayp64"]
+texture = ExtResource("7_grande2")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2j7i"]
+texture = ExtResource("10_grande_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y1h5l"]
 
 [node name="MainMenu" type="Control" unique_id=934184901]
 layout_mode = 3
@@ -45,60 +93,85 @@ texture = ExtResource("4_logo")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=86680499]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MenuBox" type="VBoxContainer" parent="CenterContainer" unique_id=1279180428]
+[node name="MenuBox" type="VBoxContainer" parent="." unique_id=1279180428]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(260, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = 512.0
+offset_top = 240.0
+offset_right = 772.0
+offset_bottom = 620.0
 theme_override_constants/separation = 16
 
-[node name="PlayButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1613760920]
+[node name="PlayButton" type="Button" parent="MenuBox" unique_id=1613760920]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(198.6, 116.4)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
-theme_override_font_sizes/font_size = 22
-text = "Jogar"
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8g5eo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7suek")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8g5eo")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8g5eo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_otr3d")
+text = "Play"
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
 pressed_frame = ExtResource("10_grande_pressed")
+sprite_scale = 0.6
 
-[node name="OptionsButton" type="Button" parent="CenterContainer/MenuBox" unique_id=1914334254]
+[node name="OptionsButton" type="Button" parent="MenuBox" unique_id=1914334254]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(198.6, 116.4)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
-theme_override_font_sizes/font_size = 22
-text = "Opções"
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ekit")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_n4uci")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8ekit")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8ekit")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_877pj")
+text = "Options"
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
 pressed_frame = ExtResource("10_grande_pressed")
+sprite_scale = 0.6
 
-[node name="QuitButton" type="Button" parent="CenterContainer/MenuBox" unique_id=520976533]
+[node name="QuitButton" type="Button" parent="MenuBox" unique_id=520976533]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 56)
+custom_minimum_size = Vector2(198.6, 116.4)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
 theme_override_font_sizes/font_size = 22
-text = "Sair"
+theme_override_styles/normal = SubResource("StyleBoxTexture_ayp64")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y2j7i")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ayp64")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ayp64")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y1h5l")
+text = "Quit"
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
 pressed_frame = ExtResource("10_grande_pressed")
+sprite_scale = 0.6
 
-[node name="OptionsMenu" parent="CenterContainer" unique_id=446774993 instance=ExtResource("3_options")]
+[node name="OptionsMenu" parent="." unique_id=446774993 instance=ExtResource("3_options")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
+layout_mode = 0
+offset_left = 448.0
+offset_top = 72.0
+offset_right = 888.0
+offset_bottom = 811.0
+scale = Vector2(0.90438545, 0.8266412)

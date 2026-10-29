@@ -32,7 +32,7 @@ size = Vector2(64, 1024)
 shape = SubResource("RectangleShape2D_very_long")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=1405182928]
-position = Vector2(2.0000122, 7.0000515)
-scale = Vector2(3.0625002, 9.937499)
+position = Vector2(0, 0)
+scale = Vector2(1.0, 1.0)
 sprite_frames = SubResource("SpriteFrames_barra")
 autoplay = "default"

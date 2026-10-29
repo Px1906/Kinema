@@ -16,6 +16,7 @@ const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
 const BALL_FRAME_COUNT := 18
 const BALL_FRAME_PATH := "res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_%02d.png"
+const EXPLOSION_FRAME_SIZE := 448.0
 const LAUNCH_ARROW_WIDTH := 4.0
 const LAUNCH_ARROW_OFFSET := 4.0
 const LAUNCH_ARROW_HEAD_SIZE := 14.0
@@ -73,6 +74,7 @@ var _ball_frames: Array[Texture2D] = []
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var _ball_sprite: Sprite2D = $BallSprite
+@onready var _explosion_sprite: AnimatedSprite2D = $ExplosionSprite
 
 
 func _ready() -> void:
@@ -202,6 +204,7 @@ func reset_attempt(start_position: Vector2) -> void:
 func _reset_to_ready() -> void:
 	_kill_pull_tween()
 	_kill_stick_tween()
+	_stop_explosion()
 	release_brake()
 	_freeze_body()
 	sleeping = true
@@ -350,10 +353,11 @@ func stick_into(stop_duration: float, max_depth: float, hold_time: float) -> voi
 	_set_state(State.STUCK)
 	queue_redraw()
 
+	_play_explosion()
+
 	_kill_stick_tween()
 	_stick_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if duration > 0.0:
-		# QUAD + EASE_OUT é exatamente o movimento com desaceleração constante.
 		_stick_tween.tween_method(
 			_set_stick_progress.bind(start, target), 0.0, 1.0, duration
 		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -372,6 +376,24 @@ func _finish_stick() -> void:
 	_stick_tween = null
 	if _state == State.STUCK:
 		obstacle_hit.emit()
+
+
+func _play_explosion() -> void:
+	if _explosion_sprite == null:
+		return
+	_ball_sprite.visible = false
+	var desired_diameter := radius * 2.4
+	_explosion_sprite.scale = Vector2.ONE * (desired_diameter / EXPLOSION_FRAME_SIZE)
+	_explosion_sprite.visible = true
+	_explosion_sprite.play("explode")
+
+
+func _stop_explosion() -> void:
+	if _explosion_sprite == null:
+		return
+	_explosion_sprite.visible = false
+	_explosion_sprite.stop()
+	_ball_sprite.visible = true
 
 
 func _kill_stick_tween() -> void:

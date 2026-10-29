@@ -1,34 +1,59 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene format=3 uid="uid://bh2qrbd8xlijp"]
 
-[ext_resource type="Script" path="res://scripts/ui/attempt_result_panel.gd" id="1_result"]
-[ext_resource type="Shader" path="res://shaders/blur_background.gdshader" id="0_blur_shader"]
-[ext_resource type="Script" path="res://scripts/ui/animated_style_button.gd" id="2_anim_style"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="3_medio1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="4_medio2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="5_medio3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="6_medio4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="7_medio_pressed"]
+[ext_resource type="Shader" uid="uid://csl38klhd6wcw" path="res://shaders/blur_background.gdshader" id="0_blur_shader"]
+[ext_resource type="Script" uid="uid://72se0y7gje0j" path="res://scripts/ui/attempt_result_panel.gd" id="1_result"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="2_anim_style"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="3_medio1"]
+[ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="3_rwwwb"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="4_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="5_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="6_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="7_medio_pressed"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
 shader = ExtResource("0_blur_shader")
 shader_parameter/blur_strength = 2.5
 
-[node name="AttemptResultPanel" type="CanvasLayer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_postit"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwwwb"]
+texture = ExtResource("5_medio3")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nxaes"]
+texture = ExtResource("7_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aji5f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qcfqv"]
+texture = ExtResource("5_medio3")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56j8r"]
+texture = ExtResource("7_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8rwqj"]
+
+[node name="AttemptResultPanel" type="CanvasLayer" unique_id=1729775261]
 script = ExtResource("1_result")
 
-[node name="BlurRect" type="ColorRect" parent="."]
+[node name="BlurRect" type="ColorRect" parent="." unique_id=1529044294]
 material = SubResource("ShaderMaterial_blur")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(1, 1, 1, 1)
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -36,52 +61,77 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=425483105]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=411230414]
 custom_minimum_size = Vector2(320, 180)
 layout_mode = 2
 mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_postit")
 
-[node name="Content" type="VBoxContainer" parent="CenterContainer/Panel"]
+[node name="Content" type="VBoxContainer" parent="CenterContainer/Panel" unique_id=307756310]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Content"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Content" unique_id=70982246]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_rwwwb")
+theme_override_font_sizes/font_size = 29
 text = "Resultado"
 horizontal_alignment = 1
 
-[node name="MessageLabel" type="Label" parent="CenterContainer/Panel/Content"]
+[node name="MessageLabel" type="Label" parent="CenterContainer/Panel/Content" unique_id=755583251]
 unique_name_in_owner = true
 layout_mode = 2
-text = "A tentativa terminou."
+theme_override_constants/line_spacing = 3
+theme_override_fonts/font = ExtResource("3_rwwwb")
+theme_override_font_sizes/font_size = 31
+text = "Tentativa falha"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="RetryButton" type="Button" parent="CenterContainer/Panel/Content"]
+[node name="RetryButton" type="Button" parent="CenterContainer/Panel/Content" unique_id=276689801]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(168.96, 93.060005)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-text = "Tentar novamente"
-
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_rwwwb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nxaes")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rwwwb")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_rwwwb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_aji5f")
+text = "Tentar de novo"
 script = ExtResource("2_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
 pressed_frame = ExtResource("7_medio_pressed")
-animation_fps = 2.0
+sprite_scale = 0.66
 
-[node name="ExitButton" type="Button" parent="CenterContainer/Panel/Content"]
+[node name="ExitButton" type="Button" parent="CenterContainer/Panel/Content" unique_id=1672112739]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(168.96, 93.060005)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.15, 0.15, 0.15, 1)
-theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcfqv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_56j8r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qcfqv")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_qcfqv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8rwqj")
 text = "Sair da fase"
-
 script = ExtResource("2_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
 pressed_frame = ExtResource("7_medio_pressed")
-animation_fps = 2.0
+sprite_scale = 0.66
