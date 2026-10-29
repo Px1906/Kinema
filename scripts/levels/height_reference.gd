@@ -16,8 +16,8 @@ const ORIGIN_RADIUS := 6.0
 const ORIGIN_GRAB_DISTANCE := 14.0
 const AXIS_GRAB_DISTANCE := 8.0
 
-@export var line_color := Color("#94a3b8", 0.6)
-@export var highlight_color := Color("#e2e8f0")
+@export var line_color := Color(Color.BLACK, 0.6)
+@export var highlight_color := Color.BLACK
 ## Opcional. Se definido (ex.: o Player), a altura zero fica na posição inicial dele
 ## (na base, se o nó tiver "radius"): no editor acompanha o nó; no jogo, fica fixa
 ## onde ele começou a fase.
