@@ -44,7 +44,7 @@ texture_margin_bottom = 20.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_877pj"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ayp64"]
-texture = ExtResource("7_grande2")
+texture = ExtResource("9_grande4")
 texture_margin_left = 20.0
 texture_margin_top = 20.0
 texture_margin_right = 20.0
@@ -159,7 +159,7 @@ normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grand
 pressed_frame = ExtResource("10_grande_pressed")
 sprite_scale = 0.6
 
-[node name="CreditsButton" type="Button" parent="MenuBox" unique_id=990311131]
+[node name="QuitButton" type="Button" parent="MenuBox" unique_id=520976533]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(198.6, 116.4)
 layout_mode = 2
@@ -173,27 +173,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_y2j7i")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ayp64")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_ayp64")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y1h5l")
-text = "Credits
-"
-script = ExtResource("5_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
-pressed_frame = ExtResource("10_grande_pressed")
-sprite_scale = 0.6
-
-[node name="QuitButton" type="Button" parent="MenuBox" unique_id=520976533]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(198.6, 116.4)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_pw24t")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_5dct7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pw24t")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pw24t")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_qilvv")
 text = "Quit"
 script = ExtResource("5_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
@@ -209,3 +188,29 @@ offset_top = 72.0
 offset_right = 888.0
 offset_bottom = 811.0
 scale = Vector2(0.90438545, 0.8266412)
+
+[node name="CreditsButton" type="Button" parent="." unique_id=990311131]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(198.6, 116.4)
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 595.0
+offset_right = 1266.0
+offset_bottom = 711.4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_pw24t")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5dct7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pw24t")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pw24t")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qilvv")
+text = "Credits
+"
+script = ExtResource("5_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("6_grande1"), ExtResource("7_grande2"), ExtResource("8_grande3"), ExtResource("9_grande4")])
+pressed_frame = ExtResource("10_grande_pressed")
+sprite_scale = 0.6
