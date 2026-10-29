@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/zones/spike_zone.gd" id="1_spike_zone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spike"]
+size = Vector2(128, 32)
+
+[node name="SpikeZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+script = ExtResource("1_spike_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_spike")
+
+[node name="Spikes" type="Polygon2D" parent="."]
+color = Color(0.937, 0.267, 0.267, 1)
+polygon = PackedVector2Array(-64, 16, -56, -16, -48, 16, -40, -16, -32, 16, -24, -16, -16, 16, -8, -16, 0, 16, 8, -16, 16, 16, 24, -16, 32, 16, 40, -16, 48, 16, 56, -16, 64, 16)
