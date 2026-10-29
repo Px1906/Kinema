@@ -73,6 +73,8 @@ start_node = NodePath("../../Player")
 
 [node name="Surfaces" type="Node" parent="Level"]
 
+[node name="Floor" type="Node" parent="Level/Surfaces"]
+
 [node name="Platforms" type="Node" parent="Level/Surfaces"]
 
 [node name="Walls" type="Node" parent="Level/Surfaces"]
@@ -80,8 +82,6 @@ start_node = NodePath("../../Player")
 [node name="Zones" type="Node" parent="Level"]
 
 [node name="Checkpoints" type="Node" parent="Level/Zones"]
-
-[node name="Spikes" type="Node" parent="Level/Zones"]
 
 [node name="GoalZone" parent="Level/Zones" instance=ExtResource("11_goal_zone")]
 

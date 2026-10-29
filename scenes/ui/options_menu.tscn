@@ -1,169 +1,84 @@
-[gd_scene format=3 uid="uid://k6chnxto0xu5"]
+[gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://kfhbif5a6o4c" path="res://scripts/ui/options_menu.gd" id="1_options"]
-[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="2_anim_style"]
-[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="3_medio1"]
-[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="4_medio2"]
-[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="5_medio3"]
-[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="6_medio4"]
-[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="7_medio_pressed"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/slider_trilho_horizontal/slider_trilho_h.png" id="8_trilho"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/slider_knob/slider_knob_frame_01.png" id="9_knob"]
+[ext_resource type="Script" path="res://scripts/ui/options_menu.gd" id="1_options"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hb1yv"]
-texture = ExtResource("4_medio2")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovlcw"]
-texture = ExtResource("7_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gff41"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqh3v"]
-texture = ExtResource("4_medio2")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2046m"]
-texture = ExtResource("7_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7sqx0"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_trilho"]
-texture = ExtResource("8_trilho")
-texture_margin_left = 15.0
-texture_margin_top = 3.0
-texture_margin_right = 15.0
-texture_margin_bottom = 3.0
-
-[node name="OptionsMenu" type="VBoxContainer" unique_id=1393332037]
+[node name="OptionsMenu" type="PanelContainer"]
 process_mode = 3
-custom_minimum_size = Vector2(440, 0)
+custom_minimum_size = Vector2(320, 0)
 offset_right = 320.0
 offset_bottom = 40.0
-theme_override_constants/separation = 16
 script = ExtResource("1_options")
 
-[node name="OptionsTitle" type="Label" parent="." unique_id=1872465618]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Options"
+theme_override_constants/separation = 16
+
+[node name="OptionsTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Opções"
 horizontal_alignment = 1
 
-[node name="MasterLabel" type="Label" parent="." unique_id=6142045]
+[node name="MasterLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volume Master"
 
-[node name="MasterSlider" type="HSlider" parent="." unique_id=1256533073]
+[node name="MasterSlider" type="HSlider" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme_override_icons/grabber = ExtResource("9_knob")
-theme_override_icons/grabber_highlight = ExtResource("9_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho")
+min_value = 0.0
+max_value = 100.0
+step = 1.0
 value = 100.0
 
-[node name="SFXLabel" type="Label" parent="." unique_id=1208682051]
+[node name="SFXLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volume SFX"
 
-[node name="SFXSlider" type="HSlider" parent="." unique_id=336991562]
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme_override_icons/grabber = ExtResource("9_knob")
-theme_override_icons/grabber_highlight = ExtResource("9_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho")
+min_value = 0.0
+max_value = 100.0
+step = 1.0
 value = 100.0
 
-[node name="MusicLabel" type="Label" parent="." unique_id=1265727617]
+[node name="MusicLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Volume Music"
+text = "Volume Música"
 
-[node name="MusicSlider" type="HSlider" parent="." unique_id=1087565804]
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme_override_icons/grabber = ExtResource("9_knob")
-theme_override_icons/grabber_highlight = ExtResource("9_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho")
+min_value = 0.0
+max_value = 100.0
+step = 1.0
 value = 100.0
 
-[node name="UILabel" type="Label" parent="." unique_id=1877074470]
+[node name="UILabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Volume UI"
 
-[node name="UISlider" type="HSlider" parent="." unique_id=1916789113]
+[node name="UISlider" type="HSlider" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
-theme_override_icons/grabber = ExtResource("9_knob")
-theme_override_icons/grabber_highlight = ExtResource("9_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho")
+min_value = 0.0
+max_value = 100.0
+step = 1.0
 value = 100.0
 
-[node name="WindowButton" type="Button" parent="." unique_id=76963056]
+[node name="WindowButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_hb1yv")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ovlcw")
-theme_override_styles/hover = SubResource("StyleBoxTexture_hb1yv")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_hb1yv")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_gff41")
-text = "Modo: Window
-"
-script = ExtResource("2_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
-pressed_frame = ExtResource("7_medio_pressed")
-sprite_scale = 0.6
+text = "Janela: Modo janela"
 
-[node name="BackButton" type="Button" parent="." unique_id=1516439027]
+[node name="BackButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_dqh3v")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_2046m")
-theme_override_styles/hover = SubResource("StyleBoxTexture_dqh3v")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dqh3v")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_7sqx0")
-text = "Back"
-script = ExtResource("2_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
-pressed_frame = ExtResource("7_medio_pressed")
-sprite_scale = 0.6
+text = "Voltar"

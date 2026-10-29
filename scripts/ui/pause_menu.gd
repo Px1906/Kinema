@@ -6,17 +6,16 @@ signal restart_checkpoint_requested
 signal exit_requested
 
 var has_checkpoint := false
-var _qte_active := false
 
-@onready var _blur_rect: ColorRect = $BlurRect
+@onready var _dimmer: ColorRect = $Dimmer
 @onready var _center: CenterContainer = $CenterContainer
-@onready var _main_panel: VBoxContainer = %MainPanel
-@onready var _restart_panel: VBoxContainer = %RestartPanel
+@onready var _main_panel: PanelContainer = %MainPanel
+@onready var _restart_panel: PanelContainer = %RestartPanel
 @onready var _options_menu: OptionsMenu = %OptionsMenu
 @onready var _formulas_panel: FormulasPanel = %FormulasPanel
-@onready var _resume_button: BaseButton = %ResumeButton
+@onready var _resume_button: Button = %ResumeButton
 @onready var _formulas_button: Button = %FormulasButton
-@onready var _restart_button: BaseButton = %RestartButton
+@onready var _restart_button: Button = %RestartButton
 @onready var _options_button: Button = %OptionsButton
 @onready var _exit_button: Button = %ExitButton
 @onready var _restart_full_button: Button = %RestartFullButton
@@ -25,7 +24,6 @@ var _qte_active := false
 
 
 func _ready() -> void:
-	_apply_font_sizes()
 	_resume_button.pressed.connect(_unpause)
 	_formulas_button.pressed.connect(_open_formulas)
 	_restart_button.pressed.connect(_on_restart_pressed)
@@ -37,25 +35,10 @@ func _ready() -> void:
 	_options_menu.closed.connect(_on_sub_closed)
 	_formulas_panel.closed.connect(_on_sub_closed)
 	_hide_all()
-	Events.qte_started.connect(func(_b: QteBarrier) -> void: _qte_active = true)
-	Events.qte_finished.connect(func(_b: QteBarrier, _c: bool) -> void: _qte_active = false)
-
-
-func _apply_font_sizes() -> void:
-	_main_panel.get_node("Title").add_theme_font_size_override("font_size", FontSettings.ui_title)
-	FontSettings.apply(_resume_button, FontSettings.ui_button)
-	FontSettings.apply(_restart_button, FontSettings.ui_button)
-	FontSettings.apply(_formulas_button, FontSettings.ui_button)
-	FontSettings.apply(_options_button, FontSettings.ui_button)
-	FontSettings.apply(_exit_button, FontSettings.ui_button)
-	_restart_panel.get_node("Title").add_theme_font_size_override("font_size", FontSettings.ui_subtitle)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		if _qte_active:
-			get_viewport().set_input_as_handled()
-			return
 		if get_tree().paused:
 			_unpause()
 		else:
@@ -80,20 +63,18 @@ func _close_and_unpause() -> void:
 
 
 func _show_main() -> void:
-	_blur_rect.show()
+	_dimmer.show()
 	_center.show()
-	_hide_sub_panels()
 	_main_panel.show()
+	_restart_panel.hide()
+	_options_menu.hide()
+	_formulas_panel.hide()
 	_resume_button.grab_focus()
 
 
 func _hide_all() -> void:
-	_blur_rect.hide()
+	_dimmer.hide()
 	_center.hide()
-	_hide_sub_panels()
-
-
-func _hide_sub_panels() -> void:
 	_main_panel.hide()
 	_restart_panel.hide()
 	_options_menu.hide()
@@ -101,17 +82,17 @@ func _hide_sub_panels() -> void:
 
 
 func _open_options() -> void:
-	_hide_sub_panels()
+	_main_panel.hide()
 	_options_menu.open()
 
 
 func _open_formulas() -> void:
-	_hide_sub_panels()
+	_main_panel.hide()
 	_formulas_panel.open()
 
 
 func _open_restart() -> void:
-	_hide_sub_panels()
+	_main_panel.hide()
 	_restart_panel.show()
 	_restart_full_button.grab_focus()
 
