@@ -110,7 +110,7 @@ position = Vector2(1280, 112)
 position = Vector2(1280, 272)
 
 [node name="PlatformSurface11" parent="Level/Surfaces/Platforms" index="7" unique_id=947828774 instance=ExtResource("2_platform_medium")]
-position = Vector2(1760, -176)
+position = Vector2(1728, -208)
 
 [node name="PlatformSurface22" parent="Level/Surfaces/Platforms" index="8" unique_id=408805504 instance=ExtResource("2_platform_medium")]
 position = Vector2(4256, -533)
@@ -184,6 +184,9 @@ position = Vector2(1517, -383)
 [node name="PlatformSurfaceMedium6" parent="Level/Surfaces/Platforms" index="31" unique_id=1903635310 instance=ExtResource("2_platform_medium")]
 position = Vector2(1658, -383)
 
+[node name="PlatformSurface23" parent="Level/Surfaces/Platforms" index="32" unique_id=1871537218 instance=ExtResource("6_ijnuu")]
+position = Vector2(3456, 544)
+
 [node name="WallSurface1" parent="Level/Surfaces/Walls" index="0" unique_id=932201973 instance=ExtResource("2_wall_medium")]
 position = Vector2(80, -224)
 
@@ -242,7 +245,7 @@ position = Vector2(576, -400)
 position = Vector2(1584, -416)
 
 [node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="7" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
-position = Vector2(1696, -208)
+position = Vector2(1696, -240)
 
 [node name="CheckpointZone10" parent="Level/Zones/Checkpoints" index="8" unique_id=144380188 instance=ExtResource("6_checkpoint")]
 position = Vector2(4160, 496)
@@ -452,15 +455,18 @@ position = Vector2(408, -176)
 position = Vector2(-3008, 608)
 popup_id = "camera"
 
-[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone2" index="0" unique_id=1560653708]
-position = Vector2(-144, 0)
-
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone2" index="1" unique_id=1892405122]
 position = Vector2(240, -176)
 
 [node name="TutorialPopupZone3" parent="Level/Zones/TutorialZone" index="2" unique_id=412643964 instance=ExtResource("15_popup_zone")]
 position = Vector2(-2112, 608)
 popup_id = "espinhos"
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone3" index="2" unique_id=641839809]
+offset_left = -144.0
+offset_top = -208.0
+offset_right = 136.0
+offset_bottom = -24.0
 
 [node name="TutorialPopupZone4" parent="Level/Zones/TutorialZone" index="3" unique_id=1068415197 instance=ExtResource("15_popup_zone")]
 position = Vector2(-320, 608)
@@ -535,10 +541,16 @@ position = Vector2(1760, -210)
 popup_id = "queda"
 
 [node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="0" unique_id=1560653708]
-position = Vector2(-64, 18)
+position = Vector2(-64, -46)
 
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="1" unique_id=1892405122]
 position = Vector2(288, -38)
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="2" unique_id=641839809]
+offset_left = -192.0
+offset_top = -270.0
+offset_right = 88.0
+offset_bottom = -86.0
 
 [node name="TutorialPopupZone13" parent="Level/Zones/TutorialZone" index="12" unique_id=2038585115 instance=ExtResource("15_popup_zone")]
 position = Vector2(4160, 480)
@@ -571,6 +583,12 @@ popup_id = "atributos"
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone15" index="1" unique_id=1892405122]
 position = Vector2(-319, -192)
 
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone15" index="2" unique_id=641839809]
+offset_left = -144.0
+offset_top = -256.0
+offset_right = 136.0
+offset_bottom = -72.0
+
 [node name="Rope1" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
 position = Vector2(1072, -544)
 detection_radius = 192.0
@@ -584,22 +602,18 @@ detection_radius = 256.0
 position = Vector2(1712, 400)
 detection_radius = 176.0
 
-[node name="Rope6" parent="Level/Ropes" index="3" unique_id=1254343481 instance=ExtResource("7_rope")]
-position = Vector2(2304, 400)
-detection_radius = 176.0
-
-[node name="Rope4" parent="Level/Ropes" index="4" unique_id=1501224207 instance=ExtResource("7_rope")]
+[node name="Rope4" parent="Level/Ropes" index="3" unique_id=1501224207 instance=ExtResource("7_rope")]
 position = Vector2(3168, -544)
 
-[node name="Rope5" parent="Level/Ropes" index="5" unique_id=1707099237 instance=ExtResource("7_rope")]
+[node name="Rope5" parent="Level/Ropes" index="4" unique_id=1707099237 instance=ExtResource("7_rope")]
 position = Vector2(3920, -544)
 
-[node name="Rope" parent="Level/Ropes" index="6" unique_id=660485463 instance=ExtResource("7_rope")]
-position = Vector2(3032, 400)
+[node name="Rope" parent="Level/Ropes" index="5" unique_id=660485463 instance=ExtResource("7_rope")]
+position = Vector2(2896, 384)
 detection_radius = 176.0
 
 [node name="QteBarrier" parent="Level/QteBarriers" index="0" unique_id=480385079 instance=ExtResource("7_kjfhl")]
-position = Vector2(3216, 16)
+position = Vector2(3136, 16)
 rotation = -3.1415925
 size = Vector2(32, 224)
 content = "conservacao_energia"
@@ -640,6 +654,7 @@ metadata/_edit_use_anchors_ = true
 
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone2"]
+[editable path="Level/Zones/TutorialZone/TutorialPopupZone3"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone4"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone5"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone6"]
