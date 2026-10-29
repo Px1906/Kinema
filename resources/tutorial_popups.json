@@ -1,7 +1,7 @@
 {
 	"lancamento": {
 		"mode": "text_and_sprite",
-		"text": "Segure o botão esquerdo do mouse e arraste para mirar: a seta mostra a direção e a velocidade do lançamento.\nPrefere ajustar com precisão? Abra \"Ajustar\" e use os sliders de velocidade e ângulo. Lance com Espaço, com o botão direito ou em \"Lançar\".",
+		"text": "Segure o botão esquerdo do mouse e arraste para mirar; dá para arrastar pela tela toda, não só perto da bola. A seta mostra a direção e a velocidade do lançamento.\nPrefere ajustar com precisão? Abra \"Ajustar\" e use os sliders de velocidade e ângulo. Lance com Espaço, com o botão direito ou em \"Lançar\".",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
@@ -29,14 +29,14 @@
 	},
 	"cinetica": {
 		"mode": "text_and_sprite",
-		"text": "Energia cinética é a energia do movimento: Ec = m·v²/2.\nComo a velocidade entra ao quadrado, dobrar a velocidade quadruplica a energia cinética!\nAbra \"Atributos\" e veja a energia cinética mudar enquanto a bola acelera e freia.",
+		"text": "Energia cinética é a energia do movimento: Ec = m·v²/2.\nComo a velocidade entra ao quadrado, dobrar a velocidade quadruplica a energia cinética!\nClique no ícone de gráfico e veja a energia cinética mudar enquanto a bola acelera e freia.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
 	},
 	"potencial": {
 		"mode": "text_and_sprite",
-		"text": "Energia potencial gravitacional depende da altura: Ep = m·g·h.\nA altura h é medida a partir da referência: acima dela a energia é positiva, abaixo fica negativa.\nAbra \"Atributos\" e acompanhe a energia potencial subir e descer junto com a bola.",
+		"text": "Energia potencial gravitacional depende da altura: Ep = m·g·h.\nA altura h é medida a partir da referência: acima dela a energia é positiva, abaixo fica negativa.\nClique no ícone de gráfico e acompanhe a energia potencial subir e descer junto com a bola.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
@@ -50,14 +50,14 @@
 	},
 	"mecanica": {
 		"mode": "text_and_sprite",
-		"text": "Energia mecânica é a soma das duas: Em = Ec + Ep.\nNo ar, sem colisões, ela se conserva: o que a bola perde em uma energia, ganha na outra.\nAbra \"Atributos\" e confira: a soma fica igual em pleno voo e só cai nas batidas.",
+		"text": "Energia mecânica é a soma das duas: Em = Ec + Ep.\nNo ar, sem colisões, ela se conserva: o que a bola perde em uma energia, ganha na outra.\nClique no ícone de gráfico e confira: a soma fica igual em pleno voo e só cai nas batidas.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
 	},
 	"referencial": {
 		"mode": "text_and_sprite",
-		"text": "O referencial é a altura zero da energia potencial. Com a bola parada, arraste a linha de referência pela fase ou use \"Centralizar referência\" em \"Atributos\".\nMudar o referencial muda o valor de Ep, mas não muda o movimento da bola!",
+		"text": "O referencial é a altura zero da energia potencial. Com a bola parada, arraste a linha de referência pela fase ou use \"Centralizar referência\" no painel do ícone de gráfico.\nMudar o referencial muda o valor de Ep, mas não muda o movimento da bola!",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
@@ -78,7 +78,7 @@
 	},
 	"queda": {
 		"mode": "text_and_sprite",
-		"text": "Quanto maior a queda, mais energia potencial vira cinética.\nComo a massa não muda, toda essa energia aparece na velocidade: v = √(2·g·h). Quedas altas deixam a bola muito rápida!\nAbra \"Atributos\" durante a queda e veja a potencial virar cinética e a velocidade disparar.",
+		"text": "Quanto maior a queda, mais energia potencial vira cinética.\nComo a massa não muda, toda essa energia aparece na velocidade: v = √(2·g·h). Quedas altas deixam a bola muito rápida!\nClique no ícone de gráfico durante a queda e veja a potencial virar cinética e a velocidade disparar.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
@@ -92,7 +92,7 @@
 	},
 	"atributos": {
 		"mode": "text_and_sprite",
-		"text": "Abra \"Atributos\" para ver a tabela da bola: massa, velocidade e as energias cinética, potencial e mecânica, atualizadas enquanto ela se move.\nEla é a sua janela para a física do jogo: observe como os valores mudam a cada subida, queda e batida. Preste atenção nesses números, eles serão importantes depois!.",
+		"text": "Clique no ícone de gráfico para ver a tabela da bola: massa, velocidade e as energias cinética, potencial e mecânica, atualizadas enquanto ela se move.\nEla é a sua janela para a física do jogo: observe como os valores mudam a cada subida, queda e batida. Preste atenção nesses números, eles serão importantes depois!\nSe um painel atrapalhar a visão, segure os três pontinhos e arraste-o para outro lugar.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"
@@ -106,7 +106,7 @@
 	},
 	"barreiras_qte": {
 		"mode": "text_and_sprite",
-		"text": "Barreiras laranjas bloqueiam o caminho. Quando a bola se aproxima, o tempo desacelera e aparece uma pergunta sobre o que você aprendeu.\nAcerte para a barreira sumir; se errar ou o tempo acabar, ela continua no caminho.",
+		"text": "Barreiras laranja bloqueiam o caminho. Quando a bola se aproxima, o tempo desacelera e aparece uma pergunta sobre o que você aprendeu.\nAcerte para a barreira sumir; se errar ou o tempo acabar, ela continua no caminho.",
 		"sprite": "",
 		"animation_frames": "",
 		"animation_name": "default"

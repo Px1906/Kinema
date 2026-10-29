@@ -35,6 +35,7 @@ script = ExtResource("4_launch_input")
 player = NodePath("../../Player")
 
 [node name="TrajectoryPreview" type="Node2D" parent="Gameplay" node_paths=PackedStringArray("player")]
+z_index = 1
 script = ExtResource("5_trajectory_preview")
 player = NodePath("../../Player")
 
