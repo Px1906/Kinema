@@ -26,7 +26,6 @@ AudioSettings="*res://autoload/audio_settings.gd"
 MusicManager="*res://autoload/music_manager.gd"
 SFXPool="*res://autoload/sfx_pool.gd"
 UIAudio="*res://autoload/ui_audio.gd"
-FontSettings="*res://autoload/font_settings.gd"
 
 [display]
 
@@ -36,7 +35,6 @@ window/size/viewport_height=720
 [gui]
 
 timers/tooltip_delay_sec=1.5
-theme/custom="res://resources/default_theme.tres"
 
 [importer_defaults]
 

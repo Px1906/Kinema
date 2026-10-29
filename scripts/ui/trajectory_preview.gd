@@ -5,13 +5,9 @@ extends Node2D
 
 @export_category("Preview")
 @export_range(2, 64, 1) var point_count: int = 24
-## Limite de círculos enquanto a bola está na corda, separado do lançamento.
-@export_range(2, 64, 1) var attached_point_count: int = 12
-## Intervalo entre círculos na corda: 20% menor que o do lançamento, mais juntos.
-@export_range(0.01, 1.0, 0.001) var attached_time_step: float = 0.064
 @export_range(0.01, 1.0, 0.01) var time_step: float = 0.08
 @export var point_radius: float = 3.0
-@export var point_color := Color(Color.BLACK, 0.65)
+@export var point_color := Color("#facc15", 0.65)
 
 var _points := PackedVector2Array()
 var _first_visible_point := 0
@@ -34,13 +30,11 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# Na corda a bola se move a cada quadro: a prévia acompanha sem precisar de sinal.
-	var attached := player != null and player.get_state() == Player.State.ATTACHED
-	if not _preview_dirty and not attached:
-		set_process(false)
+	if not _preview_dirty:
 		return
 
 	_preview_dirty = false
+	set_process(false)
 	_update_preview()
 
 
@@ -75,24 +69,18 @@ func _cache_physics_parameters() -> void:
 
 
 func _update_preview() -> void:
-	var attached := player.get_state() == Player.State.ATTACHED
-	visible = player.can_launch() or attached
+	visible = player.can_launch()
 	if not visible:
 		_points.clear()
 		queue_redraw()
 		return
 
-	# Na corda, mostra o que aconteceria se a bola fosse solta agora: sai pela
-	# tangente com a velocidade atual e passa a cair pela gravidade.
-	var initial_velocity := (
-		player.get_current_velocity() if attached else player.get_initial_velocity()
-	)
 	_points = TrajectoryCalculator.calculate_points(
 		player.global_position,
-		initial_velocity,
+		player.get_initial_velocity(),
 		_gravity,
-		attached_point_count if attached else point_count,
-		attached_time_step if attached else time_step,
+		point_count,
+		time_step,
 		player.gravity_scale,
 		player.get_total_linear_damp(),
 		_simulation_step

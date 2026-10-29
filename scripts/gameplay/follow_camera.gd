@@ -26,17 +26,6 @@ signal following_changed(is_following: bool)
 ## Velocidade da animação do zoom (maior = mais rápido). 0 aplica o zoom na hora.
 @export_range(0.0, 30.0, 0.5) var zoom_smoothing: float = 12.0
 
-const QTE_OFFSET_FACTOR := 0.65
-
-@export_category("QTE Zoom")
-@export_range(1.0, 5.0, 0.1) var qte_zoom: float = 2.0
-@export_range(0.1, 2.0, 0.1) var qte_zoom_duration: float = 1.0
-
-@export_category("Zoom Knob SFX")
-@export var knob_sound: AudioStream
-@export_range(-40.0, 6.0, 0.5, "suffix:dB") var knob_volume_db: float = 0.0
-@export_range(2, 20, 1) var knob_notches: int = 6
-
 ## Permite arrastar a câmera. O LevelController só libera enquanto a bola espera o
 ## lançamento, para um clique direito durante o voo não soltar a câmera sem querer.
 var pan_enabled := true
@@ -45,17 +34,6 @@ var _following := true
 var _panning := false
 var _target_zoom := 1.0
 var _zoom_anchor := Vector2.ZERO
-var _pre_qte_zoom := 1.0
-var _qte_active := false
-var _qte_offset := Vector2.ZERO
-var _qte_barrier: QteBarrier
-var _qte_anim_active := false
-var _qte_anim_start_msec := 0
-var _qte_anim_zoom_from := 1.0
-var _qte_anim_zoom_to := 1.0
-var _qte_anim_offset_from := Vector2.ZERO
-var _qte_anim_offset_to := Vector2.ZERO
-var _knob_last_notch := -1
 
 
 func _ready() -> void:
@@ -69,9 +47,6 @@ func _ready() -> void:
 
 	snap_to_target()
 
-	Events.qte_started.connect(_on_qte_started)
-	Events.qte_finished.connect(_on_qte_finished)
-
 
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(target):
@@ -79,15 +54,10 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if _following:
-		global_position = target.global_position + _qte_offset
+		global_position = target.global_position
 
 
 func _process(delta: float) -> void:
-	if _qte_anim_active:
-		_step_qte_zoom()
-		return
-	if _qte_active:
-		return
 	var current_zoom := zoom.x
 	if is_equal_approx(current_zoom, _target_zoom):
 		return
@@ -105,10 +75,8 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_in"):
 		_request_zoom(zoom_step, event)
-		_play_knob_click()
 	elif event.is_action_pressed("zoom_out"):
 		_request_zoom(1.0 / zoom_step, event)
-		_play_knob_click()
 	elif pan_enabled and event.is_action_pressed("camera_pan"):
 		_start_pan()
 	else:
@@ -140,7 +108,6 @@ func follow_target() -> void:
 ## Volta a seguir o alvo e move a câmera direto para ele, sem a suavização.
 func snap_to_target() -> void:
 	follow_target()
-	_reset_qte_state()
 	if not is_instance_valid(target):
 		return
 
@@ -213,94 +180,3 @@ func _set_following(value: bool) -> void:
 
 	_following = value
 	following_changed.emit(_following)
-
-
-func _on_qte_started(barrier: QteBarrier) -> void:
-	_pre_qte_zoom = _target_zoom
-	_qte_active = true
-	_qte_barrier = barrier
-
-	_qte_anim_zoom_from = zoom.x
-	_qte_anim_zoom_to = qte_zoom
-	_qte_anim_offset_from = _qte_offset
-	_qte_anim_offset_to = Vector2.ZERO
-	if is_instance_valid(target) and is_instance_valid(_qte_barrier):
-		_qte_anim_offset_to = (_qte_barrier.global_position - target.global_position) * QTE_OFFSET_FACTOR
-	_qte_anim_start_msec = Time.get_ticks_msec()
-	_qte_anim_active = true
-	_knob_last_notch = -1
-
-
-func _on_qte_finished(_barrier: QteBarrier, _correct: bool) -> void:
-	_qte_active = false
-	_qte_anim_zoom_from = zoom.x
-	_qte_anim_zoom_to = _pre_qte_zoom
-	_qte_anim_offset_from = _qte_offset
-	_qte_anim_offset_to = Vector2.ZERO
-	_qte_anim_start_msec = Time.get_ticks_msec()
-	_qte_anim_active = true
-	_knob_last_notch = -1
-
-
-func _step_qte_zoom() -> void:
-	var elapsed := (Time.get_ticks_msec() - _qte_anim_start_msec) / 1000.0
-	var t := clampf(elapsed / qte_zoom_duration, 0.0, 1.0)
-	var eased_t := _ease_out_cubic(t) if _qte_active else _ease_in_out_cubic(t)
-
-	zoom = Vector2.ONE * lerpf(_qte_anim_zoom_from, _qte_anim_zoom_to, eased_t)
-	_target_zoom = zoom.x
-	_qte_offset = _qte_anim_offset_from.lerp(_qte_anim_offset_to, eased_t)
-	if _following and is_instance_valid(target):
-		global_position = target.global_position + _qte_offset
-
-	_play_knob_notch(t)
-
-	if t >= 1.0:
-		_qte_anim_active = false
-		_knob_last_notch = -1
-		if not _qte_active:
-			_qte_barrier = null
-
-
-func _play_knob_click() -> void:
-	if knob_sound == null:
-		return
-	SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
-
-
-func _play_knob_notch(t: float) -> void:
-	if knob_sound == null:
-		return
-	var notch := int(t * knob_notches)
-	if notch == _knob_last_notch:
-		return
-	_knob_last_notch = notch
-	_play_knob_click()
-
-
-func _reset_qte_state() -> void:
-	if _qte_active:
-		_target_zoom = _pre_qte_zoom
-		zoom = Vector2.ONE * _target_zoom
-	_qte_active = false
-	_qte_anim_active = false
-	_qte_offset = Vector2.ZERO
-	_qte_barrier = null
-
-
-static func _ease_out_cubic(t: float) -> float:
-	return 1.0 - (1.0 - t) ** 3
-
-
-static func _ease_in_out_cubic(t: float) -> float:
-	if t < 0.5:
-		return 4.0 * t * t * t
-	return 1.0 - (-2.0 * t + 2.0) ** 3 / 2.0
-
-
-func _exit_tree() -> void:
-	_reset_qte_state()
-	if Events.qte_started.is_connected(_on_qte_started):
-		Events.qte_started.disconnect(_on_qte_started)
-	if Events.qte_finished.is_connected(_on_qte_finished):
-		Events.qte_finished.disconnect(_on_qte_finished)

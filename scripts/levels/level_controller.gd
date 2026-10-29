@@ -104,7 +104,7 @@ func _process(_delta: float) -> void:
 
 	var bounds := level_bounds.grow(bounds_margin)
 	if not bounds.has_point(player.global_position):
-		_respawn_at_last_checkpoint()
+		_fail_attempt(FailureReason.OUT_OF_BOUNDS)
 
 
 ## O ReferenceRect já desenha a própria borda; aqui só entra a margem de saída.
@@ -176,7 +176,7 @@ func _on_level_completed(_player: Player) -> void:
 	_save_progress()
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
-		result_panel.show_result("Fase completa", "Você chegou à meta!")
+		result_panel.show_result("Fase concluída", "Você alcançou o objetivo.")
 
 
 func reset_level() -> void:
@@ -258,7 +258,7 @@ func _fail_attempt(reason: FailureReason) -> void:
 func _get_failure_message(reason: FailureReason) -> String:
 	match reason:
 		FailureReason.OBSTACLE_HIT:
-			return "A bola bateu em um obstáculo."
+			return "A bola atingiu um obstáculo."
 		FailureReason.OUT_OF_BOUNDS:
 			return "A bola saiu dos limites."
 		_:

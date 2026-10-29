@@ -1,7 +1,7 @@
 class_name Player
 extends RigidBody2D
 
-enum State { READY, MOVING, STOPPED, ATTACHED, PULLED, STUCK }
+enum State { READY, MOVING, STOPPED, ATTACHED, PULLED }
 
 signal launched(velocity: Vector2)
 signal stopped
@@ -14,29 +14,10 @@ const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
-const BALL_FRAME_COUNT := 18
-const BALL_FRAME_PATH := "res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_%02d.png"
-const EXPLOSION_FRAME_SIZE := 448.0
-const LAUNCH_ARROW_WIDTH := 4.0
+const OUTLINE_SEGMENTS := 32
+const OUTLINE_WIDTH := 2.0
+const LAUNCH_ARROW_WIDTH := 3.0
 const LAUNCH_ARROW_OFFSET := 4.0
-const LAUNCH_ARROW_HEAD_SIZE := 14.0
-const LAUNCH_ARROW_HEAD_SPREAD := 0.6
-const ANGLE_LABEL_ARROW_MARGIN := 4.0
-const ANGLE_ARC_GAP := 18.0
-const ANGLE_ARC_WIDTH := 2.0
-const ANGLE_ARC_SEGMENTS := 32
-const ANGLE_LABEL_GAP := 14.0
-var ANGLE_LABEL_FONT_SIZE: int:
-	get: return FontSettings.hud
-var SPEED_LABEL_FONT_SIZE: int:
-	get: return FontSettings.hud
-const SPEED_LABEL_GAP := 6.0
-const SPEED_LABEL_MIN_DISTANCE := 6.0
-## Textos de referência para medir os rótulos: o tamanho não muda a cada dígito.
-const SPEED_LABEL_LAYOUT_TEXT := "|v| = 00 m/s"
-const ANGLE_LABEL_LAYOUT_TEXT := "180°"
-const SPEED_VECTOR_MARK_WIDTH := -1.0  # Negativa: linha de 1 px na tela, a mais fina possível.
-const SPEED_VECTOR_MARK_HEAD := 2.0
 const SURFACE_HIT_MIN_SPEED := 50.0
 const SURFACE_HIT_COOLDOWN := 0.15
 
@@ -46,11 +27,9 @@ const SURFACE_HIT_COOLDOWN := 0.15
 		radius = maxf(value, 1.0)
 		if is_node_ready():
 			_update_collision_shape()
-			_update_ball_sprite_scale()
 			queue_redraw()
-@export var fill_color := Color("#5eead4")
-@export var arrow_color := Color.BLACK
-@export var angle_color := Color.BLACK
+@export var particle_color := Color("#5eead4")
+@export var arrow_color := Color("#facc15")
 
 @export_category("Launch")
 @export var fator_velocidade_lancamento: float = 1.0
@@ -68,24 +47,17 @@ var _initial_global_position: Vector2 = Vector2.ZERO
 var _pending_reset_position: Vector2
 var _reset_pending := false
 var _base_linear_damp := 0.0
+var _surface_hit_cooldown := 0.0
 var _pull_tween: Tween
 var _pull_elapsed := 0.0
-var _stick_tween: Tween
-var _surface_hit_cooldown := 0.0
-var _ball_frames: Array[Texture2D] = []
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var _ball_sprite: Sprite2D = $BallSprite
-@onready var _explosion_sprite: AnimatedSprite2D = $ExplosionSprite
 
 
 func _ready() -> void:
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
 	_update_collision_shape()
-	_load_ball_frames()
-	_update_ball_sprite_scale()
-	_update_ball_frame()
 	freeze = true
 	_initial_global_position = global_position
 	_base_linear_damp = linear_damp
@@ -162,16 +134,16 @@ func get_initial_global_position() -> Vector2:
 	return _initial_global_position
 
 
-## Velocidade real da bola em px/s, inclusive quando congelada (corda, ímã ou espinhos).
+## Velocidade real da bola em px/s, inclusive quando congelada (corda ou ímã).
 func get_current_velocity() -> Vector2:
 	if _is_carried():
 		return _carried_velocity
 	return linear_velocity
 
 
-## A bola está congelada e sendo movida por fora (corda, ímã ou espinhos), não pela física.
+## A bola está congelada e sendo movida por fora (corda ou ímã), não pela física.
 func _is_carried() -> bool:
-	return _state in [State.ATTACHED, State.PULLED, State.STUCK]
+	return _state in [State.ATTACHED, State.PULLED]
 
 
 ## Usado por quem move a bola presa (ex.: corda) para informar a velocidade real.
@@ -205,8 +177,6 @@ func reset_attempt(start_position: Vector2) -> void:
 
 func _reset_to_ready() -> void:
 	_kill_pull_tween()
-	_kill_stick_tween()
-	_stop_explosion()
 	release_brake()
 	_freeze_body()
 	sleeping = true
@@ -336,74 +306,6 @@ func _kill_pull_tween() -> void:
 		_pull_tween = null
 
 
-## Finca a bola (ex.: nos espinhos): ela segue na direção em que vinha, freando até
-## parar no máximo max_depth px adiante, fica presa por hold_time e então emite
-## obstacle_hit, como uma batida em obstáculo. stop_duration é o tempo da freada
-## sem o limite de profundidade.
-func stick_into(stop_duration: float, max_depth: float, hold_time: float) -> void:
-	if _state != State.MOVING:
-		return
-
-	var velocity := linear_velocity
-	var speed := velocity.length()
-	# Desaceleração constante: anda v·t/2 até parar. Limitada, freia mais forte.
-	var depth := minf(speed * stop_duration / 2.0, max_depth)
-	var duration := 2.0 * depth / speed if speed > 0.0 else 0.0
-	var start := global_position
-	var target := start + velocity.normalized() * depth
-	_freeze_body()
-	_set_state(State.STUCK)
-	queue_redraw()
-
-	_play_explosion()
-
-	_kill_stick_tween()
-	_stick_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	if duration > 0.0:
-		_stick_tween.tween_method(
-			_set_stick_progress.bind(start, target), 0.0, 1.0, duration
-		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_stick_tween.tween_callback(set_carried_velocity.bind(Vector2.ZERO))
-	_stick_tween.tween_interval(hold_time)
-	_stick_tween.tween_callback(_finish_stick)
-
-
-func _set_stick_progress(t: float, start: Vector2, target: Vector2) -> void:
-	var previous := global_position
-	global_position = start.lerp(target, t)
-	set_carried_velocity((global_position - previous) / get_physics_process_delta_time())
-
-
-func _finish_stick() -> void:
-	_stick_tween = null
-	if _state == State.STUCK:
-		obstacle_hit.emit()
-
-
-func _play_explosion() -> void:
-	if _explosion_sprite == null:
-		return
-	_ball_sprite.visible = false
-	var desired_diameter := radius * 2.4
-	_explosion_sprite.scale = Vector2.ONE * (desired_diameter / EXPLOSION_FRAME_SIZE)
-	_explosion_sprite.visible = true
-	_explosion_sprite.play("explode")
-
-
-func _stop_explosion() -> void:
-	if _explosion_sprite == null:
-		return
-	_explosion_sprite.visible = false
-	_explosion_sprite.stop()
-	_ball_sprite.visible = true
-
-
-func _kill_stick_tween() -> void:
-	if _stick_tween != null:
-		_stick_tween.kill()
-		_stick_tween = null
-
-
 func detach(velocity: Vector2) -> void:
 	if _state != State.ATTACHED:
 		return
@@ -456,140 +358,14 @@ func _update_collision_shape() -> void:
 	circle.radius = radius
 
 
-func _process(_delta: float) -> void:
-	_update_ball_frame()
-
-
-func _load_ball_frames() -> void:
-	for i in range(1, BALL_FRAME_COUNT + 1):
-		_ball_frames.append(load(BALL_FRAME_PATH % i))
-
-
-func _update_ball_sprite_scale() -> void:
-	if _ball_frames.is_empty() or _ball_sprite == null:
-		return
-	var tex_size := _ball_frames[0].get_size()
-	var desired_diameter := radius * 2.4
-	_ball_sprite.scale = Vector2.ONE * (desired_diameter / maxf(tex_size.x, tex_size.y))
-
-
-func _update_ball_frame() -> void:
-	if _ball_frames.is_empty() or _ball_sprite == null:
-		return
-	_ball_sprite.rotation = -rotation
-	var angle := fposmod(rotation, TAU)
-	var frame_index := int(angle / TAU * BALL_FRAME_COUNT) % BALL_FRAME_COUNT
-	_ball_sprite.texture = _ball_frames[frame_index]
-
-
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, radius, fill_color)
+	draw_circle(Vector2.ZERO, radius, particle_color)
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, OUTLINE_SEGMENTS, Color.WHITE, OUTLINE_WIDTH)
+	# Traço do centro até a borda, em coordenadas locais: gira junto com a bola.
+	draw_line(Vector2.ZERO, Vector2.RIGHT * radius, Color.WHITE, OUTLINE_WIDTH)
+
 	if _state == State.READY:
 		_draw_launch_arrow()
-		_draw_launch_angle()
-		_draw_launch_speed()
-
-
-## Arco do eixo horizontal até a seta, com o ângulo em graus. Desenha num referencial
-## alinhado ao mundo: o eixo fica horizontal e o texto legível mesmo com a bola girada.
-func _draw_launch_angle() -> void:
-	if launch_velocity.length_squared() < 1.0:
-		return
-
-	draw_set_transform(Vector2.ZERO, -global_rotation)
-	var arc_radius := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP
-	var axis_start := Vector2.RIGHT * (radius + LAUNCH_ARROW_OFFSET)
-	var axis_end := Vector2.RIGHT * arc_radius
-	draw_line(axis_start, axis_end, angle_color, ANGLE_ARC_WIDTH, true)
-
-	# Ângulo positivo aponta para cima; no canvas o y cresce para baixo, daí o sinal.
-	var end_angle := deg_to_rad(-launch_angle_degrees)
-	if not is_zero_approx(end_angle):
-		draw_arc(
-			Vector2.ZERO,
-			arc_radius,
-			0.0,
-			end_angle,
-			ANGLE_ARC_SEGMENTS,
-			angle_color,
-			ANGLE_ARC_WIDTH,
-			true
-		)
-
-	var font := ThemeDB.fallback_font
-	# draw_string posiciona pela linha de base, que fica a ascent do topo do retângulo.
-	var baseline := _get_angle_label_rect().position
-	baseline.y += font.get_ascent(ANGLE_LABEL_FONT_SIZE)
-	draw_string(
-		font,
-		baseline,
-		_get_angle_label_text(),
-		HORIZONTAL_ALIGNMENT_LEFT,
-		-1,
-		ANGLE_LABEL_FONT_SIZE,
-		angle_color
-	)
-	draw_set_transform(Vector2.ZERO)
-
-
-func _get_angle_label_text() -> String:
-	return "%d°" % AttributeFormat.round_value(launch_angle_degrees)
-
-
-## Retângulo do texto do ângulo no referencial alinhado ao mundo, já afastado da seta.
-func _get_angle_label_rect() -> Rect2:
-	var font := ThemeDB.fallback_font
-	var text_size := font.get_string_size(
-		_get_angle_label_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
-	)
-	var end_angle := deg_to_rad(-launch_angle_degrees)
-	var arc_radius := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP
-	var label_center := Vector2.RIGHT.rotated(end_angle * 0.5) * (arc_radius + ANGLE_LABEL_GAP)
-	label_center = _move_label_off_arrow(label_center, text_size, Vector2.RIGHT.rotated(end_angle))
-	return Rect2(label_center - text_size * 0.5, text_size)
-
-
-## Se o texto cairia sobre a seta (ângulos pequenos ou seta longa), empurra-o para o
-## lado da seta oposto ao arco, encostado nela. Fora disso, devolve o centro como está.
-func _move_label_off_arrow(
-	label_center: Vector2, text_size: Vector2, arrow_dir: Vector2
-) -> Vector2:
-	var arrow_start := radius + LAUNCH_ARROW_OFFSET
-	var arrow_end := arrow_start + _get_launch_arrow_length()
-	var arrow_half_width := LAUNCH_ARROW_HEAD_SIZE * LAUNCH_ARROW_HEAD_SPREAD
-
-	var away := arrow_dir.orthogonal()
-	var away_dot_axis := away.dot(Vector2.RIGHT)
-	# Na horizontal o arco não tem lado: o texto vai para cima.
-	if absf(away_dot_axis) < 0.01:
-		if away.y > 0.0:
-			away = -away
-	elif away_dot_axis > 0.0:
-		away = -away
-
-	# Meia extensão do retângulo do texto ao longo da seta e da perpendicular.
-	var half_along := absf(arrow_dir.x) * text_size.x * 0.5 + absf(arrow_dir.y) * text_size.y * 0.5
-	var half_across := absf(away.x) * text_size.x * 0.5 + absf(away.y) * text_size.y * 0.5
-	var along := label_center.dot(arrow_dir)
-	var across := label_center.dot(away)
-	var overlaps := along + half_along >= arrow_start and along - half_along <= arrow_end \
-		and absf(across) < half_across + arrow_half_width
-	if not overlaps:
-		return label_center
-
-	return arrow_dir * along + away * (half_across + arrow_half_width + ANGLE_LABEL_ARROW_MARGIN)
-
-
-## Comprimento da seta em px, na escala do mundo: a bola saindo a N m/s ganha uma
-## seta de N metros (o mesmo número que o painel mostra, já com o fator de lançamento).
-func _get_launch_arrow_length() -> float:
-	return PhysicsUnits.meters_to_pixels(_get_exit_speed_mps())
-
-
-## Velocidade com que a bola sai, em m/s, já com o fator de lançamento.
-func _get_exit_speed_mps() -> float:
-	return PhysicsUnits.pixels_to_meters(launch_velocity.length() * fator_velocidade_lancamento)
-
 
 func _draw_launch_arrow() -> void:
 	if launch_velocity.length_squared() < 1.0:
@@ -597,84 +373,14 @@ func _draw_launch_arrow() -> void:
 
 	var dir := launch_velocity.normalized().rotated(-global_rotation)
 	var start := dir * (radius + LAUNCH_ARROW_OFFSET)
-	var length := _get_launch_arrow_length()
-	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + length)
-	var head := LAUNCH_ARROW_HEAD_SIZE
+	var tip := dir * (radius + LAUNCH_ARROW_OFFSET + launch_velocity.length() * 0.15)
+	var head := 10.0
 	var side := dir.orthogonal()
 	var base := tip - dir * head
 	draw_line(start, base, arrow_color, LAUNCH_ARROW_WIDTH)
 	var arrow_points := PackedVector2Array([
 		tip,
-		base + side * head * LAUNCH_ARROW_HEAD_SPREAD,
-		base - side * head * LAUNCH_ARROW_HEAD_SPREAD,
+		base + side * head * 0.6,
+		base - side * head * 0.6,
 	])
 	draw_colored_polygon(arrow_points, arrow_color)
-
-
-## Módulo da velocidade (|v⃗| = N m/s) sobre o meio da seta, do lado de cima da tela.
-## Como o ângulo, desenha num referencial alinhado ao mundo para o texto ficar legível.
-func _draw_launch_speed() -> void:
-	if launch_velocity.length_squared() < 1.0:
-		return
-
-	draw_set_transform(Vector2.ZERO, -global_rotation)
-	var font := ThemeDB.fallback_font
-	var prefix := "|"
-	var symbol := "v"
-	var text := "%s%s| = %s" % [prefix, symbol, AttributeFormat.format_speed(_get_exit_speed_mps())]
-	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE)
-
-	var layout_size := font.get_string_size(
-		SPEED_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
-	)
-	var dir := launch_velocity.normalized()
-	# Perpendicular à seta apontando para cima na tela (y cresce para baixo).
-	var up := dir.orthogonal()
-	if up.y > 0.0:
-		up = -up
-	# Meia extensão do retângulo do texto ao longo da seta e da perpendicular.
-	var half_along := absf(dir.x) * layout_size.x * 0.5 + absf(dir.y) * layout_size.y * 0.5
-	var half_across := absf(up.x) * layout_size.x * 0.5 + absf(up.y) * layout_size.y * 0.5
-
-	# Fica no meio da seta, mas com a borda mais próxima da bola sempre fora da zona do
-	# arco e do texto do ângulo. Tudo contínuo: o rótulo não salta quando a seta encurta.
-	var middle := radius + LAUNCH_ARROW_OFFSET + _get_launch_arrow_length() * 0.5
-	var along := maxf(middle, _get_angle_zone_radius() + SPEED_LABEL_MIN_DISTANCE + half_along)
-	var across := half_across + LAUNCH_ARROW_WIDTH * 0.5 + SPEED_LABEL_GAP
-	var label_center := dir * along + up * across
-
-	var ascent := font.get_ascent(SPEED_LABEL_FONT_SIZE)
-	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
-	draw_string(
-		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE, arrow_color
-	)
-
-	# Setinha de vetor sobre o "v", no espaço livre acima das minúsculas.
-	var symbol_left := baseline.x + font.get_string_size(
-		prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
-	).x
-	var symbol_width := font.get_string_size(
-		symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
-	).x
-	var mark_y := baseline.y - ascent + SPEED_VECTOR_MARK_HEAD
-	var mark_start := Vector2(symbol_left, mark_y)
-	var mark_end := Vector2(symbol_left + symbol_width, mark_y)
-	var head := SPEED_VECTOR_MARK_HEAD
-	draw_line(mark_start, mark_end, arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
-	draw_line(mark_end, mark_end + Vector2(-head, -head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
-	draw_line(mark_end, mark_end + Vector2(-head, head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
-	draw_set_transform(Vector2.ZERO)
-
-
-## Raio a partir do centro da bola que contém o arco e o texto do ângulo em qualquer
-## posição, inclusive quando _move_label_off_arrow o empurra para o lado da seta.
-func _get_angle_zone_radius() -> float:
-	var font := ThemeDB.fallback_font
-	var angle_size := font.get_string_size(
-		ANGLE_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
-	)
-	var half_diagonal := angle_size.length() * 0.5
-	var label_distance := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP + ANGLE_LABEL_GAP
-	var arrow_half_width := LAUNCH_ARROW_HEAD_SIZE * LAUNCH_ARROW_HEAD_SPREAD
-	var max_push := half_diagonal + arrow_half_width + ANGLE_LABEL_ARROW_MARGIN
-	return Vector2(label_distance, max_push).length() + half_diagonal

@@ -5,19 +5,21 @@ const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
 
 ## Scene opened by the Play button (the level selector).
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/ui/level_select.tscn"
+## Scene opened by the Credits button.
+@export_file("*.tscn") var credits_scene_path: String = "res://scenes/ui/credits.tscn"
 
-@onready var _logo: TextureRect = %LogoTexture
 @onready var _menu_box: Control = %MenuBox
 @onready var _play_button: Button = %PlayButton
 @onready var _options_button: Button = %OptionsButton
+@onready var _credits_button: Button = %CreditsButton
 @onready var _quit_button: Button = %QuitButton
 @onready var _options_menu: OptionsMenu = %OptionsMenu
 
 
 func _ready() -> void:
-	_apply_font_sizes()
 	_play_button.pressed.connect(_on_play_pressed)
 	_options_button.pressed.connect(_open_options)
+	_credits_button.pressed.connect(_on_credits_pressed)
 	_quit_button.pressed.connect(_on_quit_pressed)
 	_options_menu.closed.connect(_on_options_closed)
 
@@ -27,25 +29,21 @@ func _ready() -> void:
 	MusicManager.play_music(MENU_MUSIC)
 
 
-func _apply_font_sizes() -> void:
-	FontSettings.apply(_play_button, FontSettings.ui_button)
-	FontSettings.apply(_options_button, FontSettings.ui_button)
-	FontSettings.apply(_quit_button, FontSettings.ui_button)
-
-
 func _on_play_pressed() -> void:
 	SceneLoader.go_to(get_tree(), level_select_scene_path)
 
 
+func _on_credits_pressed() -> void:
+	SceneLoader.go_to(get_tree(), credits_scene_path)
+
+
 func _open_options() -> void:
-	_logo.hide()
-	_menu_box.hide()
+	_menu_box.visible = false
 	_options_menu.open()
 
 
 func _on_options_closed() -> void:
-	_logo.show()
-	_menu_box.show()
+	_menu_box.visible = true
 	_options_button.grab_focus()
 
 

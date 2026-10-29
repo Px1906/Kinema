@@ -1,163 +1,25 @@
-[gd_scene format=3 uid="uid://dht68mux37k45"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Shader" uid="uid://csl38klhd6wcw" path="res://shaders/blur_background.gdshader" id="0_blur_shader"]
-[ext_resource type="Script" uid="uid://bbcxsvkie7pat" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="2_options"]
 [ext_resource type="PackedScene" path="res://scenes/ui/formulas_panel.tscn" id="3_formulas"]
-[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="9_anim_style"]
-[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="10_medio1"]
-[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="11_medio2"]
-[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="12_medio3"]
-[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="13_medio4"]
-[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="14_medio_pressed"]
-[ext_resource type="Texture2D" uid="uid://dfww7otfkft1x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="19_peq1"]
-[ext_resource type="Texture2D" uid="uid://deit7ujgsg6uu" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="20_peq2"]
-[ext_resource type="Texture2D" uid="uid://jf0ndr6lj8d0" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="21_peq3"]
-[ext_resource type="Texture2D" uid="uid://b0of5pgdq37ch" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="22_peq4"]
-[ext_resource type="Texture2D" uid="uid://g7c1w1vqrn1r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="23_peq_pressed"]
-[ext_resource type="Texture2D" uid="uid://dmk0he74rh0a1" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="24_grande1"]
-[ext_resource type="Texture2D" uid="uid://dh5y0aaw6a1sl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_02.png" id="25_grande2"]
-[ext_resource type="Texture2D" uid="uid://cgwr485sbrafe" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="26_grande3"]
-[ext_resource type="Texture2D" uid="uid://pdnh2g5rhoew" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="27_grande4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
-shader = ExtResource("0_blur_shader")
-shader_parameter/blur_strength = 2.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ukr1j"]
-texture = ExtResource("10_medio1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0q18a"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6ppj"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3xddx"]
-texture = ExtResource("10_medio1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2nrdc"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4cn"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1prsh"]
-texture = ExtResource("19_peq1")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2v8jl"]
-texture = ExtResource("23_peq_pressed")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tniw3"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_57h4f"]
-texture = ExtResource("10_medio1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xabod"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kkv1i"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pb823"]
-texture = ExtResource("10_medio1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ybc7j"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_72dmp"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yr4wm"]
-texture = ExtResource("24_grande1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g6xlc"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g5kty"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tm0rn"]
-texture = ExtResource("24_grande1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0rxam"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dfvc5"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rvu5y"]
-texture = ExtResource("10_medio1")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jpji8"]
-texture = ExtResource("14_medio_pressed")
-texture_margin_left = 20.0
-texture_margin_top = 20.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68a5l"]
-
-[node name="PauseMenu" type="CanvasLayer" unique_id=305994716]
+[node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_pause")
 
-[node name="BlurRect" type="ColorRect" parent="." unique_id=1758520076]
-material = SubResource("ShaderMaterial_blur")
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.45)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -165,203 +27,99 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=222370829]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(640, 360)
-scale = Vector2(0.75, 0.75)
-
-[node name="MainPanel" type="VBoxContainer" parent="CenterContainer" unique_id=551636238]
+[node name="MainPanel" type="PanelContainer" parent="CenterContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_constants/separation = 16
+mouse_filter = 1
 
-[node name="Title" type="Label" parent="CenterContainer/MainPanel" unique_id=1376810166]
-layout_mode = 2
-text = "PAUSE"
-horizontal_alignment = 1
-
-[node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/MainPanel" unique_id=466272485]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="ResumeButton" type="Button" parent="CenterContainer/MainPanel/ButtonRow" unique_id=1009735993]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_ukr1j")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_0q18a")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ukr1j")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_ukr1j")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t6ppj")
-text = "Resume"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
-pressed_frame = ExtResource("14_medio_pressed")
-
-[node name="RestartButton" type="Button" parent="CenterContainer/MainPanel/ButtonRow" unique_id=672687279]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_3xddx")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_2nrdc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3xddx")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_3xddx")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jj4cn")
-text = "Restart"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
-pressed_frame = ExtResource("14_medio_pressed")
-
-[node name="FormulasButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1739303196]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(133, 74)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_1prsh")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_2v8jl")
-theme_override_styles/hover = SubResource("StyleBoxTexture_1prsh")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_1prsh")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_tniw3")
-text = "?"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("19_peq1"), ExtResource("20_peq2"), ExtResource("21_peq3"), ExtResource("22_peq4")])
-pressed_frame = ExtResource("23_peq_pressed")
-texture_margin = 12.0
-
-[node name="OptionsButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1223159978]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_57h4f")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_xabod")
-theme_override_styles/hover = SubResource("StyleBoxTexture_57h4f")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_57h4f")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kkv1i")
-text = "Options"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
-pressed_frame = ExtResource("14_medio_pressed")
-
-[node name="ExitButton" type="Button" parent="CenterContainer/MainPanel" unique_id=1997209001]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_pb823")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ybc7j")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pb823")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pb823")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_72dmp")
-text = "Exit"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
-pressed_frame = ExtResource("14_medio_pressed")
-
-[node name="RestartPanel" type="VBoxContainer" parent="CenterContainer" unique_id=321699775]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(280, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MainPanel"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="CenterContainer/RestartPanel" unique_id=1262883665]
+[node name="Title" type="Label" parent="CenterContainer/MainPanel/VBoxContainer"]
 layout_mode = 2
-text = "Restart"
+theme_override_font_sizes/font_size = 32
+text = "PAUSE"
 horizontal_alignment = 1
 
-[node name="RestartFullButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=995719658]
+[node name="ResumeButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(331, 194)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_yr4wm")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_g6xlc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_yr4wm")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_yr4wm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_g5kty")
-text = "Restart level"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
-pressed_frame = ExtResource("14_medio_pressed")
+text = "Continuar"
 
-[node name="RestartCheckpointButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=2014909349]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(331, 194)
+[node name="IconRow" type="HBoxContainer" parent="CenterContainer/MainPanel/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_tm0rn")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_0rxam")
-theme_override_styles/hover = SubResource("StyleBoxTexture_tm0rn")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_tm0rn")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_dfvc5")
-text = "Back to checkpoint"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
-pressed_frame = ExtResource("14_medio_pressed")
+theme_override_constants/separation = 12
 
-[node name="RestartBackButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=34106817]
+[node name="FormulasButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/IconRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 141)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_rvu5y")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jpji8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_rvu5y")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_rvu5y")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_68a5l")
-text = "Back"
-script = ExtResource("9_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
-pressed_frame = ExtResource("14_medio_pressed")
+size_flags_horizontal = 3
+text = "?"
 
-[node name="OptionsMenu" parent="CenterContainer" unique_id=634441185 instance=ExtResource("2_options")]
+[node name="RestartButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer/IconRow"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "↺"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Opções"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/MainPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Sair"
+
+[node name="RestartPanel" type="PanelContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
 visible = false
-layout_mode = 2
+mouse_filter = 1
 
-[node name="FormulasPanel" parent="CenterContainer" unique_id=379450250 instance=ExtResource("3_formulas")]
-unique_name_in_owner = true
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/RestartPanel"]
 layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="CenterContainer/RestartPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Reiniciar"
+horizontal_alignment = 1
+
+[node name="RestartFullButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Reiniciar fase toda"
+
+[node name="RestartCheckpointButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Voltar ao checkpoint"
+
+[node name="RestartBackButton" type="Button" parent="CenterContainer/RestartPanel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Voltar"
+
+[node name="OptionsMenu" parent="CenterContainer" instance=ExtResource("2_options")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+
+[node name="FormulasPanel" parent="CenterContainer" instance=ExtResource("3_formulas")]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false

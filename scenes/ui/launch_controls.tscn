@@ -1,169 +1,36 @@
-[gd_scene format=3 uid="uid://7x04t7cfycph"]
+[gd_scene format=3]
 
 [ext_resource type="Script" uid="uid://wf10j528cyal" path="res://scripts/ui/launch_controls.gd" id="1_lc"]
 [ext_resource type="Script" path="res://scripts/ui/drag_handle.gd" id="2_drag"]
-[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="3_anim_style"]
-[ext_resource type="Texture2D" uid="uid://dfww7otfkft1x" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_01.png" id="4_peq1"]
-[ext_resource type="Texture2D" uid="uid://deit7ujgsg6uu" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_02.png" id="5_peq2"]
-[ext_resource type="Texture2D" uid="uid://jf0ndr6lj8d0" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_03.png" id="6_peq3"]
-[ext_resource type="Texture2D" uid="uid://b0of5pgdq37ch" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/normal/frame_04.png" id="7_peq4"]
-[ext_resource type="Texture2D" uid="uid://g7c1w1vqrn1r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pequeno/apertado/frame_01.png" id="8_peq_pressed"]
-[ext_resource type="AudioStream" uid="uid://1htq8snuw3ie" path="res://audio/sfx/ui/Knob.wav" id="9_knob"]
-[ext_resource type="Texture2D" uid="uid://cccr6v61g315q" path="res://assets/sprites/NovosSprites/Kinema_Postits_Lousas_Revisados_Frames/post_it_01/frame_01.png" id="10_postit"]
-[ext_resource type="Texture2D" uid="uid://b1u0byi4v1xad" path="res://assets/sprites/Sprite-Animacoes/UI/slider_trilho_vertical/slider_trilho_v_small.png" id="11_trilho_v"]
-[ext_resource type="Texture2D" uid="uid://dp0o5jm6jbwps" path="res://assets/sprites/Sprite-Animacoes/UI/slider_knob/slider_knob_frame_01.png" id="12_knob"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gdlcq"]
-texture = ExtResource("6_peq3")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l5xmh"]
-texture = ExtResource("8_peq_pressed")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2ws2"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egnkx"]
-texture = ExtResource("6_peq3")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ba7y"]
-texture = ExtResource("8_peq_pressed")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ubyb7"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yu52d"]
-texture = ExtResource("6_peq3")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pbp0b"]
-texture = ExtResource("8_peq_pressed")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_puq73"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_postit"]
-content_margin_left = 15.0
-content_margin_top = 35.0
-content_margin_right = 15.0
-content_margin_bottom = 15.0
-texture = ExtResource("10_postit")
-texture_margin_left = 20.0
-texture_margin_top = 40.0
-texture_margin_right = 20.0
-texture_margin_bottom = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_trilho_v"]
-texture = ExtResource("11_trilho_v")
-texture_margin_left = 3.0
-texture_margin_top = 15.0
-texture_margin_right = 3.0
-texture_margin_bottom = 15.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_trilho_v_grab"]
-texture = ExtResource("11_trilho_v")
-texture_margin_left = 3.0
-texture_margin_top = 15.0
-texture_margin_right = 3.0
-texture_margin_bottom = 15.0
-content_margin_top = 12.0
-content_margin_bottom = 18.0
-
-[node name="LaunchControls" type="Control" unique_id=1688536331]
-layout_mode = 3
-anchors_preset = 0
+[node name="LaunchControls" type="VBoxContainer"]
 script = ExtResource("1_lc")
-knob_sound = ExtResource("9_knob")
-knob_volume_db = 0.5
 
-[node name="Row" type="HBoxContainer" parent="." unique_id=448211817]
-layout_mode = 0
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="LaunchButton" type="Button" parent="Row" unique_id=165878435]
+[node name="ToggleButton" type="Button" parent="Row"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(133, 74)
+layout_mode = 2
+toggle_mode = true
+tooltip_text = "Abre os controles de velocidade e ângulo do lançamento"
+text = "Ajustar"
+
+[node name="LaunchButton" type="Button" parent="Row"]
+unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Lança a bola com a velocidade e o ângulo escolhidos"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_gdlcq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l5xmh")
-theme_override_styles/hover = SubResource("StyleBoxTexture_gdlcq")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_gdlcq")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_o2ws2")
-text = "    Arremessar"
-script = ExtResource("3_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
-pressed_frame = ExtResource("8_peq_pressed")
-texture_margin = 12.0
+text = "Lançar"
 
-[node name="ToggleButton" type="Button" parent="Row" unique_id=210847875]
+[node name="ReleaseButton" type="Button" parent="Row"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(133, 74)
 layout_mode = 2
-tooltip_text = "Abre os controles de velocidade e ângulo do lançamento"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_egnkx")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4ba7y")
-theme_override_styles/hover = SubResource("StyleBoxTexture_egnkx")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_egnkx")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ubyb7")
-toggle_mode = true
-text = "   ajustar"
-script = ExtResource("3_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
-pressed_frame = ExtResource("8_peq_pressed")
-texture_margin = 12.0
-
-[node name="ReleaseButton" type="Button" parent="Row" unique_id=760534691]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(133, 74)
-layout_mode = 2
-tooltip_text = "Solta a bola da corda"
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
-theme_override_styles/normal = SubResource("StyleBoxTexture_yu52d")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pbp0b")
-theme_override_styles/hover = SubResource("StyleBoxTexture_yu52d")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_yu52d")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_puq73")
 disabled = true
-text = "   soltar"
-script = ExtResource("3_anim_style")
-normal_frames = Array[Texture2D]([ExtResource("4_peq1"), ExtResource("5_peq2"), ExtResource("6_peq3"), ExtResource("7_peq4")])
-pressed_frame = ExtResource("8_peq_pressed")
-texture_margin = 12.0
+tooltip_text = "Solta a bola da corda"
+text = "Soltar"
 
-[node name="DragGrip" type="Button" parent="Row" unique_id=1765743796]
+[node name="DragGrip" type="Button" parent="Row"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
@@ -171,81 +38,64 @@ size_flags_horizontal = 4
 tooltip_text = "Arrastar"
 focus_mode = 0
 mouse_default_cursor_shape = 13
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "• • •"
-flat = true
 
-[node name="SlidersBox" type="PanelContainer" parent="." unique_id=1849805731]
+[node name="SlidersBox" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 40.0
-offset_top = 48.0
-offset_right = 354.0
-offset_bottom = 318.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_postit")
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Margin" type="MarginContainer" parent="SlidersBox" unique_id=20661328]
+[node name="Margin" type="MarginContainer" parent="SlidersBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Sliders" type="HBoxContainer" parent="SlidersBox/Margin" unique_id=1962999734]
+[node name="Sliders" type="HBoxContainer" parent="SlidersBox/Margin"]
 custom_minimum_size = Vector2(260, 200)
 layout_mode = 2
 
-[node name="SpeedColumn" type="VBoxContainer" parent="SlidersBox/Margin/Sliders" unique_id=353780686]
+[node name="SpeedColumn" type="VBoxContainer" parent="SlidersBox/Margin/Sliders"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 
-[node name="SpeedLabel" type="Label" parent="SlidersBox/Margin/Sliders/SpeedColumn" unique_id=1816872822]
+[node name="SpeedLabel" type="Label" parent="SlidersBox/Margin/Sliders/SpeedColumn"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
-text = "velocidade"
+text = "Velocidade"
 horizontal_alignment = 1
+clip_text = true
 
-[node name="SpeedSlider" type="VSlider" parent="SlidersBox/Margin/Sliders/SpeedColumn" unique_id=1865727622]
+[node name="SpeedSlider" type="VSlider" parent="SlidersBox/Margin/Sliders/SpeedColumn"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(30, 150)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/center_grabber = 1
-theme_override_constants/grabber_offset = -4
-theme_override_constants/tick_offset = 0
-theme_override_icons/grabber = ExtResource("12_knob")
-theme_override_icons/grabber_highlight = ExtResource("12_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho_v_grab")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho_v")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho_v")
 max_value = 1000.0
+step = 1.0
 
-[node name="AngleColumn" type="VBoxContainer" parent="SlidersBox/Margin/Sliders" unique_id=1265375268]
+[node name="AngleColumn" type="VBoxContainer" parent="SlidersBox/Margin/Sliders"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 
-[node name="AngleLabel" type="Label" parent="SlidersBox/Margin/Sliders/AngleColumn" unique_id=1438490740]
+[node name="AngleLabel" type="Label" parent="SlidersBox/Margin/Sliders/AngleColumn"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
-text = "Angulo"
+text = "Ângulo"
 horizontal_alignment = 1
+clip_text = true
 
-[node name="AngleSlider" type="VSlider" parent="SlidersBox/Margin/Sliders/AngleColumn" unique_id=100317012]
+[node name="AngleSlider" type="VSlider" parent="SlidersBox/Margin/Sliders/AngleColumn"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(30, 150)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/center_grabber = 1
-theme_override_constants/grabber_offset = -4
-theme_override_icons/grabber = ExtResource("12_knob")
-theme_override_icons/grabber_highlight = ExtResource("12_knob")
-theme_override_styles/slider = SubResource("StyleBoxTexture_trilho_v_grab")
-theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho_v")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho_v")
 max_value = 180.0
+step = 1.0
 
-[node name="DragHandle" type="Node" parent="." unique_id=1231438827 node_paths=PackedStringArray("handle")]
+[node name="DragHandle" type="Node" parent="." node_paths=PackedStringArray("handle")]
 script = ExtResource("2_drag")
 handle = NodePath("../Row/DragGrip")

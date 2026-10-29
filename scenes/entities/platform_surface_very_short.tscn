@@ -1,42 +1,12 @@
-[gd_scene format=3 uid="uid://duukea8wu02st"]
+[gd_scene format=3]
 
 [ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="1_platform"]
-[ext_resource type="Texture2D" uid="uid://pp3c1doyvnfh" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_muito_curto/bloco_muito_curto_frame_01.png" id="2_frame1"]
-[ext_resource type="Texture2D" uid="uid://d0uibtryoves5" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_muito_curto/bloco_muito_curto_frame_02.png" id="3_frame2"]
-[ext_resource type="Texture2D" uid="uid://kl57k208c2kg" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_muito_curto/bloco_muito_curto_frame_03.png" id="4_frame3"]
-[ext_resource type="Texture2D" uid="uid://dj8ruxw4hdh4x" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_muito_curto/bloco_muito_curto_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_very_short"]
 size = Vector2(64, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bloco"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_frame1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_frame2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_frame3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_frame4")
-}],
-"loop": true,
-"name": &"default",
-"speed": 6.0
-}]
-
-[node name="PlatformSurfaceVeryShort" unique_id=1747002792 instance=ExtResource("1_platform")]
+[node name="PlatformSurfaceVeryShort" instance=ExtResource("1_platform")]
 size = Vector2(64, 32)
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_very_short")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=312070835]
-position = Vector2(0.99999905, 9.536743e-07)
-scale = Vector2(1.1875, 1.1875)
-sprite_frames = SubResource("SpriteFrames_bloco")
-autoplay = "default"

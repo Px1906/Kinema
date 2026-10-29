@@ -9,18 +9,14 @@ extends Control
 @export var speed_factor: float = 3.0
 @export var max_speed: float = Player.MAX_SPEED
 @export var min_distance: float = 5.0
+@export_range(16.0, 512.0, 1.0) var interaction_radius: float = 96.0
 
-@export_category("Drag SFX")
-@export var knob_sound: AudioStream
-@export_range(-40.0, 6.0, 0.5, "suffix:dB") var knob_volume_db: float = 0.0
-## Um clique do knob a cada tantos m/s da velocidade de saída (a mesma do painel).
-@export_range(0.5, 20.0, 0.5, "suffix:m/s") var speed_notch_step: float = 1.0
-## Um clique do knob a cada tantos graus de ângulo.
-@export_range(1.0, 45.0, 1.0, "suffix:°") var angle_notch_step: float = 10.0
+@export_category("Visual")
+@export var show_area: bool = false
+@export var area_color := Color(1, 1, 1, 0.08)
+@export var vector_color := Color("#f87171")
 
 var _dragging := false
-var _last_speed_notch := -1
-var _last_angle_notch := -1
 var _start := Vector2.ZERO
 var _current := Vector2.ZERO
 
@@ -31,52 +27,53 @@ func _ready() -> void:
 	if launch_controller == null:
 		push_warning("MouseControl: assign the 'LaunchInputController' property in the Inspector.")
 
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	player.state_changed.connect(_on_player_state_changed)
-	set_process_unhandled_input(true)
-	set_process_input(false)
+	_update_interaction_area()
+	_update_mouse_filter()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _update_mouse_filter() -> void:
+	mouse_filter = (
+		Control.MOUSE_FILTER_STOP
+		if player.can_launch()
+		else Control.MOUSE_FILTER_IGNORE
+	)
+
+
+func _update_interaction_area() -> void:
+	var diameter := interaction_radius * 2.0
+	size = Vector2.ONE * diameter
+	global_position = player.global_position - Vector2.ONE * interaction_radius
+
+
+func _gui_input(event: InputEvent) -> void:
 	if player == null:
 		return
 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed and player.can_launch() and not _is_over_height_reference():
+		if event.pressed and player.can_launch():
 			_dragging = true
-			_start = player.get_global_transform_with_canvas().origin
-			_current = event.global_position
-			_last_speed_notch = floori(_get_speed_notch_position())
-			_last_angle_notch = floori(_get_angle_notch_position())
-			get_viewport().set_input_as_handled()
-		elif _dragging:
+			_start = size / 2.0
+			_current = event.position
+		else:
 			_dragging = false
-			get_viewport().set_input_as_handled()
+		queue_redraw()
+		accept_event()
 
 	elif event is InputEventMouseMotion and _dragging:
 		if not player.can_launch():
 			_dragging = false
 		else:
-			_current = event.global_position
+			_current = event.position
 			_apply_launch_vector()
-			get_viewport().set_input_as_handled()
+		queue_redraw()
+		accept_event()
 
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed and _dragging:
 			if launch_controller == null:
 				return
 			launch_controller.launch()
-			get_viewport().set_input_as_handled()
-
-
-func _is_over_height_reference() -> bool:
-	var global_mouse := get_global_mouse_position()
-	for ref: Node in get_tree().get_nodes_in_group(HeightReference.GROUP):
-		var hr := ref as HeightReference
-		if hr != null and hr.would_claim_input(global_mouse):
-			return true
-	return false
 
 
 func _apply_launch_vector() -> void:
@@ -91,39 +88,18 @@ func _apply_launch_vector() -> void:
 	var speed := minf(vector.length() * speed_factor, max_speed)
 	player.set_launch_parameters(speed, angle)
 
-	var sn := KnobNotch.next(
-		_get_speed_notch_position(), _last_speed_notch, _is_speed_at_limit()
-	)
-	var an := KnobNotch.next(
-		_get_angle_notch_position(), _last_angle_notch, _is_angle_at_limit()
-	)
-	if (sn != _last_speed_notch or an != _last_angle_notch) and _last_speed_notch >= 0:
-		if knob_sound != null:
-			SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
-	_last_speed_notch = sn
-	_last_angle_notch = an
-
-
-## Posição da velocidade de saída em degraus. O +0,5 põe as bordas no meio dos
-## inteiros: com passo de 1 m/s o clique sai quando o número do painel muda.
-func _get_speed_notch_position() -> float:
-	var speed_mps := PhysicsUnits.pixels_to_meters(player.get_initial_velocity().length())
-	return speed_mps / speed_notch_step + 0.5
-
-
-func _get_angle_notch_position() -> float:
-	return player.launch_angle_degrees / angle_notch_step
-
-
-func _is_speed_at_limit() -> bool:
-	return player.launch_speed <= 0.0 or player.launch_speed >= minf(max_speed, Player.MAX_SPEED)
-
-
-func _is_angle_at_limit() -> bool:
-	var angle := player.launch_angle_degrees
-	return angle <= player.get_min_launch_angle() or angle >= Player.MAX_ANGLE
-
 
 func _on_player_state_changed(_new_state) -> void:
 	_dragging = false
+	_update_interaction_area()
+	_update_mouse_filter()
+	queue_redraw()
 
+
+func _draw() -> void:
+	if show_area:
+		draw_rect(Rect2(Vector2.ZERO, size), area_color)
+		draw_rect(Rect2(Vector2.ZERO, size), vector_color, false, 1.0)
+	if _dragging:
+		draw_line(_start, _current, vector_color, 2.0)
+		draw_circle(_start, 4.0, vector_color)
