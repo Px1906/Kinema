@@ -1,7 +1,7 @@
 class_name BallAttributes
-extends VBoxContainer
+extends Control
 ## Pop-up com os atributos da bola. Massa e velocidade são numéricas; as energias
-## cinética e potencial são barras de 0 até a energia total.
+## cinética e potencial são barras de 0 até a energia mecânica.
 
 const MIN_BAR_MAX := 0.001
 const NEGATIVE_COLOR := Color("#f87171")
@@ -24,10 +24,7 @@ var _ball_energy: BallEnergy
 
 
 func _ready() -> void:
-	# Reserva a largura do painel antes de escondê-lo: senão o popup nasce com a largura
-	# só da linha de botões e eles "pulam" para o centro na primeira vez que abre.
-	custom_minimum_size.x = maxf(custom_minimum_size.x, get_combined_minimum_size().x)
-
+	_apply_font_sizes()
 	_toggle_button.toggled.connect(_on_toggle_button_toggled)
 	_content_box.visible = _toggle_button.button_pressed
 
@@ -48,6 +45,19 @@ func _ready() -> void:
 
 	_ball_energy.energy_updated.connect(_on_energy_updated)
 	_on_energy_updated(_ball_energy)
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply(_toggle_button, FontSettings.caption)
+	FontSettings.apply(_reference_button, FontSettings.attributes)
+	var content: VBoxContainer = _content_box.get_node("Margin/Content")
+	for child: Node in content.get_children():
+		if child is Label:
+			FontSettings.apply(child, FontSettings.attributes)
+		elif child is Container:
+			for sub: Node in child.get_children():
+				if sub is Label:
+					FontSettings.apply(sub, FontSettings.attributes)
 
 
 func _find_ball_energy() -> BallEnergy:

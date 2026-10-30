@@ -1,12 +1,40 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cr8ayv6m5gv4e"]
 
 [ext_resource type="PackedScene" uid="uid://b3vsr0b8aj8o" path="res://scenes/entities/platform_surface.tscn" id="1_platform"]
+[ext_resource type="Texture2D" uid="uid://c6a5m107ljjwm" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_longo/bloco_longo_frame_01.png" id="2_frame1"]
+[ext_resource type="Texture2D" uid="uid://cekirnvdy8brq" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_longo/bloco_longo_frame_03.png" id="4_frame3"]
+[ext_resource type="Texture2D" uid="uid://dxumso21ma7om" path="res://assets/sprites/Sprite-Animacoes/Estruturas/Barras/bloco_longo/bloco_longo_frame_04.png" id="5_frame4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_long"]
 size = Vector2(512, 64)
 
-[node name="PlatformSurfaceLong" instance=ExtResource("1_platform")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_bloco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_frame1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_frame3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_frame4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="PlatformSurfaceLong" unique_id=1871537218 instance=ExtResource("1_platform")]
 size = Vector2(512, 64)
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_long")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1" unique_id=443219401]
+position = Vector2(6.7949295e-06, 0.5000053)
+scale = Vector2(1.03125, 1.1718752)
+sprite_frames = SubResource("SpriteFrames_bloco")
+autoplay = "default"
+frame = 2
+frame_progress = 0.9340703

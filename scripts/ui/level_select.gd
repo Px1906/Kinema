@@ -24,12 +24,20 @@ var _level_exists: Array[bool] = []
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_check_levels()
 	_back_button.pressed.connect(_go_back)
 	_previous_button.pressed.connect(_change_page.bind(-1))
 	_next_button.pressed.connect(_change_page.bind(1))
 	_show_page()
 	_focus_first_card()
+
+
+func _apply_font_sizes() -> void:
+	$MarginContainer/VBoxContainer/TitleLabel.add_theme_font_size_override("font_size", FontSettings.ui_title)
+	FontSettings.apply(_previous_button, FontSettings.ui_subtitle)
+	FontSettings.apply(_next_button, FontSettings.ui_subtitle)
+	FontSettings.apply(_back_button, FontSettings.ui_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -87,7 +95,7 @@ func _make_card(index: int) -> Control:
 		button.expand_icon = true
 	else:
 		button.text = str(index + 1)
-		button.add_theme_font_size_override("font_size", 48)
+		button.add_theme_font_size_override("font_size", FontSettings.ui_button)
 	if _level_exists[index]:
 		button.pressed.connect(_start_level.bind(level.path))
 	else:
@@ -99,7 +107,7 @@ func _make_card(index: int) -> Control:
 	var label := Label.new()
 	label.text = level.get_display_title() if level != null else "Fase %d" % (index + 1)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 20)
+	label.add_theme_font_size_override("font_size", FontSettings.caption)
 	# The default label color is light, so it needs a dark color over the paper.
 	label.add_theme_color_override("font_color", TEXT_COLOR)
 	card.add_child(label)
