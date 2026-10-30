@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dctmaalt3llfa" path="res://scenes/entities/rope.tscn" id="7_rope"]
 [ext_resource type="PackedScene" uid="uid://c4qbqad662gmp" path="res://scenes/entities/wall_surface_very_long.tscn" id="9_fjmsq"]
 [ext_resource type="PackedScene" path="res://scenes/zones/spike_zone.tscn" id="9_ijnuu"]
+[ext_resource type="PackedScene" uid="uid://bqrp2b66fkgy1" path="res://scenes/entities/wall_surface_very_short.tscn" id="9_tdtmq"]
 [ext_resource type="PackedScene" uid="uid://cp7aqwip2r2sd" path="res://scenes/entities/wall_surface_long.tscn" id="13_ijnuu"]
 [ext_resource type="PackedScene" uid="uid://ddsm8v38tgvsh" path="res://scenes/zones/tutorial_popup_zone.tscn" id="15_popup_zone"]
 [ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="17_tdtmq"]
@@ -29,7 +30,7 @@ outline_color = Color(0, 0, 0, 0.85)
 [node name="FaseTutorial" unique_id=952771991 instance=ExtResource("1_base_level")]
 
 [node name="Player" parent="." index="0"]
-position = Vector2(3712, 95)
+position = Vector2(-3904, 624)
 physics_material_override = SubResource("PhysicsMaterial_lvf83")
 angular_damp = 0.1
 fator_velocidade_lancamento = 0.5
@@ -44,20 +45,8 @@ knob_sound = ExtResource("2_clegd")
 knob_volume_db = 0.5
 metadata/_edit_use_anchors_ = true
 
-[node name="UI" parent="Interface" index="0"]
-visible = false
-
-[node name="AttemptResultPanel" parent="Interface" index="1"]
-visible = false
-
-[node name="QteOverlay" parent="Interface" index="2"]
-visible = false
-
-[node name="PauseMenu" parent="Interface" index="3"]
-visible = false
-
 [node name="HeightReference" parent="Level" index="0"]
-position = Vector2(3712, 111)
+position = Vector2(-3904, 640)
 
 [node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=394450830]
 modulate = Color(1, 1, 1, 0.83137256)
@@ -121,7 +110,7 @@ position = Vector2(1280, 112)
 position = Vector2(1280, 272)
 
 [node name="PlatformSurface11" parent="Level/Surfaces/Platforms" index="7" unique_id=947828774 instance=ExtResource("2_platform_medium")]
-position = Vector2(1760, -176)
+position = Vector2(1728, -208)
 
 [node name="PlatformSurface22" parent="Level/Surfaces/Platforms" index="8" unique_id=408805504 instance=ExtResource("2_platform_medium")]
 position = Vector2(4256, -533)
@@ -130,7 +119,7 @@ position = Vector2(4256, -533)
 position = Vector2(2592, -80)
 
 [node name="PlatformSurface15" parent="Level/Surfaces/Platforms" index="10" unique_id=1830112193 instance=ExtResource("2_platform_short")]
-position = Vector2(2874, -392)
+position = Vector2(2864, -400)
 
 [node name="PlatformSurface17" parent="Level/Surfaces/Platforms" index="11" unique_id=1232229492 instance=ExtResource("6_ijnuu")]
 position = Vector2(2976, 160)
@@ -195,8 +184,14 @@ position = Vector2(1517, -383)
 [node name="PlatformSurfaceMedium6" parent="Level/Surfaces/Platforms" index="31" unique_id=1903635310 instance=ExtResource("2_platform_medium")]
 position = Vector2(1658, -383)
 
+[node name="PlatformSurface23" parent="Level/Surfaces/Platforms" index="32" unique_id=1871537218 instance=ExtResource("6_ijnuu")]
+position = Vector2(3456, 544)
+
 [node name="WallSurface1" parent="Level/Surfaces/Walls" index="0" unique_id=932201973 instance=ExtResource("2_wall_medium")]
-position = Vector2(64, -224)
+position = Vector2(80, -224)
+
+[node name="WallSurfaceVeryShort" parent="Level/Surfaces/Walls/WallSurface1" index="2" unique_id=2098316248 instance=ExtResource("9_tdtmq")]
+position = Vector2(1632, -112)
 
 [node name="WallSurface2" parent="Level/Surfaces/Walls" index="1" unique_id=1058010082 instance=ExtResource("2_wall_short")]
 position = Vector2(592, -288)
@@ -226,67 +221,67 @@ position = Vector2(2360, -346)
 position = Vector2(4358, -1024)
 
 [node name="WallSurfaceShort" parent="Level/Surfaces/Walls" index="10" unique_id=694362683 instance=ExtResource("2_wall_short")]
-position = Vector2(2848, -320)
+position = Vector2(2832, -320)
 
 [node name="CheckpointZone" parent="Level/Zones/Checkpoints" index="0" unique_id=1468356545 instance=ExtResource("6_checkpoint")]
-position = Vector2(897, 522)
+position = Vector2(896, 528)
 
 [node name="CheckpointZone2" parent="Level/Zones/Checkpoints" index="1" unique_id=1253131974 instance=ExtResource("6_checkpoint")]
-position = Vector2(1280, 235)
+position = Vector2(1280, 240)
 
 [node name="CheckpointZone3" parent="Level/Zones/Checkpoints" index="2" unique_id=1863714908 instance=ExtResource("6_checkpoint")]
-position = Vector2(1281, 74)
+position = Vector2(1280, 80)
 
 [node name="CheckpointZone5" parent="Level/Zones/Checkpoints" index="3" unique_id=1868311026 instance=ExtResource("6_checkpoint")]
-position = Vector2(256, -54)
+position = Vector2(256, -48)
 
 [node name="CheckpointZone6" parent="Level/Zones/Checkpoints" index="4" unique_id=1482192906 instance=ExtResource("6_checkpoint")]
-position = Vector2(256, -278)
+position = Vector2(256, -272)
 
 [node name="CheckpointZone7" parent="Level/Zones/Checkpoints" index="5" unique_id=1505935824 instance=ExtResource("6_checkpoint")]
-position = Vector2(576, -405)
+position = Vector2(576, -400)
 
 [node name="CheckpointZone8" parent="Level/Zones/Checkpoints" index="6" unique_id=1532592797 instance=ExtResource("6_checkpoint")]
-position = Vector2(1587, -422)
+position = Vector2(1584, -416)
 
 [node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="7" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
-position = Vector2(1760, -213)
+position = Vector2(1696, -240)
 
 [node name="CheckpointZone10" parent="Level/Zones/Checkpoints" index="8" unique_id=144380188 instance=ExtResource("6_checkpoint")]
-position = Vector2(4160, 488)
+position = Vector2(4160, 496)
 
 [node name="CheckpointZone11" parent="Level/Zones/Checkpoints" index="9" unique_id=275495322 instance=ExtResource("6_checkpoint")]
-position = Vector2(3712, 108)
+position = Vector2(3712, 112)
 
 [node name="CheckpointZone12" parent="Level/Zones/Checkpoints" index="10" unique_id=24225696 instance=ExtResource("6_checkpoint")]
-position = Vector2(2944, 104)
+position = Vector2(2944, 112)
 
 [node name="CheckpointZone13" parent="Level/Zones/Checkpoints" index="11" unique_id=89160300 instance=ExtResource("6_checkpoint")]
-position = Vector2(2592, -118)
+position = Vector2(2592, -112)
 
 [node name="CheckpointZone14" parent="Level/Zones/Checkpoints" index="12" unique_id=1694242192 instance=ExtResource("6_checkpoint")]
-position = Vector2(2874, -429)
+position = Vector2(2864, -432)
 
 [node name="CheckpointZone15" parent="Level/Zones/Checkpoints" index="13" unique_id=1418529397 instance=ExtResource("6_checkpoint")]
-position = Vector2(3968, 266)
+position = Vector2(3968, 272)
 
 [node name="CheckpointZone17" parent="Level/Zones/Checkpoints" index="14" unique_id=887486822 instance=ExtResource("6_checkpoint")]
-position = Vector2(-2111, 619)
+position = Vector2(-2112, 624)
 
 [node name="CheckpointZone18" parent="Level/Zones/Checkpoints" index="15" unique_id=1785448140 instance=ExtResource("6_checkpoint")]
-position = Vector2(-319, 620)
+position = Vector2(-320, 624)
 
 [node name="CheckpointZone19" parent="Level/Zones/Checkpoints" index="16" unique_id=1659235675 instance=ExtResource("6_checkpoint")]
-position = Vector2(256, 522)
+position = Vector2(256, 528)
 
 [node name="CheckpointZone20" parent="Level/Zones/Checkpoints" index="17" unique_id=734523202 instance=ExtResource("6_checkpoint")]
-position = Vector2(-3007, 620)
+position = Vector2(-3008, 624)
 
 [node name="CheckpointZone16" parent="Level/Zones/Checkpoints" index="18" unique_id=2130022435 instance=ExtResource("6_checkpoint")]
-position = Vector2(896, -52)
+position = Vector2(896, -48)
 
 [node name="CheckpointZone21" parent="Level/Zones/Checkpoints" index="19" unique_id=1248662296 instance=ExtResource("6_checkpoint")]
-position = Vector2(-1088, 619)
+position = Vector2(-1088, 624)
 
 [node name="SpikeZone" parent="Level/Zones/Spikes" index="0" unique_id=1178256078 instance=ExtResource("9_ijnuu")]
 position = Vector2(1377, 630)
@@ -450,6 +445,9 @@ position = Vector2(4256, -576)
 position = Vector2(-3904, 608)
 popup_id = "lancamento"
 
+[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone" index="0" unique_id=1560653708]
+position = Vector2(0, 16)
+
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone" index="1" unique_id=1892405122]
 position = Vector2(408, -176)
 
@@ -463,6 +461,12 @@ position = Vector2(240, -176)
 [node name="TutorialPopupZone3" parent="Level/Zones/TutorialZone" index="2" unique_id=412643964 instance=ExtResource("15_popup_zone")]
 position = Vector2(-2112, 608)
 popup_id = "espinhos"
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone3" index="2" unique_id=641839809]
+offset_left = -144.0
+offset_top = -208.0
+offset_right = 136.0
+offset_bottom = -24.0
 
 [node name="TutorialPopupZone4" parent="Level/Zones/TutorialZone" index="3" unique_id=1068415197 instance=ExtResource("15_popup_zone")]
 position = Vector2(-320, 608)
@@ -489,8 +493,17 @@ position = Vector2(-208, -77)
 position = Vector2(1280, 240)
 popup_id = "quique_parede"
 
+[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone7" index="0" unique_id=1560653708]
+position = Vector2(-64, 0)
+
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone7" index="1" unique_id=1892405122]
 position = Vector2(-256, -32)
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone7" index="2" unique_id=641839809]
+offset_left = -144.0
+offset_top = -160.0
+offset_right = 136.0
+offset_bottom = 24.0
 
 [node name="TutorialPopupZone8" parent="Level/Zones/TutorialZone" index="7" unique_id=798071953 instance=ExtResource("15_popup_zone")]
 position = Vector2(1280, 80)
@@ -527,8 +540,17 @@ position = Vector2(-176, -133)
 position = Vector2(1760, -210)
 popup_id = "queda"
 
+[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="0" unique_id=1560653708]
+position = Vector2(-64, -46)
+
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="1" unique_id=1892405122]
 position = Vector2(288, -38)
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="2" unique_id=641839809]
+offset_left = -192.0
+offset_top = -270.0
+offset_right = 88.0
+offset_bottom = -86.0
 
 [node name="TutorialPopupZone13" parent="Level/Zones/TutorialZone" index="12" unique_id=2038585115 instance=ExtResource("15_popup_zone")]
 position = Vector2(4160, 480)
@@ -548,6 +570,9 @@ position = Vector2(144, -56)
 position = Vector2(3712, 85)
 popup_id = "barreiras_qte"
 
+[node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone16" index="0" unique_id=1560653708]
+position = Vector2(0, 27)
+
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone16" index="1" unique_id=1892405122]
 position = Vector2(255, -125)
 
@@ -557,6 +582,12 @@ popup_id = "atributos"
 
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone15" index="1" unique_id=1892405122]
 position = Vector2(-319, -192)
+
+[node name="Panel" parent="Level/Zones/TutorialZone/TutorialPopupZone15" index="2" unique_id=641839809]
+offset_left = -144.0
+offset_top = -256.0
+offset_right = 136.0
+offset_bottom = -72.0
 
 [node name="Rope1" parent="Level/Ropes" index="0" unique_id=1649269198 instance=ExtResource("7_rope")]
 position = Vector2(1072, -544)
@@ -571,22 +602,18 @@ detection_radius = 256.0
 position = Vector2(1712, 400)
 detection_radius = 176.0
 
-[node name="Rope6" parent="Level/Ropes" index="3" unique_id=1254343481 instance=ExtResource("7_rope")]
-position = Vector2(2304, 400)
-detection_radius = 176.0
-
-[node name="Rope4" parent="Level/Ropes" index="4" unique_id=1501224207 instance=ExtResource("7_rope")]
+[node name="Rope4" parent="Level/Ropes" index="3" unique_id=1501224207 instance=ExtResource("7_rope")]
 position = Vector2(3168, -544)
 
-[node name="Rope5" parent="Level/Ropes" index="5" unique_id=1707099237 instance=ExtResource("7_rope")]
+[node name="Rope5" parent="Level/Ropes" index="4" unique_id=1707099237 instance=ExtResource("7_rope")]
 position = Vector2(3920, -544)
 
-[node name="Rope" parent="Level/Ropes" index="6" unique_id=660485463 instance=ExtResource("7_rope")]
-position = Vector2(3032, 400)
+[node name="Rope" parent="Level/Ropes" index="5" unique_id=660485463 instance=ExtResource("7_rope")]
+position = Vector2(2896, 384)
 detection_radius = 176.0
 
 [node name="QteBarrier" parent="Level/QteBarriers" index="0" unique_id=480385079 instance=ExtResource("7_kjfhl")]
-position = Vector2(3216, 16)
+position = Vector2(3136, 16)
 rotation = -3.1415925
 size = Vector2(32, 224)
 content = "conservacao_energia"
@@ -615,6 +642,7 @@ offset_bottom = 704.0
 metadata/_edit_lock_ = true
 
 [node name="Chegada" type="Label" parent="Level" index="10" unique_id=1171516689]
+visible = false
 offset_left = 4128.0
 offset_top = -592.0
 offset_right = 4368.0
@@ -626,6 +654,7 @@ metadata/_edit_use_anchors_ = true
 
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone2"]
+[editable path="Level/Zones/TutorialZone/TutorialPopupZone3"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone4"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone5"]
 [editable path="Level/Zones/TutorialZone/TutorialPopupZone6"]

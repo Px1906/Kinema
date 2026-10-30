@@ -4,16 +4,17 @@ extends Control
 const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
 
 const CREDITS_SCENE := preload("res://scenes/ui/credits.tscn")
-@onready var _credits_button: Button = %CreditsButton
-var _credits: CreditsScreen
 
 ## Scene opened by the Play button (the level selector).
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/ui/level_select.tscn"
+
+var _credits: CreditsScreen
 
 @onready var _logo: TextureRect = %LogoTexture
 @onready var _menu_box: Control = %MenuBox
 @onready var _play_button: Button = %PlayButton
 @onready var _options_button: Button = %OptionsButton
+@onready var _credits_button: Button = %CreditsButton
 @onready var _quit_button: Button = %QuitButton
 @onready var _options_menu: OptionsMenu = %OptionsMenu
 
@@ -25,7 +26,6 @@ func _ready() -> void:
 	_quit_button.pressed.connect(_on_quit_pressed)
 	_options_menu.closed.connect(_on_options_closed)
 	_credits_button.pressed.connect(_open_credits)
-	FontSettings.apply(_credits_button, FontSettings.ui_button)
 
 	_options_menu.visible = false
 	_menu_box.visible = true
@@ -36,6 +36,7 @@ func _ready() -> void:
 func _apply_font_sizes() -> void:
 	FontSettings.apply(_play_button, FontSettings.ui_button)
 	FontSettings.apply(_options_button, FontSettings.ui_button)
+	FontSettings.apply(_credits_button, FontSettings.ui_button)
 	FontSettings.apply(_quit_button, FontSettings.ui_button)
 
 
