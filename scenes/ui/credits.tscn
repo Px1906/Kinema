@@ -1,0 +1,98 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/credits.gd" id="1_credits"]
+[ext_resource type="Texture2D" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_credits")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_paper")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
+theme_override_font_sizes/font_size = 48
+text = "Créditos"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ContentMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_right = 160
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/ContentMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ContextTitle" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/ContentMargin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
+theme_override_font_sizes/font_size = 30
+text = "Sobre o projeto"
+horizontal_alignment = 1
+
+[node name="ContextLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/ContentMargin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="MembersTitle" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/ContentMargin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
+theme_override_font_sizes/font_size = 30
+text = "Integrantes"
+horizontal_alignment = 1
+
+[node name="MembersBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/ContentMargin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar"
