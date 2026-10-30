@@ -1,15 +1,51 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bqv8lhjlmghp4"]
 
-[ext_resource type="Script" path="res://scripts/zones/checkpoint_zone.gd" id="1_checkpoint_zone"]
+[ext_resource type="Script" uid="uid://bg8tv4fu8jyig" path="res://scripts/zones/checkpoint_zone.gd" id="1_checkpoint_zone"]
+[ext_resource type="Texture2D" uid="uid://kk2g6daqsmm" path="res://assets/sprites/NovosSprites/Kinema_Checkpoints_Sliders_Frames/checkpoint_bandeira/frame_01.png" id="2_band1"]
+[ext_resource type="Texture2D" uid="uid://bu5n5xkqm44xr" path="res://assets/sprites/NovosSprites/Kinema_Checkpoints_Sliders_Frames/checkpoint_bandeira/frame_02.png" id="3_band2"]
+[ext_resource type="Texture2D" uid="uid://05u7u71sit7t" path="res://assets/sprites/NovosSprites/Kinema_Checkpoints_Sliders_Frames/checkpoint_bandeira/frame_03.png" id="4_band3"]
+[ext_resource type="Texture2D" uid="uid://dsqqkw4ykdjt8" path="res://assets/sprites/NovosSprites/Kinema_Checkpoints_Sliders_Frames/checkpoint_bandeira/frame_04.png" id="5_band4"]
+[ext_resource type="Shader" uid="uid://b0w6o7d85mq1c" path="res://assets/shaders/flag_tint.gdshader" id="6_flag_shader"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_checkpoint"]
 size = Vector2(64, 64)
 
-[node name="CheckpointZone" type="Area2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flag"]
+resource_local_to_scene = true
+shader = ExtResource("6_flag_shader")
+shader_parameter/flag_color = Color(0, 0, 0, 1)
+shader_parameter/flag_uv_limit = 0.45
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bandeira"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_band1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_band2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_band3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_band4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="CheckpointZone" type="Area2D" unique_id=1382227032]
 collision_layer = 0
-collision_mask = 1
-monitoring = true
 script = ExtResource("1_checkpoint_zone")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1761978619]
 shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="BandeiraSprite" type="AnimatedSprite2D" parent="." unique_id=1836194292]
+material = SubResource("ShaderMaterial_flag")
+position = Vector2(5, 5)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_bandeira")
+autoplay = "default"

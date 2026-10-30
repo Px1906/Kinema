@@ -1,109 +1,158 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bx0ay34psisid"]
 
-[ext_resource type="Script" path="res://scripts/ui/formulas_panel.gd" id="1_formulas"]
+[ext_resource type="Script" uid="uid://dy17ayn1c75in" path="res://scripts/ui/formulas_panel.gd" id="1_formulas"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="2_anim_style"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="3_medio1"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="4_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="5_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="6_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="7_medio_pressed"]
+[ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="8_swm_font"]
 
-[node name="FormulasPanel" type="PanelContainer"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdseo"]
+texture = ExtResource("3_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwuk4"]
+texture = ExtResource("7_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ri3lf"]
+
+[node name="FormulasPanel" type="VBoxContainer" unique_id=1340034734]
 process_mode = 3
-custom_minimum_size = Vector2(360, 0)
+custom_minimum_size = Vector2(495, 0)
 offset_right = 360.0
 offset_bottom = 40.0
+theme_override_constants/separation = 12
 script = ExtResource("1_formulas")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Title" type="Label" parent="." unique_id=276912778]
 layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Fórmulas"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 320)
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=65792022]
+custom_minimum_size = Vector2(0, 440)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="FormulasList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="FormulasList" type="VBoxContainer" parent="ScrollContainer" unique_id=1195974614]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="EcTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EcTitle" type="Label" parent="ScrollContainer/FormulasList" unique_id=869251277]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Energia Cinética"
 
-[node name="EcFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EcFormula" type="Label" parent="ScrollContainer/FormulasList" unique_id=814362270]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Ec = ½ · m · v²
 Unidade: Joules (J)
 m = massa (kg), v = velocidade (m/s)"
 autowrap_mode = 2
 
-[node name="EcSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EcSep" type="HSeparator" parent="ScrollContainer/FormulasList" unique_id=803566442]
 layout_mode = 2
 
-[node name="EpTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EpTitle" type="Label" parent="ScrollContainer/FormulasList" unique_id=1242832056]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Energia Potencial Gravitacional"
 
-[node name="EpFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EpFormula" type="Label" parent="ScrollContainer/FormulasList" unique_id=1069707593]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Ep = m · g · h
 Unidade: Joules (J)
 m = massa (kg), g = 10 m/s², h = altura (m)"
 autowrap_mode = 2
 
-[node name="EpSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EpSep" type="HSeparator" parent="ScrollContainer/FormulasList" unique_id=1135157177]
 layout_mode = 2
 
-[node name="EtTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EtTitle" type="Label" parent="ScrollContainer/FormulasList" unique_id=2137892673]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Energia Mecânica Total"
 
-[node name="EtFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EtFormula" type="Label" parent="ScrollContainer/FormulasList" unique_id=2073457300]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Et = Ec + Ep
 A energia mecânica total se conserva
 quando não há forças dissipativas."
 autowrap_mode = 2
 
-[node name="EtSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="EtSep" type="HSeparator" parent="ScrollContainer/FormulasList" unique_id=539748282]
 layout_mode = 2
 
-[node name="VelTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="VelTitle" type="Label" parent="ScrollContainer/FormulasList" unique_id=272554151]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Velocidade"
 
-[node name="VelFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="VelFormula" type="Label" parent="ScrollContainer/FormulasList" unique_id=98161492]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "v = d / t
 Unidade: metros por segundo (m/s)
 d = distância (m), t = tempo (s)"
 autowrap_mode = 2
 
-[node name="VelSep" type="HSeparator" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="VelSep" type="HSeparator" parent="ScrollContainer/FormulasList" unique_id=443348084]
 layout_mode = 2
 
-[node name="GravTitle" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="GravTitle" type="Label" parent="ScrollContainer/FormulasList" unique_id=230596240]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "Gravidade"
 
-[node name="GravFormula" type="Label" parent="VBoxContainer/ScrollContainer/FormulasList"]
+[node name="GravFormula" type="Label" parent="ScrollContainer/FormulasList" unique_id=1135666009]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_swm_font")
 text = "g = 10 m/s²
 Aceleração da gravidade usada no jogo:
 o valor real na superfície da Terra
 (9,8 m/s²) arredondado."
 autowrap_mode = 2
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
+[node name="BackButton" type="Button" parent="." unique_id=479519558]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(256, 141)
 layout_mode = 2
-text = "Voltar"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_bdseo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vwuk4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bdseo")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_bdseo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ri3lf")
+text = "Back"
+script = ExtResource("2_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
+pressed_frame = ExtResource("7_medio_pressed")

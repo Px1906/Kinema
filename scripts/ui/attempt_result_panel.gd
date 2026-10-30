@@ -11,9 +11,15 @@ signal exit_requested
 
 
 func _ready() -> void:
+	_apply_font_sizes()
 	_retry_button.pressed.connect(_on_retry_pressed)
 	_exit_button.pressed.connect(_on_exit_pressed)
 	hide_result()
+
+
+func _apply_font_sizes() -> void:
+	FontSettings.apply(_title_label, FontSettings.ui_subtitle)
+	FontSettings.apply(_message_label, FontSettings.ui_body)
 
 
 func show_result(title: String, message: String) -> void:

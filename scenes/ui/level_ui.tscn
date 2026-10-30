@@ -1,25 +1,54 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bpct0q5hf50ng"]
 
-[ext_resource type="Script" path="res://scripts/ui/level_ui.gd" id="1_level_ui"]
-[ext_resource type="PackedScene" path="res://scenes/ui/launch_controls.tscn" id="2_launch_controls"]
-[ext_resource type="PackedScene" path="res://scenes/ui/ball_attributes.tscn" id="3_ball_attributes"]
+[ext_resource type="Script" uid="uid://bc42yqt8mws45" path="res://scripts/ui/level_ui.gd" id="1_level_ui"]
+[ext_resource type="PackedScene" uid="uid://7x04t7cfycph" path="res://scenes/ui/launch_controls.tscn" id="2_launch_controls"]
+[ext_resource type="PackedScene" uid="uid://dw07u4nooqh47" path="res://scenes/ui/ball_attributes.tscn" id="3_ball_attributes"]
+[ext_resource type="Script" uid="uid://cnp5j8iibuc7f" path="res://scripts/ui/animated_texture_button.gd" id="4_anim_btn"]
+[ext_resource type="Texture2D" uid="uid://dat2y7rl3k0p5" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_01.png" id="5_pause1"]
+[ext_resource type="Texture2D" uid="uid://c85j4ajqxhc7r" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_02.png" id="6_pause2"]
+[ext_resource type="Texture2D" uid="uid://b72or0ivwlqqk" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_03.png" id="7_pause3"]
+[ext_resource type="Texture2D" uid="uid://dyk1kxd4d5ysy" path="res://assets/sprites/Sprite-Animacoes/UI/botao_pause/botao_pause_frame_04.png" id="8_pause4"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="9_anim_style"]
+[ext_resource type="Texture2D" uid="uid://bfy2ubr436riw" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_01.png" id="10_medio1"]
+[ext_resource type="Texture2D" uid="uid://cffyhgknaim6t" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_02.png" id="11_medio2"]
+[ext_resource type="Texture2D" uid="uid://exqxxriyotrv" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_03.png" id="12_medio3"]
+[ext_resource type="Texture2D" uid="uid://mrj2x3kbk4w8" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/normal/frame_04.png" id="13_medio4"]
+[ext_resource type="Texture2D" uid="uid://57tigqu0hicl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_medio/apertado/frame_01.png" id="14_medio_pressed"]
 
-[node name="LevelUI" type="CanvasLayer" node_paths=PackedStringArray("controls", "attributes", "recenter_button")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nr7cs"]
+texture = ExtResource("10_medio1")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_in2ts"]
+texture = ExtResource("14_medio_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdn6w"]
+
+[node name="LevelUI" type="CanvasLayer" unique_id=1745138128 node_paths=PackedStringArray("controls", "attributes", "recenter_button", "pause_button")]
 script = ExtResource("1_level_ui")
 controls = NodePath("LaunchControls")
 attributes = NodePath("BallAttributes")
 recenter_button = NodePath("RecenterButton")
+pause_button = NodePath("PauseButton")
 
-[node name="LaunchControls" parent="." instance=ExtResource("2_launch_controls")]
+[node name="LaunchControls" parent="." unique_id=233328626 instance=ExtResource("2_launch_controls")]
 offset_left = 7.0
 offset_top = 7.0
 
-[node name="BallAttributes" parent="." instance=ExtResource("3_ball_attributes")]
-offset_left = 297.0
-offset_top = 7.0
+[node name="BallAttributes" parent="." unique_id=2017188507 instance=ExtResource("3_ball_attributes")]
+offset_left = 478.0
+offset_top = 3.0
 
-[node name="RecenterButton" type="Button" parent="."]
+[node name="RecenterButton" type="Button" parent="." unique_id=465932880]
 visible = false
+custom_minimum_size = Vector2(256, 141)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -33,4 +62,33 @@ grow_horizontal = 2
 grow_vertical = 0
 tooltip_text = "Voltar a câmera para a bola"
 focus_mode = 0
-text = "Recentralizar"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_nr7cs")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_in2ts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nr7cs")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_nr7cs")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gdn6w")
+text = "Recenter"
+script = ExtResource("9_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
+pressed_frame = ExtResource("14_medio_pressed")
+
+[node name="PauseButton" type="TextureButton" parent="." unique_id=650877185]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -87.99988
+offset_top = 7.9999995
+offset_right = -39.999878
+offset_bottom = 56.0
+grow_horizontal = 0
+scale = Vector2(1.595, 1.595)
+texture_normal = ExtResource("5_pause1")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("4_anim_btn")
+frames = Array[Texture2D]([ExtResource("5_pause1"), ExtResource("6_pause2"), ExtResource("7_pause3"), ExtResource("8_pause4")])
