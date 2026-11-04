@@ -16,6 +16,8 @@ extends Camera2D
 ## Emitido quando a câmera passa a seguir o alvo (true) ou fica solta pelo arrasto (false).
 signal following_changed(is_following: bool)
 
+const QTE_OFFSET_FACTOR := 0.65
+
 @export var target: Node2D
 
 @export_category("Zoom")
@@ -25,8 +27,6 @@ signal following_changed(is_following: bool)
 @export_range(1.01, 2.0, 0.01) var zoom_step: float = 1.1
 ## Velocidade da animação do zoom (maior = mais rápido). 0 aplica o zoom na hora.
 @export_range(0.0, 30.0, 0.5) var zoom_smoothing: float = 12.0
-
-const QTE_OFFSET_FACTOR := 0.65
 
 @export_category("QTE Zoom")
 @export_range(1.0, 5.0, 0.1) var qte_zoom: float = 2.0

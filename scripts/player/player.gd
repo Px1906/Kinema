@@ -1,14 +1,14 @@
 class_name Player
 extends RigidBody2D
 
-enum State { READY, MOVING, STOPPED, ATTACHED, PULLED, STUCK }
-
 signal launched(velocity: Vector2)
 signal stopped
 signal obstacle_hit
 signal surface_collided(impact_speed: float)
 signal launch_parameters_changed(speed: float, angle_degrees: float)
 signal state_changed(state: State)
+
+enum State { READY, MOVING, STOPPED, ATTACHED, PULLED, STUCK }
 
 const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
@@ -28,12 +28,6 @@ const ANGLE_ARC_GAP := 18.0
 const ANGLE_ARC_WIDTH := 2.0
 const ANGLE_ARC_SEGMENTS := 32
 const ANGLE_LABEL_GAP := 14.0
-var angle_label_font_size: int:
-	get:
-		return FontSettings.hud
-var speed_label_font_size: int:
-	get:
-		return FontSettings.hud
 const SPEED_LABEL_GAP := 6.0
 const SPEED_LABEL_MIN_DISTANCE := 6.0
 ## Textos de referência para medir os rótulos: o tamanho não muda a cada dígito.
@@ -60,10 +54,17 @@ const SURFACE_HIT_COOLDOWN := 0.15
 @export var fator_velocidade_lancamento: float = 1.0
 @export var inicio_suspenso: bool
 
-var _state: State = State.READY
 var launch_velocity := Vector2.ZERO
 var launch_speed: float = 100.0
 var launch_angle_degrees: float = 0.0
+var angle_label_font_size: int:
+	get:
+		return FontSettings.hud
+var speed_label_font_size: int:
+	get:
+		return FontSettings.hud
+
+var _state: State = State.READY
 var _carried_velocity := Vector2.ZERO
 var _stop_detection_time := 0.0
 var _obstacle_hit_queued := false

@@ -31,8 +31,9 @@ extends StaticBody2D
 		if is_node_ready():
 			_apply_physics_material()
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 var _has_animated_sprite := false
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 
 func _ready() -> void:
