@@ -15,7 +15,9 @@ const MAX_ANGLE := 180.0
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
 const BALL_FRAME_COUNT := 18
-const BALL_FRAME_PATH := "res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_%02d.png"
+const BALL_FRAME_PATH := (
+	"res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/" + "bola_frame_%02d.png"
+)
 const EXPLOSION_FRAME_SIZE := 448.0
 const LAUNCH_ARROW_WIDTH := 4.0
 const LAUNCH_ARROW_OFFSET := 4.0
@@ -26,10 +28,10 @@ const ANGLE_ARC_GAP := 18.0
 const ANGLE_ARC_WIDTH := 2.0
 const ANGLE_ARC_SEGMENTS := 32
 const ANGLE_LABEL_GAP := 14.0
-var ANGLE_LABEL_FONT_SIZE: int:
+var angle_label_font_size: int:
 	get:
 		return FontSettings.hud
-var SPEED_LABEL_FONT_SIZE: int:
+var speed_label_font_size: int:
 	get:
 		return FontSettings.hud
 const SPEED_LABEL_GAP := 6.0
@@ -530,14 +532,14 @@ func _draw_launch_angle() -> void:
 	var font := ThemeDB.fallback_font
 	# draw_string posiciona pela linha de base, que fica a ascent do topo do retângulo.
 	var baseline := _get_angle_label_rect().position
-	baseline.y += font.get_ascent(ANGLE_LABEL_FONT_SIZE)
+	baseline.y += font.get_ascent(angle_label_font_size)
 	draw_string(
 		font,
 		baseline,
 		_get_angle_label_text(),
 		HORIZONTAL_ALIGNMENT_LEFT,
 		-1,
-		ANGLE_LABEL_FONT_SIZE,
+		angle_label_font_size,
 		angle_color
 	)
 	draw_set_transform(Vector2.ZERO)
@@ -551,7 +553,7 @@ func _get_angle_label_text() -> String:
 func _get_angle_label_rect() -> Rect2:
 	var font := ThemeDB.fallback_font
 	var text_size := font.get_string_size(
-		_get_angle_label_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
+		_get_angle_label_text(), HORIZONTAL_ALIGNMENT_LEFT, -1, angle_label_font_size
 	)
 	var end_angle := deg_to_rad(-launch_angle_degrees)
 	var arc_radius := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP
@@ -639,11 +641,11 @@ func _draw_launch_speed() -> void:
 	var symbol := "v"
 	var text := "%s%s| = %s" % [prefix, symbol, AttributeFormat.format_speed(_get_exit_speed_mps())]
 	var text_size := font.get_string_size(
-		text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+		text, HORIZONTAL_ALIGNMENT_LEFT, -1, speed_label_font_size
 	)
 
 	var layout_size := font.get_string_size(
-		SPEED_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+		SPEED_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, speed_label_font_size
 	)
 	var dir := launch_velocity.normalized()
 	# Perpendicular à seta apontando para cima na tela (y cresce para baixo).
@@ -661,19 +663,19 @@ func _draw_launch_speed() -> void:
 	var across := half_across + LAUNCH_ARROW_WIDTH * 0.5 + SPEED_LABEL_GAP
 	var label_center := dir * along + up * across
 
-	var ascent := font.get_ascent(SPEED_LABEL_FONT_SIZE)
+	var ascent := font.get_ascent(speed_label_font_size)
 	var baseline := label_center + Vector2(-text_size.x * 0.5, ascent - text_size.y * 0.5)
 	draw_string(
-		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE, arrow_color
+		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1, speed_label_font_size, arrow_color
 	)
 
 	# Setinha de vetor sobre o "v", no espaço livre acima das minúsculas.
 	var symbol_left := (
 		baseline.x
-		+ font.get_string_size(prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE).x
+		+ font.get_string_size(prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, speed_label_font_size).x
 	)
 	var symbol_width := (
-		font.get_string_size(symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE).x
+		font.get_string_size(symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, speed_label_font_size).x
 	)
 	var mark_y := baseline.y - ascent + SPEED_VECTOR_MARK_HEAD
 	var mark_start := Vector2(symbol_left, mark_y)
@@ -692,7 +694,7 @@ func _draw_launch_speed() -> void:
 func _get_angle_zone_radius() -> float:
 	var font := ThemeDB.fallback_font
 	var angle_size := font.get_string_size(
-		ANGLE_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, ANGLE_LABEL_FONT_SIZE
+		ANGLE_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, angle_label_font_size
 	)
 	var half_diagonal := angle_size.length() * 0.5
 	var label_distance := radius + LAUNCH_ARROW_OFFSET + ANGLE_ARC_GAP + ANGLE_LABEL_GAP
