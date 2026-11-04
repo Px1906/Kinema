@@ -28,14 +28,18 @@ func reach() -> void:
 		return
 	_reached = true
 	if _bandeira_sprite != null and _bandeira_sprite.material is ShaderMaterial:
-		(_bandeira_sprite.material as ShaderMaterial).set_shader_parameter("flag_color", FLAG_COLOR_REACHED)
+		(_bandeira_sprite.material as ShaderMaterial).set_shader_parameter(
+			"flag_color", FLAG_COLOR_REACHED
+		)
 	checkpoint_reached.emit(self)
 
 
 func reset_zone() -> void:
 	_reached = false
 	if _bandeira_sprite != null and _bandeira_sprite.material is ShaderMaterial:
-		(_bandeira_sprite.material as ShaderMaterial).set_shader_parameter("flag_color", Color.BLACK)
+		(_bandeira_sprite.material as ShaderMaterial).set_shader_parameter(
+			"flag_color", Color.BLACK
+		)
 
 
 func _on_player_entered(player: Player) -> void:

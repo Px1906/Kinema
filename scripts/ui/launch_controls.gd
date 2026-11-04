@@ -31,7 +31,9 @@ func _ready() -> void:
 		push_warning("LaunchControls: assign the 'Player' property in the Inspector.")
 		return
 	if launch_controller == null:
-		push_warning("LaunchControls: assign the 'LaunchInputController' property in the Inspector.")
+		push_warning(
+			"LaunchControls: assign the 'LaunchInputController' property in the Inspector."
+		)
 		return
 
 	# Slider ranges (values come from the Player constants).
@@ -78,8 +80,10 @@ func _on_slider_changed(_value: float) -> void:
 	)
 	# O degrau da velocidade nunca é negativo: -1 só antes de inicializar. O do ângulo
 	# pode ser (ângulo negativo), então não serve de sentinela.
-	var changed := _last_speed_notch >= 0 \
+	var changed := (
+		_last_speed_notch >= 0
 		and (speed_notch != _last_speed_notch or angle_notch != _last_angle_notch)
+	)
 
 	_last_speed_notch = speed_notch
 	_last_angle_notch = angle_notch

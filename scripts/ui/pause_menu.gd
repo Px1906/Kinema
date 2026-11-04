@@ -48,7 +48,9 @@ func _apply_font_sizes() -> void:
 	FontSettings.apply(_formulas_button, FontSettings.ui_button)
 	FontSettings.apply(_options_button, FontSettings.ui_button)
 	FontSettings.apply(_exit_button, FontSettings.ui_button)
-	_restart_panel.get_node("Title").add_theme_font_size_override("font_size", FontSettings.ui_subtitle)
+	_restart_panel.get_node("Title").add_theme_font_size_override(
+		"font_size", FontSettings.ui_subtitle
+	)
 
 
 func _unhandled_input(event: InputEvent) -> void:

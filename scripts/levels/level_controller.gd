@@ -59,9 +59,7 @@ func _ready() -> void:
 		# O retângulo é só referência do editor; no jogo não pode bloquear cliques.
 		bounds_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if not level_bounds.has_area():
-		push_warning(
-			"LevelController: defina 'Bounds Rect'; usando o retângulo da tela em (0, 0)."
-		)
+		push_warning("LevelController: defina 'Bounds Rect'; usando o retângulo da tela em (0, 0).")
 		level_bounds = get_viewport_rect()
 	_apply_camera_limits()
 
@@ -139,7 +137,11 @@ func _draw_dashed_rect(rect: Rect2, color: Color) -> void:
 	]
 	for i in corners.size():
 		draw_dashed_line(
-			corners[i], corners[(i + 1) % corners.size()], color, BOUNDS_LINE_WIDTH, BOUNDS_DASH_LENGTH
+			corners[i],
+			corners[(i + 1) % corners.size()],
+			color,
+			BOUNDS_LINE_WIDTH,
+			BOUNDS_DASH_LENGTH
 		)
 
 

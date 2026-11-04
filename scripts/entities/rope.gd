@@ -20,9 +20,15 @@ const DEFAULT_DIRECTION := Vector2.DOWN
 const MIN_ATTACH_SPEED_SQUARED := 1.0
 const AREA_ROTATION_DURATION := 6.0
 const ROPE_DRAW_HEIGHT := 12.0
-const TEX_ROPE_START: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_inicio.png")
-const TEX_ROPE_MID: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_meio.png")
-const TEX_ROPE_END: Texture2D = preload("res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_fim.png")
+const TEX_ROPE_START: Texture2D = preload(
+	"res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_inicio.png"
+)
+const TEX_ROPE_MID: Texture2D = preload(
+	"res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_meio.png"
+)
+const TEX_ROPE_END: Texture2D = preload(
+	"res://assets/sprites/Sprite-Animacoes/Objetos/corda_segmentos/corda_fim.png"
+)
 
 @export_category("Rope")
 @export_range(MIN_DETECTION_RADIUS, MAX_DETECTION_RADIUS, 1.0) var detection_radius: float = 160.0:

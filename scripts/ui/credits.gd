@@ -14,12 +14,14 @@ const MEMBER_FONT_SIZE := 22
 	+ "para chegar ao objetivo."
 )
 ## One line per member, for example "Name — role". Edit the list in the Inspector.
-@export var members: PackedStringArray = PackedStringArray([
-	"Sérgio de Paiva — Função",
-	"Cleyton Ramsay — Função",
-	"Mário Bernardo — Função",
-	"Gustavo Mendonça — Função",
-])
+@export var members: PackedStringArray = PackedStringArray(
+	[
+		"Sérgio de Paiva — Função",
+		"Cleyton Ramsay — Função",
+		"Mário Bernardo — Função",
+		"Gustavo Mendonça — Função",
+	]
+)
 
 @onready var _context_label: Label = %ContextLabel
 @onready var _members_title: Label = %MembersTitle
