@@ -27,9 +27,11 @@ const ANGLE_ARC_WIDTH := 2.0
 const ANGLE_ARC_SEGMENTS := 32
 const ANGLE_LABEL_GAP := 14.0
 var ANGLE_LABEL_FONT_SIZE: int:
-	get: return FontSettings.hud
+	get:
+		return FontSettings.hud
 var SPEED_LABEL_FONT_SIZE: int:
-	get: return FontSettings.hud
+	get:
+		return FontSettings.hud
 const SPEED_LABEL_GAP := 6.0
 const SPEED_LABEL_MIN_DISTANCE := 6.0
 ## Textos de referência para medir os rótulos: o tamanho não muda a cada dígito.
@@ -289,9 +291,14 @@ func pull_to(target_global_position: Vector2, duration: float, velocity_influenc
 	_kill_pull_tween()
 	_pull_elapsed = 0.0
 	_pull_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	_pull_tween.tween_method(
-		_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, duration
-	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	(
+		_pull_tween
+		. tween_method(
+			_set_pull_progress.bind(start, control, target_global_position), 0.0, 1.0, duration
+		)
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_OUT)
+	)
 	_pull_tween.tween_callback(_finish_pull)
 	return true
 
@@ -360,9 +367,12 @@ func stick_into(stop_duration: float, max_depth: float, hold_time: float) -> voi
 	_kill_stick_tween()
 	_stick_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if duration > 0.0:
-		_stick_tween.tween_method(
-			_set_stick_progress.bind(start, target), 0.0, 1.0, duration
-		).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		(
+			_stick_tween
+			. tween_method(_set_stick_progress.bind(start, target), 0.0, 1.0, duration)
+			. set_trans(Tween.TRANS_QUAD)
+			. set_ease(Tween.EASE_OUT)
+		)
 	_stick_tween.tween_callback(set_carried_velocity.bind(Vector2.ZERO))
 	_stick_tween.tween_interval(hold_time)
 	_stick_tween.tween_callback(_finish_stick)
@@ -415,6 +425,7 @@ func detach(velocity: Vector2) -> void:
 	_stop_detection_time = 0.0
 	set_physics_process(_state == State.MOVING)
 	queue_redraw()
+
 
 func set_launch_parameters(speed: float, angle_degrees: float) -> void:
 	launch_speed = clampf(speed, 0.0, MAX_SPEED)
@@ -572,8 +583,11 @@ func _move_label_off_arrow(
 	var half_across := absf(away.x) * text_size.x * 0.5 + absf(away.y) * text_size.y * 0.5
 	var along := label_center.dot(arrow_dir)
 	var across := label_center.dot(away)
-	var overlaps := along + half_along >= arrow_start and along - half_along <= arrow_end \
+	var overlaps := (
+		along + half_along >= arrow_start
+		and along - half_along <= arrow_end
 		and absf(across) < half_across + arrow_half_width
+	)
 	if not overlaps:
 		return label_center
 
@@ -603,11 +617,13 @@ func _draw_launch_arrow() -> void:
 	var side := dir.orthogonal()
 	var base := tip - dir * head
 	draw_line(start, base, arrow_color, LAUNCH_ARROW_WIDTH)
-	var arrow_points := PackedVector2Array([
-		tip,
-		base + side * head * LAUNCH_ARROW_HEAD_SPREAD,
-		base - side * head * LAUNCH_ARROW_HEAD_SPREAD,
-	])
+	var arrow_points := PackedVector2Array(
+		[
+			tip,
+			base + side * head * LAUNCH_ARROW_HEAD_SPREAD,
+			base - side * head * LAUNCH_ARROW_HEAD_SPREAD,
+		]
+	)
 	draw_colored_polygon(arrow_points, arrow_color)
 
 
@@ -622,7 +638,9 @@ func _draw_launch_speed() -> void:
 	var prefix := "|"
 	var symbol := "v"
 	var text := "%s%s| = %s" % [prefix, symbol, AttributeFormat.format_speed(_get_exit_speed_mps())]
-	var text_size := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE)
+	var text_size := font.get_string_size(
+		text, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
+	)
 
 	var layout_size := font.get_string_size(
 		SPEED_LABEL_LAYOUT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
@@ -650,18 +668,21 @@ func _draw_launch_speed() -> void:
 	)
 
 	# Setinha de vetor sobre o "v", no espaço livre acima das minúsculas.
-	var symbol_left := baseline.x + font.get_string_size(
-		prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
-	).x
-	var symbol_width := font.get_string_size(
-		symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE
-	).x
+	var symbol_left := (
+		baseline.x
+		+ font.get_string_size(prefix, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE).x
+	)
+	var symbol_width := (
+		font.get_string_size(symbol, HORIZONTAL_ALIGNMENT_LEFT, -1, SPEED_LABEL_FONT_SIZE).x
+	)
 	var mark_y := baseline.y - ascent + SPEED_VECTOR_MARK_HEAD
 	var mark_start := Vector2(symbol_left, mark_y)
 	var mark_end := Vector2(symbol_left + symbol_width, mark_y)
 	var head := SPEED_VECTOR_MARK_HEAD
 	draw_line(mark_start, mark_end, arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
-	draw_line(mark_end, mark_end + Vector2(-head, -head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
+	draw_line(
+		mark_end, mark_end + Vector2(-head, -head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true
+	)
 	draw_line(mark_end, mark_end + Vector2(-head, head), arrow_color, SPEED_VECTOR_MARK_WIDTH, true)
 	draw_set_transform(Vector2.ZERO)
 

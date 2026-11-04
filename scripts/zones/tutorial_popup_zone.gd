@@ -111,9 +111,10 @@ func _hide_popup() -> void:
 	_kill_tween()
 	_tween = create_tween()
 	_tween.tween_property(_panel, "modulate:a", 0.0, ANIM_DURATION)
-	_tween.tween_callback(func() -> void:
-		_panel.visible = false
-		_anim_player.stop()
+	_tween.tween_callback(
+		func() -> void:
+			_panel.visible = false
+			_anim_player.stop()
 	)
 
 

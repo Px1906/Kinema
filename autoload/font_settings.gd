@@ -36,6 +36,7 @@ var caption: int = 16
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
+
 ## Returns [param base] × [member scale], clamped to at least 1.
 func scaled(base: int) -> int:
 	return maxi(roundi(base * scale), 1)

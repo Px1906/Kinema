@@ -225,7 +225,9 @@ func _on_qte_started(barrier: QteBarrier) -> void:
 	_qte_anim_offset_from = _qte_offset
 	_qte_anim_offset_to = Vector2.ZERO
 	if is_instance_valid(target) and is_instance_valid(_qte_barrier):
-		_qte_anim_offset_to = (_qte_barrier.global_position - target.global_position) * QTE_OFFSET_FACTOR
+		_qte_anim_offset_to = (
+			(_qte_barrier.global_position - target.global_position) * QTE_OFFSET_FACTOR
+		)
 	_qte_anim_start_msec = Time.get_ticks_msec()
 	_qte_anim_active = true
 	_knob_last_notch = -1

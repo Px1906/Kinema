@@ -165,12 +165,22 @@ func _animate_out() -> void:
 	var speed := _get_tween_speed()
 	_exit_tween = create_tween().set_parallel(true)
 	_exit_tween.set_speed_scale(speed)
-	_exit_tween.tween_property(_question_label, "position:y",
-		_question_label.position.y - q_exit, exit_duration)\
-		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-	_exit_tween.tween_property(_buttons_container, "position:y",
-		_buttons_container.position.y + b_exit, exit_duration)\
-		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	(
+		_exit_tween
+		. tween_property(
+			_question_label, "position:y", _question_label.position.y - q_exit, exit_duration
+		)
+		. set_ease(Tween.EASE_IN)
+		. set_trans(Tween.TRANS_BACK)
+	)
+	(
+		_exit_tween
+		. tween_property(
+			_buttons_container, "position:y", _buttons_container.position.y + b_exit, exit_duration
+		)
+		. set_ease(Tween.EASE_IN)
+		. set_trans(Tween.TRANS_BACK)
+	)
 	_exit_tween.tween_property(_vignette, "modulate:a", 0.0, exit_duration)
 	_exit_tween.finished.connect(_hide_overlay)
 
@@ -200,10 +210,18 @@ func _animate_reaction(end_scale: float) -> void:
 	var end := Vector2.ONE * end_scale
 	_reaction_tween = create_tween()
 	_reaction_tween.set_speed_scale(speed)
-	_reaction_tween.tween_property(_reward_sprite, "scale", end, reaction_zoom_duration)\
-		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	_reaction_tween.parallel().tween_property(_reward_sprite, "modulate:a", 0.0, reaction_zoom_duration)\
-		.set_delay(reaction_zoom_duration * reaction_fade_start)
+	(
+		_reaction_tween
+		. tween_property(_reward_sprite, "scale", end, reaction_zoom_duration)
+		. set_ease(Tween.EASE_OUT)
+		. set_trans(Tween.TRANS_QUAD)
+	)
+	(
+		_reaction_tween
+		. parallel()
+		. tween_property(_reward_sprite, "modulate:a", 0.0, reaction_zoom_duration)
+		. set_delay(reaction_zoom_duration * reaction_fade_start)
+	)
 	_reaction_tween.finished.connect(_on_reaction_finished)
 
 
@@ -267,12 +285,20 @@ func _animate_in() -> void:
 	var tween := create_tween().set_parallel(true)
 	tween.set_speed_scale(speed)
 	tween.tween_property(_vignette, "modulate:a", vignette_intensity, anim_duration)
-	tween.tween_property(_question_label, "position:y", _question_base_y, anim_duration)\
-		.from(_question_base_y - anim_slide_offset)\
-		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(_buttons_container, "position:y", _buttons_base_y, anim_duration)\
-		.from(_buttons_base_y + anim_slide_offset)\
-		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	(
+		tween
+		. tween_property(_question_label, "position:y", _question_base_y, anim_duration)
+		. from(_question_base_y - anim_slide_offset)
+		. set_ease(Tween.EASE_OUT)
+		. set_trans(Tween.TRANS_BACK)
+	)
+	(
+		tween
+		. tween_property(_buttons_container, "position:y", _buttons_base_y, anim_duration)
+		. from(_buttons_base_y + anim_slide_offset)
+		. set_ease(Tween.EASE_OUT)
+		. set_trans(Tween.TRANS_BACK)
+	)
 
 
 func _start_countdown() -> void:
@@ -284,12 +310,16 @@ func _start_countdown() -> void:
 	_kill_exit_tween()
 	_exit_tween = create_tween().set_parallel(true)
 	_exit_tween.set_speed_scale(speed)
-	_exit_tween.tween_property(_question_label, "position:y",
-		_question_base_y - q_slide, qte_duration)\
-		.set_delay(anim_duration)
-	_exit_tween.tween_property(_buttons_container, "position:y",
-		_buttons_base_y + b_slide, qte_duration)\
-		.set_delay(anim_duration)
+	(
+		_exit_tween
+		. tween_property(_question_label, "position:y", _question_base_y - q_slide, qte_duration)
+		. set_delay(anim_duration)
+	)
+	(
+		_exit_tween
+		. tween_property(_buttons_container, "position:y", _buttons_base_y + b_slide, qte_duration)
+		. set_delay(anim_duration)
+	)
 
 
 func _get_tween_speed() -> float:

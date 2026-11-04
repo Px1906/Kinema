@@ -34,7 +34,9 @@ func _ready() -> void:
 
 
 func _apply_font_sizes() -> void:
-	$MarginContainer/VBoxContainer/TitleLabel.add_theme_font_size_override("font_size", FontSettings.ui_title)
+	$MarginContainer/VBoxContainer/TitleLabel.add_theme_font_size_override(
+		"font_size", FontSettings.ui_title
+	)
 	FontSettings.apply(_previous_button, FontSettings.ui_subtitle)
 	FontSettings.apply(_next_button, FontSettings.ui_subtitle)
 	FontSettings.apply(_back_button, FontSettings.ui_button)
@@ -100,7 +102,9 @@ func _make_card(index: int) -> Control:
 		button.pressed.connect(_start_level.bind(level.path))
 	else:
 		button.disabled = true
-		button.tooltip_text = "Cena não encontrada: %s" % (level.path if level != null else "(vazio)")
+		button.tooltip_text = (
+			"Cena não encontrada: %s" % (level.path if level != null else "(vazio)")
+		)
 	card.add_child(button)
 	_card_buttons.append(button)
 

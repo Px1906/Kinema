@@ -34,8 +34,7 @@ func save_progress(progress: Dictionary) -> bool:
 		return false
 
 	var rename_error: Error = DirAccess.rename_absolute(
-		ProjectSettings.globalize_path(TEMP_SAVE_PATH),
-		ProjectSettings.globalize_path(SAVE_PATH)
+		ProjectSettings.globalize_path(TEMP_SAVE_PATH), ProjectSettings.globalize_path(SAVE_PATH)
 	)
 	if rename_error != OK:
 		_remove_temporary_save()

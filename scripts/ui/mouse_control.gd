@@ -91,12 +91,8 @@ func _apply_launch_vector() -> void:
 	var speed := minf(vector.length() * speed_factor, max_speed)
 	player.set_launch_parameters(speed, angle)
 
-	var sn := KnobNotch.next(
-		_get_speed_notch_position(), _last_speed_notch, _is_speed_at_limit()
-	)
-	var an := KnobNotch.next(
-		_get_angle_notch_position(), _last_angle_notch, _is_angle_at_limit()
-	)
+	var sn := KnobNotch.next(_get_speed_notch_position(), _last_speed_notch, _is_speed_at_limit())
+	var an := KnobNotch.next(_get_angle_notch_position(), _last_angle_notch, _is_angle_at_limit())
 	if (sn != _last_speed_notch or an != _last_angle_notch) and _last_speed_notch >= 0:
 		if knob_sound != null:
 			SFXPool.play_random_pitch(knob_sound, 0.95, 1.05, knob_volume_db)
@@ -126,4 +122,3 @@ func _is_angle_at_limit() -> bool:
 
 func _on_player_state_changed(_new_state) -> void:
 	_dragging = false
-

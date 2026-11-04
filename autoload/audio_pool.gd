@@ -22,5 +22,7 @@ func play(stream: AudioStream, volume_db := 0.0, pitch_scale := 1.0) -> void:
 	player.play()
 
 
-func play_random_pitch(stream: AudioStream, min_pitch := 0.9, max_pitch := 1.1, volume_db := 0.0) -> void:
+func play_random_pitch(
+	stream: AudioStream, min_pitch := 0.9, max_pitch := 1.1, volume_db := 0.0
+) -> void:
 	play(stream, volume_db, randf_range(min_pitch, max_pitch))

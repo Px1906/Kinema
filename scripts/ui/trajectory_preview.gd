@@ -61,9 +61,7 @@ func _cache_physics_parameters() -> void:
 	var gravity_direction: Vector2 = ProjectSettings.get_setting(
 		"physics/2d/default_gravity_vector"
 	)
-	var gravity_strength: float = float(
-		ProjectSettings.get_setting("physics/2d/default_gravity")
-	)
+	var gravity_strength: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 	_gravity = gravity_direction * gravity_strength
 	var physics_ticks_per_second: float = float(
 		ProjectSettings.get_setting("physics/common/physics_ticks_per_second")

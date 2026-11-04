@@ -55,7 +55,10 @@ func _sync_sliders() -> void:
 
 func _sync_window_label() -> void:
 	var mode := DisplayServer.window_get_mode()
-	var is_fullscreen := mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	var is_fullscreen := (
+		mode == DisplayServer.WINDOW_MODE_FULLSCREEN
+		or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	)
 	_window_button.text = "Window: Fullscreen" if is_fullscreen else "Window: Windowed"
 
 
@@ -65,7 +68,10 @@ func _on_volume_changed(value: float, bus_name: StringName) -> void:
 
 func _on_window_toggled() -> void:
 	var mode := DisplayServer.window_get_mode()
-	var is_fullscreen := mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	var is_fullscreen := (
+		mode == DisplayServer.WINDOW_MODE_FULLSCREEN
+		or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	)
 	if is_fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	else:
