@@ -245,7 +245,7 @@ position = Vector2(576, -400)
 position = Vector2(1584, -416)
 
 [node name="CheckpointZone9" parent="Level/Zones/Checkpoints" index="7" unique_id=1087730468 instance=ExtResource("6_checkpoint")]
-position = Vector2(1696, -240)
+position = Vector2(1792, -240)
 
 [node name="CheckpointZone10" parent="Level/Zones/Checkpoints" index="8" unique_id=144380188 instance=ExtResource("6_checkpoint")]
 position = Vector2(4160, 496)
@@ -541,7 +541,7 @@ position = Vector2(1760, -210)
 popup_id = "queda"
 
 [node name="CollisionShape2D" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="0" unique_id=1560653708]
-position = Vector2(-64, -46)
+position = Vector2(32, -46)
 
 [node name="DisplayAnchor" parent="Level/Zones/TutorialZone/TutorialPopupZone12" index="1" unique_id=1892405122]
 position = Vector2(288, -38)
