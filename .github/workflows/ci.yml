@@ -24,12 +24,12 @@ jobs:
     name: Importar projeto no Godot
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.6.3
     steps:
       - uses: actions/checkout@v4
         with:
           lfs: true
       - name: Importar recursos
-        run: godot --headless --import --path . || true
+        run: godot --headless --import --path .
       - name: Verificar scripts
         run: godot --headless --path . --script tools/check_scripts.gd
