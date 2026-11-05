@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://di0sftiueitor"]
+
+[ext_resource type="PackedScene" path="res://scenes/levels/base_level.tscn" id="1_base_level"]
+[ext_resource type="Texture2D" uid="uid://bx17wn2tm220y" path="res://assets/sprites/Sprite-Animacoes/Background/Kinema_Background.png" id="2_background"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bounce"]
+bounce = 0.55
+
+[node name="FaseNova" unique_id=1625822881 instance=ExtResource("1_base_level")]
+
+[node name="Player" parent="." index="0"]
+position = Vector2(0, 576)
+physics_material_override = SubResource("PhysicsMaterial_bounce")
+angular_damp = 0.1
+fator_velocidade_lancamento = 0.5
+
+[node name="UI" parent="Interface" index="0"]
+visible = false
+
+[node name="AttemptResultPanel" parent="Interface" index="1"]
+visible = false
+
+[node name="QteOverlay" parent="Interface" index="2"]
+visible = false
+
+[node name="PauseMenu" parent="Interface" index="3"]
+visible = false
+
+[node name="HeightReference" parent="Level" index="0"]
+position = Vector2(0, 592)
+
+[node name="Background" type="Sprite2D" parent="Level" index="1" unique_id=1281893063]
+modulate = Color(1, 1, 1, 0.83137256)
+z_index = -100
+texture_repeat = 2
+position = Vector2(-160, -1024)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_background")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="GoalZone" parent="Level/Zones" index="2"]
+position = Vector2(1024, 480)
+
+[node name="LevelBounds" parent="Level" index="6"]
+offset_left = -256.0
+offset_top = -512.0
+offset_right = 1536.0
+metadata/_edit_lock_ = true
