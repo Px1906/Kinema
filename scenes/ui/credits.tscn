@@ -43,7 +43,23 @@ layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="MembersBox" type="VBoxContainer" parent="Content/Scroll"]
+[node name="ScrollContent" type="VBoxContainer" parent="Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="MembersBox" type="VBoxContainer" parent="Content/Scroll/ScrollContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="ThanksTitle" type="Label" parent="Content/Scroll/ScrollContent"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menção Especial"
+
+[node name="ThanksBox" type="VBoxContainer" parent="Content/Scroll/ScrollContent"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

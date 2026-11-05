@@ -51,6 +51,9 @@ func _apply_font_sizes() -> void:
 	_restart_panel.get_node("Title").add_theme_font_size_override(
 		"font_size", FontSettings.ui_subtitle
 	)
+	FontSettings.apply(_restart_full_button, FontSettings.ui_button)
+	FontSettings.apply(_restart_checkpoint_button, FontSettings.ui_button)
+	FontSettings.apply(_restart_back_button, FontSettings.ui_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:

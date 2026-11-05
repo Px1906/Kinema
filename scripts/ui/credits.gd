@@ -16,10 +16,10 @@ const MEMBER_FONT_SIZE := 22
 ## One line per member, for example "Name — role". Edit the list in the Inspector.
 @export var members: PackedStringArray = PackedStringArray(
 	[
-		"Sérgio de Paiva — Função",
-		"Cleyton Ramsay — Função",
-		"Mário Bernardo — Função",
-		"Gustavo Mendonça — Função",
+		"Sérgio de Paiva — Game Designer & Programador",
+		"Cleyton Ramsay — Game Designer & Programador",
+		"Mário Bernardo — Artista",
+		"Gustavo Mendonça — UI & Level Design",
 	]
 )
 

@@ -65,6 +65,7 @@ func _open_credits() -> void:
 	_credits.closed.connect(_on_credits_closed)
 	_logo.hide()
 	_menu_box.hide()
+	_credits_button.hide()
 	add_child(_credits)
 
 
@@ -72,4 +73,5 @@ func _on_credits_closed() -> void:
 	_credits.queue_free()
 	_logo.show()
 	_menu_box.show()
+	_credits_button.show()
 	_credits_button.grab_focus()

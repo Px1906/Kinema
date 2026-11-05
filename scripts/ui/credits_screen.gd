@@ -14,6 +14,8 @@ const CREDITS_PATH := "res://resources/credits.json"
 @onready var _context_label: Label = %ContextLabel
 @onready var _members_title: Label = %MembersTitle
 @onready var _members_box: VBoxContainer = %MembersBox
+@onready var _thanks_title: Label = %ThanksTitle
+@onready var _thanks_box: VBoxContainer = %ThanksBox
 @onready var _back_button: Button = %BackButton
 
 
@@ -28,6 +30,7 @@ func _apply_font_sizes() -> void:
 	FontSettings.apply(_title_label, FontSettings.ui_title)
 	FontSettings.apply(_context_label, FontSettings.ui_body)
 	FontSettings.apply(_members_title, FontSettings.ui_subtitle)
+	FontSettings.apply(_thanks_title, FontSettings.ui_subtitle)
 	FontSettings.apply(_back_button, FontSettings.ui_button)
 
 
@@ -53,6 +56,17 @@ func _fill(data: Dictionary) -> void:
 	for member: Variant in members:
 		if member is Dictionary:
 			_members_box.add_child(_make_member_label(member))
+
+	for child in _thanks_box.get_children():
+		_thanks_box.remove_child(child)
+		child.queue_free()
+
+	var thanks: Array = data.get("special_thanks", [])
+	_thanks_title.visible = not thanks.is_empty()
+	_thanks_box.visible = not thanks.is_empty()
+	for person: Variant in thanks:
+		if person is Dictionary:
+			_thanks_box.add_child(_make_member_label(person))
 
 
 func _make_member_label(member: Dictionary) -> Label:
