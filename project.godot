@@ -27,13 +27,13 @@ MusicManager="*res://autoload/music_manager.gd"
 SFXPool="*res://autoload/sfx_pool.gd"
 UIAudio="*res://autoload/ui_audio.gd"
 FontSettings="*res://autoload/font_settings.gd"
+GameSettings="*res://autoload/game_settings.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
 
 [gui]
 

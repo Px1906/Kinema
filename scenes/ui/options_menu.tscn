@@ -127,6 +127,12 @@ theme_override_styles/grabber_area = SubResource("StyleBoxTexture_trilho")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_trilho")
 value = 100.0
 
+[node name="SeriousModeCheck" type="CheckBox" parent="." unique_id=2001]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Modo Sério (sem GIFs)"
+
 [node name="WindowButton" type="Button" parent="." unique_id=76963056]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 141)
