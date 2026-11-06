@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bx8it4li4smrg"]
 
 [ext_resource type="Script" uid="uid://bhnkoep086j3v" path="res://scripts/levels/level_controller.gd" id="1_level_controller"]
 [ext_resource type="PackedScene" uid="uid://b73wjf3pct1d3" path="res://scenes/entities/player.tscn" id="2_player"]
@@ -6,15 +6,15 @@
 [ext_resource type="Script" uid="uid://bbox2e5hvj7e5" path="res://scripts/gameplay/launch_input_controller.gd" id="4_launch_input"]
 [ext_resource type="Script" uid="uid://bikg4qq6euwlh" path="res://scripts/ui/trajectory_preview.gd" id="5_trajectory_preview"]
 [ext_resource type="Script" uid="uid://dbtiyy8up8knr" path="res://scripts/ui/mouse_control.gd" id="6_mouse_control"]
-[ext_resource type="PackedScene" path="res://scenes/ui/level_ui.tscn" id="7_level_ui"]
-[ext_resource type="PackedScene" path="res://scenes/ui/attempt_result_panel.tscn" id="8_result_panel"]
-[ext_resource type="PackedScene" path="res://scenes/ui/qte_overlay.tscn" id="9_qte_overlay"]
-[ext_resource type="Script" path="res://scripts/levels/height_reference.gd" id="10_height_reference"]
-[ext_resource type="PackedScene" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
-[ext_resource type="Script" path="res://scripts/gameplay/audio_controller.gd" id="12_audio_controller"]
-[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="13_pause_menu"]
+[ext_resource type="PackedScene" uid="uid://bpct0q5hf50ng" path="res://scenes/ui/level_ui.tscn" id="7_level_ui"]
+[ext_resource type="PackedScene" uid="uid://bh2qrbd8xlijp" path="res://scenes/ui/attempt_result_panel.tscn" id="8_result_panel"]
+[ext_resource type="PackedScene" uid="uid://obid8vkxqq6a" path="res://scenes/ui/qte_overlay.tscn" id="9_qte_overlay"]
+[ext_resource type="PackedScene" uid="uid://mp8mh80do3rb" path="res://scenes/zones/goal_zone.tscn" id="11_goal_zone"]
+[ext_resource type="Script" uid="uid://crm1x2uevpniq" path="res://scripts/gameplay/audio_controller.gd" id="12_audio_controller"]
+[ext_resource type="PackedScene" uid="uid://bh3ag3n7whl32" path="res://scenes/gameplay/height_reference.tscn" id="12_bd4s6"]
+[ext_resource type="PackedScene" uid="uid://dht68mux37k45" path="res://scenes/ui/pause_menu.tscn" id="13_pause_menu"]
 
-[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel", "pause_menu")]
+[node name="BaseLevel" type="Node2D" unique_id=937783392 node_paths=PackedStringArray("bounds_rect", "goal_zone", "camera", "player", "result_panel", "pause_menu")]
 script = ExtResource("1_level_controller")
 bounds_rect = NodePath("Level/LevelBounds")
 goal_zone = NodePath("Level/Zones/GoalZone")
@@ -23,76 +23,75 @@ player = NodePath("Player")
 result_panel = NodePath("Interface/AttemptResultPanel")
 pause_menu = NodePath("Interface/PauseMenu")
 
-[node name="Player" parent="." instance=ExtResource("2_player")]
+[node name="Player" parent="." unique_id=489822583 instance=ExtResource("2_player")]
 
-[node name="Camera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_follow_camera")]
+[node name="Camera" parent="." unique_id=2101387639 node_paths=PackedStringArray("target") instance=ExtResource("3_follow_camera")]
 target = NodePath("../Player")
 
-[node name="Gameplay" type="Node" parent="."]
+[node name="Gameplay" type="Node" parent="." unique_id=1070003985]
 
-[node name="LaunchInputController" type="Node" parent="Gameplay" node_paths=PackedStringArray("player")]
+[node name="LaunchInputController" type="Node" parent="Gameplay" unique_id=250554350 node_paths=PackedStringArray("player")]
 script = ExtResource("4_launch_input")
 player = NodePath("../../Player")
 
-[node name="TrajectoryPreview" type="Node2D" parent="Gameplay" node_paths=PackedStringArray("player")]
+[node name="TrajectoryPreview" type="Node2D" parent="Gameplay" unique_id=2116730126 node_paths=PackedStringArray("player")]
 z_index = 1
 script = ExtResource("5_trajectory_preview")
 player = NodePath("../../Player")
 
-[node name="MouseControlArea" type="Control" parent="Gameplay" node_paths=PackedStringArray("player", "launch_controller")]
+[node name="MouseControlArea" type="Control" parent="Gameplay" unique_id=564491744 node_paths=PackedStringArray("player", "launch_controller")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("6_mouse_control")
 player = NodePath("../../Player")
 launch_controller = NodePath("../LaunchInputController")
 
-[node name="AudioController" type="Node" parent="Gameplay" node_paths=PackedStringArray("player", "level_controller", "goal_zone")]
+[node name="AudioController" type="Node" parent="Gameplay" unique_id=1382986202 node_paths=PackedStringArray("player", "level_controller", "goal_zone")]
 script = ExtResource("12_audio_controller")
 player = NodePath("../../Player")
 level_controller = NodePath("../..")
 goal_zone = NodePath("../../Level/Zones/GoalZone")
 
-[node name="Interface" type="Node" parent="."]
+[node name="Interface" type="Node" parent="." unique_id=1933421280]
 
-[node name="UI" parent="Interface" node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("7_level_ui")]
+[node name="UI" parent="Interface" unique_id=1846282320 node_paths=PackedStringArray("player", "launch_controller", "camera") instance=ExtResource("7_level_ui")]
 player = NodePath("../../Player")
 launch_controller = NodePath("../../Gameplay/LaunchInputController")
 camera = NodePath("../../Camera")
 
-[node name="AttemptResultPanel" parent="Interface" instance=ExtResource("8_result_panel")]
+[node name="AttemptResultPanel" parent="Interface" unique_id=896450616 instance=ExtResource("8_result_panel")]
 
-[node name="QteOverlay" parent="Interface" node_paths=PackedStringArray("player") instance=ExtResource("9_qte_overlay")]
+[node name="QteOverlay" parent="Interface" unique_id=1534842032 node_paths=PackedStringArray("player") instance=ExtResource("9_qte_overlay")]
 player = NodePath("../../Player")
 
-[node name="PauseMenu" parent="Interface" instance=ExtResource("13_pause_menu")]
+[node name="PauseMenu" parent="Interface" unique_id=322958662 instance=ExtResource("13_pause_menu")]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Node2D" parent="." unique_id=1134659481]
 
-[node name="HeightReference" type="Marker2D" parent="Level" node_paths=PackedStringArray("start_node")]
-script = ExtResource("10_height_reference")
+[node name="HeightReference" parent="Level" unique_id=415266378 node_paths=PackedStringArray("start_node") instance=ExtResource("12_bd4s6")]
 start_node = NodePath("../../Player")
 
-[node name="Surfaces" type="Node" parent="Level"]
+[node name="Surfaces" type="Node" parent="Level" unique_id=2041142648]
 
-[node name="Platforms" type="Node" parent="Level/Surfaces"]
+[node name="Platforms" type="Node" parent="Level/Surfaces" unique_id=1004037926]
 
-[node name="Walls" type="Node" parent="Level/Surfaces"]
+[node name="Walls" type="Node" parent="Level/Surfaces" unique_id=284480007]
 
-[node name="Zones" type="Node" parent="Level"]
+[node name="Zones" type="Node" parent="Level" unique_id=114830202]
 
-[node name="Checkpoints" type="Node" parent="Level/Zones"]
+[node name="Checkpoints" type="Node" parent="Level/Zones" unique_id=25184384]
 
-[node name="Spikes" type="Node" parent="Level/Zones"]
+[node name="Spikes" type="Node" parent="Level/Zones" unique_id=54163161]
 
-[node name="GoalZone" parent="Level/Zones" instance=ExtResource("11_goal_zone")]
+[node name="GoalZone" parent="Level/Zones" unique_id=1953443694 instance=ExtResource("11_goal_zone")]
 
-[node name="Ropes" type="Node" parent="Level"]
+[node name="Ropes" type="Node" parent="Level" unique_id=1556584376]
 
-[node name="QteBarriers" type="Node" parent="Level"]
+[node name="QteBarriers" type="Node" parent="Level" unique_id=2039722261]
 
-[node name="LevelBounds" type="ReferenceRect" parent="Level"]
-mouse_filter = 2
+[node name="LevelBounds" type="ReferenceRect" parent="Level" unique_id=444403939]
 offset_right = 1280.0
 offset_bottom = 720.0
+mouse_filter = 2
 border_color = Color(0.2, 0.9, 1, 0.9)
 border_width = 2.0

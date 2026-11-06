@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bh3ag3n7whl32"]
+
+[ext_resource type="Script" uid="uid://b2cpn7eqot6rd" path="res://scripts/levels/height_reference.gd" id="1_qxufg"]
+[ext_resource type="Texture2D" uid="uid://opna5bkowtw4" path="res://assets/sprites/Sprite-Animacoes/Objetos/eixo/eixo_frame_01.png" id="2_qnwab"]
+[ext_resource type="Texture2D" uid="uid://7x560t1tb5t8" path="res://assets/sprites/Sprite-Animacoes/Objetos/eixo/eixo_frame_02.png" id="3_ek72b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buxm4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qnwab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ek72b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HeightReference" type="Marker2D" unique_id=415266378]
+script = ExtResource("1_qxufg")
+metadata/_custom_type_script = "uid://b2cpn7eqot6rd"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=590814450]
+position = Vector2(-12, -7)
+scale = Vector2(0.93666667, 0.81333345)
+sprite_frames = SubResource("SpriteFrames_buxm4")
+autoplay = "default"
+frame_progress = 0.9238104
