@@ -68,7 +68,8 @@ player = NodePath("../../Player")
 
 [node name="Level" type="Node2D" parent="." unique_id=1134659481]
 
-[node name="HeightReference" parent="Level" unique_id=415266378 instance=ExtResource("12_bd4s6")]
+[node name="HeightReference" parent="Level" unique_id=415266378 node_paths=PackedStringArray("start_node") instance=ExtResource("12_bd4s6")]
+start_node = NodePath("../../Player")
 
 [node name="Surfaces" type="Node" parent="Level" unique_id=2041142648]
 
