@@ -1,14 +1,15 @@
 class_name CreditsScreen
 extends Control
 ## Tela de créditos (RF30): contexto do projeto e integrantes da equipe.
-## Abre como painel sobre o menu principal, igual ao OptionsMenu: o MainMenu instancia
-## a cena, esconde o logo e o menu, e restaura tudo ao receber closed.
+## Cena própria: o botão Credits do MainMenu troca para ela, e Voltar/Esc trocam de
+## volta para main_menu_scene_path.
 ## O conteúdo vem de CREDITS_PATH, então trocar nomes e funções não exige mexer na
 ## cena nem neste script. As cores vêm do tema global.
 
-signal closed
-
 const CREDITS_PATH := "res://resources/credits.json"
+
+## Scene opened by the Back button and by Esc.
+@export_file("*.tscn") var main_menu_scene_path: String = "res://scenes/ui/main_menu.tscn"
 
 @onready var _title_label: Label = %TitleLabel
 @onready var _context_label: Label = %ContextLabel
@@ -32,13 +33,13 @@ func _apply_font_sizes() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_visible_in_tree() and event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
 
 
 func close() -> void:
-	closed.emit()
+	SceneLoader.go_to(get_tree(), main_menu_scene_path)
 
 
 func _fill(data: Dictionary) -> void:

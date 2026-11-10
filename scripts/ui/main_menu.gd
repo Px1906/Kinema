@@ -3,12 +3,10 @@ extends Control
 
 const MENU_MUSIC := preload("res://audio/music/menu-music.ogg")
 
-const CREDITS_SCENE := preload("res://scenes/ui/credits.tscn")
-
 ## Scene opened by the Play button (the level selector).
 @export_file("*.tscn") var level_select_scene_path: String = "res://scenes/ui/level_select.tscn"
-
-var _credits: CreditsScreen
+## Scene opened by the Credits button.
+@export_file("*.tscn") var credits_scene_path: String = "res://scenes/ui/credits.tscn"
 
 @onready var _logo: TextureRect = %LogoTexture
 @onready var _menu_box: Control = %MenuBox
@@ -61,15 +59,4 @@ func _on_quit_pressed() -> void:
 
 
 func _open_credits() -> void:
-	_credits = CREDITS_SCENE.instantiate() as CreditsScreen
-	_credits.closed.connect(_on_credits_closed)
-	_logo.hide()
-	_menu_box.hide()
-	add_child(_credits)
-
-
-func _on_credits_closed() -> void:
-	_credits.queue_free()
-	_logo.show()
-	_menu_box.show()
-	_credits_button.grab_focus()
+	SceneLoader.go_to(get_tree(), credits_scene_path)
