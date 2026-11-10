@@ -1,7 +1,29 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/credits_screen.gd" id="1_credits"]
 [ext_resource type="Texture2D" uid="uid://q80uhkiqyr3x" path="res://assets/ui/papel_amassado.jpg" id="2_paper"]
+[ext_resource type="Script" uid="uid://cu27f5tcf458q" path="res://scripts/ui/animated_style_button.gd" id="3_anim_style"]
+[ext_resource type="Texture2D" uid="uid://dmk0he74rh0a1" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_01.png" id="4_grande1"]
+[ext_resource type="Texture2D" uid="uid://dh5y0aaw6a1sl" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_02.png" id="5_grande2"]
+[ext_resource type="Texture2D" uid="uid://cgwr485sbrafe" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_03.png" id="6_grande3"]
+[ext_resource type="Texture2D" uid="uid://pdnh2g5rhoew" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/normal/frame_04.png" id="7_grande4"]
+[ext_resource type="Texture2D" uid="uid://bwhrphkp64260" path="res://assets/sprites/Sprite-Animacoes/UI/botao_grande/apertado/frame_01.png" id="8_grande_pressed"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_back_normal"]
+texture = ExtResource("7_grande4")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_back_pressed"]
+texture = ExtResource("8_grande_pressed")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_back_focus"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -27,13 +49,14 @@ stretch_mode = 6
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.08
-anchor_right = 0.85
-anchor_bottom = 0.92
+anchor_left = 0.06
+anchor_top = 0.04
+anchor_right = 0.94
+anchor_bottom = 0.98
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 28
+alignment = 1
 
 [node name="TitleLabel" type="Label" parent="Content"]
 unique_name_in_owner = true
@@ -41,29 +64,36 @@ layout_mode = 2
 text = "Créditos"
 horizontal_alignment = 1
 
-[node name="ContextLabel" type="Label" parent="Content"]
-unique_name_in_owner = true
-layout_mode = 2
-autowrap_mode = 3
-
 [node name="MembersTitle" type="Label" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Integrantes"
+text = "Equipe"
+horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Content"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="MembersBox" type="VBoxContainer" parent="Content/Scroll"]
+[node name="MembersBox" type="HFlowContainer" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 6
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 32
+alignment = 1
 
 [node name="BackButton" type="Button" parent="Content"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(198.6, 116.4)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_back_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_back_pressed")
+theme_override_styles/hover = SubResource("StyleBoxTexture_back_normal")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_back_normal")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_back_focus")
 text = "Voltar"
+script = ExtResource("3_anim_style")
+normal_frames = Array[Texture2D]([ExtResource("4_grande1"), ExtResource("5_grande2"), ExtResource("6_grande3"), ExtResource("7_grande4")])
+pressed_frame = ExtResource("8_grande_pressed")
+sprite_scale = 0.6
