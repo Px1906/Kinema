@@ -24,6 +24,7 @@ func _ready() -> void:
 	_back_button.pressed.connect(close)
 	_fill(_load_credits())
 	_back_button.grab_focus()
+	LocaleManager.locale_changed.connect(_on_locale_changed)
 
 
 func _apply_font_sizes() -> void:
@@ -42,6 +43,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func close() -> void:
 	closed.emit()
+
+
+func _on_locale_changed(_locale: String) -> void:
+	_fill(_load_credits())
 
 
 func _fill(data: Dictionary) -> void:

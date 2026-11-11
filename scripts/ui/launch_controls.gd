@@ -60,6 +60,11 @@ func _ready() -> void:
 	_last_speed_notch = floori(_get_speed_notch_position())
 	_last_angle_notch = floori(_get_angle_notch_position())
 	FontSettings.apply(_launch_button, FontSettings.hud)
+	LocaleManager.locale_changed.connect(_on_locale_changed)
+
+
+func _on_locale_changed(_locale: String) -> void:
+	_on_player_params_changed(player.launch_speed, player.launch_angle_degrees)
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:

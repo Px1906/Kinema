@@ -1,5 +1,7 @@
 extends Node
 
+signal locale_changed(locale: String)
+
 const LOCALES: Array[String] = ["pt", "en", "es"]
 const LOCALE_LABELS: Dictionary = {
 	"pt": "Português",
@@ -18,6 +20,7 @@ func _ready() -> void:
 func set_locale(locale: String) -> void:
 	TranslationServer.set_locale(locale)
 	GameSettings.set_locale(locale)
+	locale_changed.emit(locale)
 
 
 func get_locale() -> String:

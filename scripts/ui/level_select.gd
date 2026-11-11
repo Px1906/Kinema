@@ -31,6 +31,7 @@ func _ready() -> void:
 	_next_button.pressed.connect(_change_page.bind(1))
 	_show_page()
 	_focus_first_card()
+	LocaleManager.locale_changed.connect(_on_locale_changed)
 
 
 func _apply_font_sizes() -> void:
@@ -143,6 +144,10 @@ func _focus_first_card() -> void:
 
 func _start_level(path: String) -> void:
 	SceneLoader.go_to(get_tree(), path)
+
+
+func _on_locale_changed(_locale: String) -> void:
+	_show_page()
 
 
 func _go_back() -> void:
