@@ -20,7 +20,7 @@ var ui_subtitle: int = 39
 var ui_body: int = 33
 
 ## Button labels — main menu, pause menu, options menu buttons.
-var ui_button: int = 33
+var ui_button: int = 36
 
 ## Tutorial/info popup text.
 var popup: int = 28

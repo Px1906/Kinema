@@ -17,6 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Kinema"
 run/main_scene="uid://cx5ymhkbcvmpt"
 config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="uid://bmca326shmupp"
 
 [autoload]
 
@@ -28,6 +29,7 @@ SFXPool="*res://autoload/sfx_pool.gd"
 UIAudio="*res://autoload/ui_audio.gd"
 FontSettings="*res://autoload/font_settings.gd"
 GameSettings="*res://autoload/game_settings.gd"
+LocaleManager="*res://autoload/locale_manager.gd"
 
 [display]
 

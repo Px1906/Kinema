@@ -1,12 +1,12 @@
 {
-	"context": "Kinema é um jogo educacional 2D que apoia o ensino de física, com foco em cinemática, para alunos do ensino médio e dos períodos iniciais de engenharia. O jogador lança uma bola definindo velocidade e ângulo, e resolve fases com cordas, barreiras de QTE e conservação de energia. Este jogo foi desenvolvido como projeto acadêmico.",
+	"context": "CREDITS_CONTEXT",
 	"members": [
-		{ "name": "Sérgio de Paiva", "role": "Game Designer & Programador" },
-		{ "name": "Cleyton Ramsay", "role": "Game Designer & Programador" },
-		{ "name": "Mário Bernardo", "role": "Artista" },
-		{ "name": "Gustavo Mendonça", "role": "UI & Level Design" }
+		{ "name": "Sérgio de Paiva", "role": "ROLE_GAME_DESIGNER_PROGRAMMER" },
+		{ "name": "Cleyton Ramsay", "role": "ROLE_GAME_DESIGNER_PROGRAMMER" },
+		{ "name": "Mário Bernardo", "role": "ROLE_ARTIST" },
+		{ "name": "Gustavo Mendonça", "role": "ROLE_UI_LEVEL_DESIGN" }
 	],
 	"special_thanks": [
-		{ "name": "Raquel", "role": "Líder do Projeto" }
+		{ "name": "Raquel", "role": "ROLE_PROJECT_LEAD" }
 	]
 }

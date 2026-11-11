@@ -38,6 +38,8 @@ func _ready() -> void:
 	if recenter_button == null:
 		return
 
+	FontSettings.apply(recenter_button, FontSettings.ui_button)
+
 	recenter_button.visible = false
 	if camera == null:
 		push_warning("LevelUI: assign the 'Camera' property to show the recenter button.")

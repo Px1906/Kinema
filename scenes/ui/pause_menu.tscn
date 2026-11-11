@@ -182,7 +182,7 @@ theme_override_constants/separation = 16
 
 [node name="Title" type="Label" parent="CenterContainer/MainPanel" unique_id=1376810166]
 layout_mode = 2
-text = "PAUSE"
+text = "PAUSE_TITLE"
 horizontal_alignment = 1
 
 [node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/MainPanel" unique_id=466272485]
@@ -204,7 +204,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_0q18a")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ukr1j")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_ukr1j")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_t6ppj")
-text = "Resume"
+text = "PAUSE_RESUME"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -223,7 +223,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_2nrdc")
 theme_override_styles/hover = SubResource("StyleBoxTexture_3xddx")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_3xddx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jj4cn")
-text = "Restart"
+text = "PAUSE_RESTART"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -263,7 +263,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_xabod")
 theme_override_styles/hover = SubResource("StyleBoxTexture_57h4f")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_57h4f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kkv1i")
-text = "Options"
+text = "PAUSE_OPTIONS"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -282,7 +282,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_ybc7j")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pb823")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_pb823")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_72dmp")
-text = "Exit"
+text = "PAUSE_EXIT"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -296,7 +296,7 @@ theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="CenterContainer/RestartPanel" unique_id=1262883665]
 layout_mode = 2
-text = "Restart"
+text = "RESTART_TITLE"
 horizontal_alignment = 1
 
 [node name="RestartFullButton" type="Button" parent="CenterContainer/RestartPanel" unique_id=995719658]
@@ -313,7 +313,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_g6xlc")
 theme_override_styles/hover = SubResource("StyleBoxTexture_yr4wm")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_yr4wm")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_g5kty")
-text = "Restart level"
+text = "RESTART_FULL"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -332,7 +332,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_0rxam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_tm0rn")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_tm0rn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_dfvc5")
-text = "Back to checkpoint"
+text = "RESTART_CHECKPOINT"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("24_grande1"), ExtResource("25_grande2"), ExtResource("26_grande3"), ExtResource("27_grande4")])
 pressed_frame = ExtResource("14_medio_pressed")
@@ -351,7 +351,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_jpji8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_rvu5y")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_rvu5y")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_68a5l")
-text = "Back"
+text = "BTN_BACK"
 script = ExtResource("9_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("10_medio1"), ExtResource("11_medio2"), ExtResource("12_medio3"), ExtResource("13_medio4")])
 pressed_frame = ExtResource("14_medio_pressed")

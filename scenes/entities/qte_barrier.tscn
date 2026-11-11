@@ -33,6 +33,8 @@ script = ExtResource("1_qte_barrier")
 shape = SubResource("RectangleShape2D_barrier")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BarrierShape" unique_id=1137455925]
+position = Vector2(0, 0.4999931)
+scale = Vector2(1, 1.1015624)
 sprite_frames = SubResource("SpriteFrames_i5vrg")
 
 [node name="TriggerArea" type="Area2D" parent="." unique_id=1973035704]

@@ -41,6 +41,12 @@ func show_popup(data: TutorialPopupData) -> void:
 		_anim_player.play()
 
 	_animate_in()
+	_reposition_panel.call_deferred()
+
+
+func _reposition_panel() -> void:
+	var min_height := _panel.get_combined_minimum_size().y
+	_panel.offset_top = _panel.offset_bottom - min_height
 
 
 func hide_popup() -> void:

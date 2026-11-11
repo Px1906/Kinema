@@ -45,7 +45,7 @@ func close() -> void:
 
 
 func _fill(data: Dictionary) -> void:
-	_context_label.text = data.get("context", "")
+	_context_label.text = tr(data.get("context", ""))
 	_context_label.visible = not _context_label.text.is_empty()
 
 	for child in _members_box.get_children():
@@ -71,7 +71,7 @@ func _fill(data: Dictionary) -> void:
 
 func _make_member_label(member: Dictionary) -> Label:
 	var member_name: String = member.get("name", "")
-	var role: String = member.get("role", "")
+	var role: String = tr(member.get("role", ""))
 
 	var label := Label.new()
 	label.text = member_name if role.is_empty() else "%s — %s" % [member_name, role]

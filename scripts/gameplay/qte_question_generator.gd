@@ -74,14 +74,14 @@ func _generate_fixed(template: Dictionary) -> Dictionary:
 		push_error("QteQuestionGenerator: pergunta fixa precisa de 3 alternativas: %s" % text)
 		return {}
 
-	var correct_answer := str(source[0])
+	var correct_answer := tr(str(source[0]))
 	var alternatives: Array[String] = []
 	for alternative: Variant in source:
-		alternatives.append(str(alternative))
+		alternatives.append(tr(str(alternative)))
 	alternatives.shuffle()
 
 	return {
-		"question": template.get("text", ""),
+		"question": tr(template.get("text", "")),
 		"alternatives": alternatives,
 		"correct_index": alternatives.find(correct_answer),
 		"show_attributes": template.get("show_attributes", false),
@@ -115,7 +115,7 @@ func _get_value(values: Dictionary, key: String) -> int:
 
 
 func _format_question_text(template: Dictionary, values: Dictionary) -> String:
-	var text: String = template.get("text", "")
+	var text: String = tr(template.get("text", ""))
 	if not template.has("hint_values"):
 		return text
 

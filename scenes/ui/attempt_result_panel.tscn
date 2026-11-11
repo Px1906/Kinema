@@ -82,7 +82,7 @@ theme_override_constants/separation = 12
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_rwwwb")
-text = "Resultado"
+text = "RESULT_TITLE"
 horizontal_alignment = 1
 
 [node name="MessageLabel" type="Label" parent="CenterContainer/Panel/Content" unique_id=755583251]
@@ -90,7 +90,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/line_spacing = 3
 theme_override_fonts/font = ExtResource("3_rwwwb")
-text = "Tentativa falha"
+text = "RESULT_DEFAULT_MSG"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -108,7 +108,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_nxaes")
 theme_override_styles/hover = SubResource("StyleBoxTexture_rwwwb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_rwwwb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_aji5f")
-text = "Tentar de novo"
+text = "BTN_RETRY"
 script = ExtResource("2_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
 pressed_frame = ExtResource("7_medio_pressed")
@@ -128,7 +128,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_56j8r")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qcfqv")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_qcfqv")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8rwqj")
-text = "Sair da fase"
+text = "BTN_EXIT_LEVEL"
 script = ExtResource("2_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("3_medio1"), ExtResource("4_medio2"), ExtResource("5_medio3"), ExtResource("6_medio4")])
 pressed_frame = ExtResource("7_medio_pressed")

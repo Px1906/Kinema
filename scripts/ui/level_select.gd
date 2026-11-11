@@ -103,13 +103,13 @@ func _make_card(index: int) -> Control:
 	else:
 		button.disabled = true
 		button.tooltip_text = (
-			"Cena não encontrada: %s" % (level.path if level != null else "(vazio)")
+			tr("LEVEL_SCENE_NOT_FOUND") % (level.path if level != null else "(vazio)")
 		)
 	card.add_child(button)
 	_card_buttons.append(button)
 
 	var label := Label.new()
-	label.text = level.get_display_title() if level != null else "Fase %d" % (index + 1)
+	label.text = level.get_display_title() if level != null else tr("LEVEL_DEFAULT_NAME") % (index + 1)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", FontSettings.caption)
 	# The default label color is light, so it needs a dark color over the paper.
@@ -120,7 +120,7 @@ func _make_card(index: int) -> Control:
 
 func _make_empty_label() -> Label:
 	var label := Label.new()
-	label.text = "Nenhuma fase configurada."
+	label.text = tr("LEVEL_NONE_CONFIGURED")
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_color_override("font_color", TEXT_COLOR)
 	return label
