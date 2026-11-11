@@ -36,7 +36,7 @@ static func from_json(id: String) -> TutorialPopupData:
 	if not MODE_NAMES.has(mode_name):
 		push_warning("TutorialPopupData: modo '%s' inválido em '%s'." % [mode_name, id])
 	data.mode = MODE_NAMES.get(mode_name, PopupMode.TEXT_AND_SPRITE)
-	data.text = TranslationServer.translate(entry.get("text", ""))
+	data.text = entry.get("text", "")
 	data.sprite = _load_optional(entry.get("sprite", ""), id) as Texture2D
 	data.animation_frames = _load_optional(entry.get("animation_frames", ""), id) as SpriteFrames
 	data.animation_name = StringName(entry.get("animation_name", "default"))

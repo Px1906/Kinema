@@ -4,6 +4,7 @@ extends CanvasLayer
 const ANIM_DURATION := 0.25
 
 var _tween: Tween
+var _current_key: String = ""
 
 @onready var _panel: PanelContainer = %Panel
 @onready var _label: RichTextLabel = %Label
@@ -15,6 +16,7 @@ func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	visible = false
 	_connect_zones.call_deferred()
+	LocaleManager.locale_changed.connect(_on_locale_changed)
 
 
 func _connect_zones() -> void:
@@ -27,7 +29,8 @@ func _connect_zones() -> void:
 
 
 func show_popup(data: TutorialPopupData) -> void:
-	_label.text = data.text
+	_current_key = data.text
+	_label.text = tr(_current_key)
 
 	var is_anim := data.mode == TutorialPopupData.PopupMode.ANIMATION
 	_sprite.visible = not is_anim and data.sprite != null
@@ -47,6 +50,11 @@ func show_popup(data: TutorialPopupData) -> void:
 func _reposition_panel() -> void:
 	var min_height := _panel.get_combined_minimum_size().y
 	_panel.offset_top = _panel.offset_bottom - min_height
+
+
+func _on_locale_changed(_locale: String) -> void:
+	if visible and not _current_key.is_empty():
+		_label.text = tr(_current_key)
 
 
 func hide_popup() -> void:
