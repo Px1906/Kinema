@@ -77,6 +77,10 @@ pause={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.es.translation", "res://translations/translations.pt.translation")
+
 [physics]
 
 2d/default_gravity=320.0
