@@ -40,6 +40,11 @@ ROLE_GAME_DESIGNER_PROGRAMMER,Game Designer & Programador,Game Designer & Progra
 ROLE_ARTIST,Artista,Artist,Artista
 ROLE_UI_LEVEL_DESIGN,UI & Level Design,UI & Level Design,UI y Diseño de Niveles
 ROLE_PROJECT_LEAD,Líder do Projeto,Project Lead,Líder del Proyecto
+ROLE_GAMEPLAY_PHYSICS_LEVEL,"Gameplay, física e level design","Gameplay, physics and level design","Jugabilidad, física y diseño de niveles"
+ROLE_GAME_SYSTEMS,"Sistemas de jogo (save, áudio, QTE e pausa)","Game systems (save, audio, QTE and pause)","Sistemas de juego (guardado, audio, QTE y pausa)"
+ROLE_UI_MENUS,Interface e menus,Interface and menus,Interfaz y menús
+ROLE_ART_2D,Arte 2D e sprites,2D art and sprites,Arte 2D y sprites
+ROLE_CODE_REVIEW,Revisão de código e integração,Code review and integration,Revisión de código e integración
 FORMULAS_TITLE,Fórmulas,Formulas,Fórmulas
 FORMULA_KINETIC_ENERGY,Energia Cinética,Kinetic Energy,Energía Cinética
 FORMULA_POTENTIAL_ENERGY,Energia Potencial Gravitacional,Gravitational Potential Energy,Energía Potencial Gravitacional
