@@ -186,7 +186,7 @@ func _animate_out() -> void:
 
 
 func _play_reaction(reactions: Array[QteReaction]) -> void:
-	if reactions.is_empty():
+	if reactions.is_empty() or GameSettings.serious_mode:
 		return
 
 	var reaction: QteReaction = reactions.pick_random()
@@ -358,10 +358,24 @@ func _apply_font_sizes() -> void:
 	FontSettings.apply(_timer_label, FontSettings.ui_subtitle)
 	for button in _buttons:
 		FontSettings.apply(button, FontSettings.ui_button)
+	var attr_bg := _create_label_background()
+	var title: Label = _attributes_panel.get_node("Margin/Content/Title")
+	FontSettings.apply(title, FontSettings.attributes)
+	title.add_theme_color_override("font_color", Color.WHITE)
+	title.add_theme_stylebox_override("normal", attr_bg)
 	var grid: GridContainer = _attributes_panel.get_node("Margin/Content/Grid")
 	for child: Control in grid.get_children():
 		FontSettings.apply(child, FontSettings.attributes)
-	FontSettings.apply(_attributes_panel.get_node("Margin/Content/Title"), FontSettings.attributes)
+		child.add_theme_color_override("font_color", Color.WHITE)
+		child.add_theme_stylebox_override("normal", attr_bg)
+
+
+func _create_label_background() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0, 0, 0, 0.55)
+	style.set_corner_radius_all(6)
+	style.set_content_margin_all(4)
+	return style
 
 
 func _set_buttons_disabled(disabled: bool) -> void:

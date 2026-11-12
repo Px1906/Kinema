@@ -60,6 +60,11 @@ func _ready() -> void:
 	_last_speed_notch = floori(_get_speed_notch_position())
 	_last_angle_notch = floori(_get_angle_notch_position())
 	FontSettings.apply(_launch_button, FontSettings.hud)
+	LocaleManager.locale_changed.connect(_on_locale_changed)
+
+
+func _on_locale_changed(_locale: String) -> void:
+	_on_player_params_changed(player.launch_speed, player.launch_angle_degrees)
 
 
 func _on_toggle_button_toggled(is_open: bool) -> void:
@@ -119,8 +124,8 @@ func _on_player_params_changed(speed: float, angle: float) -> void:
 	# Mostra a velocidade com que a bola sai de fato (já com o fator de lançamento), em m/s.
 	var initial_speed := PhysicsUnits.pixels_to_meters(player.get_initial_velocity().length())
 	# Nome e valor em linhas separadas: cabem na largura da coluna sem cortar.
-	_speed_label.text = "Velocidade\n%s" % AttributeFormat.format_speed(initial_speed)
-	_angle_label.text = "Ângulo\n%d°" % angle
+	_speed_label.text = tr("LABEL_SPEED_FORMAT") % AttributeFormat.format_speed(initial_speed)
+	_angle_label.text = tr("LABEL_ANGLE_FORMAT") % angle
 	# Mudou por fora (arraste do mouse): os degraus acompanham, senão o próximo toque
 	# no slider clicaria na hora por causa do valor antigo.
 	if not _applying_slider:

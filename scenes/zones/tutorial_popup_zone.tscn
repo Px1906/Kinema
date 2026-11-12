@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" uid="uid://dnlm8ai4eehh7" path="res://scripts/zones/tutorial_popup_zone.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://bxyauky8tqp7r" path="res://assets/fonts/Kidtype.ttf" id="2_swm_font"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/UI/lousa_filled/lousa_filled.png" id="3_lousa"]
+[ext_resource type="Texture2D" uid="uid://c52rvkx5r74dh" path="res://assets/sprites/Sprite-Animacoes/UI/lousa_filled/lousa_filled.png" id="3_lousa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
+size = Vector2(128, 128)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lousa"]
+content_margin_left = 35.0
+content_margin_top = 35.0
+content_margin_right = 35.0
+content_margin_bottom = 35.0
 texture = ExtResource("3_lousa")
 texture_margin_left = 30.0
 texture_margin_top = 30.0
 texture_margin_right = 30.0
 texture_margin_bottom = 30.0
-content_margin_left = 35.0
-content_margin_top = 35.0
-content_margin_right = 35.0
-content_margin_bottom = 35.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_zone"]
-size = Vector2(128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_77xvj"]
 

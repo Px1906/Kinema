@@ -1,9 +1,9 @@
 {
 	"members": [
-		{ "name": "Sérgio de Paiva", "role": "Gameplay, física e level design" },
-		{ "name": "Cleyton Ramsay", "role": "Sistemas de jogo (save, áudio, QTE e pausa)" },
-		{ "name": "Gustavo Mendonça", "role": "Interface e menus" },
-		{ "name": "Mário Bernardo", "role": "Arte 2D e sprites" },
-		{ "name": "Raquel", "role": "Revisão de código e integração" }
+		{ "name": "Sérgio de Paiva", "role": "ROLE_GAMEPLAY_PHYSICS_LEVEL" },
+		{ "name": "Cleyton Ramsay", "role": "ROLE_GAME_SYSTEMS" },
+		{ "name": "Gustavo Mendonça", "role": "ROLE_UI_MENUS" },
+		{ "name": "Mário Bernardo", "role": "ROLE_ART_2D" },
+		{ "name": "Raquel", "role": "ROLE_CODE_REVIEW" }
 	]
 }

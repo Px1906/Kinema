@@ -20,6 +20,8 @@ func _ready() -> void:
 func _apply_font_sizes() -> void:
 	FontSettings.apply(_title_label, FontSettings.ui_subtitle)
 	FontSettings.apply(_message_label, FontSettings.ui_body)
+	FontSettings.apply(_retry_button, FontSettings.ui_button)
+	FontSettings.apply(_exit_button, FontSettings.ui_button)
 
 
 func show_result(title: String, message: String) -> void:

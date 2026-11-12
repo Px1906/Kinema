@@ -45,7 +45,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
-text = "velocidade"
+text = "LABEL_SPEED"
 horizontal_alignment = 1
 
 [node name="SpeedSlider" type="VSlider" parent="Margin/Sliders/SpeedColumn" unique_id=1865727622]
@@ -68,7 +68,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
-text = "Angulo"
+text = "LABEL_ANGLE"
 horizontal_alignment = 1
 
 [node name="AngleSlider" type="VSlider" parent="Margin/Sliders/AngleColumn" unique_id=100317012]
