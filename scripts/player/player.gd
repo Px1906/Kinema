@@ -14,10 +14,7 @@ const MAX_SPEED := 1000.0
 const MAX_ANGLE := 180.0
 const STOP_SPEED_SQUARED_THRESHOLD := 3.0
 const STOP_CONFIRMATION_TIME := 0.1
-const BALL_FRAME_COUNT := 18
-const BALL_FRAME_PATH := (
-	"res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/" + "bola_frame_%02d.png"
-)
+const BALL_IDLE_ANIMATION := &"idle"
 const EXPLOSION_FRAME_SIZE := 448.0
 const LAUNCH_ARROW_WIDTH := 4.0
 const LAUNCH_ARROW_OFFSET := 4.0
@@ -77,10 +74,10 @@ var _pull_tween: Tween
 var _pull_elapsed := 0.0
 var _stick_tween: Tween
 var _surface_hit_cooldown := 0.0
-var _ball_frames: Array[Texture2D] = []
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var _ball_sprite: Sprite2D = $BallSprite
+@onready var _ball_sprite: AnimatedSprite2D = $BallSprite
+@onready var _highlight_sprite: AnimatedSprite2D = $HighlightSprite
 @onready var _explosion_sprite: AnimatedSprite2D = $ExplosionSprite
 
 
@@ -88,9 +85,8 @@ func _ready() -> void:
 	if collision_shape.shape != null:
 		collision_shape.shape = collision_shape.shape.duplicate()
 	_update_collision_shape()
-	_load_ball_frames()
 	_update_ball_sprite_scale()
-	_update_ball_frame()
+	_update_highlight()
 	freeze = true
 	_initial_global_position = global_position
 	_base_linear_damp = linear_damp
@@ -397,6 +393,7 @@ func _play_explosion() -> void:
 	if _explosion_sprite == null:
 		return
 	_ball_sprite.visible = false
+	_highlight_sprite.visible = false
 	var desired_diameter := radius * 2.4
 	_explosion_sprite.scale = Vector2.ONE * (desired_diameter / EXPLOSION_FRAME_SIZE)
 	_explosion_sprite.visible = true
@@ -409,6 +406,7 @@ func _stop_explosion() -> void:
 	_explosion_sprite.visible = false
 	_explosion_sprite.stop()
 	_ball_sprite.visible = true
+	_highlight_sprite.visible = true
 
 
 func _kill_stick_tween() -> void:
@@ -470,30 +468,30 @@ func _update_collision_shape() -> void:
 	circle.radius = radius
 
 
-func _process(_delta: float) -> void:
-	_update_ball_frame()
-
-
-func _load_ball_frames() -> void:
-	for i in range(1, BALL_FRAME_COUNT + 1):
-		_ball_frames.append(load(BALL_FRAME_PATH % i))
-
-
 func _update_ball_sprite_scale() -> void:
-	if _ball_frames.is_empty() or _ball_sprite == null:
+	if _ball_sprite == null or _ball_sprite.sprite_frames == null:
 		return
-	var tex_size := _ball_frames[0].get_size()
+	var texture := _ball_sprite.sprite_frames.get_frame_texture(BALL_IDLE_ANIMATION, 0)
+	if texture == null:
+		return
+	var tex_size := texture.get_size()
 	var desired_diameter := radius * 2.4
 	_ball_sprite.scale = Vector2.ONE * (desired_diameter / maxf(tex_size.x, tex_size.y))
+	if _highlight_sprite != null:
+		_highlight_sprite.scale = _ball_sprite.scale
 
 
-func _update_ball_frame() -> void:
-	if _ball_frames.is_empty() or _ball_sprite == null:
+func _process(_delta: float) -> void:
+	_update_highlight()
+
+
+## O contorno gira com a bola; o brilho gira ao contrário do corpo para ficar sempre
+## no mesmo canto da tela, como uma luz fixa, e acompanha o frame do contorno.
+func _update_highlight() -> void:
+	if _highlight_sprite == null or _ball_sprite == null:
 		return
-	_ball_sprite.rotation = -rotation
-	var angle := fposmod(rotation, TAU)
-	var frame_index := int(angle / TAU * BALL_FRAME_COUNT) % BALL_FRAME_COUNT
-	_ball_sprite.texture = _ball_frames[frame_index]
+	_highlight_sprite.rotation = -rotation
+	_highlight_sprite.frame = _ball_sprite.frame
 
 
 func _draw() -> void:
