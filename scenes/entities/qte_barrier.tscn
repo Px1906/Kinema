@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://c2g2cmet3ic7d" path="res://scripts/entities/qte_barrier.gd" id="1_qte_barrier"]
 [ext_resource type="Texture2D" uid="uid://d3rngmwn8dcyl" path="res://assets/sprites/Sprite-Animacoes/Objetos/QTE/frame_03.png" id="2_66u1o"]
 [ext_resource type="Texture2D" uid="uid://cfi03e36lmnkt" path="res://assets/sprites/Sprite-Animacoes/Objetos/QTE/frame_04.png" id="3_8p4gm"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/QTE/frame_03_h.png" id="4_h03"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Sprite-Animacoes/Objetos/QTE/frame_04_h.png" id="5_h04"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
 resource_local_to_scene = true
@@ -18,7 +20,18 @@ animations = [{
 "texture": ExtResource("3_8p4gm")
 }],
 "loop": true,
-"name": &"default",
+"name": &"vertical",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_h03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h04")
+}],
+"loop": true,
+"name": &"horizontal",
 "speed": 2.0
 }]
 
@@ -34,6 +47,7 @@ shape = SubResource("RectangleShape2D_barrier")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BarrierShape" unique_id=1137455925]
 sprite_frames = SubResource("SpriteFrames_i5vrg")
+animation = &"vertical"
 
 [node name="TriggerArea" type="Area2D" parent="." unique_id=1973035704]
 collision_layer = 0
