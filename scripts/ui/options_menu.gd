@@ -9,6 +9,7 @@ signal closed
 	AudioSettings.BUS_MUSIC: %MusicSlider as HSlider,
 	AudioSettings.BUS_UI: %UISlider as HSlider,
 }
+@onready var _serious_mode_check: CheckBox = %SeriousModeCheck
 @onready var _window_button: Button = %WindowButton
 @onready var _back_button: Button = %BackButton
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 	_apply_font_sizes()
 	for bus_name: StringName in _sliders:
 		(_sliders[bus_name] as HSlider).value_changed.connect(_on_volume_changed.bind(bus_name))
+	_serious_mode_check.toggled.connect(_on_serious_mode_toggled)
 	_window_button.pressed.connect(_on_window_toggled)
 	_back_button.pressed.connect(close)
 
@@ -25,6 +27,7 @@ func _apply_font_sizes() -> void:
 	FontSettings.apply($OptionsTitle, FontSettings.ui_subtitle)
 	for label_name: StringName in [&"MasterLabel", &"SFXLabel", &"MusicLabel", &"UILabel"]:
 		FontSettings.apply(get_node(NodePath(label_name)), FontSettings.ui_body)
+	FontSettings.apply(_serious_mode_check, FontSettings.ui_body)
 	FontSettings.apply(_window_button, FontSettings.ui_button)
 	FontSettings.apply(_back_button, FontSettings.ui_button)
 
@@ -38,12 +41,14 @@ func _unhandled_input(event: InputEvent) -> void:
 func open() -> void:
 	_sync_sliders()
 	_sync_window_label()
+	_serious_mode_check.button_pressed = GameSettings.serious_mode
 	show()
 	_back_button.grab_focus()
 
 
 func close() -> void:
 	AudioSettings.save_settings()
+	GameSettings.save_settings()
 	hide()
 	closed.emit()
 
@@ -64,6 +69,10 @@ func _sync_window_label() -> void:
 
 func _on_volume_changed(value: float, bus_name: StringName) -> void:
 	AudioSettings.apply_bus_volume(bus_name, value)
+
+
+func _on_serious_mode_toggled(enabled: bool) -> void:
+	GameSettings.serious_mode = enabled
 
 
 func _on_window_toggled() -> void:

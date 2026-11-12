@@ -186,7 +186,7 @@ func _animate_out() -> void:
 
 
 func _play_reaction(reactions: Array[QteReaction]) -> void:
-	if reactions.is_empty():
+	if reactions.is_empty() or GameSettings.serious_mode:
 		return
 
 	var reaction: QteReaction = reactions.pick_random()
