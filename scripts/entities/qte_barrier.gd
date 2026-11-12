@@ -9,6 +9,9 @@ const GROUP := &"qte_barrier"
 const TRIGGER_HEIGHT_AUTO := -1.0
 ## Na altura automática, o gatilho tem esta proporção da altura da barreira.
 const DEFAULT_TRIGGER_HEIGHT_FACTOR := 2.0
+## Animações do sprite: arte em pé e deitada, ambas com os "?" na vertical.
+const ANIM_VERTICAL := &"vertical"
+const ANIM_HORIZONTAL := &"horizontal"
 
 @export_category("Barrier")
 @export var size: Vector2 = Vector2(32.0, 128.0):
@@ -17,7 +20,7 @@ const DEFAULT_TRIGGER_HEIGHT_FACTOR := 2.0
 		if is_node_ready():
 			_update_collision_shape()
 			_update_trigger_shape()
-		
+
 @export_category("Question")
 ## Conteúdo das perguntas desta barreira (campo "content" em qte_questions.json).
 ## Vazio sorteia entre todas as perguntas.
@@ -53,6 +56,8 @@ func _ready() -> void:
 	_update_collision_shape()
 	_update_trigger_shape()
 	_update_sprite()
+	# Recalcula o sprite quando a barreira é girada/espelhada (inclusive no editor).
+	set_notify_transform(true)
 	if Engine.is_editor_hint():
 		return
 
@@ -60,6 +65,11 @@ func _ready() -> void:
 	trigger_area.body_entered.connect(_on_trigger_body_entered)
 	if _sprite != null:
 		_sprite.play()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		_update_sprite()
 
 
 func is_active() -> bool:
@@ -127,12 +137,24 @@ func _update_trigger_shape() -> void:
 	trigger_shape.position = Vector2(-trigger_distance / 2.0 - size.x / 2.0, 0.0)
 
 
+## Desenha o sprite sempre "em pé" no mundo: ignora rotação e espelhamento da
+## barreira (para os "?" não ficarem de cabeça para baixo) e escolhe a arte
+## vertical ou horizontal conforme a forma da barreira na tela.
 func _update_sprite() -> void:
-	if _sprite == null:
+	if _sprite == null or barrier_shape == null or not is_inside_tree():
 		return
-	var frame_tex := _sprite.sprite_frames.get_frame_texture(&"default", 0)
+	var xf := barrier_shape.global_transform
+	# Caixa envolvente (no mundo) do retângulo de colisão; exata para rotações
+	# múltiplas de 90°.
+	var x_axis := xf.x * size.x
+	var y_axis := xf.y * size.y
+	var world_size := Vector2(
+		absf(x_axis.x) + absf(y_axis.x), absf(x_axis.y) + absf(y_axis.y)
+	)
+	var anim := ANIM_HORIZONTAL if world_size.x > world_size.y else ANIM_VERTICAL
+	if _sprite.animation != anim:
+		_sprite.animation = anim
+	var frame_tex := _sprite.sprite_frames.get_frame_texture(anim, 0)
 	if frame_tex == null:
 		return
-	var tex_size := frame_tex.get_size()
-	_sprite.scale = Vector2(size.x / tex_size.x, size.y / tex_size.y)
-	_sprite.position = Vector2.ZERO
+	_sprite.global_transform = Transform2D(0.0, world_size / frame_tex.get_size(), 0.0, xf.origin)
