@@ -1,19 +1,25 @@
 class_name CreditsScreen
 extends Control
-## Tela de créditos (RF30): contexto do projeto e integrantes da equipe.
-## Abre como painel sobre o menu principal, igual ao OptionsMenu: o MainMenu instancia
-## a cena, esconde o logo e o menu, e restaura tudo ao receber closed.
+## Tela de créditos (RF30): integrantes da equipe e a função de cada um.
+## Cena própria: o botão Credits do MainMenu troca para ela, e Voltar/Esc trocam de
+## volta para main_menu_scene_path.
 ## O conteúdo vem de CREDITS_PATH, então trocar nomes e funções não exige mexer na
 ## cena nem neste script. As cores vêm do tema global.
 
-signal closed
-
 const CREDITS_PATH := "res://resources/credits.json"
+## Largura de cada cartão: com o conteúdo em ~1126 px e h_separation 20 cabem 3 por linha.
+const MEMBER_CARD_WIDTH := 360.0
+## Fontes maiores que as do resto da UI: a tela só tem título, nomes e funções.
+const TITLE_FONT_SIZE := 76
+const MEMBERS_TITLE_FONT_SIZE := 48
+const MEMBER_ROLE_COLOR := Color(0.25, 0.25, 0.3)
+
+## Scene opened by the Back button and by Esc.
+@export_file("*.tscn") var main_menu_scene_path: String = "res://scenes/ui/main_menu.tscn"
 
 @onready var _title_label: Label = %TitleLabel
-@onready var _context_label: Label = %ContextLabel
 @onready var _members_title: Label = %MembersTitle
-@onready var _members_box: VBoxContainer = %MembersBox
+@onready var _members_box: HFlowContainer = %MembersBox
 @onready var _back_button: Button = %BackButton
 
 
@@ -25,26 +31,22 @@ func _ready() -> void:
 
 
 func _apply_font_sizes() -> void:
-	FontSettings.apply(_title_label, FontSettings.ui_title)
-	FontSettings.apply(_context_label, FontSettings.ui_body)
-	FontSettings.apply(_members_title, FontSettings.ui_subtitle)
+	FontSettings.apply(_title_label, TITLE_FONT_SIZE)
+	FontSettings.apply(_members_title, MEMBERS_TITLE_FONT_SIZE)
 	FontSettings.apply(_back_button, FontSettings.ui_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if is_visible_in_tree() and event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
 
 
 func close() -> void:
-	closed.emit()
+	SceneLoader.go_to(get_tree(), main_menu_scene_path)
 
 
 func _fill(data: Dictionary) -> void:
-	_context_label.text = data.get("context", "")
-	_context_label.visible = not _context_label.text.is_empty()
-
 	for child in _members_box.get_children():
 		_members_box.remove_child(child)
 		child.queue_free()
@@ -52,17 +54,33 @@ func _fill(data: Dictionary) -> void:
 	var members: Array = data.get("members", [])
 	for member: Variant in members:
 		if member is Dictionary:
-			_members_box.add_child(_make_member_label(member))
+			_members_box.add_child(_make_member_card(member))
+	_members_title.visible = _members_box.get_child_count() > 0
 
 
-func _make_member_label(member: Dictionary) -> Label:
-	var member_name: String = member.get("name", "")
+## Cartão de um membro: nome em cima e, se houver, a função embaixo.
+func _make_member_card(member: Dictionary) -> VBoxContainer:
+	var card := VBoxContainer.new()
+	card.custom_minimum_size.x = MEMBER_CARD_WIDTH
+	card.add_theme_constant_override("separation", 4)
+
+	var name_label := Label.new()
+	name_label.text = member.get("name", "")
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	FontSettings.apply(name_label, FontSettings.ui_subtitle)
+	card.add_child(name_label)
+
 	var role: String = member.get("role", "")
+	if not role.is_empty():
+		var role_label := Label.new()
+		role_label.text = role
+		role_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		role_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		role_label.add_theme_color_override("font_color", MEMBER_ROLE_COLOR)
+		FontSettings.apply(role_label, FontSettings.popup)
+		card.add_child(role_label)
 
-	var label := Label.new()
-	label.text = member_name if role.is_empty() else "%s — %s" % [member_name, role]
-	FontSettings.apply(label, FontSettings.ui_body)
-	return label
+	return card
 
 
 func _load_credits() -> Dictionary:
