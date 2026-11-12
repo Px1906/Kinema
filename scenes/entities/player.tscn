@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://djgaumelvpjqb" path="res://scripts/player/player.gd" id="1_ucweq"]
 [ext_resource type="Script" uid="uid://cnq8titlxd4yd" path="res://scripts/player/ball_energy.gd" id="2_energy"]
-[ext_resource type="Texture2D" uid="uid://bml1vl2qftlp4" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player/bola_frame_01.png" id="3_ball_frame"]
 [ext_resource type="Texture2D" uid="uid://dwm7ry162318y" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_01.png" id="4_expl1"]
 [ext_resource type="Texture2D" uid="uid://tlg8awrxqydk" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_02.png" id="5_expl2"]
 [ext_resource type="Texture2D" uid="uid://covdjw772cqb2" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_03.png" id="6_expl3"]
@@ -11,6 +10,42 @@
 [ext_resource type="Texture2D" uid="uid://cb2nt5st5ck1i" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_06.png" id="9_expl6"]
 [ext_resource type="Texture2D" uid="uid://bt1ferpa0thdu" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_07.png" id="10_expl7"]
 [ext_resource type="Texture2D" uid="uid://c6fwmtmdxtret" path="res://assets/sprites/NovosSprites/Kinema_Explosao_Frames/explosao_frame_08.png" id="11_expl8"]
+[ext_resource type="Texture2D" uid="uid://babb4k5vldpx8" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_01.png" id="12_ball01"]
+[ext_resource type="Texture2D" uid="uid://bdbiylqw7vb18" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_02.png" id="12_ball02"]
+[ext_resource type="Texture2D" uid="uid://bwpadl6buvkkb" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_03.png" id="12_ball03"]
+[ext_resource type="Texture2D" uid="uid://brao2cphskcdj" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_04.png" id="12_ball04"]
+[ext_resource type="Texture2D" uid="uid://dkcgu66fcomvc" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_05.png" id="12_ball05"]
+[ext_resource type="Texture2D" uid="uid://dj6revhjel2d5" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_06.png" id="12_ball06"]
+[ext_resource type="Texture2D" uid="uid://h0p6oe2314ga" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_07.png" id="12_ball07"]
+[ext_resource type="Texture2D" uid="uid://dhgplsbu5y1aj" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_08.png" id="12_ball08"]
+[ext_resource type="Texture2D" uid="uid://dt6l1ar2yu01u" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_09.png" id="12_ball09"]
+[ext_resource type="Texture2D" uid="uid://dxfvalgq6khpb" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_10.png" id="12_ball10"]
+[ext_resource type="Texture2D" uid="uid://cadagbxtjhkwq" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_11.png" id="12_ball11"]
+[ext_resource type="Texture2D" uid="uid://b3fmbmslpf8se" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_12.png" id="12_ball12"]
+[ext_resource type="Texture2D" uid="uid://bxwtyqum6r3us" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_13.png" id="12_ball13"]
+[ext_resource type="Texture2D" uid="uid://bqb134g2jlio4" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_14.png" id="12_ball14"]
+[ext_resource type="Texture2D" uid="uid://bst2kxq8jdgj6" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_15.png" id="12_ball15"]
+[ext_resource type="Texture2D" uid="uid://gf3qxtl67da1" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_16.png" id="12_ball16"]
+[ext_resource type="Texture2D" uid="uid://cjxptr3c5q0ph" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_17.png" id="12_ball17"]
+[ext_resource type="Texture2D" uid="uid://cafb12ro2kunb" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/contorno/bola_contorno_18.png" id="12_ball18"]
+[ext_resource type="Texture2D" uid="uid://66wn7k45h8qc" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_01.png" id="13_shine01"]
+[ext_resource type="Texture2D" uid="uid://cxr13qgvdvcja" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_02.png" id="13_shine02"]
+[ext_resource type="Texture2D" uid="uid://c8rm034v2sl3c" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_03.png" id="13_shine03"]
+[ext_resource type="Texture2D" uid="uid://c3ey5twai4q5" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_04.png" id="13_shine04"]
+[ext_resource type="Texture2D" uid="uid://b11g8xtnafgoi" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_05.png" id="13_shine05"]
+[ext_resource type="Texture2D" uid="uid://cg0606hvfb3py" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_06.png" id="13_shine06"]
+[ext_resource type="Texture2D" uid="uid://vbowdrnh7yns" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_07.png" id="13_shine07"]
+[ext_resource type="Texture2D" uid="uid://g0v36lammiib" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_08.png" id="13_shine08"]
+[ext_resource type="Texture2D" uid="uid://ctukc0vmkm0e7" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_09.png" id="13_shine09"]
+[ext_resource type="Texture2D" uid="uid://bydkrsouve5f5" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_10.png" id="13_shine10"]
+[ext_resource type="Texture2D" uid="uid://csulxasawcqgw" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_11.png" id="13_shine11"]
+[ext_resource type="Texture2D" uid="uid://dpqqatane5bah" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_12.png" id="13_shine12"]
+[ext_resource type="Texture2D" uid="uid://c46d5aiqap8lt" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_13.png" id="13_shine13"]
+[ext_resource type="Texture2D" uid="uid://2d87nya6moh0" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_14.png" id="13_shine14"]
+[ext_resource type="Texture2D" uid="uid://lgv7cuffyu1a" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_15.png" id="13_shine15"]
+[ext_resource type="Texture2D" uid="uid://c8f3phlygf7m3" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_16.png" id="13_shine16"]
+[ext_resource type="Texture2D" uid="uid://b7gvkbnwrftch" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_17.png" id="13_shine17"]
+[ext_resource type="Texture2D" uid="uid://cdrobgjsofu1f" path="res://assets/sprites/Sprite-Animacoes/Player/Frames_Player_Camadas/brilho/bola_brilho_18.png" id="13_shine18"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_08t41"]
 friction = 0.35
@@ -18,6 +53,130 @@ bounce = 0.55
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ew1dm"]
 radius = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ball"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_ball01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball09")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ball18")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shine"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_shine01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine09")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_shine18")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_explosion"]
 animations = [{
@@ -63,9 +222,16 @@ fator_velocidade_lancamento = 0.6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1569915225]
 shape = SubResource("CircleShape2D_ew1dm")
 
-[node name="BallSprite" type="Sprite2D" parent="." unique_id=1861094132]
+[node name="BallSprite" type="AnimatedSprite2D" parent="." unique_id=1861094132]
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("3_ball_frame")
+sprite_frames = SubResource("SpriteFrames_ball")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="HighlightSprite" type="AnimatedSprite2D" parent="." unique_id=1861094133]
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_shine")
+animation = &"idle"
 
 [node name="ExplosionSprite" type="AnimatedSprite2D" parent="." unique_id=432163426]
 visible = false
