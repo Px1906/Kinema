@@ -178,7 +178,7 @@ func _on_level_completed(_player: Player) -> void:
 	_save_progress()
 	print_debug("LevelController: goal reached; level completed.")
 	if result_panel != null:
-		result_panel.show_result("Fase completa", "Você chegou à meta!")
+		result_panel.show_result(tr("RESULT_COMPLETE_TITLE"), tr("RESULT_COMPLETE_MSG"))
 
 
 func reset_level() -> void:
@@ -252,7 +252,7 @@ func _fail_attempt(reason: FailureReason) -> void:
 	print_debug("LevelController: attempt failed: %s." % FailureReason.keys()[reason])
 	attempt_failed.emit(reason)
 	if result_panel != null:
-		result_panel.show_result("Tentativa perdida", _get_failure_message(reason))
+		result_panel.show_result(tr("RESULT_LOST_TITLE"), _get_failure_message(reason))
 	else:
 		_respawn_at_last_checkpoint()
 
@@ -260,11 +260,11 @@ func _fail_attempt(reason: FailureReason) -> void:
 func _get_failure_message(reason: FailureReason) -> String:
 	match reason:
 		FailureReason.OBSTACLE_HIT:
-			return "A bola bateu em um obstáculo."
+			return tr("RESULT_OBSTACLE_MSG")
 		FailureReason.OUT_OF_BOUNDS:
-			return "A bola saiu dos limites."
+			return tr("RESULT_BOUNDS_MSG")
 		_:
-			return "Tente novamente."
+			return tr("RESULT_GENERIC_MSG")
 
 
 func _respawn_at_last_checkpoint() -> void:

@@ -73,7 +73,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(87.78001, 48.84)
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Mostra a massa, a velocidade e as energias da bola"
+tooltip_text = "TOOLTIP_SHOW_ATTRIBUTES"
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
@@ -98,7 +98,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(168.96, 93.060005)
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Centraliza na bola a referência de altura zero da energia potencial (ela também pode ser arrastada pela fase)"
+tooltip_text = "TOOLTIP_CENTRALIZE_REF"
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.2, 0.2, 0.2, 1)
@@ -109,7 +109,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_dj242")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qnpie")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_qnpie")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_0rqky")
-text = "   Centralizar"
+text = "BTN_CENTRALIZE"
 script = ExtResource("3_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("9_medio1"), ExtResource("10_medio2"), ExtResource("11_medio3"), ExtResource("12_medio4")])
 pressed_frame = ExtResource("13_medio_pressed")
@@ -120,7 +120,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Arrastar"
+tooltip_text = "TOOLTIP_DRAG"
 focus_mode = 0
 mouse_default_cursor_shape = 13
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -155,7 +155,7 @@ columns = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Massa"
+text = "ATTR_MASS"
 
 [node name="MassValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1990010069]
 unique_name_in_owner = true
@@ -168,7 +168,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Velocidade"
+text = "ATTR_SPEED"
 
 [node name="SpeedValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=576988859]
 unique_name_in_owner = true
@@ -181,7 +181,7 @@ horizontal_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Energia total"
+text = "ATTR_TOTAL_ENERGY"
 
 [node name="TotalValue" type="Label" parent="ContentBox/Margin/Content/Values" unique_id=1753009222]
 unique_name_in_owner = true
@@ -197,7 +197,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Energia cinética"
+text = "ATTR_KINETIC_ENERGY"
 
 [node name="KineticValue" type="Label" parent="ContentBox/Margin/Content/KineticRow" unique_id=107125775]
 unique_name_in_owner = true
@@ -221,7 +221,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Energia potencial"
+text = "ATTR_POTENTIAL_ENERGY"
 
 [node name="PotentialValue" type="Label" parent="ContentBox/Margin/Content/PotentialRow" unique_id=2076312566]
 unique_name_in_owner = true
@@ -245,7 +245,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("15_swm_font")
-text = "Energia potencial negativa: a bola está abaixo da referência de altura zero."
+text = "ATTR_NEGATIVE_EP_TOOLTIP"
 autowrap_mode = 3
 
 [node name="DragHandle" type="Node" parent="." unique_id=2122379189 node_paths=PackedStringArray("handle")]

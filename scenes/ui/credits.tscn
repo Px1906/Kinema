@@ -61,13 +61,13 @@ alignment = 1
 [node name="TitleLabel" type="Label" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Créditos"
+text = "CREDITS_TITLE"
 horizontal_alignment = 1
 
 [node name="MembersTitle" type="Label" parent="Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Equipe"
+text = "CREDITS_MEMBERS"
 horizontal_alignment = 1
 
 [node name="MembersBox" type="HFlowContainer" parent="Content"]
@@ -92,7 +92,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_back_pressed")
 theme_override_styles/hover = SubResource("StyleBoxTexture_back_normal")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_back_normal")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_back_focus")
-text = "Voltar"
+text = "BTN_BACK"
 script = ExtResource("3_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("4_grande1"), ExtResource("5_grande2"), ExtResource("6_grande3"), ExtResource("7_grande4")])
 pressed_frame = ExtResource("8_grande_pressed")

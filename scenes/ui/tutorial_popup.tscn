@@ -20,15 +20,15 @@ offset_top = -160.0
 offset_right = 200.0
 offset_bottom = -16.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 28
 
 [node name="VBox" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2

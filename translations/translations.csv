@@ -1,0 +1,125 @@
+keys,pt,en,es
+MENU_PLAY,Jogar,Play,Jugar
+MENU_OPTIONS,Opções,Options,Opciones
+MENU_QUIT,Sair,Quit,Salir
+MENU_CREDITS,Créditos,Credits,Créditos
+LEVEL_SELECT_TITLE,Selecionar fase,Select level,Seleccionar nivel
+BTN_BACK,Voltar,Back,Volver
+PAUSE_TITLE,PAUSA,PAUSE,PAUSA
+PAUSE_RESUME,Continuar,Resume,Continuar
+PAUSE_RESTART,Reiniciar,Restart,Reiniciar
+PAUSE_OPTIONS,Opções,Options,Opciones
+PAUSE_EXIT,Sair,Exit,Salir
+RESTART_TITLE,Reiniciar,Restart,Reiniciar
+RESTART_FULL,Reiniciar fase,Restart level,Reiniciar nivel
+RESTART_CHECKPOINT,Voltar ao checkpoint,Back to checkpoint,Volver al checkpoint
+RESULT_COMPLETE_TITLE,Fase completa,Level complete,Nivel completo
+RESULT_COMPLETE_MSG,Você chegou à meta!,You reached the goal!,¡Llegaste a la meta!
+RESULT_LOST_TITLE,Tentativa perdida,Attempt lost,Intento fallido
+RESULT_OBSTACLE_MSG,A bola bateu em um obstáculo.,The ball hit an obstacle.,La bola chocó contra un obstáculo.
+RESULT_BOUNDS_MSG,A bola saiu dos limites.,The ball went out of bounds.,La bola salió de los límites.
+RESULT_GENERIC_MSG,Tente novamente.,Try again.,Inténtalo de nuevo.
+BTN_RETRY,Tentar de novo,Retry,Reintentar
+BTN_EXIT_LEVEL,Sair da fase,Exit level,Salir del nivel
+BTN_RECENTER,Recentralizar,Recenter,Recentrar
+TOOLTIP_RECENTER,Voltar a câmera para a bola,Return camera to the ball,Volver la cámara a la bola
+OPTIONS_TITLE,Opções,Options,Opciones
+OPTIONS_VOLUME_MASTER,Volume Master,Master Volume,Volumen General
+OPTIONS_VOLUME_SFX,Volume SFX,SFX Volume,Volumen SFX
+OPTIONS_VOLUME_MUSIC,Volume Música,Music Volume,Volumen Música
+OPTIONS_VOLUME_UI,Volume UI,UI Volume,Volumen UI
+OPTIONS_SERIOUS_MODE,Modo Sério (sem GIFs),Serious Mode (no GIFs),Modo Serio (sin GIFs)
+OPTIONS_WINDOW_FULLSCREEN,Janela: Tela Cheia,Window: Fullscreen,Ventana: Pantalla Completa
+OPTIONS_WINDOW_WINDOWED,Janela: Janela,Window: Windowed,Ventana: Ventana
+OPTIONS_LANGUAGE,Idioma,Language,Idioma
+CREDITS_TITLE,Créditos,Credits,Créditos
+CREDITS_MEMBERS,Integrantes,Members,Integrantes
+CREDITS_SPECIAL_THANKS,Menção Especial,Special Thanks,Mención Especial
+"CREDITS_CONTEXT","Kinema é um jogo educacional 2D que apoia o ensino de física, com foco em cinemática, para alunos do ensino médio e dos períodos iniciais de engenharia. O jogador lança uma bola definindo velocidade e ângulo, e resolve fases com cordas, barreiras de QTE e conservação de energia. Este jogo foi desenvolvido como projeto acadêmico.","Kinema is a 2D educational game that supports physics teaching, focused on kinematics, for high school and early engineering students. The player launches a ball by setting speed and angle, and solves levels with ropes, QTE barriers and energy conservation. This game was developed as an academic project.","Kinema es un juego educativo 2D que apoya la enseñanza de física, con enfoque en cinemática, para alumnos de secundaria y los primeros semestres de ingeniería. El jugador lanza una bola definiendo velocidad y ángulo, y resuelve niveles con cuerdas, barreras QTE y conservación de energía. Este juego fue desarrollado como proyecto académico."
+ROLE_GAME_DESIGNER_PROGRAMMER,Game Designer & Programador,Game Designer & Programmer,Game Designer y Programador
+ROLE_ARTIST,Artista,Artist,Artista
+ROLE_UI_LEVEL_DESIGN,UI & Level Design,UI & Level Design,UI y Diseño de Niveles
+ROLE_PROJECT_LEAD,Líder do Projeto,Project Lead,Líder del Proyecto
+FORMULAS_TITLE,Fórmulas,Formulas,Fórmulas
+FORMULA_KINETIC_ENERGY,Energia Cinética,Kinetic Energy,Energía Cinética
+FORMULA_POTENTIAL_ENERGY,Energia Potencial Gravitacional,Gravitational Potential Energy,Energía Potencial Gravitacional
+FORMULA_TOTAL_ENERGY,Energia Mecânica Total,Total Mechanical Energy,Energía Mecánica Total
+FORMULA_SPEED,Velocidade,Speed,Velocidad
+FORMULA_GRAVITY,Gravidade,Gravity,Gravedad
+QTE_ATTRIBUTES_TITLE,Atributos,Attributes,Atributos
+QTE_MASS,Massa,Mass,Masa
+QTE_SPEED,Velocidade,Speed,Velocidad
+QTE_TOTAL_ENERGY,E total,Total E,E total
+ATTR_MASS,Massa,Mass,Masa
+ATTR_SPEED,Velocidade,Speed,Velocidad
+ATTR_TOTAL_ENERGY,Energia total,Total energy,Energía total
+ATTR_KINETIC_ENERGY,Energia cinética,Kinetic energy,Energía cinética
+ATTR_POTENTIAL_ENERGY,Energia potencial,Potential energy,Energía potencial
+"ATTR_NEGATIVE_EP_TOOLTIP","Energia potencial negativa: a bola está abaixo da referência de altura zero.","Negative potential energy: the ball is below the zero height reference.","Energía potencial negativa: la bola está por debajo de la referencia de altura cero."
+"TOOLTIP_SHOW_ATTRIBUTES","Mostra a massa, a velocidade e as energias da bola","Shows the ball's mass, speed and energies","Muestra la masa, la velocidad y las energías de la bola"
+"TOOLTIP_CENTRALIZE_REF","Centraliza na bola a referência de altura zero da energia potencial gravitacional","Centers the gravitational potential energy zero height reference on the ball","Centra en la bola la referencia de altura cero de la energía potencial gravitacional"
+BTN_CENTRALIZE,Centralizar,Centralize,Centralizar
+TOOLTIP_DRAG,Arrastar,Drag,Arrastrar
+BTN_LAUNCH,Arremessar,Launch,Lanzar
+BTN_ADJUST,ajustar,adjust,ajustar
+BTN_RELEASE,soltar,release,soltar
+"TOOLTIP_LAUNCH","Lança a bola com a velocidade e o ângulo escolhidos","Launches the ball with the chosen speed and angle","Lanza la bola con la velocidad y el ángulo elegidos"
+"TOOLTIP_ADJUST","Abre os controles de velocidade e ângulo do lançamento","Opens the launch speed and angle controls","Abre los controles de velocidad y ángulo del lanzamiento"
+TOOLTIP_RELEASE,Solta a bola da corda,Releases the ball from the rope,Suelta la bola de la cuerda
+LABEL_SPEED,velocidade,speed,velocidad
+LABEL_ANGLE,Ângulo,Angle,Ángulo
+LABEL_SPEED_FORMAT,Velocidade\n%s,Speed\n%s,Velocidad\n%s
+LABEL_ANGLE_FORMAT,Ângulo\n%d°,Angle\n%d°,Ángulo\n%d°
+LEVEL_DEFAULT_NAME,Fase %d,Level %d,Nivel %d
+LEVEL_SCENE_NOT_FOUND,Cena não encontrada: %s,Scene not found: %s,Escena no encontrada: %s
+LEVEL_NONE_CONFIGURED,Nenhuma fase configurada.,No levels configured.,Ningún nivel configurado.
+GOAL_LABEL,CHEGADA,FINISH,META
+"QTE_Q_KINETIC_CALC","A bola tem m=%d kg e v=%d m/s. Qual é a Ec?","The ball has m=%d kg and v=%d m/s. What is the Ec?","La bola tiene m=%d kg y v=%d m/s. ¿Cuál es la Ec?"
+"QTE_Q_KINETIC_THEORY","Se a velocidade da bola dobra, a energia cinética...","If the ball's speed doubles, the kinetic energy...","Si la velocidad de la bola se duplica, la energía cinética..."
+"QTE_Q_POTENTIAL_CALC","A bola tem m=%d kg e h=%d m (g = 10 m/s²). Qual é a Ep?","The ball has m=%d kg and h=%d m (g = 10 m/s²). What is the Ep?","La bola tiene m=%d kg y h=%d m (g = 10 m/s²). ¿Cuál es la Ep?"
+"QTE_Q_HEIGHT_CALC","A bola tem m=%d kg e Ep=%d J (g = 10 m/s²). A que altura ela está?","The ball has m=%d kg and Ep=%d J (g = 10 m/s²). At what height is it?","La bola tiene m=%d kg y Ep=%d J (g = 10 m/s²). ¿A qué altura está?"
+"QTE_Q_MECHANICAL_CALC","A bola tem Ec=%d J e Ep=%d J. Qual é a energia mecânica?","The ball has Ec=%d J and Ep=%d J. What is the mechanical energy?","La bola tiene Ec=%d J y Ep=%d J. ¿Cuál es la energía mecánica?"
+"QTE_Q_EP_FROM_EM","A bola tem Em=%d J e Ec=%d J. Qual é a Ep?","The ball has Em=%d J and Ec=%d J. What is the Ep?","La bola tiene Em=%d J y Ec=%d J. ¿Cuál es la Ep?"
+"QTE_Q_CONSERVATION","Sem atrito, durante a descida a energia mecânica da bola...","Without friction, during descent the ball's mechanical energy...","Sin fricción, durante el descenso la energía mecánica de la bola..."
+"QTE_Q_ROPE_TOP","No ponto mais alto do balanço na corda, a energia da bola é principalmente...","At the highest point of the rope swing, the ball's energy is mainly...","En el punto más alto del balanceo en la cuerda, la energía de la bola es principalmente..."
+"QTE_Q_ROPE_RELEASE","Ao soltar a corda, a bola sai...","When released from the rope, the ball goes...","Al soltar la cuerda, la bola sale..."
+"QTE_Q_LAUNCH_ANGLE","Sem resistência do ar, qual ângulo de lançamento dá o maior alcance?","Without air resistance, which launch angle gives the greatest range?","Sin resistencia del aire, ¿qué ángulo de lanzamiento da el mayor alcance?"
+QTE_A_QUADRUPLES,quadruplica,quadruples,se cuadruplica
+QTE_A_DOUBLES,dobra,doubles,se duplica
+QTE_A_NO_CHANGE,não muda,doesn't change,no cambia
+QTE_A_CONSERVED,se conserva,is conserved,se conserva
+QTE_A_INCREASES,aumenta,increases,aumenta
+QTE_A_DECREASES,diminui,decreases,disminuye
+QTE_A_POTENTIAL,potencial,potential,potencial
+QTE_A_KINETIC,cinética,kinetic,cinética
+QTE_A_NULL,nula,zero,nula
+QTE_A_TANGENT,tangente à trajetória,tangent to the trajectory,tangente a la trayectoria
+QTE_A_TOWARD_HOOK,em direção ao gancho,toward the hook,en dirección al gancho
+"QTE_A_DOWNWARD","para baixo, na vertical",straight down,"hacia abajo, en vertical"
+RESULT_TITLE,Resultado,Result,Resultado
+RESULT_DEFAULT_MSG,Tentativa falha,Attempt failed,Intento fallido
+"FORMULA_EC_DESC","Ec = ½ · m · v²\nUnidade: Joules (J)\nm = massa (kg), v = velocidade (m/s)","Ec = ½ · m · v²\nUnit: Joules (J)\nm = mass (kg), v = speed (m/s)","Ec = ½ · m · v²\nUnidad: Joules (J)\nm = masa (kg), v = velocidad (m/s)"
+"FORMULA_EP_DESC","Ep = m · g · h\nUnidade: Joules (J)\nm = massa (kg), g = 10 m/s², h = altura (m)","Ep = m · g · h\nUnit: Joules (J)\nm = mass (kg), g = 10 m/s², h = height (m)","Ep = m · g · h\nUnidad: Joules (J)\nm = masa (kg), g = 10 m/s², h = altura (m)"
+"FORMULA_ET_DESC","Et = Ec + Ep\nA energia mecânica total se conserva\nquando não há forças dissipativas.","Et = Ec + Ep\nTotal mechanical energy is conserved\nwhen there are no dissipative forces.","Et = Ec + Ep\nLa energía mecánica total se conserva\ncuando no hay fuerzas disipativas."
+"FORMULA_VEL_DESC","v = d / t\nUnidade: metros por segundo (m/s)\nd = distância (m), t = tempo (s)","v = d / t\nUnit: meters per second (m/s)\nd = distance (m), t = time (s)","v = d / t\nUnidad: metros por segundo (m/s)\nd = distancia (m), t = tiempo (s)"
+"FORMULA_GRAV_DESC","g = 10 m/s²\nAceleração da gravidade usada no jogo:\no valor real na superfície da Terra\n(9,8 m/s²) arredondado.","g = 10 m/s²\nGravity acceleration used in the game:\nthe real value at Earth's surface\n(9.8 m/s²) rounded.","g = 10 m/s²\nAceleración de la gravedad usada en el juego:\nel valor real en la superficie de la Tierra\n(9,8 m/s²) redondeado."
+QTE_A_45,45°,45°,45°
+QTE_A_30,30°,30°,30°
+QTE_A_90,90°,90°,90°
+"TUTORIAL_LAUNCH","Segure o botão esquerdo do mouse e arraste para mirar; dá para arrastar pela tela toda, não só perto da bola. A seta mostra a direção e a velocidade do lançamento.\nPrefere ajustar com precisão? Abra ""Ajustar"" e use os sliders de velocidade e ângulo. Lance com Espaço, com o botão direito ou em ""Lançar"".","Hold the left mouse button and drag to aim; you can drag across the entire screen, not just near the ball. The arrow shows the launch direction and speed.\nPrefer precise adjustments? Open ""Adjust"" and use the speed and angle sliders. Launch with Space, right-click, or the ""Launch"" button.","Mantén presionado el botón izquierdo del ratón y arrastra para apuntar; puedes arrastrar por toda la pantalla, no solo cerca de la bola. La flecha muestra la dirección y velocidad del lanzamiento.\n¿Prefieres ajustar con precisión? Abre ""Ajustar"" y usa los deslizadores de velocidad y ángulo. Lanza con Espacio, clic derecho o el botón ""Lanzar""."
+"TUTORIAL_CAMERA","Segure o botão direito do mouse e arraste para olhar a fase; a rodinha aproxima e afasta a câmera.\nPara a câmera voltar a seguir a bola, clique em ""Recentralizar"".","Hold the right mouse button and drag to look around the level; the scroll wheel zooms in and out.\nTo make the camera follow the ball again, click ""Recenter"".","Mantén presionado el botón derecho del ratón y arrastra para mirar el nivel; la rueda del ratón acerca y aleja la cámara.\nPara que la cámara vuelva a seguir la bola, haz clic en ""Recentrar""."
+"TUTORIAL_SPIKES","Cuidado com os espinhos! Se a bola cair neles, ela fica presa e a tentativa falha.\nCalcule bem a força e o ângulo para passar por cima.","Watch out for the spikes! If the ball falls on them, it gets stuck and the attempt fails.\nCalculate the force and angle carefully to pass over them.","¡Cuidado con los pinchos! Si la bola cae en ellos, queda atrapada y el intento falla.\nCalcula bien la fuerza y el ángulo para pasar por encima."
+"TUTORIAL_CHECKPOINTS","Isto é um checkpoint: ao passar por ele, a bola é puxada para o centro e fica parada, pronta para o próximo lançamento.\nSe a tentativa falhar, você recomeça do último checkpoint alcançado.","This is a checkpoint: when passing through it, the ball is pulled to the center and stops, ready for the next launch.\nIf the attempt fails, you restart from the last checkpoint reached.","Esto es un checkpoint: al pasar por él, la bola es atraída al centro y se detiene, lista para el próximo lanzamiento.\nSi el intento falla, reinicias desde el último checkpoint alcanzado."
+"TUTORIAL_KINETIC","Energia cinética é a energia do movimento: Ec = m·v²/2.\nComo a velocidade entra ao quadrado, dobrar a velocidade quadruplica a energia cinética!\nClique no ícone de gráfico e veja a energia cinética mudar enquanto a bola acelera e freia.","Kinetic energy is the energy of motion: Ec = m·v²/2.\nSince speed is squared, doubling the speed quadruples the kinetic energy!\nClick the graph icon and watch the kinetic energy change as the ball speeds up and slows down.","La energía cinética es la energía del movimiento: Ec = m·v²/2.\nComo la velocidad entra al cuadrado, ¡duplicar la velocidad cuadruplica la energía cinética!\nHaz clic en el ícono de gráfico y observa cómo la energía cinética cambia mientras la bola acelera y frena."
+"TUTORIAL_POTENTIAL","Energia potencial gravitacional depende da altura: Ep = m·g·h.\nA altura h é medida a partir da referência: acima dela a energia é positiva, abaixo fica negativa.\nClique no ícone de gráfico e acompanhe a energia potencial subir e descer junto com a bola.","Gravitational potential energy depends on height: Ep = m·g·h.\nHeight h is measured from the reference: above it the energy is positive, below it becomes negative.\nClick the graph icon and watch the potential energy rise and fall along with the ball.","La energía potencial gravitacional depende de la altura: Ep = m·g·h.\nLa altura h se mide desde la referencia: por encima la energía es positiva, por debajo es negativa.\nHaz clic en el ícono de gráfico y observa cómo la energía potencial sube y baja junto con la bola."
+"TUTORIAL_WALL_BOUNCE","A bola também quica nas paredes! Use isso para alcançar lugares que um lançamento direto não alcança.\nMas repare: a cada batida ela perde um pouco de energia.","The ball also bounces off walls! Use this to reach places a direct launch can't.\nBut notice: with each bounce it loses a bit of energy.","¡La bola también rebota en las paredes! Usa esto para alcanzar lugares que un lanzamiento directo no alcanza.\nPero observa: con cada rebote pierde un poco de energía."
+"TUTORIAL_MECHANICAL","Energia mecânica é a soma das duas: Em = Ec + Ep.\nNo ar, sem colisões, ela se conserva: o que a bola perde em uma energia, ganha na outra.\nClique no ícone de gráfico e confira: a soma fica igual em pleno voo e só cai nas batidas.","Mechanical energy is the sum of both: Em = Ec + Ep.\nIn the air, without collisions, it is conserved: what the ball loses in one energy, it gains in the other.\nClick the graph icon and check: the sum stays the same in flight and only drops on bounces.","La energía mecánica es la suma de ambas: Em = Ec + Ep.\nEn el aire, sin colisiones, se conserva: lo que la bola pierde en una energía, lo gana en la otra.\nHaz clic en el ícono de gráfico y comprueba: la suma se mantiene igual en vuelo y solo baja en los rebotes."
+"TUTORIAL_REFERENCE","O referencial é a altura zero da energia potencial. Com a bola parada, arraste a linha de referência pela fase ou use ""Centralizar referência"" no painel do ícone de gráfico.\nMudar o referencial muda o valor de Ep, mas não muda o movimento da bola!","The reference is the zero height for potential energy. With the ball still, drag the reference line across the level or use ""Centralize reference"" in the graph icon panel.\nChanging the reference changes the Ep value, but it doesn't change the ball's motion!","La referencia es la altura cero de la energía potencial. Con la bola quieta, arrastra la línea de referencia por el nivel o usa ""Centralizar referencia"" en el panel del ícono de gráfico.\n¡Cambiar la referencia cambia el valor de Ep, pero no cambia el movimiento de la bola!"
+"TUTORIAL_ROPE","Ao encostar na corda, a bola se prende e passa a girar em volta do ponto de apoio. Clique em ""Soltar"" para largá-la.\nAo ser solta, ela sai na direção tangente ao círculo, com a velocidade que tinha naquele instante.","When touching the rope, the ball attaches and starts spinning around the anchor point. Click ""Release"" to let it go.\nWhen released, it flies off tangent to the circle, with the speed it had at that moment.","Al tocar la cuerda, la bola se sujeta y comienza a girar alrededor del punto de apoyo. Haz clic en ""Soltar"" para soltarla.\nAl ser soltada, sale en dirección tangente al círculo, con la velocidad que tenía en ese instante."
+"TUTORIAL_PENDULUM","Presa na corda, a bola balança como um pêndulo: no ponto mais alto a energia potencial é máxima e a cinética é mínima; no ponto mais baixo é o contrário.\nUma vira a outra o tempo todo, e a energia mecânica se conserva.","Attached to the rope, the ball swings like a pendulum: at the highest point potential energy is maximum and kinetic is minimum; at the lowest point it's the opposite.\nOne turns into the other constantly, and mechanical energy is conserved.","Sujeta a la cuerda, la bola se balancea como un péndulo: en el punto más alto la energía potencial es máxima y la cinética es mínima; en el punto más bajo es al contrario.\nUna se convierte en la otra constantemente, y la energía mecánica se conserva."
+"TUTORIAL_FALL","Quanto maior a queda, mais energia potencial vira cinética.\nComo a massa não muda, toda essa energia aparece na velocidade: v = √(2·g·h). Quedas altas deixam a bola muito rápida!\nClique no ícone de gráfico durante a queda e veja a potencial virar cinética e a velocidade disparar.","The greater the fall, the more potential energy turns into kinetic.\nSince mass doesn't change, all that energy shows up as speed: v = √(2·g·h). High falls make the ball very fast!\nClick the graph icon during the fall and watch potential turn into kinetic and speed skyrocket.","Cuanto mayor es la caída, más energía potencial se convierte en cinética.\nComo la masa no cambia, toda esa energía aparece en la velocidad: v = √(2·g·h). ¡Las caídas altas dejan la bola muy rápida!\nHaz clic en el ícono de gráfico durante la caída y observa cómo la potencial se convierte en cinética y la velocidad se dispara."
+"TUTORIAL_REFERENCE_IMPORTANCE","Toda altura é medida a partir da referência, então é ela que define o valor da energia potencial.\nColoque a referência num ponto que facilite a conta, como o chão de onde a bola sai ou o ponto mais baixo do caminho: assim h fica simples de medir, Ep não fica negativa sem querer e você compara as energias com mais segurança.","All height is measured from the reference, so it defines the potential energy value.\nPlace the reference at a point that makes the math easier, like the floor where the ball starts or the lowest point of the path: this way h is simple to measure, Ep doesn't accidentally go negative, and you can compare energies more safely.","Toda altura se mide desde la referencia, así que es ella la que define el valor de la energía potencial.\nColoca la referencia en un punto que facilite el cálculo, como el suelo de donde sale la bola o el punto más bajo del camino: así h es fácil de medir, Ep no se vuelve negativa sin querer y comparas las energías con más seguridad."
+"TUTORIAL_ATTRIBUTES","Clique no ícone de gráfico para ver a tabela da bola: massa, velocidade e as energias cinética, potencial e mecânica, atualizadas enquanto ela se move.\nEla é a sua janela para a física do jogo: observe como os valores mudam a cada subida, queda e batida. Preste atenção nesses números, eles serão importantes depois!\nSe um painel atrapalhar a visão, segure os três pontinhos e arraste-o para outro lugar.","Click the graph icon to see the ball's table: mass, speed and kinetic, potential and mechanical energies, updated as it moves.\nIt's your window into the game's physics: watch how the values change with each rise, fall and bounce. Pay attention to these numbers, they'll be important later!\nIf a panel blocks your view, hold the three dots and drag it somewhere else.","Haz clic en el ícono de gráfico para ver la tabla de la bola: masa, velocidad y las energías cinética, potencial y mecánica, actualizadas mientras se mueve.\nEs tu ventana a la física del juego: observa cómo los valores cambian con cada subida, caída y rebote. ¡Presta atención a estos números, serán importantes después!\nSi un panel bloquea tu vista, mantén los tres puntitos y arrástralo a otro lugar."
+"TUTORIAL_FORMULAS_MENU","Esqueceu alguma fórmula? Aperte Esc e, no menu de pausa, clique em ""?"".\nLá estão todas as equações que você aprendeu até aqui.","Forgot a formula? Press Esc and, in the pause menu, click ""?"".\nAll the equations you've learned so far are there.","¿Olvidaste alguna fórmula? Presiona Esc y, en el menú de pausa, haz clic en ""?"".\nAhí están todas las ecuaciones que has aprendido hasta ahora."
+"TUTORIAL_QTE_BARRIERS","Barreiras laranja bloqueiam o caminho. Quando a bola se aproxima, o tempo desacelera e aparece uma pergunta sobre o que você aprendeu.\nAcerte para a barreira sumir; se errar ou o tempo acabar, ela continua no caminho.","Orange barriers block the way. When the ball approaches, time slows down and a question about what you've learned appears.\nAnswer correctly to make the barrier disappear; if you get it wrong or time runs out, it stays in the way.","Las barreras naranjas bloquean el camino. Cuando la bola se acerca, el tiempo se desacelera y aparece una pregunta sobre lo que has aprendido.\nAcierta para que la barrera desaparezca; si fallas o se acaba el tiempo, sigue en el camino."
+"TUTORIAL_FINAL","Você chegou ao fim do tutorial! Daqui para a frente, observe a bola e pense nas equações por trás de cada movimento.\nEntender como altura, velocidade, massa e energia se relacionam é o que vai te levar mais longe.","You've reached the end of the tutorial! From here on, observe the ball and think about the equations behind each movement.\nUnderstanding how height, speed, mass and energy relate is what will take you further.","¡Has llegado al final del tutorial! De aquí en adelante, observa la bola y piensa en las ecuaciones detrás de cada movimiento.\nEntender cómo la altura, la velocidad, la masa y la energía se relacionan es lo que te llevará más lejos."

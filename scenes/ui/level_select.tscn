@@ -109,7 +109,7 @@ theme_override_constants/separation = 24
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1013290405]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0588, 0.0902, 0.1647, 1)
-text = "Select   level"
+text = "LEVEL_SELECT_TITLE"
 horizontal_alignment = 1
 
 [node name="CarouselRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=98404844]
@@ -182,7 +182,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_4o8hj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_vln0j")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_vln0j")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3aigx")
-text = " Back"
+text = "BTN_BACK"
 script = ExtResource("4_anim_style")
 normal_frames = Array[Texture2D]([ExtResource("5_grande1"), ExtResource("6_grande2"), ExtResource("7_grande3"), ExtResource("8_grande4")])
 pressed_frame = ExtResource("9_grande_pressed")

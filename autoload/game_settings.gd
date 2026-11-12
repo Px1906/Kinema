@@ -10,14 +10,26 @@ var serious_mode: bool = false:
 		serious_mode = value
 		serious_mode_changed.emit(value)
 
+var _locale: String = ""
+
 
 func _ready() -> void:
 	_load_settings()
 
 
+func get_locale() -> String:
+	return _locale
+
+
+func set_locale(locale: String) -> void:
+	_locale = locale
+	save_settings()
+
+
 func save_settings() -> void:
 	var config := ConfigFile.new()
 	config.set_value(SETTINGS_SECTION, "serious_mode", serious_mode)
+	config.set_value(SETTINGS_SECTION, "locale", _locale)
 	var err := config.save(SETTINGS_PATH)
 	if err != OK:
 		push_warning("GameSettings: failed to save settings (error %d)." % err)
@@ -28,3 +40,4 @@ func _load_settings() -> void:
 	if config.load(SETTINGS_PATH) != OK:
 		return
 	serious_mode = config.get_value(SETTINGS_SECTION, "serious_mode", false)
+	_locale = config.get_value(SETTINGS_SECTION, "locale", "")
