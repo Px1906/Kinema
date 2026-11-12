@@ -110,7 +110,9 @@ func _make_card(index: int) -> Control:
 	_card_buttons.append(button)
 
 	var label := Label.new()
-	label.text = level.get_display_title() if level != null else tr("LEVEL_DEFAULT_NAME") % (index + 1)
+	label.text = (
+		level.get_display_title() if level != null else tr("LEVEL_DEFAULT_NAME") % (index + 1)
+	)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", FontSettings.caption)
 	# The default label color is light, so it needs a dark color over the paper.

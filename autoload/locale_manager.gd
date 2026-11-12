@@ -34,5 +34,3 @@ func cycle_locale() -> String:
 	var next_locale := LOCALES[next_index]
 	set_locale(next_locale)
 	return next_locale
-
-

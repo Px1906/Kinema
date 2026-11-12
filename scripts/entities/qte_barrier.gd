@@ -148,9 +148,7 @@ func _update_sprite() -> void:
 	# múltiplas de 90°.
 	var x_axis := xf.x * size.x
 	var y_axis := xf.y * size.y
-	var world_size := Vector2(
-		absf(x_axis.x) + absf(y_axis.x), absf(x_axis.y) + absf(y_axis.y)
-	)
+	var world_size := Vector2(absf(x_axis.x) + absf(y_axis.x), absf(x_axis.y) + absf(y_axis.y))
 	var anim := ANIM_HORIZONTAL if world_size.x > world_size.y else ANIM_VERTICAL
 	if _sprite.animation != anim:
 		_sprite.animation = anim

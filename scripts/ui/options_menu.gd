@@ -68,7 +68,9 @@ func _sync_window_label() -> void:
 		mode == DisplayServer.WINDOW_MODE_FULLSCREEN
 		or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 	)
-	_window_button.text = "OPTIONS_WINDOW_FULLSCREEN" if is_fullscreen else "OPTIONS_WINDOW_WINDOWED"
+	_window_button.text = (
+		"OPTIONS_WINDOW_FULLSCREEN" if is_fullscreen else "OPTIONS_WINDOW_WINDOWED"
+	)
 
 
 func _on_volume_changed(value: float, bus_name: StringName) -> void:
